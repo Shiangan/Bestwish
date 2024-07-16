@@ -1,38 +1,22 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>祥安生命禮儀公司 - 訃聞</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雲端訃聞</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>訃聞</h1>
-    <div class="obituary">
-      <p><strong>姓名：</strong><span id="name"></span></p>
-      <p><strong>享年：</strong><span id="age"></span></p>
-      <p><strong>辭世日期：</strong><span id="deathDate"></span></p>
-      <p><strong>告別式日期：</strong><span id="funeralDate"></span></p>
-      <p><strong>告別式地點：</strong><span id="location"></span></p>
-      <p><strong>聯絡電話：</strong><span id="contact"></span></p>
-    </div>
-    <div class="footer">
-      <p>祥安生命禮儀公司-誠摯感謝您的支持</p>
-      <p>敬請洽詢：0938-179-858</p>
-      <a href="https://www.facebook.com/shianganlife?mibextid=LQQJ4d" target="_blank">
-        <img src="https://img.icons8.com/color/48/000000/facebook-new.png" alt="Facebook">
-      </a>
-    </div>
-  </div>
-  <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    document.getElementById('name').textContent = urlParams.get('name');
-    document.getElementById('age').textContent = urlParams.get('age');
-    document.getElementById('deathDate').textContent = urlParams.get('deathDate');
-    document.getElementById('funeralDate').textContent = urlParams.get('funeralDate');
-    document.getElementById('location').textContent = urlParams.get('location');
-    document.getElementById('contact').textContent = urlParams.get('contact');
-  </script>
-</body>
-</html>
+    <header>
+        <h1>訃聞公告</h1>
+    </header>
+
+    <main>
+        <section id="obituary">
+            <h2 id="deceased-name"></h2>
+            <img id="deceased-photo" alt="追思照片" style="display:none;">
+            <p>生於: <span id="birth-date-text"></span></p>
+            <p>逝於: <span id="death-date-text"></span></p>
+            <p>牌位安置地點: <span id="funeral-space-text"></span></p>
+            <p>出殯日期: <span id="funeral-date-text"></span></p>
+           
