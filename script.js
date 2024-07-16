@@ -1,66 +1,92 @@
-// 音樂播放控制
-const backgroundMusic = document.getElementById('backgroundMusic');
-backgroundMusic.play(); // 自動播放背景音樂
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('deceased-form');
+    const flowerOrderForm = document.getElementById('flower-order-form');
+    const cartItems = document.getElementById('cart-items');
+    const totalQuantity = document.getElementById('total-quantity');
+    let cart = {};
 
-// 生成訃聞內容
-function generateObituary(event) {
-    event.preventDefault();
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
 
-    const deceasedName = document.getElementById('deceasedName').value.trim();
-    const birthDate = document.getElementById('birthDate').value;
-    const deathDate = document.getElementById('deathDate').value;
-    const funeralLocation = document.getElementById('funeralLocation').value;
-    const photoUpload = document.getElementById('photoUpload').files[0];
-    
-    // 顯示訃聞部分
-    document.getElementById('obituarySection').style.display = 'block';
-    
-    // 設置訃聞內容
-    const obituaryContent = document.getElementById('obituaryContent');
-    obituaryContent.innerHTML = `
-        <p>我們懷著沉痛的心情宣布 ${deceasedName} 於 ${deathDate} 離世，享年 ${
-        new Date(deathDate).getFullYear() - new Date(birthDate).getFullYear()
-    } 歲。</p>
-        <p>奠禮將於 ${funeralLocation} 舉行，請朋友們攜手共襄盛舉，感謝您對我們家人的支持與關懷。</p>
-    `;
+        const name = document.getElementById('name').value;
+        const photo = document.getElementById('photo').files[0];
+        const birthDate = document.getElementById('birth-date').value;
+        const deathDate = document.getElementById('death-date').value;
+        const funeralSpace = document.getElementById('funeral-space').value;
+        const funeralDate = document.getElementById('funeral-date').value;
+        const funeralLocation = document.getElementById('funeral-location').value;
+        const otherFuneralLocation = document.getElementById('other-funeral-location').value;
+        const familyServiceTime = document.getElementById('family-service-time').value;
+        const publicServiceTime = document.getElementById('public-service-time').value;
+        const lifeStory = document.getElementById('life-story').value;
+        const musicChoice = document.getElementById('music-choice').value;
 
-    // 顯示上傳的照片
-    const reader = new FileReader();
-    reader.onload = function (e) {
-        obituaryContent.innerHTML += `<img src="${e.target.result}" alt="往生者照片">`;
-    };
-    reader.readAsDataURL(photoUpload);
-}
+        const queryParams = new URLSearchParams({
+            name,
+            birthDate,
+            deathDate,
+            funeralSpace,
+            funeralDate,
+            funeralLocation: funeralLocation === '其他' ? otherFuneralLocation : funeralLocation,
+            familyServiceTime,
+            publicServiceTime,
+            lifeStory,
+            musicChoice
+        });
 
-// 發送留言
-function postMessage(event) {
-    event.preventDefault();
-    
-    const message = document.getElementById('message').value.trim();
-    if (message === '') return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            queryParams.append('photo', e.target.result);
+            window.location.href = `obituary.html?${queryParams.toString()}`;
+        };
+        reader.readAsDataURL(photo);
+    });
 
-    const messagesDiv = document.getElementById('messages');
-    const messageDiv = document.createElement('div');
-    messageDiv.className = 'message';
-    messageDiv.textContent = message;
-    messagesDiv.appendChild(messageDiv);
+    if (window.location.pathname.endsWith('obituary.html')) {
+        const params = new URLSearchParams(window.location.search);
 
-    document.getElementById('messageForm').reset(); // 清空留言表單
-}
+        document.getElementById('deceased-name').textContent = params.get('name');
+        document.getElementById('birth-date-text').textContent = params.get('birthDate');
+        document.getElementById('death-date-text').textContent = params.get('deathDate');
+        document.getElementById('funeral-space-text').textContent = params.get('funeralSpace');
+        document.getElementById('funeral-date-text').textContent = params.get('funeralDate');
+        document.getElementById('funeral-location-text').textContent = params.get('funeralLocation');
+        document.getElementById('family-service-time-text').textContent = params.get('familyServiceTime');
+        document.getElementById('public-service-time-text').textContent = params.get('publicServiceTime');
+        document.getElementById('life-story-text').textContent = params.get('lifeStory');
 
-// 訂購花籃
-function orderFlowers(event) {
-    event.preventDefault();
+        const photo = document.getElementById('deceased-photo');
+        photo.src = params.get('photo');
+        photo.onload = function() {
+            photo.style.display = 'block';
+            photo.classList.add('fade-in');
+        };
 
-    const senderName = document.getElementById('senderName').value.trim();
-    const recipientName = document.getElementById('recipientName').value.trim();
-    const recipientAddress = document.getElementById('recipientAddress').value.trim();
-    const invoice = document.getElementById('invoice').value;
-    const flowerBasketMessage = document.getElementById('flowerBasketMessage').value.trim();
-    
-    // 顯示訂購信息（這裡只是模擬顯示）
-    alert(`訂購人姓名: ${senderName}\n收件人姓名: ${recipientName}\n收件人地址: ${recipientAddress}\n是否需要發票: ${invoice}\n花籃留言: ${flowerBasketMessage}`);
+        const backgroundMusic = document.getElementById('background-music');
+        backgroundMusic.src = params.get('musicChoice');
+        backgroundMusic.play();
 
-    // 清空訂購表單
-    document.getElementById('flowerOrderForm').reset();
-}
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const basketType = button.getAttribute('data-basket');
+                if (!cart[basketType]) {
+                    cart[basketType] = 0;
+                }
+                cart[basketType]++;
+                updateCart();
+            });
+        });
+    }
+
+    function updateCart() {
+        cartItems.innerHTML = '';
+        let total = 0;
+        for (const [basketType, quantity] of Object.entries(cart)) {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${basketType}: ${quantity}`;
+            cartItems.appendChild(listItem);
+            total += quantity;
+        }
+        totalQuantity.textContent = total;
+    }
+});
