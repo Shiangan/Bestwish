@@ -9,12 +9,16 @@
 <body>
     <div class="container">
         <header>
-            <h1>填寫往生者資料</h1>
+            <h1>祥安生命禮儀公司</h1>
         </header>
         <main>
+            <section class="introduction">
+                <p>感謝您親臨弔唁。家人衷心感謝您的支持與關懷。</p>
+                <p>請填寫以下資料以生成訃聞。</p>
+            </section>
             <section class="tribute-form">
                 <h2>填寫往生者資料</h2>
-                <form id="tributeForm" action="generate_obituary.php" method="POST">
+                <form id="tributeForm" onsubmit="generateObituary(event)">
                     <label for="deceasedName">往生者姓名：</label>
                     <input type="text" id="deceasedName" name="deceasedName" required>
                     
@@ -26,27 +30,54 @@
                     
                     <label for="funeralLocation">奠禮地點：</label>
                     <input type="text" id="funeralLocation" name="funeralLocation" required>
-                    
-                    <label for="relationship">您與往生者的關係：</label>
-                    <input type="text" id="relationship" name="relationship" required>
-                    
-                    <label for="email">您的電子郵件：</label>
-                    <input type="email" id="email" name="email" required>
+
+                    <label for="photoUpload">上傳往生者照片：</label>
+                    <input type="file" id="photoUpload" name="photoUpload" accept="image/*" required>
                     
                     <button type="submit">生成訃聞</button>
                 </form>
             </section>
             
-            <section class="tribute-messages">
-                <h2>留言</h2>
-                <div id="messages">
-                    <!-- 留言將會顯示在這裡 -->
+            <section class="obituary" id="obituarySection" style="display:none;">
+                <h2>訃聞內容</h2>
+                <div id="obituaryContent">
+                    <!-- 這裡將顯示生成的訃聞內容 -->
                 </div>
-                <form id="messageForm">
-                    <label for="message">留言：</label>
-                    <textarea id="message" name="message" rows="4" required></textarea>
-                    <button type="submit">發送留言</button>
-                </form>
+                <section class="tribute-messages">
+                    <h2>留言</h2>
+                    <div id="messages">
+                        <!-- 留言將會顯示在這裡 -->
+                    </div>
+                    <form id="messageForm" onsubmit="postMessage(event)">
+                        <label for="message">留言：</label>
+                        <textarea id="message" name="message" rows="4" required></textarea>
+                        <button type="submit">發送留言</button>
+                    </form>
+                </section>
+                <section class="flower-orders">
+                    <h2>訂購花籃</h2>
+                    <form id="flowerOrderForm" onsubmit="orderFlowers(event)">
+                        <label for="senderName">訂購人姓名：</label>
+                        <input type="text" id="senderName" name="senderName" required>
+
+                        <label for="recipientName">收件人姓名：</label>
+                        <input type="text" id="recipientName" name="recipientName" required>
+
+                        <label for="recipientAddress">收件人地址：</label>
+                        <input type="text" id="recipientAddress" name="recipientAddress" required>
+
+                        <label for="invoice">是否需要發票：</label>
+                        <select id="invoice" name="invoice" required>
+                            <option value="no">否</option>
+                            <option value="yes">是</option>
+                        </select>
+
+                        <label for="flowerBasketMessage">花籃留言：</label>
+                        <textarea id="flowerBasketMessage" name="flowerBasketMessage" rows="4" required></textarea>
+
+                        <button type="submit">訂購花籃</button>
+                    </form>
+                </section>
             </section>
         </main>
         <footer>
@@ -54,6 +85,6 @@
         </footer>
     </div>
     <audio id="backgroundMusic" src="background_music.mp3" preload="auto" loop></audio> <!-- 背景音樂 -->
-    <script src="script.js"></script> <!-- 可選：引入外部 JavaScript 文件 -->
+    <script src="script.js"></script> <!-- 引入外部 JavaScript 文件 -->
 </body>
 </html>
