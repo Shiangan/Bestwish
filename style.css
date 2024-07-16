@@ -1,62 +1,60 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
+    line-height: 1.6;
+    background: linear-gradient(to bottom, #f7f7f7, #e2e2e2);
     margin: 0;
     padding: 0;
 }
 
-header {
-    background-color: #6d83f3;
-    color: white;
+header, footer {
     text-align: center;
-    padding: 1rem 0;
+    padding: 20px;
+    background: #333;
+    color: #fff;
 }
 
 main {
-    max-width: 800px;
-    margin: 20px auto;
     padding: 20px;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-section {
-    margin-bottom: 20px;
+#deceased-photo {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px;
+    opacity: 0;
+    transition: opacity 2s;
 }
 
-h2 {
-    margin-top: 0;
+#messages-section, #flower-basket-section {
+    margin-top: 40px;
 }
 
-form {
+#messages-section form, #flower-order-form {
     display: flex;
     flex-direction: column;
 }
 
-form label {
-    margin-top: 10px;
-}
-
-form input,
-form textarea,
-form select,
-form button {
+#messages-section input, #flower-order-form input, #flower-order-form select, #flower-order-form textarea {
+    margin-bottom: 10px;
     padding: 10px;
-    margin-top: 5px;
-    font-size: 1rem;
+    font-size: 1em;
 }
 
-form button {
-    background-color: #6d83f3;
+#messages {
+    margin-top: 20px;
+}
+
+#flower-basket-section button, #flower-order-form button {
+    padding: 10px;
+    background: #5cb85c;
     color: white;
     border: none;
     cursor: pointer;
-    margin-top: 15px;
 }
 
-form button:hover {
-    background-color: #5b71d1;
+#flower-basket-section button:hover, #flower-order-form button:hover {
+    background: #4cae4c;
 }
 
 #shopping-cart ul {
@@ -65,29 +63,9 @@ form button:hover {
 }
 
 #shopping-cart li {
-    margin-bottom: 5px;
+    margin: 5px 0;
 }
 
-#shopping-cart p {
-    font-weight: bold;
-}
-
-img {
-    max-width: 100%;
-    margin-bottom: 10px;
-}
-
-#additional-photos img {
-    width: 100px;
-    margin-right: 10px;
-}
-
-footer {
-    text-align: center;
-    padding: 10px 0;
-    background-color: #6d83f3;
-    color: white;
-    position: absolute;
-    width: 100%;
-    bottom: 0;
+#order-details {
+    margin-top: 20px;
 }
