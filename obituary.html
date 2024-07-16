@@ -19,4 +19,42 @@
             <p>逝於: <span id="death-date-text"></span></p>
             <p>牌位安置地點: <span id="funeral-space-text"></span></p>
             <p>出殯日期: <span id="funeral-date-text"></span></p>
+            <p>出殯地點: <span id="funeral-location-text"></span></p>
+            <p>家奠禮時間: <span id="family-service-time-text"></span></p>
+            <p>公奠禮時間: <span id="public-service-time-text"></span></p>
+            <p>生平介紹: <span id="life-story-text"></span></p>
+        </section>
+
+        <section id="messages-section">
+                        <h2>留言區</h2>
+            <form id="message-form">
+                <input type="text" id="message-input" placeholder="留下您的追思">
+                <button type="submit">提交</button>
+            </form>
+            <div id="messages"></div>
+        </section>
+
+        <section id="flower-basket-section">
+          <h2>訂購花籃</h2>
+          <div id="flower-basket-options">
+                <button class="add-to-cart" data-basket="standard">標準花籃 (+1)</button>
+                <button class="add-to-cart" data-basket="premium">高級花籃 (+1)</button>
+            </div>
+            <h3>購物車</h3>
+            <div id="shopping-cart">
+                <ul id="cart-items"></ul>
+                <p>總數量: <span id="total-quantity">0</span></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
+    </footer>
+
+    <audio id="background-music" loop></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
            
