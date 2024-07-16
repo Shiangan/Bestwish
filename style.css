@@ -1,71 +1,96 @@
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background: linear-gradient(to bottom, #f7f7f7, #e2e2e2);
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
     margin: 0;
     padding: 0;
 }
 
 header, footer {
-    text-align: center;
-    padding: 20px;
-    background: #333;
+    background-color: #ffc107;
     color: #fff;
+    text-align: center;
+    padding: 1em 0;
+}
+
+h1, h2 {
+    margin: 0.5em 0;
 }
 
 main {
-    padding: 20px;
+    padding: 1em;
+}
+
+#obituary, #messages-section, #flower-basket-section {
+    margin-bottom: 2em;
 }
 
 #deceased-photo {
     max-width: 100%;
     height: auto;
-    display: block;
-    margin: 0 auto 20px;
     opacity: 0;
-    transition: opacity 2s;
+    transition: opacity 2s ease-in;
 }
 
-#messages-section, #flower-basket-section {
-    margin-top: 40px;
+#messages .message {
+    background-color: #ffeeba;
+    border: 1px solid #ffc107;
+    padding: 0.5em;
+    margin: 0.5em 0;
 }
 
-#messages-section form, #flower-order-form {
+#flower-basket-options {
     display: flex;
-    flex-direction: column;
+    justify-content: space-around;
 }
 
-#messages-section input, #flower-order-form input, #flower-order-form select, #flower-order-form textarea {
-    margin-bottom: 10px;
-    padding: 10px;
-    font-size: 1em;
+.flower-basket {
+    text-align: center;
+    margin: 1em;
 }
 
-#messages {
-    margin-top: 20px;
-}
-
-#flower-basket-section button, #flower-order-form button {
-    padding: 10px;
-    background: #5cb85c;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-#flower-basket-section button:hover, #flower-order-form button:hover {
-    background: #4cae4c;
+.flower-basket img {
+    max-width: 150px;
+    height: auto;
 }
 
 #shopping-cart ul {
-    list-style: none;
+    list-style-type: none;
     padding: 0;
 }
 
 #shopping-cart li {
-    margin: 5px 0;
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    margin: 0.5em 0;
+    padding: 0.5em;
 }
 
-#order-details {
-    margin-top: 20px;
+#flower-order-form input, #flower-order-form select, #flower-order-form textarea, #flower-order-form button {
+    display: block;
+    width: calc(100% - 2em);
+    margin: 1em;
+    padding: 0.5em;
+}
+
+#flower-order-form textarea {
+    resize: vertical;
+}
+
+button {
+    background-color: #ffc107;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0.75em 1.5em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+    transition-duration: 0.4s;
+}
+
+button:hover {
+    background-color: #e0a800;
+    color: white;
 }
