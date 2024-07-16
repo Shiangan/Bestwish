@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // 從 URL 參數中獲取資料
     const urlParams = new URLSearchParams(window.location.search);
     const name = urlParams.get('name');
     const birthDate = urlParams.get('birth-date');
@@ -12,10 +11,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const publicServiceTime = urlParams.get('public-service-time');
     const lifeStory = urlParams.get('life-story');
     const musicChoice = urlParams.get('music-choice');
+    const photoUpload = urlParams.get('photo');
 
-    // 填充訃聞內容
     document.getElementById('deceased-name').textContent = name;
-    document.getElementById('birth-date-text').textContent = birthDate
+    document.getElementById('birth-date-text').textContent = birthDate;
     document.getElementById('death-date-text').textContent = deathDate;
     document.getElementById('funeral-space-text').textContent = funeralSpace;
     document.getElementById('funeral-date-text').textContent = funeralDate;
@@ -24,118 +23,113 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('public-service-time-text').textContent = publicServiceTime;
     document.getElementById('life-story-text').textContent = lifeStory;
 
-    // 設置背景音樂
     const backgroundMusic = document.getElementById('background-music');
     backgroundMusic.src = musicChoice;
     backgroundMusic.play();
 
-    // 處理照片上傳
-    const photoInput = document.getElementById('photo');
-    const additionalPhotosInput = document.getElementById('additional-photos');
-    
-    if (photoInput && additionalPhotosInput) {
-        const photoFiles = Array.from(photoInput.files);
-        const additionalPhotoFiles = Array.from(additionalPhotosInput.files);
-
-        // 主照片顯示
-        if (photoFiles.length > 0) {
-            const photo = photoFiles[0];
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const deceasedPhoto = document.getElementById('deceased-photo');
-                deceasedPhoto.src = e.target.result;
-                deceasedPhoto.style.display = 'block';
-            }
-            reader.readAsDataURL(photo);
-        }
-
-        // 額外照片顯示
-        if (additionalPhotoFiles.length > 0) {
-            const additionalPhotosContainer = document.getElementById('additional-photos');
-            additionalPhotoFiles.forEach(file => {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.alt = "追思照片";
-                    additionalPhotosContainer.appendChild(img);
-                }
-                reader.readAsDataURL(file);
-            });
-        }
+    if (photoUpload) {
+        const photoElement = document.getElementById('deceased-photo');
+        photoElement.src = photoUpload;
+        photoElement.style.display = 'block';
+        photoElement.style.opacity = 0;
+        setTimeout(() => {
+            photoElement.style.transition = 'opacity 2s';
+            photoElement.style.opacity = 1;
+        }, 100);
     }
 
-    // 處理花籃訂購
-    const addToCartButtons = document.querySelectorAll('.add-to-cart');
-    const cartItems = document.getElementById('cart-items');
+    document.getElementById('message-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const message = document.getElementById('message-input').value.trim();
+        if (message === '') return;
+
+        const messagesDiv = document.getElementById('messages');
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'message';
+        messageDiv.textContent = message;
+        messagesDiv.appendChild(messageDiv);
+
+        document.getElementById('message-form').reset();
+    });
+
+    document.getElementById('flower-order-button').addEventListener('click', function() {
+        window.location.href = 'flower-order.html';
+    });
+});
+    document.addEventListener('DOMContentLoaded', function() {
+       const cartItems = document.getElementById('cart-items');
+       const totalQuantity = document.getElementById('total-quantity');
+       const totalPrice = document.getElementById('total-price');
+       let cart = [];
+
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', function() {
+            const cartItems = document.getElementById('cart-items');
     const totalQuantity = document.getElementById('total-quantity');
     const totalPrice = document.getElementById('total-price');
-
     let cart = [];
-    let totalPriceValue = 0;
 
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const basketType = button.getAttribute('data-basket');
-            const price = basketType === 'standard' ? 1000 : 2000; // 假設標準花籃1000元，高級花籃2000元
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', function() {
+            const basketType = this.getAttribute('data-basket');
+            const price = parseInt(this.parentElement.getAttribute('data-price'));
 
-            cart.push({ type: basketType, price: price });
+            const existingItem = cart.find(item => item.type === basketType);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ type: basketType, price: price, quantity: 1 });
+            }
 
-            // 更新購物車顯示
-            const listItem = document.createElement('li');
-            listItem.textContent = `${basketType === 'standard' ? '標準花籃' : '高級花籃'} - $${price}`;
-            cartItems.appendChild(listItem);
-
-            // 更新總數量和總價
-            totalQuantity.textContent = cart.length;
-            totalPriceValue += price;
-            totalPrice.textContent = totalPriceValue;
+            updateCart();
         });
     });
 
-    // 處理花籃訂單提交
-    const flowerOrderForm = document.getElementById('flower-order-form');
-    flowerOrderForm.addEventListener('submit', function(event) {
-        event.preventDefault();
+    function updateCart() {
+        cartItems.innerHTML = '';
+        let totalQuantityValue = 0;
+        let totalPriceValue = 0;
 
-        const recipientName = document.getElementById('recipient-name').value;
-        const recipientAddress = document.getElementById('recipient-address').value;
-        const invoice = document.getElementById('invoice').value;
-        const paymentMethod = document.getElementById('payment-method').value;
-        const paymentProof = document.getElementById('payment-proof').files[0];
+        cart.forEach(item => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${item.type} 花籃 - $${item.price} x ${item.quantity}`;
+            cartItems.appendChild(listItem);
 
-        let orderTotal = totalPriceValue;
-        if (invoice === 'yes') {
-            orderTotal *= 1.1; // 加 10%
-        }
-
-        const formData = new FormData();
-        formData.append('recipientName', recipientName);
-        formData.append('recipientAddress', recipientAddress);
-        formData.append('invoice', invoice);
-        formData.append('paymentMethod', paymentMethod);
-        formData.append('paymentProof', paymentProof);
-        formData.append('orderTotal', orderTotal);
-        formData.append('cart', JSON.stringify(cart));
-
-        // 將訂單數據發送到後台（這裡只是模擬，實際應該發送到服務器）
-        console.log('訂單數據:', {
-            recipientName,
-            recipientAddress,
-            invoice,
-            paymentMethod,
-            paymentProof,
-            orderTotal,
-            cart
+            totalQuantityValue += item.quantity;
+            totalPriceValue += item.price * item.quantity;
         });
 
-        // 清空購物車
-        cart = [];
-        totalPriceValue = 0;
-        cartItems.innerHTML = '';
-        totalQuantity.textContent = 0;
-        totalPrice.textContent = 0;
+        totalQuantity.textContent = totalQuantityValue;
+        totalPrice.textContent = totalPriceValue;
 
-        alert('訂單已提交！');
+        document.getElementById('invoice').addEventListener('change', function() {
+            if (this.value === 'yes') {
+                totalPrice.textContent = totalPriceValue * 1.1;
+            } else {
+                totalPrice.textContent = totalPriceValue;
+            }
+        });
+    }
+
+    document.getElementById('flower-order-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const orderDetails = {
+            senderName: document.getElementById('sender-name').value,
+            recipientName: document.getElementById('recipient-name').value,
+            recipientAddress: document.getElementById('recipient-address').value,
+            invoice: document.getElementById('invoice').value,
+            paymentMethod: document.getElementById('payment-method').value,
+            message: document.getElementById('flower-basket-message').value,
+            cart: cart
+        };
+
+        // 在這裡處理訂單提交，例如發送到伺服器或儲存到本地
+        console.log(orderDetails);
+        
+        // 重置表單
+        this.reset();
+        cart = [];
+        updateCart();
     });
 });
