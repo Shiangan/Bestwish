@@ -27,11 +27,11 @@ main {
     text-align: center;
 }
 
-.tribute-form {
+.tribute-form, .tribute-messages {
     margin-bottom: 30px;
 }
 
-.tribute-form h2 {
+.tribute-form h2, .tribute-messages h2 {
     color: #555; /* 小標題顏色 */
     border-bottom: 1px solid #ccc; /* 下劃線 */
     padding-bottom: 10px;
@@ -49,7 +49,9 @@ form label {
 }
 
 form input[type="text"],
-form input[type="email"] {
+form input[type="email"],
+form input[type="date"],
+form textarea {
     width: calc(100% - 20px);
     padding: 10px;
     margin-bottom: 10px;
