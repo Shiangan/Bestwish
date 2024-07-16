@@ -1,52 +1,44 @@
-document.addEventListener('DOMContentLoaded', function() {
+// script.js
+document.addEventListener('DOMContentLoaded', function () {
     const urlParams = new URLSearchParams(window.location.search);
-    const name = urlParams.get('name');
-    const birthDate = urlParams.get('birth-date');
-    const deathDate = urlParams.get('death-date');
-    const funeralSpace = urlParams.get('funeral-space');
-    const funeralDate = urlParams.get('funeral-date');
-    const funeralLocation = urlParams.get('funeral-location');
-    const otherFuneralLocation = urlParams.get('other-funeral-location');
-    const familyServiceTime = urlParams.get('family-service-time');
-    const publicServiceTime = urlParams.get('public-service-time');
-    const lifeStory = urlParams.get('life-story');
-    const musicChoice = urlParams.get('music-choice');
-    const photoUpload = urlParams.get('photo');
 
-    document.getElementById('deceased-name').textContent = name;
-    document.getElementById('birth-date-text').textContent = birthDate;
-    document.getElementById('death-date-text').textContent = deathDate;
-    document.getElementById('funeral-space-text').textContent = funeralSpace;
-    document.getElementById('funeral-date-text').textContent = funeralDate;
-    document.getElementById('funeral-location-text').textContent = funeralLocation === '其他' ? otherFuneralLocation : funeralLocation;
-    document.getElementById('family-service-time-text').textContent = familyServiceTime;
-    document.getElementById('public-service-time-text').textContent = publicServiceTime;
-    document.getElementById('life-story-text').textContent = lifeStory;
-
-    if (photoUpload) {
-        const photoElement = document.getElementById('deceased-photo');
-        photoElement.src = photoUpload;
-        photoElement.style.display = 'block';
-        setTimeout(() => {
-            photoElement.style.opacity = '1';
-        }, 200);
+    // Set deceased information
+    document.getElementById('deceased-name').textContent = urlParams.get('name');
+    const photo = document.getElementById('deceased-photo');
+    if (urlParams.has('photo')) {
+        photo.src = URL.createObjectURL(urlParams.get('photo'));
+        photo.style.display = 'block';
     }
+    document.getElementById('birth-date-text').textContent = urlParams.get('birth-date');
+    document.getElementById('death-date-text').textContent = urlParams.get('death-date');
+    document.getElementById('funeral-space-text').textContent = urlParams.get('funeral-space');
+    document.getElementById('funeral-date-text').textContent = urlParams.get('funeral-date');
+    document.getElementById('funeral-location-text').textContent = urlParams.get('funeral-location');
+    document.getElementById('family-service-time-text').textContent = urlParams.get('family-service-time');
+    document.getElementById('public-service-time-text').textContent = urlParams.get('public-service-time');
+    document.getElementById('life-story-text').textContent = urlParams.get('life-story');
 
+    // Set background music
     const backgroundMusic = document.getElementById('background-music');
-    backgroundMusic.src = musicChoice;
+    backgroundMusic.src = `music/${urlParams.get('music-choice')}`;
     backgroundMusic.play();
 
-    document.getElementById('message-form').addEventListener('submit', function(event) {
+    // Handle messages
+    const messageForm = document.getElementById('message-form');
+    messageForm.addEventListener('submit', function (event) {
         event.preventDefault();
-        const message = document.getElementById('message-input').value.trim();
-        if (message === '') return;
+        const messageInput = document.getElementById('message-input');
+        const messages = document.getElementById('messages');
 
-        const messagesDiv = document.getElementById('messages');
-        const messageDiv = document.createElement('div');
-        messageDiv.className = 'message';
-        messageDiv.textContent = message;
-        messagesDiv.appendChild(messageDiv);
+        const newMessage = document.createElement('p');
+        newMessage.textContent = messageInput.value;
+        messages.appendChild(newMessage);
 
-        document.getElementById('message-form').reset();
+        messageInput.value = '';
+    });
+
+    // Flower order button
+    document.getElementById('flower-order-button').addEventListener('click', function () {
+        window.location.href = 'flower-order.html';
     });
 });
