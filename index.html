@@ -1,35 +1,37 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>祥安生命禮儀公司 - 訃聞填寫</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>填寫資料</title>
+    <link rel="stylesheet" href="styles.css"> <!-- 引入外部 CSS 文件 -->
 </head>
 <body>
-  <div class="container">
-    <h1>填寫訃聞資料</h1>
-    <form action="obituary.html" method="get">
-      <label for="name">姓名：</label>
-      <input type="text" id="name" name="name" required><br><br>
-
-      <label for="age">享年：</label>
-      <input type="number" id="age" name="age" required><br><br>
-
-      <label for="deathDate">辭世日期：</label>
-      <input type="date" id="deathDate" name="deathDate" required><br><br>
-
-      <label for="funeralDate">告別式日期：</label>
-      <input type="date" id="funeralDate" name="funeralDate" required><br><br>
-
-      <label for="location">告別式地點：</label>
-      <input type="text" id="location" name="location" required><br><br>
-
-      <label for="contact">聯絡電話：</label>
-      <input type="tel" id="contact" name="contact" required><br><br>
-
-      <input type="submit" value="生成訃聞">
-    </form>
-  </div>
+    <div class="container">
+        <header>
+            <h1>填寫資料</h1>
+        </header>
+        <main>
+            <section class="tribute-form">
+                <h2>填寫資料</h2>
+                <form id="tributeForm" action="generate_obituary.php" method="POST">
+                    <label for="name">您的姓名：</label>
+                    <input type="text" id="name" name="name" required>
+                    
+                    <label for="relationship">與逝者的關係：</label>
+                    <input type="text" id="relationship" name="relationship" required>
+                    
+                    <label for="email">您的電子郵件：</label>
+                    <input type="email" id="email" name="email" required>
+                    
+                    <button type="submit">進入訃聞</button>
+                </form>
+            </section>
+        </main>
+        <footer>
+            <p>版權所有 &copy; 2024 祥安生命禮儀公司</p>
+        </footer>
+    </div>
+    <script src="script.js"></script> <!-- 可選：引入外部 JavaScript 文件 -->
 </body>
 </html>
