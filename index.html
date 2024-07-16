@@ -3,28 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>填寫資料</title>
+    <title>填寫往生者資料</title>
     <link rel="stylesheet" href="styles.css"> <!-- 引入外部 CSS 文件 -->
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>填寫資料</h1>
+            <h1>填寫往生者資料</h1>
         </header>
         <main>
             <section class="tribute-form">
-                <h2>填寫資料</h2>
+                <h2>填寫往生者資料</h2>
                 <form id="tributeForm" action="generate_obituary.php" method="POST">
-                    <label for="name">您的姓名：</label>
-                    <input type="text" id="name" name="name" required>
+                    <label for="deceasedName">往生者姓名：</label>
+                    <input type="text" id="deceasedName" name="deceasedName" required>
                     
-                    <label for="relationship">與逝者的關係：</label>
+                    <label for="birthDate">出生日期：</label>
+                    <input type="date" id="birthDate" name="birthDate" required>
+                    
+                    <label for="deathDate">離世日期：</label>
+                    <input type="date" id="deathDate" name="deathDate" required>
+                    
+                    <label for="funeralLocation">奠禮地點：</label>
+                    <input type="text" id="funeralLocation" name="funeralLocation" required>
+                    
+                    <label for="relationship">您與往生者的關係：</label>
                     <input type="text" id="relationship" name="relationship" required>
                     
                     <label for="email">您的電子郵件：</label>
                     <input type="email" id="email" name="email" required>
                     
-                    <button type="submit">進入訃聞</button>
+                    <button type="submit">生成訃聞</button>
+                </form>
+            </section>
+            
+            <section class="tribute-messages">
+                <h2>留言</h2>
+                <div id="messages">
+                    <!-- 留言將會顯示在這裡 -->
+                </div>
+                <form id="messageForm">
+                    <label for="message">留言：</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+                    <button type="submit">發送留言</button>
                 </form>
             </section>
         </main>
@@ -32,6 +53,7 @@
             <p>版權所有 &copy; 2024 祥安生命禮儀公司</p>
         </footer>
     </div>
+    <audio id="backgroundMusic" src="background_music.mp3" preload="auto" loop></audio> <!-- 背景音樂 -->
     <script src="script.js"></script> <!-- 可選：引入外部 JavaScript 文件 -->
 </body>
 </html>
