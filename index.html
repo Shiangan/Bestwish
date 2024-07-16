@@ -3,63 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>填寫往生者資料</title>
-    <link rel="stylesheet" href="styles.css"> <!-- 引入外部 CSS 文件 -->
+    <title>祥安生命有限公司－雲端訃聞</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>祥安生命禮儀公司</h1>
-        </header>
-        <main>
-            <section class="introduction">
-                <p>感謝您親臨弔唁。家人衷心感謝您的支持與關懷。</p>
-                <p>請填寫以下資料以生成訃聞。</p>
-            </section>
-            <section class="tribute-form">
-                <h2>填寫往生者資料</h2>
-                <form id="tributeForm" onsubmit="generateObituary(event)">
-                    <label for="deceasedName">往生者姓名：</label>
-                    <input type="text" id="deceasedName" name="deceasedName" required>
-                    
-                    <label for="birthDate">出生日期：</label>
-                    <input type="date" id="birthDate" name="birthDate" required>
-                    
-                    <label for="deathDate">離世日期：</label>
-                    <input type="date" id="deathDate" name="deathDate" required>
-                    
-                    <label for="funeralLocation">奠禮地點：</label>
-                    <input type="text" id="funeralLocation" name="funeralLocation" required>
+    <header>
+        <h1>雲端訃聞</h1>
+    </header>
 
-                    <label for="photoUpload">上傳往生者照片：</label>
-                    <input type="file" id="photoUpload" name="photoUpload" accept="image/*" required>
-                    
-                    <button type="submit">生成訃聞</button>
-                </form>
-            </section>
-            
-            <section class="obituary" id="obituarySection" style="display:none;">
-                <h2>訃聞內容</h2>
-                <div id="obituaryContent">
-                    <!-- 這裡將顯示生成的訃聞內容 -->
-                </div>
-                <section class="tribute-messages">
-                    <h2>留言</h2>
-                    <div id="messages">
-                        <!-- 留言將會顯示在這裡 -->
-                    </div>
-                    <form id="messageForm" onsubmit="postMessage(event)">
-                        <label for="message">留言：</label>
-                        <textarea id="message" name="message" rows="4" required></textarea>
-                        <button type="submit">發送留言</button>
-                    </form>
-                </section>
-        </main>
-        <footer>
-            <p>版權所有 &copy; 2024 祥安生命禮儀公司</p>
-        </footer>
-    </div>
-    <audio id="backgroundMusic" src="background_music.mp3" preload="auto" loop></audio> <!-- 背景音樂 -->
-    <script src="script.js"></script> <!-- 引入外部 JavaScript 文件 -->
+    <main>
+        <section id="deceased-info">
+            <h2>往生者資料</h2>
+            <form id="deceased-form">
+                <label for="name">姓名:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="photo">追思照片:</label>
+                <input type="file" id="photo" name="photo" accept="image/*" required>
+                
+                <label for="birth-date">出生日期:</label>
+                <input type="date" id="birth-date" name="birth-date" required>
+                
+                <label for="death-date">死亡日期:</label>
+                <input type="date" id="death-date" name="death-date" required>
+                
+                <label for="funeral-space">牌位安置地點:</label>
+                <textarea id="funeral-space" name="funeral-space"></textarea>
+                
+                <label for="funeral-date">出殯日期:</label>
+                <input type="date" id="funeral-date" name="funeral-date" required>
+                
+                <label for="funeral-location">出殯地點:</label>
+                <select id="funeral-location" name="funeral-location" required>
+                    <option value="第二殯儀館">第二殯儀館 禮廳</option>
+                    <option value="板橋殯儀館">板橋殯儀館 禮廳</option>
+                    <option value="其他">其他</option>
+                </select>
+                <input type="text" id="other-funeral-location" name="other-funeral-location" placeholder="若選擇其他，請填寫地點">
+                
+                <label for="family-service-time">家奠禮時間:</label>
+                <input type="time" id="family-service-time" name="family-service-time" required>
+
+                <label for="public-service-time">公奠禮時間:</label>
+                <input type="time" id="public-service-time" name="public-service-time" required>
+                
+                <label for="life-story">生平介紹:</label>
+                <textarea id="life-story" name="life-story"></textarea>
+                
+                <label for="music-choice">選擇背景音樂:</label>
+                <select id="music-choice" required>
+                    <option value="audio/music1.mp3">音樂1</option>
+                    <option value="audio/music2.mp3">音樂2</option>
+                    <option value="audio/music3.mp3">音樂3</option>
+                    <option value="audio/music4.mp3">音樂4</option>
+                    <option value="audio/music5.mp3">音樂5</option>
+                </select>
+                
+                <button type="submit">提交</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
