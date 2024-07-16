@@ -1,113 +1,94 @@
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #f8f9fa, #e9ecef);
+    background-color: #f5f5f5;
     color: #333;
     margin: 0;
     padding: 0;
 }
 
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
-
 header {
+    background-color: #8e8e8e;
+    color: #fff;
+    padding: 20px;
     text-align: center;
-    margin-bottom: 20px;
-}
-
-header h1 {
-    margin: 0;
-    color: #333;
 }
 
 main {
-    margin-bottom: 20px;
+    padding: 20px;
 }
 
-.introduction {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #666;
-}
-
-.introduction p {
-    margin: 10px 0;
-}
-
-.tribute-form,
-.obituary {
-    margin-bottom: 20px;
-}
-
-.tribute-form h2,
-.obituary h2,
-.tribute-messages h2,
-.flower-orders h2 {
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 10px;
-    color: #666;
+h1, h2 {
+    color: #4a4a4a;
 }
 
 form {
-    max-width: 400px;
-    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-form label {
+label {
     display: block;
-    margin-bottom: 5px;
-    color: #666;
-}
-
-form input[type="text"],
-form input[type="date"],
-form input[type="file"],
-form textarea,
-form select {
-    width: calc(100% - 20px);
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-form button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-form button:hover {
-    background-color: #45a049;
-}
-
-#obituaryContent img {
-    max-width: 100%;
-    height: auto;
     margin-top: 10px;
 }
 
-footer {
-    text-align: center;
-    margin-top: 20px;
-    padding-top: 10px;
-    border-top: 1px solid #ccc;
-    color: #888;
+input, textarea, select, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
 }
 
-.message {
-    background-color: #f1f1f1;
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    text-align: left;
+button {
+    background-color: #4a90e2;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #357ab8;
+}
+
+#obituary img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+#messages-section, #flower-basket-section {
+    margin-top: 30px;
+}
+
+#flower-basket-options button {
+    width: auto;
+    margin-right: 10px;
+}
+
+#shopping-cart {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+}
+
+#shopping-cart ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.fade-in {
+    animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
