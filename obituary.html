@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>雲端訃聞</title>
+    <title>訃聞公告</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,18 +15,20 @@
         <section id="obituary">
             <h2 id="deceased-name"></h2>
             <img id="deceased-photo" alt="追思照片" style="display:none;">
+            <div id="additional-photos"></div>
+            <p>我們摯愛的親人，於<span id="death-date-text"></span>已逝世。</p>
             <p>生於: <span id="birth-date-text"></span></p>
-            <p>逝於: <span id="death-date-text"></span></p>
             <p>牌位安置地點: <span id="funeral-space-text"></span></p>
             <p>出殯日期: <span id="funeral-date-text"></span></p>
             <p>出殯地點: <span id="funeral-location-text"></span></p>
             <p>家奠禮時間: <span id="family-service-time-text"></span></p>
             <p>公奠禮時間: <span id="public-service-time-text"></span></p>
             <p>生平介紹: <span id="life-story-text"></span></p>
+            <p>敬邀各位一同緬懷。</p>
         </section>
 
         <section id="messages-section">
-                        <h2>留言區</h2>
+            <h2>留言區</h2>
             <form id="message-form">
                 <input type="text" id="message-input" placeholder="留下您的追思">
                 <button type="submit">提交</button>
@@ -35,16 +37,42 @@
         </section>
 
         <section id="flower-basket-section">
-          <h2>訂購花籃</h2>
-          <div id="flower-basket-options">
+            <h2>致贈花禮 送上祝福</h2>
+            <div id="flower-basket-options">
                 <button class="add-to-cart" data-basket="standard">標準花籃 (+1)</button>
                 <button class="add-to-cart" data-basket="premium">高級花籃 (+1)</button>
+                <!-- 添加更多花籃樣式和價格 -->
             </div>
             <h3>購物車</h3>
             <div id="shopping-cart">
                 <ul id="cart-items"></ul>
                 <p>總數量: <span id="total-quantity">0</span></p>
+                <p>總價: <span id="total-price">0</span></p>
             </div>
+            <form id="flower-order-form">
+                <label for="recipient-name">收件人姓名:</label>
+                <input type="text" id="recipient-name" required>
+
+                <label for="recipient-address">收件人地址:</label>
+                <input type="text" id="recipient-address">
+
+                <label for="invoice">是否需要發票:</label>
+                <select id="invoice" required>
+                    <option value="yes">需要（加10%）</option>
+                    <option value="no">不需要</option>
+                </select>
+
+                <label for="payment-method">付款方式:</label>
+                <select id="payment-method" required>
+                    <option value="line-pay">Line Pay</option>
+                    <option value="bank-transfer">銀行匯款</option>
+                </select>
+
+                <label for="payment-proof">回傳匯款單:</label>
+                <input type="file" id="payment-proof" accept="image/*">
+
+                <button type="submit">提交訂單</button>
+            </form>
         </section>
     </main>
 
@@ -57,4 +85,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-           
