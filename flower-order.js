@@ -1,21 +1,20 @@
-// flower-order.js
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function() {
     const cartItems = [];
-    const cartItemsContainer = document.getElementById('cart-items');
-    const totalQuantity = document.getElementById('total-quantity');
-    const totalPrice = document.getElementById('total-price');
+    const cartItemsElement = document.getElementById("cart-items");
+    const totalQuantityElement = document.getElementById("total-quantity");
+    const totalPriceElement = document.getElementById("total-price");
 
-    // Add to cart
-    document.querySelectorAll('.add-to-cart').forEach(button => {
-        button.addEventListener('click', function () {
-            const basket = this.getAttribute('data-basket');
-            const price = parseInt(this.closest('.flower-option').getAttribute('data-price'));
+    document.querySelectorAll(".add-to-cart").forEach(button => {
+        button.addEventListener("click", function() {
+            const flowerOption = button.closest(".flower-option");
+            const price = parseInt(flowerOption.dataset.price, 10);
+            const basketType = button.dataset.basket;
 
-            const item = cartItems.find(item => item.basket === basket);
-            if (item) {
-                item.quantity += 1;
+            const cartItem = cartItems.find(item => item.basketType === basketType);
+            if (cartItem) {
+                cartItem.quantity++;
             } else {
-                cartItems.push({ basket, price, quantity: 1 });
+                cartItems.push({ basketType, quantity: 1, price });
             }
 
             updateCart();
@@ -23,44 +22,37 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function updateCart() {
-        cartItemsContainer.innerHTML = '';
-        let totalQuantityValue = 0;
-        let totalPriceValue = 0;
+        cartItemsElement.innerHTML = "";
+        let totalQuantity = 0;
+        let totalPrice = 0;
 
         cartItems.forEach(item => {
-            const listItem = document.createElement('li');
-            listItem.textContent = `${item.basket} - $${item.price} x ${item.quantity}`;
-            cartItemsContainer.appendChild(listItem);
-
-            totalQuantityValue += item.quantity;
-            totalPriceValue += item.price * item.quantity;
+            const li = document.createElement("li");
+            li.textContent = `${item.basketType}: ${item.quantity} 個 - $${item.price * item.quantity}`;
+            cartItemsElement.appendChild(li);
+            totalQuantity += item.quantity;
+            totalPrice += item.price * item.quantity;
         });
 
-        totalQuantity.textContent = totalQuantityValue;
-        totalPrice.textContent = totalPriceValue;
+        totalQuantityElement.textContent = totalQuantity;
+        totalPriceElement.textContent = totalPrice;
     }
 
-    // Handle order submission
-    const flowerOrderForm = document.getElementById('flower-order-form');
-    flowerOrderForm.addEventListener('submit', function (event) {
+    document.getElementById("flower-order-form").addEventListener("submit", function(event) {
         event.preventDefault();
-        
-        const formData = new FormData(flowerOrderForm);
-        formData.append('cartItems', JSON.stringify(cartItems));
+        const form = event.target;
+        const formData = new FormData(form);
 
-        fetch('order-processing-endpoint', {
-            method: 'POST',
-            body: formData
-        }).then(response => {
-            if (response.ok) {
-                alert('訂單提交成功！');
-                window.location.href = 'thank-you.html';
-            } else {
-                alert('訂單提交失敗，請稍後再試。');
-            }
-        }).catch(error => {
-            console.error('Error:', error);
-            alert('訂單提交失敗，請稍後再試。');
-        });
+        const needsInvoice = formData.get("invoice") === "yes";
+        const totalPrice = parseInt(totalPriceElement.textContent, 10);
+        const finalPrice = needsInvoice ? totalPrice * 1.1 : totalPrice;
+
+        formData.append("total-price", finalPrice);
+
+        // 这里可以将 formData 发送到服务器
+        // 例如：fetch("/order", { method: "POST", body: formData })
+
+        // 跳转到感謝頁面
+        window.location.href = `thank-you.html?price=${finalPrice}`;
     });
 });
