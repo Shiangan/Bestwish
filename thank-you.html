@@ -3,23 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>感謝您的訂單</title>
+    <title>感謝您的訂購</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>感謝您的訂單</h1>
+        <h1>感謝您的訂購</h1>
     </header>
 
     <main>
         <section id="thank-you-message">
-            <p>您的訂單已成功提交，我們將儘快處理。</p>
-            <p>如有任何問題，請聯繫我們。</p>
+            <p>感謝您的訂購，我們會盡快處理您的訂單。</p>
+            <p>總金額: <span id="final-price"></span></p>
         </section>
     </main>
 
     <footer>
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
     </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const params = new URLSearchParams(window.location.search);
+            const price = params.get("price");
+            document.getElementById("final-price").textContent = `$${price}`;
+        });
+    </script>
 </body>
 </html>
