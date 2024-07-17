@@ -3,63 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>祥安生命有限公司－雲端訃聞</title>
+    <title>祥安生命禮儀</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>雲端訃聞</h1>
+        <h1>祥安生命禮儀</h1>
     </header>
 
     <main>
-        <section id="deceased-info">
-            <h2>往生者資料</h2>
-            <form id="deceased-form" action="obituary.html" method="GET" enctype="multipart/form-data">
+        <section>
+            <form id="announcement-form" action="obituary.html" method="get">
                 <label for="name">姓名:</label>
                 <input type="text" id="name" name="name" required>
 
-                <label for="photo">追思照片:</label>
-                <input type="file" id="photo" name="photo" accept="image/*" required>
+                <label for="photo">主要照片 URL:</label>
+                <input type="text" id="photo" name="photo" required>
 
-                <label for="additional-photos">其他照片（可選）:</label>
-                <input type="file" id="additional-photos" name="additional-photos" accept="image/*" multiple>
+                <label for="additional-photos">額外照片 URL (以逗號分隔):</label>
+                <input type="text" id="additional-photos" name="additional-photos">
 
                 <label for="birth-date">出生日期:</label>
                 <input type="date" id="birth-date" name="birth-date" required>
 
-                <label for="death-date">死亡日期:</label>
+                <label for="death-date">逝世日期:</label>
                 <input type="date" id="death-date" name="death-date" required>
 
-                <label for="funeral-space">牌位安置地點:</label>
-                <textarea id="funeral-space" name="funeral-space"></textarea>
+                <label for="funeral-space">奠禮地點:</label>
+                <input type="text" id="funeral-space" name="funeral-space" required>
 
-                <label for="funeral-date">出殯日期:</label>
+                <label for="funeral-date">奠禮日期:</label>
                 <input type="date" id="funeral-date" name="funeral-date" required>
 
-                <label for="funeral-location">出殯地點:</label>
-                <select id="funeral-location" name="funeral-location" required>
-                    <option value="第二殯儀館">第二殯儀館 禮廳</option>
-                    <option value="板橋殯儀館">板橋殯儀館 禮廳</option>
-                    <option value="其他">其他</option>
-                </select>
-                <input type="text" id="other-funeral-location" name="other-funeral-location" placeholder="若選擇其他，請填寫地點">
+                <label for="funeral-location">奠禮地點:</label>
+                <input type="text" id="funeral-location" name="funeral-location" required>
 
-                <label for="family-service-time">家奠禮時間:</label>
+                <label for="family-service-time">家祭時間:</label>
                 <input type="time" id="family-service-time" name="family-service-time" required>
 
-                <label for="public-service-time">公奠禮時間:</label>
+                <label for="public-service-time">公祭時間:</label>
                 <input type="time" id="public-service-time" name="public-service-time" required>
 
-                <label for="life-story">生平介紹:</label>
-                <textarea id="life-story" name="life-story"></textarea>
+                <label for="life-story">人生故事:</label>
+                <textarea id="life-story" name="life-story" required></textarea>
 
-                <label for="music-choice">選擇背景音樂:</label>
-                <select id="music-choice" name="music-choice" required>
-                    <option value="music1.mp3">音樂1</option>
-                    <option value="music2.mp3">音樂2</option>
-                    <option value="music3.mp3">音樂3</option>
-                    <option value="music4.mp3">音樂4</option>
-                    <option value="music5.mp3">音樂5</option>
+                <label for="music-choice">背景音樂:</label>
+                <select id="music-choice" name="music-choice">
+                    <option value="music1.mp3">音樂 1</option>
+                    <option value="music2.mp3">音樂 2</option>
                 </select>
 
                 <button type="submit">提交</button>
