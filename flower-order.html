@@ -1,66 +1,45 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>訂購花籃</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <h1>訂購花籃</h1>
-    </header>
+document.addEventListener('DOMContentLoaded', () => {
+    const cart = {
+        items: [],
+        totalQuantity: 0,
+        totalPrice: 0
+    };
 
-    <main>
-        <section id="flower-basket-options">
-            <h2>選擇花籃樣式</h2>
-            <div class="flower-option" data-price="1000">
-                <h3>標準花籃</h3>
-                <p>價格: $1000</p>
-                <button class="add-to-cart" data-basket="standard">加入購物車</button>
-            </div>
-            <div class="flower-option" data-price="2000">
-                <h3>高級花籃</h3>
-                <p>價格: $2000</p>
-                <button class="add-to-cart" data-basket="premium">加入購物車</button>
-            </div>
-            <!-- 加入更多花籃選項 -->
-        </section>
+    const updateCart = () => {
+        const cartItems = document.getElementById('cart-items');
+        cartItems.innerHTML = '';
+        cart.items.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = `${item.name} - $${item.price} x ${item.quantity}`;
+            cartItems.appendChild(li);
+        });
+        document.getElementById('total-quantity').textContent = cart.totalQuantity;
+        document.getElementById('total-price').textContent = cart.totalPrice;
+    };
 
-        <section id="shopping-cart">
-            <h3>購物車</h3>
-            <ul id="cart-items"></ul>
-            <p>總數量: <span id="total-quantity">0</span></p>
-            <p>總金額: <span id="total-price">0</span></p>
-        </section>
-        
-        <section id="order-details">
-            <h3>填寫訂購資訊</h3>
-            <form id="flower-order-form">
-                <label for="sender-name">訂購人姓名:</label>
-                <input type="text" id="sender-name" name="sender-name" required>
-                
-                <label for="recipient-name">收件人姓名:</label>
-                <input type="text" id="recipient-name" name="recipient-name" required>
-                
-                <label for="recipient-address">收件人地址:</label>
-                <input type="text" id="recipient-address" name="recipient-address" required>
-                
-                <label for="invoice">是否需要發票:</label>
-                <input type="checkbox" id="invoice" name="invoice">
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', () => {
+            const basket = button.dataset.basket;
+            const price = parseInt(button.parentElement.dataset.price, 10);
+            const existingItem = cart.items.find(item => item.name === basket);
 
-                <label for="senders-names">送花者名稱 (以逗號分隔):</label>
-                <input type="text" id="senders-names" name="senders-names">
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.items.push({ name: basket, price: price, quantity: 1 });
+            }
 
-                <button type="submit">提交訂單</button>
-            </form>
-        </section>
-    </main>
+            cart.totalQuantity += 1;
+            cart.totalPrice += price;
 
-    <footer>
-        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
-    </footer>
+            updateCart();
+        });
+    });
 
-    <script src="flower-order.js"></script>
-</body>
-</html>
+    document.getElementById('flower-order-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        // 提交訂單處理邏輯
+        alert('訂單提交成功！');
+        window.location.href = 'thank-you.html';
+    });
+});
