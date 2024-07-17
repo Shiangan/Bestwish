@@ -16,11 +16,13 @@
             <h2>選擇花籃樣式</h2>
             <div class="flower-option" data-price="1000">
                 <h3>標準花籃</h3>
+                <img src="path/to/standard-basket.jpg" alt="標準花籃">
                 <p>價格: $1000</p>
                 <button class="add-to-cart" data-basket="standard">加入購物車</button>
             </div>
             <div class="flower-option" data-price="2000">
                 <h3>高級花籃</h3>
+                <img src="path/to/premium-basket.jpg" alt="高級花籃">
                 <p>價格: $2000</p>
                 <button class="add-to-cart" data-basket="premium">加入購物車</button>
             </div>
@@ -36,7 +38,7 @@
         
         <section id="order-details">
             <h3>填寫訂購資訊</h3>
-            <form id="flower-order-form">
+            <form id="flower-order-form" action="thank-you.html" method="GET">
                 <label for="sender-name">訂購人姓名:</label>
                 <input type="text" id="sender-name" name="sender-name" required>
                 
@@ -47,10 +49,17 @@
                 <input type="text" id="recipient-address" name="recipient-address" required>
                 
                 <label for="invoice">是否需要發票:</label>
-                <input type="checkbox" id="invoice" name="invoice">
-
-                <label for="senders-names">送花者名稱 (以逗號分隔):</label>
-                <input type="text" id="senders-names" name="senders-names">
+                <select id="invoice" name="invoice" required>
+                    <option value="no">否</option>
+                    <option value="yes">是</option>
+                </select>
+                
+                <label for="payment-method">付款方式:</label>
+                <select id="payment-method" name="payment-method" required>
+                    <option value="line-pay">LINE Pay</option>
+                    <option value="bank-transfer">銀行匯款</option>
+                    <option value="credit-card">信用卡</option>
+                </select>
 
                 <button type="submit">提交訂單</button>
             </form>
@@ -61,6 +70,6 @@
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
     </footer>
 
-    <script src="flower-order.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
