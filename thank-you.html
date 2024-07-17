@@ -8,26 +8,20 @@
 </head>
 <body>
     <header>
+        <img src="logo.png" alt="祥安生命有限公司 Logo" class="logo">
         <h1>感謝您的訂購</h1>
     </header>
 
     <main>
         <section id="thank-you-message">
-            <p>感謝您的訂購，我們會盡快處理您的訂單。</p>
-            <p>總金額: <span id="final-price"></span></p>
+            <h2>感謝您的訂購</h2>
+            <p>您的訂單已成功提交。我們將儘快處理並聯繫您。感謝您的支持。</p>
+            <button onclick="location.href='index.html'">返回首頁</button>
         </section>
     </main>
 
     <footer>
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
     </footer>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const params = new URLSearchParams(window.location.search);
-            const price = params.get("price");
-            document.getElementById("final-price").textContent = `$${price}`;
-        });
-    </script>
 </body>
 </html>
