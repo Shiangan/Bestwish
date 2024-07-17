@@ -1,45 +1,49 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const cart = {
-        items: [],
-        totalQuantity: 0,
-        totalPrice: 0
-    };
+    const cartItems = document.getElementById('cart-items');
+    const totalQuantity = document.getElementById('total-quantity');
+    const totalPrice = document.getElementById('total-price');
+    const orderForm = document.getElementById('flower-order-form');
 
-    const updateCart = () => {
-        const cartItems = document.getElementById('cart-items');
-        cartItems.innerHTML = '';
-        cart.items.forEach(item => {
-            const li = document.createElement('li');
-            li.textContent = `${item.name} - $${item.price} x ${item.quantity}`;
-            cartItems.appendChild(li);
-        });
-        document.getElementById('total-quantity').textContent = cart.totalQuantity;
-        document.getElementById('total-price').textContent = cart.totalPrice;
-    };
+    let cart = [];
 
     document.querySelectorAll('.add-to-cart').forEach(button => {
-        button.addEventListener('click', () => {
-            const basket = button.dataset.basket;
-            const price = parseInt(button.parentElement.dataset.price, 10);
-            const existingItem = cart.items.find(item => item.name === basket);
+        button.addEventListener('click', (e) => {
+            const basketType = e.target.dataset.basket;
+            const price = e.target.parentElement.dataset.price;
 
-            if (existingItem) {
-                existingItem.quantity += 1;
+            const item = cart.find(item => item.basketType === basketType);
+            if (item) {
+                item.quantity++;
             } else {
-                cart.items.push({ name: basket, price: price, quantity: 1 });
+                cart.push({ basketType, price, quantity: 1 });
             }
-
-            cart.totalQuantity += 1;
-            cart.totalPrice += price;
 
             updateCart();
         });
     });
 
-    document.getElementById('flower-order-form').addEventListener('submit', (e) => {
+    orderForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        // 提交訂單處理邏輯
-        alert('訂單提交成功！');
+        // 保存到本地存储或发送请求到服务器
+        // 这里省略了后端部分，可以根据需求进行扩展
+        alert('訂單已提交');
         window.location.href = 'thank-you.html';
     });
+
+    function updateCart() {
+        cartItems.innerHTML = '';
+        let quantity = 0;
+        let price = 0;
+
+        cart.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = `${item.basketType} x ${item.quantity} - $${item.price * item.quantity}`;
+            cartItems.appendChild(li);
+            quantity += item.quantity;
+            price += item.price * item.quantity;
+        });
+
+        totalQuantity.textContent = quantity;
+        totalPrice.textContent = price;
+    }
 });
