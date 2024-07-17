@@ -1,76 +1,75 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
+    const flowerOptions = document.querySelectorAll('.flower-option');
     const cartItems = document.getElementById('cart-items');
     const totalQuantity = document.getElementById('total-quantity');
     const totalPrice = document.getElementById('total-price');
-    const orderForm = document.getElementById('flower-order-form');
+    const flowerOrderForm = document.getElementById('flower-order-form');
     const needInvoiceCheckbox = document.getElementById('need-invoice');
     const invoiceDetailsTextarea = document.getElementById('invoice-details');
 
     let cart = [];
 
-    document.querySelectorAll('.add-to-cart').forEach(button => {
-        button.addEventListener('click', (e) => {
-            const basketType = e.target.parentElement.dataset.baskettpe;
-            const price = parseInt(e.target.parentElement.dataset.price);
+    // 添加到购物车按钮点击事件
+    flowerOptions.forEach(option => {
+        option.querySelector('.add-to-cart').addEventListener('click', function() {
+            let basketType = option.dataset.baskettpe;
+            let price = parseInt(option.dataset.price);
 
-            const item = cart.find(item => item.basketType === basketType);
-            if (item) {
-                item.quantity++;
-            } else {
-                cart.push({ basketType, price, quantity: 1 });
-            }
+            // 将选项添加到购物车
+            cart.push({ type: basketType, price: price });
 
-            updateCart();
+            // 更新购物车显示
+            displayCart();
         });
     });
 
-    orderForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        // 提交訂單到後端處理
-        const formData = new FormData(orderForm);
-        const orderData = {
-            senderName: formData.get('sender-name'),
-            recipientName: formData.get('recipient-name'),
-            recipientAddress: formData.get('recipient-address'),
-            needInvoice: needInvoiceCheckbox.checked,
-            invoiceDetails: needInvoiceCheckbox.checked ? formData.get('invoice-details') : null,
-            cart: cart
-        };
+    // 更新购物车显示
+    function displayCart() {
+        cartItems.innerHTML = '';
+        let totalQty = 0;
+        let totalPriceValue = 0;
 
-        // 呼叫後端 API
-        fetch('/api/orders', {
+        cart.forEach(item => {
+            let li = document.createElement('li');
+            li.textContent = `${item.type} - $${item.price}`;
+            cartItems.appendChild(li);
+            totalQty++;
+            totalPriceValue += item.price;
+        });
+
+        totalQuantity.textContent = totalQty;
+        totalPrice.textContent = totalPriceValue;
+    }
+
+    // 是否需要发票复选框事件
+    needInvoiceCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+            invoiceDetailsTextarea.removeAttribute('disabled');
+        } else {
+            invoiceDetailsTextarea.setAttribute('disabled', 'disabled');
+        }
+    });
+
+    // 提交订单表单事件
+    flowerOrderForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // 获取表单数据
+        let formData = new FormData(this);
+        formData.append('cart', JSON.stringify(cart));
+
+        // 提交订单到服务器（假设API接口为/submit-order）
+        fetch('/submit-order', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(orderData)
+            body: formData
         })
         .then(response => response.json())
         .then(data => {
-            alert('感謝您的訂購與祝福！');
-            window.location.href = 'thank-you.html'; // 跳轉到感謝頁面
+            console.log('訂單提交成功:', data);
+            window.location.href = '/thanks.html';  // 跳转到感谢页面
         })
-        .catch(error => console.error('Error submitting order:', error));
-    });
-
-    needInvoiceCheckbox.addEventListener('change', () => {
-        invoiceDetailsTextarea.disabled = !needInvoiceCheckbox.checked;
-    });
-
-    function updateCart() {
-        cartItems.innerHTML = '';
-        let quantity = 0;
-        let price = 0;
-
-        cart.forEach(item => {
-            const li = document.createElement('li');
-            li.textContent = `${item.basketType} x ${item.quantity} - $${item.price * item.quantity}`;
-            cartItems.appendChild(li);
-            quantity += item.quantity;
-            price += item.price * item.quantity;
+        .catch(error => {
+            console.error('訂單提交錯誤:', error);
         });
-
-        totalQuantity.textContent = quantity;
-        totalPrice.textContent = price;
-    }
+    });
 });
