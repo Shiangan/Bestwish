@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>訃聞公告</title>
+    <title>雲端訃聞</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
+        <img src="logo.png" alt="祥安生命有限公司 Logo" class="logo">
         <h1>訃聞公告</h1>
     </header>
 
@@ -15,14 +16,25 @@
         <section id="obituary">
             <h2 id="deceased-name"></h2>
             <img id="deceased-photo" alt="追思照片" style="display:none;">
+            <p>我們摯愛的親人，於 <span id="death-date-text"></span> 已逝世，享年 <span id="age"></span>，敬邀各位一同緬懷。</p>
+            <p>出生日期：<span id="birth-date-text"></span>，逝世日期：<span id="death-date-text"></span>。</p>
+            <p>牌位安置地點：<span id="funeral-space-text"></span>。</p>
+            <p>出殯日期：<span id="funeral-date-text"></span>，地點：<span id="funeral-location-text"></span>。</p>
+            <p>家奠禮時間：<span id="family-service-time-text"></span>。</p>
+            <p>公奠禮時間：<span id="public-service-time-text"></span>。</p>
+            <p>生平介紹：<span id="life-story-text"></span>。</p>
+        </section>
+
+        <section id="gallery">
+            <h2>追思照片</h2>
             <div id="additional-photos-container"></div>
-            <p id="obituary-text"></p>
         </section>
 
         <section id="messages-section">
             <h2>留言區</h2>
             <form id="message-form">
                 <input type="text" id="message-input" placeholder="留下您的追思">
+                <input type="file" id="message-photo" accept="image/*" placeholder="上傳照片">
                 <button type="submit">提交</button>
             </form>
             <div id="messages"></div>
@@ -30,7 +42,7 @@
 
         <section id="flower-basket-section">
             <h2>致贈花禮 送上祝福</h2>
-            <button id="flower-order-button">進入訂購花籃頁面</button>
+            <button id="flower-order-button" onclick="location.href='flower-order.html'">進入訂購花籃頁面</button>
         </section>
     </main>
 
