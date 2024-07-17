@@ -15,18 +15,19 @@
     <main>
         <section id="flower-basket-options">
             <h2>選擇花籃樣式</h2>
-            <div class="flower-option" data-price="1000">
+            <div class="flower-option" data-baskettpe="standard" data-price="1000">
                 <img src="standard-basket.jpg" alt="標準花籃">
                 <h3>標準花籃</h3>
                 <p>價格: $1000</p>
-                <button class="add-to-cart" data-basket="standard">加入購物車</button>
+                <button class="add-to-cart">加入購物車</button>
             </div>
-            <div class="flower-option" data-price="2000">
+            <div class="flower-option" data-baskettpe="premium" data-price="2000">
                 <img src="premium-basket.jpg" alt="高級花籃">
                 <h3>高級花籃</h3>
                 <p>價格: $2000</p>
-                <button class="add-to-cart" data-basket="premium">加入購物車</button>
+                <button class="add-to-cart">加入購物車</button>
             </div>
+            <!-- 其他花籃樣式 -->
         </section>
 
         <section id="shopping-cart">
@@ -48,11 +49,11 @@
                 <label for="recipient-address">收件地址:</label>
                 <textarea id="recipient-address" name="recipient-address" required></textarea>
                 
-                <label for="invoice">是否需要發票:</label>
-                <input type="checkbox" id="invoice" name="invoice">
+                <label for="need-invoice">是否需要發票:</label>
+                <input type="checkbox" id="need-invoice" name="need-invoice">
                 
-                <label for="senders-names">聯名送花名單:</label>
-                <textarea id="senders-names" name="senders-names"></textarea>
+                <label for="invoice-details">發票抬頭及地址:</label>
+                <textarea id="invoice-details" name="invoice-details" disabled></textarea>
                 
                 <button type="submit">提交訂單</button>
             </form>
