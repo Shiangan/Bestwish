@@ -1,1 +1,14 @@
+const orders = [];
 
+export default (req, res) => {
+    if (req.method === 'POST') {
+        const order = req.body;
+        orders.push(order);
+        res.status(200).json({ message: '訂單已接收' });
+    } else if (req.method === 'GET') {
+        res.status(200).json(orders);
+    } else {
+        res.setHeader('Allow', ['GET', 'POST']);
+        res.status(405).end(`Method ${req.method} Not Allowed`);
+    }
+};
