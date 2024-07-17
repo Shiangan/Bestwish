@@ -5,50 +5,154 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>訃聞公告</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .photo-gallery {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .photo-gallery img {
+            max-width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            margin: 0 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
     <header>
         <h1>訃聞公告</h1>
     </header>
-
     <main>
-        <section id="obituary">
+        <section>
             <h2 id="deceased-name"></h2>
-            <img id="deceased-photo" alt="追思照片">
-            <p>生於: <span id="birth-date-text"></span></p>
-            <p>逝於: <span id="death-date-text"></span></p>
-            <p>牌位安置地點: <span id="funeral-space-text"></span></p>
-            <p>出殯日期: <span id="funeral-date-text"></span></p>
-            <p>出殯地點: <span id="funeral-location-text"></span></p>
-            <p>家奠禮時間: <span id="family-service-time-text"></span></p>
-            <p>公奠禮時間: <span id="public-service-time-text"></span></p>
-            <p>生平介紹: <span id="life-story-text"></span></p>
-            <p>我們摯愛的親人，於 <span id="death-date-text"></span> 已逝世，敬邀各位一同緬懷。</p>
+            <div class="photo-gallery" id="photo-gallery">
+                <!-- 主要照片會由 JavaScript 動態生成 -->
+            </div>
+            <div id="additional-photos" class="photo-gallery">
+                <!-- 其他照片會由 JavaScript 動態生成 -->
+            </div>
+            <p id="obituary-text"></p>
         </section>
-
+        <section id="flower-order-section">
+            <button id="flower-order-button">贈送花籃</button>
+        </section>
         <section id="messages-section">
-            <h2>留言區</h2>
+            <h3>留言板</h3>
             <form id="message-form">
-                <input type="text" id="message-input" placeholder="留下您的追思">
-                <button type="submit">提交</button>
-                     </form>
+                <textarea id="message-input" placeholder="留下您的悼念"></textarea>
+                <button type="submit">提交留言</button>
+            </form>
             <div id="messages"></div>
         </section>
     </main>
     <footer>
-
-        <section id="flower-basket-section">
-            <h2>致贈花禮 送上祝福</h2>
-            <button id="flower-order-button">進入訂購花籃頁面</button>
-        </section>
-    </main>
-
-    <footer>
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
     </footer>
-
     <audio id="background-music" loop></audio>
-
     <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const name = urlParams.get('name');
+            const photo = urlParams.get('photo');
+            const additionalPhotos = urlParams.getAll('additional-photos');
+            const birthDate = urlParams.get('birth-date');
+            const deathDate = urlParams.get('death-date');
+            const funeralSpace = urlParams.get('funeral-space');
+            const funeralDate = urlParams.get('funeral-date');
+            const funeralLocation = urlParams.get('funeral-location');
+            const otherFuneralLocation = urlParams.get('other-funeral-location');
+            const familyServiceTime = urlParams.get('family-service-time');
+            const publicServiceTime = urlParams.get('public-service-time');
+            const lifeStory = urlParams.get('life-story');
+            const musicChoice = urlParams.get('music-choice');
+
+            if (name) document.getElementById('deceased-name').textContent = name;
+
+            // 動態生成主要照片
+            if (photo) {
+                const mainPhotoDiv = document.getElementById('photo-gallery');
+                const mainPhoto = document.createElement('img');
+                mainPhoto.src = photo;
+                mainPhoto.alt = '主要照片';
+                mainPhotoDiv.appendChild(mainPhoto);
+            }
+
+            // 動態生成其他照片輪播
+            if (additionalPhotos.length > 0) {
+                const additionalPhotosDiv = document.getElementById('additional-photos');
+                additionalPhotos.forEach(photoUrl => {
+                    const img = document.createElement('img');
+                    img.src = photoUrl;
+                    img.alt = '其他照片';
+                    additionalPhotosDiv.appendChild(img);
+                });
+            }
+
+            // 其他訃聞內容的生成
+            let obituaryText = `我們懷著沉痛的心情告知，${name}於${deathDate}辭世，享年${calculateAge(birthDate, deathDate)}歲。`;
+            if (birthDate) obituaryText += ` ${name}生於${birthDate}，`;
+            if (funeralSpace) obituaryText += `牌位將安置於${funeralSpace}。`;
+            if (funeralDate) obituaryText += ` 奠禮定於${funeralDate}舉行，`;
+            if (funeralLocation === '其他' && otherFuneralLocation) {
+                obituaryText += `地點為${otherFuneralLocation}。`;
+            } else {
+                obituaryText += `地點為${funeralLocation}。`;
+            }
+            if (familyServiceTime) obituaryText += ` 家奠禮時間為${familyServiceTime}，`;
+            if (publicServiceTime) obituaryText += ` 公奠禮時間為${publicServiceTime}。`;
+            if (lifeStory) obituaryText += ` ${lifeStory}`;
+
+            document.getElementById('obituary-text').textContent = obituaryText;
+
+            // 音樂播放
+            const audio = document.getElementById('background-music');
+            if (musicChoice) {
+                audio.src = musicChoice;
+                audio.play();
+            }
+
+            // 留言板功能
+            const messageForm = document.getElementById('message-form');
+            const messageInput = document.getElementById('message-input');
+            const messagesContainer = document.getElementById('messages');
+
+            messageForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const message = messageInput.value;
+                if (message.trim() !== '') {
+                    const messageElement = document.createElement('div');
+                    messageElement.classList.add('message');
+                    messageElement.textContent = message;
+                    messagesContainer.appendChild(messageElement);
+                    messageInput.value = '';
+                }
+            });
+
+            // 花籃訂購跳轉
+            const flowerOrderButton = document.getElementById('flower-order-button');
+            flowerOrderButton.addEventListener('click', function() {
+                window.location.href = 'flower-order.html';
+            });
+
+            // 計算年齡的函數
+            function calculateAge(birthDate, deathDate) {
+                const birth = new Date(birthDate);
+                const death = new Date(deathDate);
+                const age = death.getFullYear() - birth.getFullYear();
+                const month = death.getMonth() - birth.getMonth();
+                if (month < 0 || (month === 0 && death.getDate() < birth.getDate())) {
+                    return age - 1;
+                } else {
+                    return age;
+                }
+            }
+        });
+    </script>
 </body>
 </html>
