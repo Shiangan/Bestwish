@@ -8,6 +8,7 @@
 </head>
 <body>
     <header>
+        <img src="logo.png" alt="祥安生命有限公司 Logo" class="logo">
         <h1>訂購花籃</h1>
     </header>
 
@@ -15,18 +16,17 @@
         <section id="flower-basket-options">
             <h2>選擇花籃樣式</h2>
             <div class="flower-option" data-price="1000">
+                <img src="standard-basket.jpg" alt="標準花籃">
                 <h3>標準花籃</h3>
-                <img src="path/to/standard-basket.jpg" alt="標準花籃">
                 <p>價格: $1000</p>
                 <button class="add-to-cart" data-basket="standard">加入購物車</button>
             </div>
             <div class="flower-option" data-price="2000">
+                <img src="premium-basket.jpg" alt="高級花籃">
                 <h3>高級花籃</h3>
-                <img src="path/to/premium-basket.jpg" alt="高級花籃">
                 <p>價格: $2000</p>
                 <button class="add-to-cart" data-basket="premium">加入購物車</button>
             </div>
-            <!-- 加入更多花籃選項 -->
         </section>
 
         <section id="shopping-cart">
@@ -38,38 +38,9 @@
         
         <section id="order-details">
             <h3>填寫訂購資訊</h3>
-            <form id="flower-order-form" action="thank-you.html" method="GET">
+            <form id="flower-order-form">
                 <label for="sender-name">訂購人姓名:</label>
                 <input type="text" id="sender-name" name="sender-name" required>
                 
                 <label for="recipient-name">收件人姓名:</label>
-                <input type="text" id="recipient-name" name="recipient-name" required>
-                
-                <label for="recipient-address">收件人地址:</label>
-                <input type="text" id="recipient-address" name="recipient-address" required>
-                
-                <label for="invoice">是否需要發票:</label>
-                <select id="invoice" name="invoice" required>
-                    <option value="no">否</option>
-                    <option value="yes">是</option>
-                </select>
-                
-                <label for="payment-method">付款方式:</label>
-                <select id="payment-method" name="payment-method" required>
-                    <option value="line-pay">LINE Pay</option>
-                    <option value="bank-transfer">銀行匯款</option>
-                    <option value="credit-card">信用卡</option>
-                </select>
-
-                <button type="submit">提交訂單</button>
-            </form>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
+                <input type="text" id="recipient-name" name="recipient
