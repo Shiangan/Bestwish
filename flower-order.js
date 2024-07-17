@@ -3,12 +3,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalQuantity = document.getElementById('total-quantity');
     const totalPrice = document.getElementById('total-price');
     const orderForm = document.getElementById('flower-order-form');
+    const needInvoiceCheckbox = document.getElementById('need-invoice');
+    const invoiceDetailsTextarea = document.getElementById('invoice-details');
 
     let cart = [];
 
     document.querySelectorAll('.add-to-cart').forEach(button => {
         button.addEventListener('click', (e) => {
-            const basketType = e.target.dataset.basket;
+            const basketType = e.target.parentElement.dataset.baskettpe;
             const price = parseInt(e.target.parentElement.dataset.price);
 
             const item = cart.find(item => item.basketType === basketType);
@@ -24,35 +26,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     orderForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const senderName = document.getElementById('sender-name').value;
-        const recipientName = document.getElementById('recipient-name').value;
-        const recipientAddress = document.getElementById('recipient-address').value;
-        const needsInvoice = document.getElementById('invoice').checked;
-        const sendersNames = document.getElementById('senders-names').value;
-
-        const order = {
-            senderName,
-            recipientName,
-            recipientAddress,
-            needsInvoice,
-            sendersNames,
-            cart,
+        // 提交訂單到後端處理
+        const formData = new FormData(orderForm);
+        const orderData = {
+            senderName: formData.get('sender-name'),
+            recipientName: formData.get('recipient-name'),
+            recipientAddress: formData.get('recipient-address'),
+            needInvoice: needInvoiceCheckbox.checked,
+            invoiceDetails: needInvoiceCheckbox.checked ? formData.get('invoice-details') : null,
+            cart: cart
         };
 
-        // 將 order 發送到後端或存儲在本地，這裡假設發送到後端
+        // 呼叫後端 API
         fetch('/api/orders', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify(order),
+            body: JSON.stringify(orderData)
         })
         .then(response => response.json())
         .then(data => {
-            alert(data.message); // 顯示訂單已提交的提示
-            window.location.href = 'thank-you.html'; // 導向到感謝頁面
+            alert('感謝您的訂購與祝福！');
+            window.location.href = 'thank-you.html'; // 跳轉到感謝頁面
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => console.error('Error submitting order:', error));
+    });
+
+    needInvoiceCheckbox.addEventListener('change', () => {
+        invoiceDetailsTextarea.disabled = !needInvoiceCheckbox.checked;
     });
 
     function updateCart() {
