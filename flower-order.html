@@ -63,44 +63,6 @@
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const orderForm = document.getElementById('flower-order-form');
-
-            orderForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                const formData = new FormData(orderForm);
-
-                // 將表單數據轉換為對象
-                const orderData = {
-                    senderName: formData.get('sender-name'),
-                    recipientName: formData.get('recipient-name'),
-                    recipientAddress: formData.get('recipient-address'),
-                    needInvoice: formData.has('invoice'),
-                    sendersNames: formData.get('senders-names'),
-                    cartItems: JSON.parse(localStorage.getItem('cartItems')) || []
-                };
-
-                // 發送訂單數據到後端
-                fetch('http://localhost:3000/api/orders', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(orderData),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('訂單提交成功:', data.message);
-                    localStorage.removeItem('cartItems'); // 清空購物車
-                    alert('訂單已提交！');
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('訂單提交失敗，請稍後再試！');
-                });
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
