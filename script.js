@@ -1,51 +1,90 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const name = urlParams.get('name');
-    const photo = urlParams.get('photo');
-    const additionalPhotos = urlParams.getAll('additional-photos');
-    const birthDate = urlParams.get('birth-date');
-    const deathDate = urlParams.get('death-date');
-    const funeralSpace = urlParams.get('funeral-space');
-    const funeralDate = urlParams.get('funeral-date');
-    const funeralLocation = urlParams.get('funeral-location');
-    const familyServiceTime = urlParams.get('family-service-time');
-    const publicServiceTime = urlParams.get('public-service-time');
-    const lifeStory = urlParams.get('life-story');
-    const musicChoice = urlParams.get('music-choice');
+document.addEventListener('DOMContentLoaded', function() {
+    const params = new URLSearchParams(window.location.search);
 
-    if (name) document.getElementById('deceased-name').textContent = name;
-    if (photo) document.getElementById('deceased-photo').src = photo;
-    if (birthDate) document.getElementById('birth-date-text').textContent = birthDate;
-    if (deathDate) document.getElementById('death-date-text').textContent = deathDate;
-    if (funeralSpace) document.getElementById('funeral-space-text').textContent = funeralSpace;
-    if (funeralDate) document.getElementById('funeral-date-text').textContent = funeralDate;
-    if (funeralLocation) document.getElementById('funeral-location-text').textContent = funeralLocation;
-    if (familyServiceTime) document.getElementById('family-service-time-text').textContent = familyServiceTime;
-    if (publicServiceTime) document.getElementById('public-service-time-text').textContent = publicServiceTime;
-    if (lifeStory) document.getElementById('life-story-text').textContent = lifeStory;
-    
-    if (musicChoice) {
-        const music = document.getElementById('background-music');
-        music.src = musicChoice;
-        music.play();
+    const name = params.get('name');
+    const photoUrl = params.get('photo-url');
+    const additionalPhotoUrls = params.getAll('additional-photo-urls');
+    const birthDate = params.get('birth-date');
+    const deathDate = params.get('death-date');
+    const funeralSpace = params.get('funeral-space');
+    const funeralDate = params.get('funeral-date');
+    const funeralLocation = params.get('funeral-location');
+    const familyServiceTime = params.get('family-service-time');
+    const publicServiceTime = params.get('public-service-time');
+    const lifeStory = params.get('life-story');
+    const musicChoice = params.get('music-choice');
+
+    document.getElementById('deceased-name').textContent = name;
+    document.getElementById('deceased-photo').src = photoUrl;
+
+    const additionalPhotosContainer = document.getElementById('additional-photos-container');
+    additionalPhotoUrls.forEach(url => {
+        const img = document.createElement('img');
+        img.src = url;
+        img.alt = '追思照片';
+        additionalPhotosContainer.appendChild(img);
+    });
+
+      const obituaryText = `
+        我們摯愛的 ${name} 於 ${deathDate} 已逝世，生於 ${birthDate}，
+        享年 ${calculateAge(birthDate, deathDate)} 歲。牌位安置於 ${funeralSpace}，
+        出殯將於 ${funeralDate} 在 ${funeralLocation} 舉行。家奠禮時間為 ${familyServiceTime}，
+        公奠禮時間為 ${publicServiceTime}。${lifeStory}
+    `;
+    document.getElementById('obituary-text').textContent = obituaryText;
+
+    // 背景音樂
+    const backgroundMusic = document.getElementById('background-music');
+    backgroundMusic.src = `path/to/music/${musicChoice}`;
+    backgroundMusic.play();
+
+    // 計算年齡
+    function calculateAge(birthDate, deathDate) {
+        const birth = new Date(birthDate);
+        const death = new Date(deathDate);
+        let age = death.getFullYear() - birth.getFullYear();
+        const m = death.getMonth() - birth.getMonth();
+        if (m < 0 || (m === 0 && death.getDate() < birth.getDate())) {
+            age--;
+        }
+        return age;
     }
 
-    const messageForm = document.getElementById('message-form');
-    const messagesDiv = document.getElementById('messages');
+    // 照片輪播
+    const additionalPhotosContainer = document.getElementById('additional-photos-container');
+    let currentPhotoIndex = 0;
 
-    messageForm.addEventListener('submit', (e) => {
-        e.preventDefault();
+    function showNextPhoto() {
+        const photos = additionalPhotosContainer.querySelectorAll('img');
+        if (photos.length > 0) {
+            photos.forEach((photo, index) => {
+                photo.style.display = index === currentPhotoIndex ? 'block' : 'none';
+            });
+            currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+        }
+    }
+
+    setInterval(showNextPhoto, 5000); // 每5秒切換一次
+
+    // 設置留言功能
+    const messageForm = document.getElementById('message-form');
+    const messages = document.getElementById('messages');
+
+    messageForm.addEventListener('submit', function(event) {
+        event.preventDefault();
         const messageInput = document.getElementById('message-input');
-        const messageText = messageInput.value;
-        if (messageText) {
-            const newMessage = document.createElement('p');
-            newMessage.textContent = messageText;
-            messagesDiv.appendChild(newMessage);
+        const messageText = messageInput.value.trim();
+
+        if (messageText !== '') {
+            const messageElement = document.createElement('p');
+            messageElement.textContent = messageText;
+            messages.appendChild(messageElement);
             messageInput.value = '';
         }
     });
 
-    document.getElementById('flower-order-button').addEventListener('click', () => {
+    // 花籃訂購按鈕
+    document.getElementById('flower-order-button').addEventListener('click', function() {
         window.location.href = 'flower-order.html';
     });
 });
