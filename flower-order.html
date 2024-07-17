@@ -36,4 +36,74 @@
         
         <section id="order-details">
             <h3>填寫訂購資訊</h3>
-           
+                <form id="order-form" action="order-summary.html" method="POST">
+                <label for="recipient-name">收件人姓名:</label>
+                <input type="text" id="recipient-name" name="recipient-name" required>
+
+                <label for="recipient-phone">收件人電話:</label>
+                <input type="tel" id="recipient-phone" name="recipient-phone" required>
+
+                <label for="delivery-address">送達地址:</label>
+                <textarea id="delivery-address" name="delivery-address" required></textarea>
+
+                <label for="invoice-needed">是否需要發票:</label>
+                <select id="invoice-needed" name="invoice-needed">
+                    <option value="no">否</option>
+                    <option value="yes">是</option>
+                </select>
+
+                <label for="senders-names">送花名單 (例：姻親 陳妍如):</label>
+                <textarea id="senders-names" name="senders-names"></textarea>
+
+                <button type="submit">提交訂單</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
+    </footer>
+
+    <script>
+        const cart = [];
+        const cartItems = document.getElementById('cart-items');
+        const totalQuantity = document.getElementById('total-quantity');
+        const totalPrice = document.getElementById('total-price');
+
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const basketType = this.dataset.basket;
+                const price = parseInt(this.parentElement.dataset.price);
+                cart.push({ type: basketType, price: price });
+
+                updateCart();
+            });
+        });
+
+        function updateCart() {
+            cartItems.innerHTML = '';
+            let quantity = 0;
+            let price = 0;
+            cart.forEach(item => {
+                quantity += 1;
+                price += item.price;
+                const li = document.createElement('li');
+                li.textContent = `${item.type} - $${item.price}`;
+                cartItems.appendChild(li);
+            });
+            totalQuantity.textContent = quantity;
+            totalPrice.textContent = price;
+
+            // 10% 增值稅
+            const invoiceSelect = document.getElementById('invoice-needed');
+            invoiceSelect.addEventListener('change', function() {
+                if (this.value === 'yes') {
+                    totalPrice.textContent = price * 1.1;
+                } else {
+                    totalPrice.textContent = price;
+                }
+            });
+        }
+    </script>
+</body>
+</html>
