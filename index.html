@@ -8,13 +8,14 @@
 </head>
 <body>
     <header>
+        <img src="logo.png" alt="祥安生命有限公司 Logo" class="logo">
         <h1>雲端訃聞</h1>
     </header>
 
     <main>
         <section id="deceased-info">
             <h2>往生者資料</h2>
-            <form id="deceased-form" action="obituary.html" method="GET">
+            <form id="deceased-form" action="obituary.html" method="GET" enctype="multipart/form-data">
                 <label for="name">姓名:</label>
                 <input type="text" id="name" name="name" required>
 
@@ -70,8 +71,5 @@
     <footer>
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
     </footer>
-
-    <script src="imgur.js"></script>
-    <script src="script.js"></script>
 </body>
 </html>
