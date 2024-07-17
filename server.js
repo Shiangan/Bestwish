@@ -11,17 +11,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 let orders = [];
+let totalQuantity = 0;
+let totalPrice = 0;
 
-// 處理訂單提交
+// 处理订单提交
 app.post('/api/orders', (req, res) => {
     const order = req.body;
     orders.push(order);
-    res.json({ message: '訂單已接收' });
+    totalQuantity += parseInt(order.quantity); // 假设订单中有数量字段 quantity
+    totalPrice += parseInt(order.price); // 假设订单中有价格字段 price
+    res.json({ message: '订单已接收', totalQuantity, totalPrice });
 });
 
-// 獲取所有訂單
+// 获取所有订单及统计信息
 app.get('/api/orders', (req, res) => {
-    res.json(orders);
+    res.json({ orders, totalQuantity, totalPrice });
 });
 
 app.listen(PORT, () => {
