@@ -2,69 +2,49 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f9;
-    color: #333;
+    background-color: #f9f9f9;
 }
 
 header {
-    background-color: #222;
+    background-color: #333;
     color: #fff;
     padding: 10px 0;
     text-align: center;
-}
-
-h1 {
-    margin: 0;
-    font-size: 24px;
 }
 
 main {
     padding: 20px;
 }
 
-section {
-    margin-bottom: 20px;
-}
-
-h2 {
-    font-size: 20px;
-    margin-bottom: 10px;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-input, textarea, select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-button {
-    padding: 10px 20px;
-    background-color: #222;
+footer {
+    background-color: #333;
     color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
-button:hover {
-    background-color: #555;
+#deceased-photo, .additional-photo {
+    width: 100%;
+    max-width: 600px;
+    margin: 10px 0;
 }
 
 #messages {
-    background-color: #fff;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border-top: 1px solid #ccc;
+    margin-top: 20px;
+    padding-top: 10px;
 }
 
-#messages-section {
+#messages p {
+    background-color: #eee;
+    padding: 10px;
+    margin: 5px 0;
+}
+
+#shopping-cart, #order-details {
     margin-top: 20px;
 }
 
@@ -72,7 +52,21 @@ button:hover {
     border: 1px solid #ccc;
     padding: 10px;
     margin-bottom: 10px;
-    border-radius: 4px;
+}
+
+.flower-option img {
+    width: 100%;
+    height: auto;
+}
+
+.flower-option button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    display: block;
+    margin: 10px auto;
 }
 
 #shopping-cart ul {
@@ -80,10 +74,8 @@ button:hover {
     padding: 0;
 }
 
-#shopping-cart li {
-    background-color: #fff;
+#shopping-cart ul li {
+    background-color: #eee;
     padding: 10px;
-    border: 1px solid #ccc;
-    margin-bottom: 5px;
-    border-radius: 4px;
+    margin: 5px 0;
 }
