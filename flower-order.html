@@ -43,4 +43,26 @@
                 <input type="text" id="sender-name" name="sender-name" required>
                 
                 <label for="recipient-name">收件人姓名:</label>
-                <input type="text" id="recipient-name" name="recipient
+                <input type="text" id="recipient-name" name="recipient-name" required>
+                
+                <label for="recipient-address">收件地址:</label>
+                <textarea id="recipient-address" name="recipient-address" required></textarea>
+                
+                <label for="invoice">是否需要發票:</label>
+                <input type="checkbox" id="invoice" name="invoice">
+                
+                <label for="senders-names">聯名送花名單:</label>
+                <textarea id="senders-names" name="senders-names"></textarea>
+                
+                <button type="submit">提交訂單</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
+    </footer>
+
+    <script src="flower-order.js"></script>
+</body>
+</html>
