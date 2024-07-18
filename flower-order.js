@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
       .then(response => response.json())
       .then(data => {
           console.log('訂單提交成功:', data);
-          window.location.href = '/thanks.html';  // 跳转到感谢页面
+          window.location.href = 'thanks.html';  // 跳转到感谢页面
       })
       .catch(error => {
           console.error('訂單提交失败:', error);
