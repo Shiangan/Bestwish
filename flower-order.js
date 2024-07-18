@@ -64,8 +64,8 @@ document.addEventListener('DOMContentLoaded', function() {
       let formData = new FormData(this);
       formData.append('cart', JSON.stringify(cart));
 
-      // 提交订单到服务器（假设API接口为/submit-order）
-      fetch('/submit-order', {
+      // 提交订单到服务器（假设API接口为/order）
+      fetch('/order', {
           method: 'POST',
           body: formData
       })
