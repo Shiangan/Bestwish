@@ -5,6 +5,7 @@ body {
     padding: 0;
     background-color: #f5f5f5;
     color: #333;
+    line-height: 1.6; /* Improve readability by increasing line height */
 }
 
 /* Header styles */
@@ -85,21 +86,19 @@ h2, h3 {
 
 /* Cart items list styles */
 #cart-items {
-         list-style-type: none;
+    list-style-type: none;
     padding: 0;
-    margin: 0;
 }
 
 #cart-items li {
     padding: 0.5rem 0;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
 }
 
 #cart-items button {
     padding: 0.2rem 0.5rem;
-    margin-left: 0.5rem;
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -113,39 +112,34 @@ h2, h3 {
 }
 
 /* Form styles */
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-label {
-    margin-top: 1rem;
+form label {
+    display: block;
+    margin: 1rem 0 0.5rem;
     font-weight: bold;
 }
 
-input, textarea {
+form input, form textarea {
+    width: 100%;
     padding: 0.5rem;
-    margin-top: 0.5rem;
     border: 1px solid #ddd;
     border-radius: 4px;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
 }
 
-textarea {
-    resize: vertical;
-}
-
-button[type="submit"] {
-    margin-top: 1.5rem;
-    padding: 0.75rem 1.5rem;
+form button[type="submit"] {
+    width: 100%;
+    padding: 0.75rem;
     background-color: #4CAF50;
     color: white;
     border: none;
     border-radius: 4px;
+    font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.2s;
 }
 
-button[type="submit"]:hover {
+form button[type="submit"]:hover {
     background-color: #45A049;
 }
 
@@ -160,30 +154,22 @@ footer {
     bottom: 0;
 }
 
-.logo {
-    width: 50px;
-    height: 50px;
-    margin-right: 1rem;
+/* Link styles */
+a img {
+    display: block;
+    margin: 0 auto;
 }
 
-/* Specific styles for steps */
-#step2, #step3, #step4 {
-    display: none;
+a {
+    text-decoration: none;
+    color: #4CAF50;
 }
 
-/* Styles for payment and contact sections */
-#step3 img {
-    max-width: 100px;
-    height: auto;
-    margin: 1rem 0;
+a:hover {
+    color: #45A049;
 }
 
-#step3 a img {
-    max-width: 150px;
-    height: auto;
-    margin: 1rem 0;
-}
-
-#step3 p, #step4 p {
-    margin: 1rem 0;
+/* Paragraph styles */
+p {
+    text-align: center;
 }
