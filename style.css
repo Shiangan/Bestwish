@@ -1,53 +1,114 @@
-/* Reset and global styles */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
 body {
     font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #f0f0f0;
-    color: #333;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #f0f0f0, #ffffff);
 }
 
 header {
-    background-color: #fff;
-    padding: 1rem;
+    background-color: #333;
+    color: #fff;
     text-align: center;
-}
-
-.logo {
-    max-width: 100%;
-    height: auto;
+    padding: 1em 0;
 }
 
 main {
-    padding: 2rem;
+    padding: 2em;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+#deceased-photo {
+    width: 100%;
+    max-width: 200px;
+    margin: 1em 0;
 }
 
 form {
-    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
 }
 
-input, textarea, select {
-    margin-bottom: 1rem;
-    padding: 0.5rem;
+form input, form textarea, form button {
+    margin-bottom: 1em;
+}
+
+form input, form textarea {
+    padding: 0.5em;
+    font-size: 1em;
     width: 100%;
-    font-size: 1rem;
-    border: 1px solid #ccc;
+    max-width: 400px;
 }
 
-button {
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    background-color: #007bff;
+form button {
+    padding: 0.5em;
+    font-size: 1em;
+    background-color: #333;
     color: #fff;
     border: none;
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #0056b3;
+form button:hover {
+    background-color: #555;
+}
+
+#messages div {
+    margin-bottom: 1em;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.5em;
+}
+
+footer {
+    text-align: center;
+    padding: 1em 0;
+    background-color: #333;
+    color: #fff;
+    position: relative;
+    width: 100%;
+    bottom: 0;
+}
+
+.flower-option {
+    border: 1px solid #ccc;
+    padding: 1em;
+    margin: 1em 0;
+}
+
+.flower-option button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 0.5em;
+    cursor: pointer;
+}
+
+.flower-option button:hover {
+    background-color: #555;
+}
+
+#shopping-cart {
+    border-top: 1px solid #ccc;
+    margin-top: 2em;
+    padding-top: 1em;
+}
+
+#order-details {
+    margin-top: 2em;
+}
+
+#order-details label {
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+#order-details input,
+#order-details select,
+#order-details textarea {
+    width: 100%;
+    max-width: 400px;
+    padding: 0.5em;
+    margin-bottom: 1em;
 }
