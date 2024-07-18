@@ -1,76 +1,72 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>祥安生命有限公司－雲端訃聞</title>
-    <link rel="stylesheet" href="index.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            background-color: #85d7e2;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #2b676e;
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-        }
-        header .logo {
-            width: 100px;
-            height: auto;
-        }
-        main {
-            max-width: 800px;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(85, 83, 83, 0.1);
-        }
-        form {
-            display: grid;
-            gap: 10px;
-        }
-        label {
-            font-weight: bold;
-        }
-        input[type="text"],
-        input[type="date"],
-        input[type="time"],
-        select,
-        textarea {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
-        textarea {
-            height: 100px;
-        }
-        button[type="submit"] {
-            background-color: #faa9a9;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        button[type="submit"]:hover {
-            background-color: #faa9a9;
-        }
-        footer {
-            text-align: center;
-            margin-top: 20px;
-            padding: 10px 0;
-            background-color: #2b676e;
-            color: #fff;
-        }
-    </style>
-</head>
+/* 添加自定義的CSS樣式，根據需要調整 */
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.logo {
+    width: 100px; /* 根據實際圖片尺寸調整 */
+    height: auto;
+}
+
+main {
+    padding: 20px;
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="time"],
+textarea,
+select {
+    width: calc(100% - 10px);
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+input[type="file"] {
+    margin-top: 5px;
+}
+
+button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+}
