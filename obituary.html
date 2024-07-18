@@ -3,51 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>祥安生命有限公司－雲端訃聞</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <title>祥安生命有限公司－追思雲端訃聞</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .fade-in {
+            animation: fadeIn 2s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .photo-slider {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+        }
+
+        .photo-slider img {
+            scroll-snap-align: center;
+            max-width: 100%;
+            max-height: 400px;
+            margin: 0 10px;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 400px;
+        }
+    </style>
 </head>
 <body>
     <header>
         <img src="標準字LOGO標準色.jpg" alt="祥安生命有限公司 Logo" class="logo">
-        <h1>雲端訃聞</h1>
+        <h1>追思雲端訃聞</h1>
     </header>
 
     <main>
-        <section id="main-photo" class="fade-in">
-            <!-- Main photo will be injected here -->
+        <section id="obituary">
+            <h2 id="deceased-name"></h2>
+            <div id="deceased-photo" class="fade-in"></div>
+            <p id="deceased-info"></p>
+            <div class="photo-slider" id="additional-photos-slider"></div>
+            <p id="tribute-message"></p>
         </section>
-
-        <section id="obituary-content">
-            <p class="handwritten">
-                我們的親人 <span id="deceased-name"></span> 於 <span id="death-date"></span> 已離世，享年 <span id="age"></span> 歲。敬邀您一同參與追思會，給予祝福。
-            </p>
-            <div id="photo-slider" class="photo-slider">
-                <!-- Additional photos will be injected here -->
-            </div>
-            <div id="tributes">
-                <h2>追思區</h2>
-                <textarea id="tribute-message" placeholder="留下您的追思話語"></textarea>
-                <button id="submit-tribute">提交</button>
-                <ul id="tribute-list">
-                    <!-- Tributes will be listed here -->
-                </ul>
-            </div>
-        </section>
-
-        <section id="flower-basket">
-            <p>如需訂購花籃，請點選 <a href="flower-order.html">這裡</a></p>
-            <p>承辦禮儀公司：祥安生命有限公司</p>
-            <p>聯絡電話及LINE: 0938-179-858</p>
-        </section>
-
-        <section id="funeral-details">
-            <h2>出殯地點及時間</h2>
-            <p>出殯地點: <span id="funeral-location"></span></p>
-            <p>出殯日期: <span id="funeral-date"></span></p>
-            <div id="map-container">
-                <!-- Map will be injected here -->
-            </div>
+        <section id="map">
+            <h2>出殯地點</h2>
+            <div class="map-container" id="map-container"></div>
         </section>
     </main>
 
@@ -55,6 +58,73 @@
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const obituaryData = JSON.parse(localStorage.getItem('obituaryData'));
+            if (obituaryData) {
+                document.getElementById('deceased-name').innerText = obituaryData.name;
+                document.getElementById('deceased-info').innerText = 
+                    `${obituaryData.name}在${obituaryData['death-date']}已離世，享年XX歲。`;
+
+                const photoPreview = document.getElementById('deceased-photo');
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.alt = '追思照片';
+                    img.style.maxWidth = '200px';
+                    photoPreview.appendChild(img);
+                };
+                reader.readAsDataURL(obituaryData.photo);
+
+                const additionalPhotosSlider = document.getElementById('additional-photos-slider');
+                const additionalPhotos = obituaryData['additional-photos'];
+                if (additionalPhotos) {
+                    additionalPhotos.forEach(file => {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.alt = '其他照片';
+                            additionalPhotosSlider.appendChild(img);
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                }
+
+                document.getElementById('tribute-message').innerText = `
+                    親友們可以在這裡留言，為${obituaryData.name}送上最後的祝福。
+                `;
+
+                const funeralLocation = obituaryData['funeral-location'];
+                let mapUrl = '';
+                if (funeralLocation === '第二殯儀館') {
+                    mapUrl = 'https://www.google.com/maps/place/第二殯儀館';
+                } else if (funeralLocation === '板橋殯儀館') {
+                    mapUrl = 'https://www.google.com/maps/place/板橋殯儀館';
+                } else {
+                    mapUrl = `https://www.google.com/maps/search/${obituaryData['other-funeral-location']}`;
+                }
+                const mapContainer = document.getElementById('map-container');
+                const iframe = document.createElement('iframe');
+                iframe.src = mapUrl;
+                iframe.width = '100%';
+                iframe.height = '100%';
+                mapContainer.appendChild(iframe);
+            }
+        });
+
+        // Automatically slide the photos every 3 seconds
+        let currentSlide = 0;
+        function showNextSlide() {
+            const slides = document.querySelectorAll('.photo-slider img');
+            if (slides.length > 0) {
+                slides[currentSlide].classList.remove('visible');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('visible');
+            }
+        }
+        setInterval(showNextSlide, 3000);
+    </script>
 </body>
 </html>
