@@ -29,6 +29,7 @@
             <div id="map-container"></div>
             <p id="funeral-info"></p>
         </section>
+        
     </main>
 
     <footer>
@@ -97,4 +98,13 @@
             return age;
         }
 
-        // Automatically slide the photos every 
+        // Automatically slide the photos every 5 seconds
+let currentIndex = 0;
+const photos = document.querySelectorAll('#photo-slider img');
+if (photos.length > 1) {
+    setInterval(() => {
+        photos[currentIndex].classList.remove('fade-in');
+        currentIndex = (currentIndex + 1) % photos.length;
+        photos[currentIndex].classList.add('fade-in');
+    }, 5000);
+}
