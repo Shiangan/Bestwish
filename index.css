@@ -1,116 +1,95 @@
-/* 全局样式 */
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #f2f2f2; /* 浅灰色背景 */
-    margin: 0;
-    padding: 0;
-}
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>祥安生命有限公司－雲端訃聞</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js" defer></script>
+</head>
+<body>
+    <header>
+        <img src="logo.jpg" alt="祥安生命有限公司 Logo" class="logo">
+        <h1>雲端訃聞</h1>
+    </header>
 
-/* 头部样式 */
-header {
-    background-color: #333; /* 深灰色背景 */
-    color: #fff; /* 白色文字 */
-    padding: 10px 0;
-    text-align: center;
-}
+    <main>
+        <section id="deceased-info">
+            <h2>往生者資料</h2>
+            <form id="deceased-form" action="obituary.html" method="GET" enctype="multipart/form-data">
+                <label for="name">姓名:</label>
+                <input type="text" id="name" name="name" required>
 
+                <label for="photo">追思照片:</label>
+                <input type="file" id="photo" name="photo" accept="image/*" required>
 
-/* 主内容区样式 */
-main {
-    padding: 20px;
-}
+                <label for="additional-photos">其他照片（可選）:</label>
+                <input type="file" id="additional-photos" name="additional-photos" accept="image/*" multiple>
 
-/* 每个小节样式 */
-section {
-    margin-bottom: 20px;
-    background-color: #fff; /* 白色背景 */
-    padding: 20px;
-    border: 1px solid #ccc; /* 灰色边框 */
-    border-radius: 5px;
-    transition: opacity 0.5s ease; /* 淡入效果 */
-}
+                <label for="birth-date">出生日期:</label>
+                <input type="date" id="birth-date" name="birth-date" required>
 
-section:hover {
-    opacity: 0.8; /* 悬停时降低透明度 */
-}
+                <label for="death-date">死亡日期:</label>
+                <input type="date" id="death-date" name="death-date" required>
 
-/* 纪念照片样式 */
-#obituary-photo {
-    text-align: center;
-}
+                <label for="funeral-space">牌位安置地點:</label>
+                <textarea id="funeral-space" name="funeral-space"></textarea>
 
-#obituary-photo img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 0 auto 10px;
-}
+                <label for="funeral-date">出殯日期:</label>
+                <input type="date" id="funeral-date" name="funeral-date" required>
 
-/* 按钮样式 */
-button {
-    background-color: #333; /* 深灰色按钮 */
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease; /* 按钮动画效果 */
-}
+                <label for="funeral-location">出殯地點:</label>
+                <select id="funeral-location" name="funeral-location" required>
+                    <option value="第二殯儀館">第二殯儀館 禮廳</option>
+                    <option value="板橋殯儀館">板橋殯儀館 禮廳</option>
+                    <option value="其他">其他</option>
+                </select>
+                
+                <input type="text" id="other-funeral-location" name="other-funeral-location" placeholder="若選擇其他，請填寫地點">
 
-button:hover {
-    background-color: #555; /* 悬停时深灰色 */
-    transform: scale(1.1); /* 放大动画 */
-}
+                <label for="family-service-time">家奠禮時間:</label>
+                <input type="time" id="family-service-time" name="family-service-time" required>
 
-/* 页脚样式 */
-footer {
-    margin-top: 20px; /* 确保与页面内容有一定间距 */
-}
+                <label for="public-service-time">公奠禮時間:</label>
+                <input type="time" id="public-service-time" name="public-service-time" required>
 
-.logo {
-    width: 50px;
-    height: auto;
-    margin-right: 15px;
-}
+                <label for="life-story">生平介紹:</label>
+                <textarea id="life-story" name="life-story"></textarea>
 
-header h1 {
-    margin: 0;
-    font-size: 1.5em;
-}
+                <label for="music-choice">選擇背景音樂:</label>
+<select id="music-choice" name="music-choice" required onchange="previewMusic()">
+    <option value="music1.mp3" data-src="music1.mp3">音樂1</option>
+    <option value="music2.mp3" data-src="music2.mp3">音樂2</option>
+    <option value="music3.mp3" data-src="music3.mp3">音樂3</option>
+    <option value="music4.mp3" data-src="music4.mp3">音樂4</option>
+    <option value="music5.mp3" data-src="music5.mp3">音樂5</option>
+</select>
 
+<audio id="music-preview" controls>
+    <source src="" type="mp3">
+    Your browser does not support the audio element.
+</audio>
 
+                    <!-- 音樂播放控制 -->
+    <div id="music-control" onclick="toggleMusic()">
+        <img id="music-icon" src="music_off.png" alt="音樂播放開關">
+    </div>
 
-section {
-    margin-bottom: 20px;
-    background-color: #fff;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    transition: opacity 0.5s ease;
-}
+                <button type="submit">提交</button>
+            </form>
+        </section>
+    </main>
 
-section:hover {
-    opacity: 0.8;
-}
+    <!-- 音樂播放控制 -->
+    <div id="music-control" onclick="toggleMusic()">
+        <img id="music-icon" src="music_off.png" alt="音樂播放開關">
+    </div>
 
-#obituary-photo {
-    text-align: center;
-}
+    <audio id="background-music" preload="auto">
+        <source src="music1.mp3" type="/mp3.">
+        Your browser does not support the audio element.
+    </audio>
 
-#obituary-photo img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 0 auto 10px;
-}
-
-footer {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 20px;
-    text-align: center;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-}
+    <script src="index.js"></script>
+</body>
+</html>
