@@ -92,10 +92,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData(flowerOrderForm);
         formData.append('cart', JSON.stringify(cart));
 
-        // 将购物车数据存储到 localStorage
-        localStorage.setItem('cart', JSON.stringify(cart));
-
-        // 跳转到订单确认页面
-        window.location.href = '/order-confirmation.html';
+        // 提交訂單到服務器（假設API接口為/submit-order）
+        fetch('/submit-order', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('訂單提交成功:', data);
+            window.location.href = '/thanks.html';  // 跳轉到感謝頁面
+        })
+        .catch(error => {
+            console.error('訂單提交失敗:', error);
+        });
     });
 });
