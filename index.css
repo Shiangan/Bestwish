@@ -1,3 +1,4 @@
+/* 全局樣式 */
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -6,6 +7,7 @@ body {
     padding: 0;
 }
 
+/* 頁首樣式 */
 header {
     background-color: #333;
     color: #fff;
@@ -25,6 +27,7 @@ header h1 {
     font-size: 1.5em;
 }
 
+/* 主要內容區域 */
 main {
     padding: 20px;
     background: rgba(255, 255, 255, 0.9);
@@ -34,6 +37,7 @@ main {
     max-width: 800px;
 }
 
+/* 每個部分的樣式 */
 section {
     margin-bottom: 20px;
     background-color: #fff;
@@ -47,6 +51,7 @@ section:hover {
     opacity: 0.8;
 }
 
+/* 訃聞相片區域 */
 #obituary-photo {
     text-align: center;
 }
@@ -58,6 +63,7 @@ section:hover {
     margin: 0 auto 10px;
 }
 
+/* 頁尾樣式 */
 footer {
     background-color: #333;
     color: #fff;
