@@ -3,90 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>花籃訂購</title>
+    <title>訂購花籃</title>
     <link rel="stylesheet" href="flower-order.css">
 </head>
 <body>
     <header>
         <img src="logo.png" alt="祥安生命有限公司 Logo" class="logo">
-        <h1>花籃訂購</h1>
+        <h1>訂購花籃</h1>
     </header>
 
     <main>
-        <!-- 步骤1：选择花篮 -->
-        <section id="step1">
-            <h2>选择花篮</h2>
-            <div class="flower-option" data-baskettype="百合花籃" data-price="2000">
-                <img src="flower1.jpg" alt="百合花籃">
-                <p>百合花籃 - $2000</p>
+        <section id="flower-basket-options">
+            <h2>選擇花籃樣式</h2>
+            <div class="flower-option" data-baskettpe="standard" data-price="1000">
+                <img src="standard-basket.jpg" alt="標準花籃">
+                <h3>標準花籃</h3>
+                <p>價格: $1000</p>
                 <button class="add-to-cart">加入購物車</button>
             </div>
-            <div class="flower-option" data-baskettype="玫瑰花籃" data-price="1800">
-                <img src="flower2.jpg" alt="玫瑰花籃">
-                <p>玫瑰花籃 - $1800</p>
+            <div class="flower-option" data-baskettpe="premium" data-price="2000">
+                <img src="premium-basket.jpg" alt="高級花籃">
+                <h3>高級花籃</h3>
+                <p>價格: $2000</p>
                 <button class="add-to-cart">加入購物車</button>
             </div>
-            <button id="view-cart">查看購物車</button>
+            <!-- 其他花籃樣式 -->
         </section>
 
-        <!-- 步骤2：查看購物車並填寫信息 -->
-        <section id="step2" style="display:none;">
-            <h2>查看購物車</h2>
+        <section id="shopping-cart">
+            <h3>購物車</h3>
             <ul id="cart-items"></ul>
             <p>總數量: <span id="total-quantity">0</span></p>
             <p>總金額: $<span id="total-price">0.00</span></p>
-
-            <h3>填寫訂單信息</h3>
+            <button id="view-cart">查看我的購物車</button>
+        </section>
+        
+        <section id="order-details">
+            <h3>填寫訂購資訊</h3>
             <form id="flower-order-form">
-                <label for="order-note">落款名單：</label>
-                <textarea id="order-note" name="order-note" required></textarea>
+                <label for="sender-name">訂購人姓名:</label>
+                <input type="text" id="sender-name" name="sender-name" required>
                 
-                <label for="deceased-name">亡者姓名：</label>
+                <label for="recipient-name">收件人姓名:</label>
+                <input type="text" id="recipient-name" name="recipient-name" required>
+                
+                <label for="deceased-name">亡者姓名:</label>
                 <input type="text" id="deceased-name" name="deceased-name" required>
 
-                <label for="need-invoice">是否需要發票：</label>
-                <input type="checkbox" id="need-invoice" name="need-invoice">
-                <textarea id="invoice-details" name="invoice-details" placeholder="請輸入發票抬頭和地址" disabled></textarea>
+                <label for="tribute-list">落款名單:</label>
+                <textarea id="tribute-list" name="tribute-list" required></textarea>
 
+                <label for="need-invoice">是否需要發票(總金額+5%）:</label>
+                <input type="checkbox" id="need-invoice" name="need-invoice">
+                
+                <label for="invoice-details">發票抬頭及地址:</label>
+                <textarea id="invoice-details" name="invoice-details" disabled></textarea>
+                
                 <button type="submit">提交訂單</button>
             </form>
         </section>
 
-        <!-- 步骤3：支付信息和感谢页面 -->
-        <section id="step3" style="display:none;">
-            <h2>訂單確認</h2>
-            <ul id="order-details"></ul>
-            <p>總數量: <span id="final-total-quantity">0</span></p>
-            <p>總金額: $<span id="final-total-price">0.00</span></p>
-
+        <section id="payment-method">
             <h3>選擇支付方式</h3>
-            <p>銀行帳戶匯款：（822）中國信託<br>匯款帳號：237540143423<br>戶名：陳妍如</p>
             <a href="line://nv/pay" target="_blank">
-                <img src="linepay_icon.png" alt="Line Pay 支付圖標" style="width: 100px; height: 100px;">
+                <img src="linepay_icon.png" alt="Line Pay 支付图标" style="width: 100px; height: 100px;">
             </a>
+            
+            <p>銀行帳戶匯款：（822）中國信託
+                匯款帳號：237540143423
+                戶名：陳妍如
+            </p>
 
-            <h3>請回傳匯款單或聯繫我們</h3>
             <p>請點擊下方圖片加入我們的Line並回傳照片：</p>
             <a href="https://line.me/R/ti/p/@yourlineaccount" target="_blank">
                 <img src="line.png" alt="加入Line" style="width: 150px; height: 150px;">
             </a>
             <p>Line帳號: @yourlineaccount</p>
+
             <p>24H禮儀服務電話：
                 <a href="phone：0978583699" target="_blank">
-                    <img src="phone.png" alt="打電話圖標" style="width: 100px; height: 100px;">
+                    <img src="phone.png" alt="打電話图标" style="width: 100px; height: 100px;">
                 </a>
             </p>
-
-            <form id="confirmation-form">
-                <button type="submit">提交訂單並確認支付</button>
-            </form>
-        </section>
-
-        <!-- 步骤4：感谢 -->
-        <section id="step4" style="display:none;">
-            <h2>感謝您的訂購</h2>
-            <p>您的訂單已成功提交。我們會儘快與您聯繫，確認您的訂單詳情。</p>
-            <p>如有任何疑問，請聯繫我們的客服熱線：0978583699</p>
         </section>
     </main>
 
