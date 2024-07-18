@@ -147,3 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+    // 初始化購物車顯示
+    displayCart();
+});
