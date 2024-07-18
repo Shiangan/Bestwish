@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
     const flowerOptions = document.querySelectorAll('.flower-option');
     const cartItems = document.getElementById('cart-items');
     const totalQuantity = document.getElementById('total-quantity');
@@ -9,13 +9,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let cart = [];
 
-    // 添加到购物车按钮点击事件
+    // 添加到購物車按鈕點擊事件
     flowerOptions.forEach(option => {
-        option.querySelector('.add-to-cart').addEventListener('click', function() {
-            let basketType = option.dataset.baskettpe;
-            let price = parseInt(option.dataset.price);
+        option.querySelector('.add-to-cart').addEventListener('click', () => {
+            const basketType = option.dataset.baskettpe;
+            const price = parseInt(option.dataset.price);
 
-            // 检查购物车中是否已经存在该类型的花篮
+            // 檢查購物車中是否已存在該類型的花籃
             let item = cart.find(i => i.type === basketType);
             if (item) {
                 item.quantity++;
@@ -23,32 +23,32 @@ document.addEventListener('DOMContentLoaded', function() {
                 cart.push({ type: basketType, price: price, quantity: 1 });
             }
 
-            // 更新购物车显示
+            // 更新購物車顯示
             displayCart();
         });
     });
 
-    // 更新购物车显示
+    // 更新購物車顯示
     function displayCart() {
         cartItems.innerHTML = '';
         let totalQty = 0;
         let totalPriceValue = 0;
 
         cart.forEach(item => {
-            let li = document.createElement('li');
+            const li = document.createElement('li');
             li.textContent = `${item.type} - $${item.price} x ${item.quantity}`;
 
-            // 添加 +1 和 -1 按钮
-            let increaseBtn = document.createElement('button');
+            // 添加 +1 和 -1 按鈕
+            const increaseBtn = document.createElement('button');
             increaseBtn.textContent = '+1';
-            increaseBtn.addEventListener('click', function() {
+            increaseBtn.addEventListener('click', () => {
                 item.quantity++;
                 displayCart();
             });
 
-            let decreaseBtn = document.createElement('button');
+            const decreaseBtn = document.createElement('button');
             decreaseBtn.textContent = '-1';
-            decreaseBtn.addEventListener('click', function() {
+            decreaseBtn.addEventListener('click', () => {
                 if (item.quantity > 1) {
                     item.quantity--;
                 } else {
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
             totalPriceValue += item.price * item.quantity;
         });
 
-        // 增加5%税金如果需要发票
+        // 如果需要發票，增加5%稅金
         if (needInvoiceCheckbox.checked) {
             totalPriceValue *= 1.05;
         }
@@ -74,25 +74,25 @@ document.addEventListener('DOMContentLoaded', function() {
         totalPrice.textContent = totalPriceValue.toFixed(2);
     }
 
-    // 是否需要发票复选框事件
-    needInvoiceCheckbox.addEventListener('change', function() {
-        if (this.checked) {
+    // 是否需要發票複選框事件
+    needInvoiceCheckbox.addEventListener('change', () => {
+        if (needInvoiceCheckbox.checked) {
             invoiceDetailsTextarea.removeAttribute('disabled');
         } else {
             invoiceDetailsTextarea.setAttribute('disabled', 'disabled');
         }
-        displayCart(); // 更新总价
+        displayCart(); // 更新總價
     });
 
-    // 提交订单表单事件
-    flowerOrderForm.addEventListener('submit', function(event) {
+    // 提交訂單表單事件
+    flowerOrderForm.addEventListener('submit', event => {
         event.preventDefault();
 
-        // 获取表单数据
-        let formData = new FormData(this);
+        // 獲取表單數據
+        const formData = new FormData(flowerOrderForm);
         formData.append('cart', JSON.stringify(cart));
 
-        // 提交订单到服务器（假设API接口为/submit-order）
+        // 提交訂單到服務器（假設API接口為/submit-order）
         fetch('/submit-order', {
             method: 'POST',
             body: formData
@@ -100,10 +100,10 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             console.log('訂單提交成功:', data);
-            window.location.href = '/thanks.html';  // 跳转到感谢页面
+            window.location.href = '/thanks.html';  // 跳轉到感謝頁面
         })
         .catch(error => {
-            console.error('訂單提交失败:', error);
+            console.error('訂單提交失敗:', error);
         });
     });
 });
