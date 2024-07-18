@@ -1,192 +1,189 @@
-身體{
-     字型家族：Arial，無襯線；
-     保證金：0；
-     填充物：0；
-     背景顏色：#f5f5f5；
-     顏色：#333；
- }
+/* Reset and base styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
+}
 
- /* 標題樣式 */
- 標題{
-     背景顏色：#4CAF50；
-     顏色：白色；
-     填充物：1rem；
-     文字對齊：中心；
- }
+/* Header styles */
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
 
- /*主要內容樣式*/
- 主要{
-     填充物：2rem；
-     最大寬度：1200px；
-     保證金：0自動；
- }
+/* Main content styles */
+main {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
- /*部分樣式*/
- 部分{
-     邊距底部：2rem；
-     背景：白色；
-     填充物：1rem；
-     邊界半徑：8px；
-     盒子陰影：0 2px 5px rgba（0，0，0，0.1）；
- }
+/* Section styles */
+section {
+    margin-bottom: 2rem;
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
- /*標題樣式*/
- h2, h3 {
-     顏色：#4CAF50；
- }
+/* Heading styles */
+h2, h3 {
+    color: #4CAF50;
+}
 
- /*花卉選擇樣式*/
- .flower-option {
-     邊框：1px solid #ddd;
-     邊界半徑：8px；
-     填充物：1rem；
-     邊距底部：1rem；
-     顯示：柔性；
-     對齊專案：中心；
-     過渡：轉換0.2s，box-shadow 0.2s；
- }
+/* Flower option styles */
+.flower-option {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
 
- .flower-option：懸停{
-     轉換：比例（1.02）；
-     盒子陰影：0 4px 10px rgba（0，0，0，0.15）；
- }
+.flower-option:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
 
- .flower-option img {
-     最大寬度：100px；
-     高度：自動；
-     邊界半徑：4px；
-     保證金-右：1rem；
- }
+.flower-option img {
+    max-width: 100px;
+    height: auto;
+    border-radius: 4px;
+    margin-right: 1rem;
+}
 
- /*新增到購物車按鈕樣式*/
- .add-to-cart {
-     左邊距：自動；
-     填充物：0.5rem 1rem；
-     背景顏色：#4CAF50；
-     顏色：白色；
-     邊界：無；
-     邊界半徑：4px；
-     光標：指標；
-     過渡：背景顏色0.2s；
- }
+/* Add to cart button styles */
+.add-to-cart {
+    margin-left: auto;
+    padding: 0.5rem 1rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
 
- .add-to-cart:hover {
-     背景顏色：#45A049；
- }
+.add-to-cart:hover {
+    background-color: #45A049;
+}
 
- /*購物車樣式*/
- #shopping-cart {
-     背景顏色：#f9f9f9;
-     填充物：1rem；
-     邊界半徑：8px；
-     盒子陰影：0 2px 5px rgba（0，0，0，0.1）；
- }
+/* Shopping cart styles */
+#shopping-cart {
+    background-color: #f9f9f9;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
- /*購物車專案列表樣式*/
- #cart-items {list-style-type: none;
-     填充物：0；
-     保證金：0；
- }
+/* Cart items list styles */
+#cart-items {
+         list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
 
- #cart-items li {
-     填充物：0.5rem 0；
-     顯示：柔性；
-     正當性內容：介於兩者之間的空間；
-     對齊專案：中心；
- }
+#cart-items li {
+    padding: 0.5rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
- #cart-items 按鈕 {
-     填充物：0.2rem 0.5rem；
-     左邊邊距：0.5rem；
-     背景顏色：#4CAF50；
-     顏色：白色；
-     邊界：無；
-     邊界半徑：4px；
-     光標：指標；
-     過渡：背景顏色0.2s；
- }
+#cart-items button {
+    padding: 0.2rem 0.5rem;
+    margin-left: 0.5rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
 
- #cart-items按鈕：懸停{
-     背景顏色：#45A049；
- }
+#cart-items button:hover {
+    background-color: #45A049;
+}
 
- /* 形式樣式 */
- 形式 {
-     顯示：柔性；
-     柔性方向：列；
- }
+/* Form styles */
+form {
+    display: flex;
+    flex-direction: column;
+}
 
- 標籤{
-     邊距頂部：1rem；
-     字型重量：粗體；
- }
+label {
+    margin-top: 1rem;
+    font-weight: bold;
+}
 
- 輸入，文字區域{
-     填充物：0.5rem；
-     邊距頂部：0.5rem；
-     邊框：1px solid #ddd;
-     邊界半徑：4px；
- }
+input, textarea {
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
 
- 文字區域{
-     調整大小：垂直；
- }
+textarea {
+    resize: vertical;
+}
 
- 按鈕[型別="提交"] {
-     邊距頂部：1.5rem；
-     填充物：0.75rem 1.5rem；
-     背景顏色：#4CAF50；
-     顏色：白色；
-     邊界：無；
-     邊界半徑：4px；
-     光標：指標；
-     過渡：背景顏色0.2s；
- }
+button[type="submit"] {
+    margin-top: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
 
- 按鈕[type="提交"]:懸停{
-     背景顏色：#45A049；
- }
+button[type="submit"]:hover {
+    background-color: #45A049;
+}
 
- /*頁尾樣式*/
- 頁尾{
-     背景顏色：#333；
-     顏色：白色；
-     文字對齊：中心；
-     填充物：1rem；
-     位置：固定；
-     寬度：100%；
-     底部：0；
- }
+/* Footer styles */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
 
- .logo {
-     寬度：50px；
-     高度：50px；
-     保證金-右：1rem；
- }
+.logo {
+    width: 50px;
+    height: 50px;
+    margin-right: 1rem;
+}
 
- /* 步驟的具體樣式 */
- #step2, #step3, #step4 {
-     顯示：無；
- }
+/* Specific styles for steps */
+#step2, #step3, #step4 {
+    display: none;
+}
 
- /*付款和聯絡部分的樣式*/
- #step3 img {
-     最大寬度：100px；
-     高度：自動；
-     保證金：1rem 0；
- }
+/* Styles for payment and contact sections */
+#step3 img {
+    max-width: 100px;
+    height: auto;
+    margin: 1rem 0;
+}
 
- #step3 a img {
-     最大寬度：150px；
-     高度：自動；
-     保證金：1rem 0；
- }
+#step3 a img {
+    max-width: 150px;
+    height: auto;
+    margin: 1rem 0;
+}
 
- #step3 p, #step4 p {
-     保證金：1rem 0；
- }
- });
-
-     // 初始化購物車顯示
-     displayCart（）；
- });
+#step3 p, #step4 p {
+    margin: 1rem 0;
+}
