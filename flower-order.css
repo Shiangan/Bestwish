@@ -1,193 +1,112 @@
-/* Reset and base styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f5f5f5;
-    color: #333;
+    box-sizing: border-box;
+    background: #f3f4f6;
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: 60px; /* Footer height */
 }
 
-/* Header styles */
 header {
-    background-color: #4CAF50;
-    color: white;
-    padding: 1rem;
+    background: #4a5568;
+    color: #fff;
+    padding: 10px 0;
     text-align: center;
 }
 
-/* Main content styles */
-main {
-    padding: 2rem;
-    max-width: 1200px;
+header .logo {
+    width: 100px;
+    display: block;
     margin: 0 auto;
 }
 
-/* Section styles */
-section {
-    margin-bottom: 2rem;
-    background: white;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+h1 {
+    font-size: 2em;
 }
 
-/* Heading styles */
-h2, h3 {
-    color: #4CAF50;
+main {
+    padding: 20px;
 }
 
-/* Flower option styles */
-.flower-option {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    transition: transform 0.2s, box-shadow 0.2s;
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 2s forwards;
 }
 
-.flower-option:hover {
-    transform: scale(1.02);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
 }
 
-.flower-option img {
-    max-width: 100px;
-    height: auto;
-    border-radius: 4px;
-    margin-right: 1rem;
+#main-photo img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Add to cart button styles */
-.add-to-cart {
-    margin-left: auto;
-    padding: 0.5rem 1rem;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s;
+#obituary-content {
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
 
-.add-to-cart:hover {
-    background-color: #45A049;
+.handwritten {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.2em;
+    text-align: center;
 }
 
-/* Shopping cart styles */
-#shopping-cart {
-    background-color: #f9f9f9;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+.photo-slider img {
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Cart items list styles */
-#cart-items {list-style-type: none;
-    padding: 0;
-    margin: 0;
+#flower-basket {
+    text-align: center;
+    margin: 20px 0;
 }
 
-#cart-items li {
-    padding: 0.5rem 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#cart-items button {
-    padding: 0.2rem 0.5rem;
-    margin-left: 0.5rem;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-#cart-items button:hover {
-    background-color: #45A049;
-}
-
-/* Form styles */
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-label {
-    margin-top: 1rem;
+#flower-basket a {
+    color: #3182ce;
+    text-decoration: none;
     font-weight: bold;
 }
 
-input, textarea {
-    padding: 0.5rem;
-    margin-top: 0.5rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+#flower-basket a:hover {
+    text-decoration: underline;
 }
 
-textarea {
-    resize: vertical;
-}
-
-button[type="submit"] {
-    margin-top: 1.5rem;
-    padding: 0.75rem 1.5rem;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-button[type="submit"]:hover {
-    background-color: #45A049;
-}
-
-/* Footer styles */
-footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 1rem;
-    position: fixed;
+#map-container {
     width: 100%;
+    height: 300px;
+    margin-bottom: 20px;
+}
+
+#funeral-details {
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+footer {
+    background: #4a5568;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: absolute;
     bottom: 0;
+    width: 100%;
 }
 
-.logo {
-    width: 50px;
-    height: 50px;
-    margin-right: 1rem;
+footer p {
+    margin: 0;
 }
-
-/* Specific styles for steps */
-#step2, #step3, #step4 {
-    display: none;
-}
-
-/* Styles for payment and contact sections */
-#step3 img {
-    max-width: 100px;
-    height: auto;
-    margin: 1rem 0;
-}
-
-#step3 a img {
-    max-width: 150px;
-    height: auto;
-    margin: 1rem 0;
-}
-
-#step3 p, #step4 p {
-    margin: 1rem 0;
-}
-    });
-
-    // 初始化購物車顯示
-    displayCart();
-});
