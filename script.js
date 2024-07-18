@@ -1,76 +1,109 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const name = urlParams.get('name');
-    const photo = urlParams.get('photo');
-    const additionalPhotos = urlParams.getAll('additional-photos');
-    const birthDate = new Date(urlParams.get('birth-date'));
-    const deathDate = new Date(urlParams.get('death-date'));
-    const funeralSpace = urlParams.get('funeral-space');
-    const funeralDate = new Date(urlParams.get('funeral-date'));
-    const funeralLocation = urlParams.get('funeral-location');
-    const otherFuneralLocation = urlParams.get('other-funeral-location');
-    const familyServiceTime = urlParams.get('family-service-time');
-    const publicServiceTime = urlParams.get('public-service-time');
-    const lifeStory = urlParams.get('life-story');
-    const musicChoice = urlParams.get('music-choice');
+    const flowerOptions = document.querySelectorAll('.flower-option');
+    const cartItems = document.getElementById('cart-items');
+    const totalQuantity = document.getElementById('total-quantity');
+    const totalPrice = document.getElementById('total-price');
+    const flowerOrderForm = document.getElementById('flower-order-form');
+    const needInvoiceCheckbox = document.getElementById('need-invoice');
+    const invoiceDetailsTextarea = document.getElementById('invoice-details');
 
-    // 设置往生者信息
-    document.getElementById('deceased-name').textContent = name;
-    document.getElementById('birth-date-text').textContent = birthDate.toLocaleDateString();
-    document.getElementById('death-date-text').textContent = deathDate.toLocaleDateString();
-    document.getElementById('funeral-space-text').textContent = funeralSpace;
-    document.getElementById('funeral-date-text').textContent = funeralDate.toLocaleDateString();
-    document.getElementById('funeral-location-text').textContent = funeralLocation === '其他' ? otherFuneralLocation : funeralLocation;
-    document.getElementById('family-service-time-text').textContent = familyServiceTime;
-    document.getElementById('public-service-time-text').textContent = publicServiceTime;
-    document.getElementById('life-story-text').textContent = lifeStory;
+    let cart = [];
 
-    // 计算享年
-    const age = deathDate.getFullYear() - birthDate.getFullYear();
-    document.getElementById('age').textContent = age;
+    // 添加到購物車按鈕點擊事件
+    flowerOptions.forEach(option => {
+        option.querySelector('.add-to-cart').addEventListener('click', () => {
+            const basketType = option.dataset.baskettpe;
+            const price = parseInt(option.dataset.price);
 
-    // 设置追思照片
-    const deceasedPhoto = document.getElementById('deceased-photo');
-    if (photo) {
-        deceasedPhoto.src = URL.createObjectURL(photo);
-        deceasedPhoto.style.display = 'block';
-    }
+            // 檢查購物車中是否已存在該類型的花籃
+            let item = cart.find(i => i.type === basketType);
+            if (item) {
+                item.quantity++;
+            } else {
+                cart.push({ type: basketType, price: price, quantity: 1 });
+            }
 
-    // 设置其他照片
-    const additionalPhotosContainer = document.getElementById('additional-photos-container');
-    additionalPhotos.forEach(photo => {
-        const img = document.createElement('img');
-        img.src = URL.createObjectURL(photo);
-        img.alt = '追思照片';
-        additionalPhotosContainer.appendChild(img);
+            // 更新購物車顯示
+            displayCart();
+        });
     });
 
-    // 设置背景音乐
-    const backgroundMusic = document.getElementById('background-music');
-    backgroundMusic.src = musicChoice;
-    backgroundMusic.play();
+    // 更新購物車顯示
+    function displayCart() {
+        cartItems.innerHTML = '';
+        let totalQty = 0;
+        let totalPriceValue = 0;
 
-    // 处理留言提交
-    const messageForm = document.getElementById('message-form');
-    const messagesContainer = document.getElementById('messages');
+        cart.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = `${item.type} - $${item.price} x ${item.quantity}`;
 
-    messageForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const messageInput = document.getElementById('message-input');
-        const messagePhoto = document.getElementById('message-photo');
+            // 添加 +1 和 -1 按鈕
+            const increaseBtn = document.createElement('button');
+            increaseBtn.textContent = '+1';
+            increaseBtn.addEventListener('click', () => {
+                item.quantity++;
+                displayCart();
+            });
 
-        const messageDiv = document.createElement('div');
-        messageDiv.textContent = messageInput.value;
+            const decreaseBtn = document.createElement('button');
+            decreaseBtn.textContent = '-1';
+            decreaseBtn.addEventListener('click', () => {
+                if (item.quantity > 1) {
+                    item.quantity--;
+                } else {
+                    cart = cart.filter(i => i.type !== item.type);
+                }
+                displayCart();
+            });
 
-        if (messagePhoto.files.length > 0) {
-            const img = document.createElement('img');
-            img.src = URL.createObjectURL(messagePhoto.files[0]);
-            img.alt = '留言照片';
-            messageDiv.appendChild(img);
+            li.appendChild(increaseBtn);
+            li.appendChild(decreaseBtn);
+            cartItems.appendChild(li);
+
+            totalQty += item.quantity;
+            totalPriceValue += item.price * item.quantity;
+        });
+
+        // 如果需要發票，增加5%稅金
+        if (needInvoiceCheckbox.checked) {
+            totalPriceValue *= 1.05;
         }
 
-        messagesContainer.appendChild(messageDiv);
-        messageInput.value = '';
-        messagePhoto.value = '';
+        totalQuantity.textContent = totalQty;
+        totalPrice.textContent = totalPriceValue.toFixed(2);
+    }
+
+    // 是否需要發票複選框事件
+    needInvoiceCheckbox.addEventListener('change', () => {
+        if (needInvoiceCheckbox.checked) {
+            invoiceDetailsTextarea.removeAttribute('disabled');
+        } else {
+            invoiceDetailsTextarea.setAttribute('disabled', 'disabled');
+        }
+        displayCart(); // 更新總價
+    });
+
+    // 提交訂單表單事件
+    flowerOrderForm.addEventListener('submit', event => {
+        event.preventDefault();
+
+        // 獲取表單數據
+        const formData = new FormData(flowerOrderForm);
+        formData.append('cart', JSON.stringify(cart));
+
+        // 提交訂單到服務器（假設API接口為/submit-order）
+        fetch('/submit-order', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('訂單提交成功:', data);
+            window.location.href = '/thanks.html';  // 跳轉到感謝頁面
+        })
+        .catch(error => {
+            console.error('訂單提交失敗:', error);
+        });
     });
 });
