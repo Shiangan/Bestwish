@@ -4,8 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalQuantity = document.getElementById('total-quantity');
     const totalPrice = document.getElementById('total-price');
     const flowerOrderForm = document.getElementById('flower-order-form');
+    const viewCartBtn = document.getElementById('view-cart');
     const needInvoiceCheckbox = document.getElementById('need-invoice');
     const invoiceDetailsTextarea = document.getElementById('invoice-details');
+    const paymentMethodSection = document.getElementById('payment-method');
 
     let cart = [];
 
@@ -26,6 +28,13 @@ document.addEventListener('DOMContentLoaded', () => {
             // 更新購物車顯示
             displayCart();
         });
+    });
+
+    // 查看我的購物車按鈕點擊事件
+    viewCartBtn.addEventListener('click', () => {
+        displayCart();
+        // 滾動到購物車部分
+        document.getElementById('shopping-cart').scrollIntoView({ behavior: 'smooth' });
     });
 
     // 更新購物車顯示
@@ -72,6 +81,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         totalQuantity.textContent = totalQty;
         totalPrice.textContent = totalPriceValue.toFixed(2);
+
+        // 显示支付方式部分
+        paymentMethodSection.style.display = 'block';
     }
 
     // 是否需要發票複選框事件
@@ -100,10 +112,28 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => response.json())
         .then(data => {
             console.log('訂單提交成功:', data);
-            window.location.href = '/thanks.html';  // 跳轉到感謝頁面
+            // 清空購物車
+            cart = [];
+            displayCart(); // 更新購物車顯示
+            // 顯示支付成功信息，例如匯款單號等
+            alert(`訂單提交成功！匯款單號：${data.remittanceNumber}`);
+            // 跳轉到感謝頁面
+            window.location.href = '/thanks.html';
         })
         .catch(error => {
             console.error('訂單提交失敗:', error);
+            // 提示訂單提交失敗
+            alert('訂單提交失敗，請重試！');
         });
+    });
+
+    // 當需要發票時，啟用發票詳細信息輸入框
+    needInvoiceCheckbox.addEventListener('change', () => {
+        if (needInvoiceCheckbox.checked) {
+            invoiceDetailsTextarea.removeAttribute('disabled');
+        } else {
+            invoiceDetailsTextarea.setAttribute('disabled', 'disabled');
+        }
+        displayCart(); // 更新總價
     });
 });
