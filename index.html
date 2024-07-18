@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>祥安生命有限公司－雲端訃聞</title>
     <link rel="stylesheet" href="index.css">
-   
+    <script src="index.js" defer></script>
+</head>
 <body>
     <header>
         <img src="logo.jpg" alt="祥安生命有限公司 Logo" class="logo">
@@ -42,7 +43,7 @@
                     <option value="第二殯儀館">第二殯儀館 禮廳</option>
                     <option value="板橋殯儀館">板橋殯儀館 禮廳</option>
                     <option value="其他">其他</option>
-          </select>
+                </select>
                 
                 <input type="text" id="other-funeral-location" name="other-funeral-location" placeholder="若選擇其他，請填寫地點">
 
@@ -69,10 +70,14 @@
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
-    </footer>
+    <!-- 音樂播放控制 -->
+    <div id="music-control" onclick="toggleMusic()">
+        <img id="music-icon" src="music_off.png" alt="音樂播放開關">
+    </div>
 
-    <script src="index.js"></script>
+    <audio id="background-music" preload="auto">
+        <source src="music1.mp3" type="/mp3.">
+        Your browser does not support the audio element.
+    </audio>
 </body>
 </html>
