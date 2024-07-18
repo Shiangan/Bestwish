@@ -24,14 +24,14 @@ header, footer {
 main {
     max-width: 800px;
     margin: 20px auto;
-    padding: 10px;
+    padding: 20px; /* 調整 padding 使內容更有空間感 */
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 section {
     margin-bottom: 20px;
-    padding: 10px;
+    padding: 20px; /* 調整 padding 使內容更有空間感 */
     background-color: #f5f5f5;
 }
 
@@ -39,20 +39,30 @@ section {
 form {
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
+    margin-bottom: 20px; /* 調整 margin-bottom 使間距更合適 */
 }
 
-input, textarea, button {
+input, textarea, select {
     margin-bottom: 10px;
     padding: 8px;
     font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical; /* 垂直方向可調整大小 */
 }
 
 button {
     background-color: #333;
     color: #fff;
+    padding: 10px 20px; /* 增加上下 padding 使按鈕看起來更好 */
     border: none;
     cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
 }
 
 button:hover {
