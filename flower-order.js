@@ -100,4 +100,50 @@ document.addEventListener('DOMContentLoaded', () => {
         displayCart(); // 更新總價
     });
 
-    // 提交
+        // 提交訂單表單事件
+    flowerOrderForm.addEventListener('submit', event => {
+        event.preventDefault();
+
+        // 隱藏填寫信息表單
+        step2.style.display = 'none';
+        step3.style.display = 'block';
+
+        // 獲取並顯示訂單詳情
+        orderDetails.innerHTML = '';
+        cart.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = `${item.type} - $${item.price} x ${item.quantity}`;
+            orderDetails.appendChild(li);
+        });
+
+        // 顯示總數量和總金額
+        finalTotalQuantity.textContent = totalQuantity.textContent;
+        finalTotalPrice.textContent = totalPrice.textContent;
+    });
+
+    // 提交支付確認表單事件
+    confirmationForm.addEventListener('submit', event => {
+        event.preventDefault();
+
+        // 獲取表單數據
+        const formData = new FormData(flowerOrderForm);
+        formData.append('cart', JSON.stringify(cart));
+
+        // 提交訂單到服務器（假設API接口為/submit-order）
+        fetch('/submit-order', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('訂單提交成功:', data);
+
+            // 顯示感謝頁面
+            step3.style.display = 'none';
+            step4.style.display = 'block';
+        })
+        .catch(error => {
+            console.error('訂單提交失敗:', error);
+        });
+    });
+});
