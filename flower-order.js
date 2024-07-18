@@ -37,6 +37,33 @@ document.addEventListener('DOMContentLoaded', function() {
           totalPriceValue += item.price;
       });
 
+    // 添加 +1 和 -1 按钮
+          let increaseBtn = document.createElement('button');
+          increaseBtn.textContent = '+1';
+          increaseBtn.addEventListener('click', function() {
+              item.quantity++;
+              displayCart();
+          });
+
+          let decreaseBtn = document.createElement('button');
+          decreaseBtn.textContent = '-1';
+          decreaseBtn.addEventListener('click', function() {
+              if (item.quantity > 1) {
+                  item.quantity--;
+              } else {
+                  cart = cart.filter(i => i.type !== item.type);
+              }
+              displayCart();
+          });
+
+          li.appendChild(increaseBtn);
+          li.appendChild(decreaseBtn);
+          cartItems.appendChild(li);
+
+          totalQty += item.quantity;
+          totalPriceValue += item.price * item.quantity;
+      });
+
       // 增加5%税金如果需要发票
       if (needInvoiceCheckbox.checked) {
           totalPriceValue *= 1.05;
