@@ -15,17 +15,15 @@
     <main>
         <section id="deceased-info">
             <h2>往生者資料</h2>
-            <form id="deceased-form">
+            <form id="deceased-form" action="obituary.html" method="GET" enctype="multipart/form-data">
                 <label for="name">姓名:</label>
                 <input type="text" id="name" name="name" required>
 
                 <label for="photo">追思照片:</label>
                 <input type="file" id="photo" name="photo" accept="image/*" required>
-                <div id="photo-preview"></div>
 
                 <label for="additional-photos">其他照片（可選）:</label>
                 <input type="file" id="additional-photos" name="additional-photos" accept="image/*" multiple>
-                <div id="additional-photos-preview"></div>
 
                 <label for="birth-date">出生日期:</label>
                 <input type="date" id="birth-date" name="birth-date" required>
@@ -75,47 +73,16 @@
     </footer>
 
     <script>
-        document.getElementById('photo').addEventListener('change', function(event) {
-            const photoPreview = document.getElementById('photo-preview');
-            photoPreview.innerHTML = '';
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.alt = '追思照片預覽';
-                    img.style.maxWidth = '200px';
-                    photoPreview.appendChild(img);
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        document.getElementById('additional-photos').addEventListener('change', function(event) {
-            const additionalPhotosPreview = document.getElementById('additional-photos-preview');
-            additionalPhotosPreview.innerHTML = '';
-            const files = event.target.files;
-            for (let i = 0; i < files.length; i++) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.alt = '其他照片預覽';
-                    img.style.maxWidth = '100px';
-                    additionalPhotosPreview.appendChild(img);
-                };
-                reader.readAsDataURL(files[i]);
-            }
-        });
         document.getElementById('deceased-form').addEventListener('submit', function(event) {
             event.preventDefault();
-            const formData = new FormData(event.target);
-            const jsonData = {};
+
+            const formData = new FormData(this);
+            const data = {};
             formData.forEach((value, key) => {
-                jsonData[key] = value;
+                data[key] = value;
             });
-            localStorage.setItem('obituaryData', JSON.stringify(jsonData));
+
+            localStorage.setItem('obituaryData', JSON.stringify(data));
             window.location.href = 'obituary.html';
         });
     </script>
