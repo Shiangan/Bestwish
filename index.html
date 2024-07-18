@@ -108,6 +108,16 @@
                 reader.readAsDataURL(files[i]);
             }
         });
+        document.getElementById('deceased-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const jsonData = {};
+            formData.forEach((value, key) => {
+                jsonData[key] = value;
+            });
+            localStorage.setItem('obituaryData', JSON.stringify(jsonData));
+            window.location.href = 'obituary.html';
+        });
     </script>
 </body>
 </html>
