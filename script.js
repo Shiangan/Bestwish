@@ -1,109 +1,55 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const flowerOptions = document.querySelectorAll('.flower-option');
-    const cartItems = document.getElementById('cart-items');
-    const totalQuantity = document.getElementById('total-quantity');
-    const totalPrice = document.getElementById('total-price');
-    const flowerOrderForm = document.getElementById('flower-order-form');
-    const needInvoiceCheckbox = document.getElementById('need-invoice');
-    const invoiceDetailsTextarea = document.getElementById('invoice-details');
+document.addEventListener('DOMContentLoaded', function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const name = urlParams.get('name');
+    const photo = urlParams.get('photo');
+    const birthDate = urlParams.get('birth-date');
+    const deathDate = urlParams.get('death-date');
+    const funeralSpace = urlParams.get('funeral-space');
+    const funeralDate = urlParams.get('funeral-date');
+    const funeralLocation = urlParams.get('funeral-location');
+    const familyServiceTime = urlParams.get('family-service-time');
+    const publicServiceTime = urlParams.get('public-service-time');
+    const lifeStory = urlParams.get('life-story');
 
-    let cart = [];
+    const deceasedNameElem = document.getElementById('deceased-name');
+    const deceasedPhotoElem = document.getElementById('deceased-photo');
+    const deceasedDetailsElem = document.getElementById('deceased-details');
+    const backgroundMusic = document.getElementById('background-music');
 
-    // 添加到購物車按鈕點擊事件
-    flowerOptions.forEach(option => {
-        option.querySelector('.add-to-cart').addEventListener('click', () => {
-            const basketType = option.dataset.baskettpe;
-            const price = parseInt(option.dataset.price);
-
-            // 檢查購物車中是否已存在該類型的花籃
-            let item = cart.find(i => i.type === basketType);
-            if (item) {
-                item.quantity++;
-            } else {
-                cart.push({ type: basketType, price: price, quantity: 1 });
-            }
-
-            // 更新購物車顯示
-            displayCart();
-        });
-    });
-
-    // 更新購物車顯示
-    function displayCart() {
-        cartItems.innerHTML = '';
-        let totalQty = 0;
-        let totalPriceValue = 0;
-
-        cart.forEach(item => {
-            const li = document.createElement('li');
-            li.textContent = `${item.type} - $${item.price} x ${item.quantity}`;
-
-            // 添加 +1 和 -1 按鈕
-            const increaseBtn = document.createElement('button');
-            increaseBtn.textContent = '+1';
-            increaseBtn.addEventListener('click', () => {
-                item.quantity++;
-                displayCart();
-            });
-
-            const decreaseBtn = document.createElement('button');
-            decreaseBtn.textContent = '-1';
-            decreaseBtn.addEventListener('click', () => {
-                if (item.quantity > 1) {
-                    item.quantity--;
-                } else {
-                    cart = cart.filter(i => i.type !== item.type);
-                }
-                displayCart();
-            });
-
-            li.appendChild(increaseBtn);
-            li.appendChild(decreaseBtn);
-            cartItems.appendChild(li);
-
-            totalQty += item.quantity;
-            totalPriceValue += item.price * item.quantity;
-        });
-
-        // 如果需要發票，增加5%稅金
-        if (needInvoiceCheckbox.checked) {
-            totalPriceValue *= 1.05;
-        }
-
-        totalQuantity.textContent = totalQty;
-        totalPrice.textContent = totalPriceValue.toFixed(2);
+    deceasedNameElem.textContent = name;
+    if (photo) {
+        deceasedPhotoElem.src = photo;
+        deceasedPhotoElem.style.display = 'block';
     }
+    
+    const birthDateObj = new Date(birthDate);
+    const deathDateObj = new Date(deathDate);
+    const age = deathDateObj.getFullYear() - birthDateObj.getFullYear();
+    
+    const detailsText = `${name}，生於 ${birthDateObj.getFullYear()} 年 ${birthDateObj.getMonth() + 1} 月 ${birthDateObj.getDate()} 日，享年 ${age} 歲，牌位安置地點為 ${funeralSpace}，出殯日期定於 ${funeralDate}，出殯地點為 ${funeralLocation}，家奠禮時間為 ${familyServiceTime}，公奠禮時間為 ${publicServiceTime}。${lifeStory}`;
+    deceasedDetailsElem.textContent = detailsText;
 
-    // 是否需要發票複選框事件
-    needInvoiceCheckbox.addEventListener('change', () => {
-        if (needInvoiceCheckbox.checked) {
-            invoiceDetailsTextarea.removeAttribute('disabled');
-        } else {
-            invoiceDetailsTextarea.setAttribute('disabled', 'disabled');
+    backgroundMusic.src = urlParams.get('music-choice');
+    backgroundMusic.play();
+
+    // Handle message form submission
+    const messageForm = document.getElementById('message-form');
+    const messagesDiv = document.getElementById('messages');
+    messageForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const nameInput = document.getElementById('name-input').value;
+        const messageInput = document.getElementById('message-input').value;
+        if (nameInput && messageInput) {
+            const messageDiv = document.createElement('div');
+            messageDiv.innerHTML = `<strong>${nameInput}</strong>: ${messageInput}`;
+            messagesDiv.appendChild(messageDiv);
+            messageForm.reset();
         }
-        displayCart(); // 更新總價
     });
 
-    // 提交訂單表單事件
-    flowerOrderForm.addEventListener('submit', event => {
-        event.preventDefault();
-
-        // 獲取表單數據
-        const formData = new FormData(flowerOrderForm);
-        formData.append('cart', JSON.stringify(cart));
-
-        // 提交訂單到服務器（假設API接口為/submit-order）
-        fetch('/submit-order', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('訂單提交成功:', data);
-            window.location.href = '/thanks.html';  // 跳轉到感謝頁面
-        })
-        .catch(error => {
-            console.error('訂單提交失敗:', error);
-        });
+    // Handle flower order button
+    const flowerOrderButton = document.getElementById('flower-order-button');
+    flowerOrderButton.addEventListener('click', function () {
+        window.location.href = 'flower-order.html';
     });
 });
