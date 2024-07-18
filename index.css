@@ -1,63 +1,50 @@
-/* 全局樣式 */
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    background: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%); /* 漸層背景 */
+    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh; /* 最小高度以填滿整個螢幕 */
+    color: #333;
 }
 
-/* 頁首樣式 */
 header {
-    background-color: #333;
-    color: #fff;
+    display: flex;
+    align-items: flex-start;
+    background-color: #f9f9f9;
     padding: 10px 20px;
-    width: 100%;
-    box-sizing: border-box; /* 確保padding不會增加元素的寬度 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .logo {
-    width: 50px;
+    width: 80px;
     height: auto;
-    margin-right: 15px;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 1.5em;
-}
-
-/* 主要內容區域 */
 main {
     padding: 20px;
-    background: rgba(255, 255, 255, 0.9);
-    margin: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
-    width: 100%;
-    box-sizing: border-box; /* 確保padding不會增加元素的寬度 */
+    animation: fadeIn 1s ease-in;
 }
 
-/* 每個部分的樣式 */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
 section {
     margin-bottom: 20px;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.8);
     padding: 20px;
     border: 1px solid #ccc;
-    border-radius: 10px;
-    transition: opacity 0.5s ease;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.5s ease, transform 0.3s ease;
 }
 
 section:hover {
-    opacity: 0.8;
+    opacity: 0.9;
+    transform: translateY(-5px);
 }
 
-/* 訃聞相片區域 */
 #obituary-photo {
     text-align: center;
 }
@@ -69,12 +56,29 @@ section:hover {
     margin: 0 auto 10px;
 }
 
-/* 頁尾樣式 */
-footer {
+a.order-link {
+    display: inline-block;
     background-color: #333;
     color: #fff;
     padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 3px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+a.order-link:hover {
+    background-color: #555;
+    transform: scale(1.05);
+}
+
+footer {
+    margin-top: 20px;
+    padding: 10px 20px;
     text-align: center;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #333;
+    position: relative;
+    bottom: 0;
     width: 100%;
-    box-sizing: border-box; /* 確保padding不會增加元素的寬度 */
+    box-sizing: border-box;
 }
