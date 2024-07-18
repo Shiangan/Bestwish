@@ -3,108 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>追思雲端訃聞</title>
+    <title>雲端訃聞</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <img src="標準字LOGO標準色.jpg" alt="祥安生命有限公司 Logo" class="logo">
-        <h1>追思雲端訃聞</h1>
+        <h1>訃聞公告</h1>
     </header>
 
     <main>
-        <section id="main-photo" class="fade-in">
-            <img id="main-photo-img" alt="追思照片">
+        <section id="obituary">
+            <h2 id="deceased-name"></h2>
+            <img id="deceased-photo" alt="追思照片" style="display:none;">
+            <div id="deceased-details"></div>
+            <p>我們摯愛的親人，於 <span id="death-date-text"></span> 已逝世，敬邀各位一同緬懷。</p>
         </section>
-        <section id="obituary-content">
-            <p id="obituary-message" class="handwritten"></p>
-            <div id="photo-slider" class="photo-slider"></div>
-            <div id="tribute-message"></div>
+
+        <section id="messages-section">
+            <h2>留言區</h2>
+            <form id="message-form">
+                <input type="text" id="name-input" placeholder="您的名稱或暱稱">
+                <textarea id="message-input" placeholder="留下您的追思"></textarea>
+                <button type="submit">提交</button>
+            </form>
+            <div id="messages"></div>
         </section>
-        <section id="flower-basket">
-            <p>如需訂購花籃請<a href="#">點選此處</a></p>
+
+        <section id="flower-basket-section">
+            <h2>致贈花禮 送上祝福</h2>
+            <button id="flower-order-button">進入訂購花籃頁面</button>
         </section>
-        <section id="funeral-details">
-            <h2>出殯地點及時間</h2>
-            <div id="map-container"></div>
-            <p id="funeral-info"></p>
-        </section>
-        
     </main>
 
     <footer>
-        <p>&copy; 2024 祥安生命有限公司. 版權所有. 承辦禮儀公司：祥安生命有限公司 聯絡電話及LINE: 0938-179-858</p>
+        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const obituaryData = JSON.parse(localStorage.getItem('obituaryData'));
+    <audio id="background-music" loop></audio>
 
-            if (obituaryData) {
-                document.getElementById('main-photo-img').src = URL.createObjectURL(new Blob([obituaryData.photo], { type: 'image/*' }));
-                document.getElementById('obituary-message').innerText = `
-                    我們的親人${obituaryData.name}於${obituaryData['death-date']}已離世，享年${calculateAge(obituaryData['birth-date'], obituaryData['death-date'])}歲。
-                    敬邀您一同參與追思會，給予祝福。
-                `;
-
-                if (obituaryData['additional-photos']) {
-                    const additionalPhotos = Array.from(obituaryData['additional-photos']);
-                    const photoSlider = document.getElementById('photo-slider');
-                    additionalPhotos.forEach(file => {
-                        const img = document.createElement('img');
-                        img.src = URL.createObjectURL(new Blob([file], { type: 'image/*' }));
-                        img.classList.add('fade-in');
-                        photoSlider.appendChild(img);
-                    });
-                }
-
-                document.getElementById('tribute-message').innerText = `
-                    親友們可以在這裡留言，為${obituaryData.name}送上最後的祝福。
-                `;
-
-                const funeralLocation = obituaryData['funeral-location'];
-                let mapUrl = '';
-                if (funeralLocation === '第二殯儀館') {
-                    mapUrl = 'https://www.google.com/maps/place/第二殯儀館';
-                } else if (funeralLocation === '板橋殯儀館') {
-                    mapUrl = 'https://www.google.com/maps/place/板橋殯儀館';
-                } else {
-                    mapUrl = `https://www.google.com/maps/search/${obituaryData['other-funeral-location']}`;
-                }
-                const mapContainer = document.getElementById('map-container');
-                const iframe = document.createElement('iframe');
-                iframe.src = mapUrl;
-                iframe.width = '100%';
-                iframe.height = '100%';
-                mapContainer.appendChild(iframe);
-
-                document.getElementById('funeral-info').innerText = `
-                    出殯地點：${funeralLocation}
-                    出殯日期：${obituaryData['funeral-date']}
-                    家奠禮時間：${obituaryData['family-service-time']}
-                    公奠禮時間：${obituaryData['public-service-time']}
-                `;
-            }
-        });
-
-        function calculateAge(birthDate, deathDate) {
-            const birth = new Date(birthDate);
-            const death = new Date(deathDate);
-            let age = death.getFullYear() - birth.getFullYear();
-            const monthDiff = death.getMonth() - birth.getMonth();
-            if (monthDiff < 0 || (monthDiff === 0 && death.getDate() < birth.getDate())) {
-                age--;
-            }
-            return age;
-        }
-
-        // Automatically slide the photos every 5 seconds
-let currentIndex = 0;
-const photos = document.querySelectorAll('#photo-slider img');
-if (photos.length > 1) {
-    setInterval(() => {
-        photos[currentIndex].classList.remove('fade-in');
-        currentIndex = (currentIndex + 1) % photos.length;
-        photos[currentIndex].classList.add('fade-in');
-    }, 5000);
-}
+    <script src="script.js"></script>
+</body>
+</html>
