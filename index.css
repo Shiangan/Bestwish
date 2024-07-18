@@ -1,48 +1,52 @@
-/* 全局样式 */
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    background-color: #f9f7f7; /* 淡灰色背景 */
+    background: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%); /* 漸層背景 */
     margin: 0;
     padding: 0;
 }
 
-/* 头部样式 */
 header {
-    background: linear-gradient(to right, #b24592, #f15f79); /* 渐变背景 */
-    color: #fff; /* 白色文字 */
-    padding: 10px 0;
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
 }
 
-/* 公司logo样式 */
 .logo {
-    width: 80px; /* 根据实际尺寸调整 */
+    width: 50px;
     height: auto;
+    margin-right: 15px;
 }
 
-/* 主内容区样式 */
+header h1 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
 main {
     padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    margin: 20px auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
 }
 
-/* 每个小节样式 */
 section {
     margin-bottom: 20px;
-    background-color: #fff; /* 白色背景 */
+    background-color: #fff;
     padding: 20px;
-    border: 1px solid #ddd; /* 浅灰色边框 */
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 阴影效果 */
-    transition: transform 0.3s ease; /* 添加旋转效果 */
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    transition: opacity 0.5s ease;
 }
 
 section:hover {
-    transform: translateY(-5px); /* 悬停时上移效果 */
+    opacity: 0.8;
 }
 
-/* 纪念照片样式 */
 #obituary-photo {
     text-align: center;
 }
@@ -54,25 +58,12 @@ section:hover {
     margin: 0 auto 10px;
 }
 
-/* 按钮样式 */
-button {
-    background-color: #b24592; /* 紫色按钮 */
-    color: #fff;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease; /* 按钮动画效果 */
-}
-
-button:hover {
-    background-color: #f15f79; /* 悬停时淡红色 */
-    transform: scale(1.05); /* 稍微放大效果 */
-}
-
-/* 页脚样式 */
 footer {
-    margin-top: 20px; /* 确保与页面内容有一定间距 */
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
     text-align: center;
-    color: #888;
+    position: relative;
+    bottom: 0;
+    width: 100%;
 }
