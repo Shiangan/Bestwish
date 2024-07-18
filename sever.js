@@ -1,76 +1,38 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const cartItems = document.getElementById('cart-items');
-    const totalQuantity = document.getElementById('total-quantity');
-    const totalPrice = document.getElementById('total-price');
-    const orderForm = document.getElementById('flower-order-form');
-    const needInvoiceCheckbox = document.getElementById('need-invoice');
-    const invoiceDetailsTextarea = document.getElementById('invoice-details');
+<?php
+// 获取表单数据
+$senderName = $_POST['sender-name'];
+$recipientName = $_POST['recipient-name'];
+$deceasedName = $_POST['deceased-name'];
+$tributeList = $_POST['tribute-list'];
+$needInvoice = isset($_POST['need-invoice']) ? true : false;
+$invoiceDetails = $_POST['invoice-details'];
 
-    let cart = [];
+// 连接到数据库（示例）
+$servername = "localhost";
+$username = "your_username";
+$password = "your_password";
+$dbname = "your_database";
 
-    document.querySelectorAll('.add-to-cart').forEach(button => {
-        button.addEventListener('click', (e) => {
-            const basketType = e.target.parentElement.dataset.baskettpe;
-            const price = parseInt(e.target.parentElement.dataset.price);
+// 创建连接
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-            const item = cart.find(item => item.basketType === basketType);
-            if (item) {
-                item.quantity++;
-            } else {
-                cart.push({ basketType, price, quantity: 1 });
-            }
+// 检查连接
+if ($conn->connect_error) {
+    die("连接失败: " . $conn->connect_error);
+}
 
-            updateCart();
-        });
-    });
+// 准备插入订单的SQL语句
+$sql = "INSERT INTO orders (sender_name, recipient_name, deceased_name, tribute_list, need_invoice, invoice_details)
+        VALUES ('$senderName', '$recipientName', '$deceasedName', '$tributeList', '$needInvoice', '$invoiceDetails')";
 
-    orderForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        // 提交訂單到後端處理
-        const formData = new FormData(orderForm);
-        const orderData = {
-            senderName: formData.get('sender-name'),
-            recipientName: formData.get('recipient-name'),
-            recipientAddress: formData.get('recipient-address'),
-            needInvoice: needInvoiceCheckbox.checked,
-            invoiceDetails: needInvoiceCheckbox.checked ? formData.get('invoice-details') : null,
-            cart: cart
-        };
+if ($conn->query($sql) === TRUE) {
+    // 数据库插入成功
+    header('Location: thanks.html'); // 跳转到感谢页面
+    exit;
+} else {
+    // 数据库插入失败
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
 
-        // 呼叫後端 API
-        fetch('/api/orders', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(orderData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert('感謝您的訂購與祝福！');
-            window.location.href = 'thank-you.html'; // 跳轉到感謝頁面
-        })
-        .catch(error => console.error('Error submitting order:', error));
-    });
-
-    needInvoiceCheckbox.addEventListener('change', () => {
-        invoiceDetailsTextarea.disabled = !needInvoiceCheckbox.checked;
-    });
-
-    function updateCart() {
-        cartItems.innerHTML = '';
-        let quantity = 0;
-        let price = 0;
-
-        cart.forEach(item => {
-            const li = document.createElement('li');
-            li.textContent = `${item.basketType} x ${item.quantity} - $${item.price * item.quantity}`;
-            cartItems.appendChild(li);
-            quantity += item.quantity;
-            price += item.price * item.quantity;
-        });
-
-        totalQuantity.textContent = quantity;
-        totalPrice.textContent = price;
-    }
-});
+$conn->close();
+?>
