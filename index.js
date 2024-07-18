@@ -48,8 +48,25 @@ document.addEventListener('DOMContentLoaded', function() {
         // });
     });
 
+    const backgroundMusic = document.getElementById('background-music');
+    const musicIcon = document.getElementById('music-icon');
+
+    function toggleMusic() {
+        if (backgroundMusic.paused) {
+            backgroundMusic.play();
+            musicIcon.src = 'music_on.png';
+        } else {
+            backgroundMusic.pause();
+            musicIcon.src = 'music_off.png';
+        }
+    }
+
     // 點擊進入訃聞頁面的功能
     function redirectToObituary() {
         window.location.href = 'obituary.html'; // 導航到訃聞頁面
     }
+
+    // 頁面加載完成後自動播放音樂（如果需要）
+    backgroundMusic.play();
+    musicIcon.src = 'music_on.png';
 });
