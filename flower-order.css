@@ -1,112 +1,192 @@
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background: #f3f4f6;
-    position: relative;
-    min-height: 100vh;
-    padding-bottom: 60px; /* Footer height */
-}
+身體{
+     字型家族：Arial，無襯線；
+     保證金：0；
+     填充物：0；
+     背景顏色：#f5f5f5；
+     顏色：#333；
+ }
 
-header {
-    background: #4a5568;
-    color: #fff;
-    padding: 10px 0;
-    text-align: center;
-}
+ /* 標題樣式 */
+ 標題{
+     背景顏色：#4CAF50；
+     顏色：白色；
+     填充物：1rem；
+     文字對齊：中心；
+ }
 
-header .logo {
-    width: 100px;
-    display: block;
-    margin: 0 auto;
-}
+ /*主要內容樣式*/
+ 主要{
+     填充物：2rem；
+     最大寬度：1200px；
+     保證金：0自動；
+ }
 
-h1 {
-    font-size: 2em;
-}
+ /*部分樣式*/
+ 部分{
+     邊距底部：2rem；
+     背景：白色；
+     填充物：1rem；
+     邊界半徑：8px；
+     盒子陰影：0 2px 5px rgba（0，0，0，0.1）；
+ }
 
-main {
-    padding: 20px;
-}
+ /*標題樣式*/
+ h2, h3 {
+     顏色：#4CAF50；
+ }
 
-.fade-in {
-    opacity: 0;
-    animation: fadeIn 2s forwards;
-}
+ /*花卉選擇樣式*/
+ .flower-option {
+     邊框：1px solid #ddd;
+     邊界半徑：8px；
+     填充物：1rem；
+     邊距底部：1rem；
+     顯示：柔性；
+     對齊專案：中心；
+     過渡：轉換0.2s，box-shadow 0.2s；
+ }
 
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-    }
-}
+ .flower-option：懸停{
+     轉換：比例（1.02）；
+     盒子陰影：0 4px 10px rgba（0，0，0，0.15）；
+ }
 
-#main-photo img {
-    width: 100%;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+ .flower-option img {
+     最大寬度：100px；
+     高度：自動；
+     邊界半徑：4px；
+     保證金-右：1rem；
+ }
 
-#obituary-content {
-    padding: 20px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-}
+ /*新增到購物車按鈕樣式*/
+ .add-to-cart {
+     左邊距：自動；
+     填充物：0.5rem 1rem；
+     背景顏色：#4CAF50；
+     顏色：白色；
+     邊界：無；
+     邊界半徑：4px；
+     光標：指標；
+     過渡：背景顏色0.2s；
+ }
 
-.handwritten {
-    font-family: 'Dancing Script', cursive;
-    font-size: 1.2em;
-    text-align: center;
-}
+ .add-to-cart:hover {
+     背景顏色：#45A049；
+ }
 
-.photo-slider img {
-    width: 100%;
-    margin-top: 10px;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+ /*購物車樣式*/
+ #shopping-cart {
+     背景顏色：#f9f9f9;
+     填充物：1rem；
+     邊界半徑：8px；
+     盒子陰影：0 2px 5px rgba（0，0，0，0.1）；
+ }
 
-#flower-basket {
-    text-align: center;
-    margin: 20px 0;
-}
+ /*購物車專案列表樣式*/
+ #cart-items {list-style-type: none;
+     填充物：0；
+     保證金：0；
+ }
 
-#flower-basket a {
-    color: #3182ce;
-    text-decoration: none;
-    font-weight: bold;
-}
+ #cart-items li {
+     填充物：0.5rem 0；
+     顯示：柔性；
+     正當性內容：介於兩者之間的空間；
+     對齊專案：中心；
+ }
 
-#flower-basket a:hover {
-    text-decoration: underline;
-}
+ #cart-items 按鈕 {
+     填充物：0.2rem 0.5rem；
+     左邊邊距：0.5rem；
+     背景顏色：#4CAF50；
+     顏色：白色；
+     邊界：無；
+     邊界半徑：4px；
+     光標：指標；
+     過渡：背景顏色0.2s；
+ }
 
-#map-container {
-    width: 100%;
-    height: 300px;
-    margin-bottom: 20px;
-}
+ #cart-items按鈕：懸停{
+     背景顏色：#45A049；
+ }
 
-#funeral-details {
-    padding: 20px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-}
+ /* 形式樣式 */
+ 形式 {
+     顯示：柔性；
+     柔性方向：列；
+ }
 
-footer {
-    background: #4a5568;
-    color: #fff;
-    text-align: center;
-    padding: 10px 0;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-}
+ 標籤{
+     邊距頂部：1rem；
+     字型重量：粗體；
+ }
 
-footer p {
-    margin: 0;
-}
+ 輸入，文字區域{
+     填充物：0.5rem；
+     邊距頂部：0.5rem；
+     邊框：1px solid #ddd;
+     邊界半徑：4px；
+ }
+
+ 文字區域{
+     調整大小：垂直；
+ }
+
+ 按鈕[型別="提交"] {
+     邊距頂部：1.5rem；
+     填充物：0.75rem 1.5rem；
+     背景顏色：#4CAF50；
+     顏色：白色；
+     邊界：無；
+     邊界半徑：4px；
+     光標：指標；
+     過渡：背景顏色0.2s；
+ }
+
+ 按鈕[type="提交"]:懸停{
+     背景顏色：#45A049；
+ }
+
+ /*頁尾樣式*/
+ 頁尾{
+     背景顏色：#333；
+     顏色：白色；
+     文字對齊：中心；
+     填充物：1rem；
+     位置：固定；
+     寬度：100%；
+     底部：0；
+ }
+
+ .logo {
+     寬度：50px；
+     高度：50px；
+     保證金-右：1rem；
+ }
+
+ /* 步驟的具體樣式 */
+ #step2, #step3, #step4 {
+     顯示：無；
+ }
+
+ /*付款和聯絡部分的樣式*/
+ #step3 img {
+     最大寬度：100px；
+     高度：自動；
+     保證金：1rem 0；
+ }
+
+ #step3 a img {
+     最大寬度：150px；
+     高度：自動；
+     保證金：1rem 0；
+ }
+
+ #step3 p, #step4 p {
+     保證金：1rem 0；
+ }
+ });
+
+     // 初始化購物車顯示
+     displayCart（）；
+ });
