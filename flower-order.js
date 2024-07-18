@@ -37,9 +37,9 @@ document.addEventListener('DOMContentLoaded', function() {
           totalPriceValue += item.price;
       });
 
-      // 增加10%税金如果需要发票
+      // 增加5%税金如果需要发票
       if (needInvoiceCheckbox.checked) {
-          totalPriceValue *= 1.1;
+          totalPriceValue *= 1.05;
       }
 
       totalQuantity.textContent = totalQty;
