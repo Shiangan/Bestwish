@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         totalPrice.textContent = totalPriceValue.toFixed(2);
     }
 
-    // 當需要發票時，啟用發票詳細信息輸入框
+    // 是否需要發票複選框事件
     needInvoiceCheckbox.addEventListener('change', () => {
         if (needInvoiceCheckbox.checked) {
             invoiceDetailsTextarea.removeAttribute('disabled');
@@ -92,24 +92,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData(flowerOrderForm);
         formData.append('cart', JSON.stringify(cart));
 
-        // 提交訂單到服務器（假設API接口為/submit-order）
-        fetch('/submit-order', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('訂單提交成功:', data);
-            // 清空購物車
-            cart = [];
-            displayCart(); // 更新購物車顯示
-            // 跳轉到訂單確認頁面，顯示支付方式和聯絡客服信息
-            window.location.href = `/order-confirmation.html?orderId=${data.orderId}`;
-        })
-        .catch(error => {
-            console.error('訂單提交失敗:', error);
-            // 提示訂單提交失敗
-            alert('訂單提交失敗，請重試！');
-        });
+        // 将购物车数据存储到 localStorage
+        localStorage.setItem('cart', JSON.stringify(cart));
+
+        // 跳转到订单确认页面
+        window.location.href = '/order-confirmation.html';
     });
 });
