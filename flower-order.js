@@ -6,15 +6,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const flowerOrderForm = document.getElementById('flower-order-form');
     const needInvoiceCheckbox = document.getElementById('need-invoice');
     const invoiceDetailsTextarea = document.getElementById('invoice-details');
-    const orderNoteTextarea = document.getElementById('order-note');
-    const deceasedNameInput = document.getElementById('deceased-name');
+    const viewCartButton = document.getElementById('view-cart');
+    const step1 = document.getElementById('step1');
+    const step2 = document.getElementById('step2');
+    const step3 = document.getElementById('step3');
+    const step4 = document.getElementById('step4');
+    const orderDetails = document.getElementById('order-details');
+    const finalTotalQuantity = document.getElementById('final-total-quantity');
+    const finalTotalPrice = document.getElementById('final-total-price');
+    const confirmationForm = document.getElementById('confirmation-form');
 
     let cart = [];
 
     // 添加到購物車按鈕點擊事件
     flowerOptions.forEach(option => {
         option.querySelector('.add-to-cart').addEventListener('click', () => {
-            const basketType = option.dataset.basketType;
+            const basketType = option.dataset.baskettype;
             const price = parseInt(option.dataset.price);
 
             // 檢查購物車中是否已存在該類型的花籃
@@ -28,6 +35,13 @@ document.addEventListener('DOMContentLoaded', () => {
             // 更新購物車顯示
             displayCart();
         });
+    });
+
+    // 查看購物車按鈕點擊事件
+    viewCartButton.addEventListener('click', () => {
+        step1.style.display = 'none';
+        step2.style.display = 'block';
+        displayCart();
     });
 
     // 更新購物車顯示
@@ -72,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
             totalPriceValue *= 1.05;
         }
 
-             totalQuantity.textContent = totalQty;
+        totalQuantity.textContent = totalQty;
         totalPrice.textContent = totalPriceValue.toFixed(2);
     }
 
@@ -86,20 +100,50 @@ document.addEventListener('DOMContentLoaded', () => {
         displayCart(); // 更新總價
     });
 
-    // 提交訂單表單事件
+        // 提交訂單表單事件
     flowerOrderForm.addEventListener('submit', event => {
+        event.preventDefault();
+
+        // 隱藏填寫信息表單
+        step2.style.display = 'none';
+        step3.style.display = 'block';
+
+        // 獲取並顯示訂單詳情
+        orderDetails.innerHTML = '';
+        cart.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = `${item.type} - $${item.price} x ${item.quantity}`;
+            orderDetails.appendChild(li);
+        });
+
+        // 顯示總數量和總金額
+        finalTotalQuantity.textContent = totalQuantity.textContent;
+        finalTotalPrice.textContent = totalPrice.textContent;
+    });
+
+    // 提交支付確認表單事件
+    confirmationForm.addEventListener('submit', event => {
         event.preventDefault();
 
         // 獲取表單數據
         const formData = new FormData(flowerOrderForm);
         formData.append('cart', JSON.stringify(cart));
 
-        // 将购物车数据存储到 localStorage
-        localStorage.setItem('cart', JSON.stringify(cart));
-        localStorage.setItem('orderNote', orderNoteTextarea.value);
-        localStorage.setItem('deceasedName', deceasedNameInput.value);
+        // 提交訂單到服務器（假設API接口為/submit-order）
+        fetch('/submit-order', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('訂單提交成功:', data);
 
-        // 跳转到订单确认页面
-        window.location.href = '/order-confirmation.html';
+            // 顯示感謝頁面
+            step3.style.display = 'none';
+            step4.style.display = 'block';
+        })
+        .catch(error => {
+            console.error('訂單提交失敗:', error);
+        });
     });
 });
