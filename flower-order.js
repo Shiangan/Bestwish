@@ -1,109 +1,58 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const flowerOptions = document.querySelectorAll('.flower-option');
-    const cartItems = document.getElementById('cart-items');
-    const totalQuantity = document.getElementById('total-quantity');
-    const totalPrice = document.getElementById('total-price');
-    const flowerOrderForm = document.getElementById('flower-order-form');
-    const needInvoiceCheckbox = document.getElementById('need-invoice');
-    const invoiceDetailsTextarea = document.getElementById('invoice-details');
+// 获取音频元素
+const backgroundMusic = document.getElementById('background-music');
 
-    let cart = [];
+// 检查音频是否播放完毕，如果是则重新播放
+backgroundMusic.addEventListener('ended', function() {
+    this.currentTime = 0;
+    this.play();
+});
 
-    // 添加到購物車按鈕點擊事件
-    flowerOptions.forEach(option => {
-        option.querySelector('.add-to-cart').addEventListener('click', () => {
-            const basketType = option.dataset.baskettpe;
-            const price = parseInt(option.dataset.price);
+// 提交订单表单处理
+const flowerOrderForm = document.getElementById('flower-order-form');
+flowerOrderForm.addEventListener('submit', function(event) {
+    event.preventDefault(); // 阻止表单提交默认行为
 
-            // 檢查購物車中是否已存在該類型的花籃
-            let item = cart.find(i => i.type === basketType);
-            if (item) {
-                item.quantity++;
-            } else {
-                cart.push({ type: basketType, price: price, quantity: 1 });
-            }
+    // 获取订单信息
+    const senderName = document.getElementById('sender-name').value;
+    const recipientName = document.getElementById('recipient-name').value;
+    const deceasedName = document.getElementById('deceased-name').value;
+    const tributeList = document.getElementById('tribute-list').value;
+    const needInvoice = document.getElementById('need-invoice').checked;
 
-            // 更新購物車顯示
-            displayCart();
-        });
-    });
+    // 计算总金额
+    let totalPrice = calculateTotalPrice(); // 自行编写计算总金额的函数
 
-    // 更新購物車顯示
-    function displayCart() {
-        cartItems.innerHTML = '';
-        let totalQty = 0;
-        let totalPriceValue = 0;
-
-        cart.forEach(item => {
-            const li = document.createElement('li');
-            li.textContent = `${item.type} - $${item.price} x ${item.quantity}`;
-
-            // 添加 +1 和 -1 按鈕
-            const increaseBtn = document.createElement('button');
-            increaseBtn.textContent = '+1';
-            increaseBtn.addEventListener('click', () => {
-                item.quantity++;
-                displayCart();
-            });
-
-            const decreaseBtn = document.createElement('button');
-            decreaseBtn.textContent = '-1';
-            decreaseBtn.addEventListener('click', () => {
-                if (item.quantity > 1) {
-                    item.quantity--;
-                } else {
-                    cart = cart.filter(i => i.type !== item.type);
-                }
-                displayCart();
-            });
-
-            li.appendChild(increaseBtn);
-            li.appendChild(decreaseBtn);
-            cartItems.appendChild(li);
-
-            totalQty += item.quantity;
-            totalPriceValue += item.price * item.quantity;
-        });
-
-        // 如果需要發票，增加5%稅金
-        if (needInvoiceCheckbox.checked) {
-            totalPriceValue *= 1.05;
-        }
-
-        totalQuantity.textContent = totalQty;
-        totalPrice.textContent = totalPriceValue.toFixed(2);
+    // 如果需要发票，增加5%
+    if (needInvoice) {
+        totalPrice *= 1.05;
     }
 
-    // 是否需要發票複選框事件
-    needInvoiceCheckbox.addEventListener('change', () => {
-        if (needInvoiceCheckbox.checked) {
-            invoiceDetailsTextarea.removeAttribute('disabled');
-        } else {
-            invoiceDetailsTextarea.setAttribute('disabled', 'disabled');
-        }
-        displayCart(); // 更新總價
-    });
-
-    // 提交訂單表單事件
-    flowerOrderForm.addEventListener('submit', event => {
-        event.preventDefault();
-
-        // 獲取表單數據
-        const formData = new FormData(flowerOrderForm);
-        formData.append('cart', JSON.stringify(cart));
-
-        // 提交訂單到服務器（假設API接口為/submit-order）
-        fetch('/submit-order', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('訂單提交成功:', data);
-            window.location.href = '/thanks.html';  // 跳轉到感謝頁面
-        })
-        .catch(error => {
-            console.error('訂單提交失敗:', error);
-        });
-    });
+    // 显示订单确认模态框
+    showOrderConfirmation(senderName, recipientName, deceasedName, tributeList, totalPrice);
 });
+
+// 显示订单确认模态框
+function showOrderConfirmation(senderName, recipientName, deceasedName, tributeList, totalPrice) {
+    const modal = document.createElement('div');
+    modal.classList.add('modal');
+    modal.innerHTML = `
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>订单确认</h2>
+            <p><strong>往生者姓名：</strong> ${deceasedName}</p>
+            <p><strong>訂購人姓名：</strong> ${senderName}</p>
+            <p><strong>落款名單：</strong> ${tributeList}</p>
+            <p><strong>總金額：</strong> $${totalPrice.toFixed(2)}</p>
+            <button id="checkout-button">結帳</button>
+        </div>
+    `;
+    document.body.appendChild(modal);
+
+    // 结算按钮点击事件
+    const checkoutButton = document.getElementById('checkout-button');
+    checkoutButton.addEventListener('click', function() {
+        // 处理结算逻辑，例如跳转到支付页面或显示支付方式信息
+        alert('点击了结算按钮！');
+        // 可以根据具体情况进行跳转或处理
+    });
+}
