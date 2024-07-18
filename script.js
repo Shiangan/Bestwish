@@ -1,55 +1,36 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const urlParams = new URLSearchParams(window.location.search);
-    const name = urlParams.get('name');
-    const photo = urlParams.get('photo');
-    const birthDate = urlParams.get('birth-date');
-    const deathDate = urlParams.get('death-date');
-    const funeralSpace = urlParams.get('funeral-space');
-    const funeralDate = urlParams.get('funeral-date');
-    const funeralLocation = urlParams.get('funeral-location');
-    const familyServiceTime = urlParams.get('family-service-time');
-    const publicServiceTime = urlParams.get('public-service-time');
-    const lifeStory = urlParams.get('life-story');
+// 確保HTML文檔完全加載後再執行JavaScript代碼
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('deceased-form');
 
-    const deceasedNameElem = document.getElementById('deceased-name');
-    const deceasedPhotoElem = document.getElementById('deceased-photo');
-    const deceasedDetailsElem = document.getElementById('deceased-details');
-    const backgroundMusic = document.getElementById('background-music');
+    // 表單提交時的處理函數
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // 防止表單默認提交
 
-    deceasedNameElem.textContent = name;
-    if (photo) {
-        deceasedPhotoElem.src = photo;
-        deceasedPhotoElem.style.display = 'block';
-    }
-    
-    const birthDateObj = new Date(birthDate);
-    const deathDateObj = new Date(deathDate);
-    const age = deathDateObj.getFullYear() - birthDateObj.getFullYear();
-    
-    const detailsText = `${name}，生於 ${birthDateObj.getFullYear()} 年 ${birthDateObj.getMonth() + 1} 月 ${birthDateObj.getDate()} 日，享年 ${age} 歲，牌位安置地點為 ${funeralSpace}，出殯日期定於 ${funeralDate}，出殯地點為 ${funeralLocation}，家奠禮時間為 ${familyServiceTime}，公奠禮時間為 ${publicServiceTime}。${lifeStory}`;
-    deceasedDetailsElem.textContent = detailsText;
+        // 可以添加表單驗證邏輯，確保必填字段都填寫了
 
-    backgroundMusic.src = urlParams.get('music-choice');
-    backgroundMusic.play();
+        // 可以使用FormData API來獲取表單數據
+        const formData = new FormData(form);
 
-    // Handle message form submission
-    const messageForm = document.getElementById('message-form');
-    const messagesDiv = document.getElementById('messages');
-    messageForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const nameInput = document.getElementById('name-input').value;
-        const messageInput = document.getElementById('message-input').value;
-        if (nameInput && messageInput) {
-            const messageDiv = document.createElement('div');
-            messageDiv.innerHTML = `<strong>${nameInput}</strong>: ${messageInput}`;
-            messagesDiv.appendChild(messageDiv);
-            messageForm.reset();
-        }
-    });
-
-    // Handle flower order button
-    const flowerOrderButton = document.getElementById('flower-order-button');
-    flowerOrderButton.addEventListener('click', function () {
-        window.location.href = 'flower-order.html';
+        // 可以使用Fetch API或其他Ajax方法將表單數據提交到後端處理
+        fetch('process_form.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('網絡錯誤，請稍後再試。');
+            }
+            return response.text();
+        })
+        .then(data => {
+            // 可以處理後端返回的任何數據或顯示成功消息給用戶
+            console.log(data);
+            alert('表單提交成功！');
+            form.reset(); // 提交成功後重置表單
+        })
+        .catch(error => {
+            console.error('表單提交錯誤:', error);
+            alert('表單提交失敗。');
+        });
     });
 });
