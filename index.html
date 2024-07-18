@@ -57,13 +57,23 @@
                 <textarea id="life-story" name="life-story"></textarea>
 
                 <label for="music-choice">選擇背景音樂:</label>
-                <select id="music-choice" name="music-choice" required>
-                    <option value="music1.mp3">音樂1</option>
-                    <option value="music2.mp3">音樂2</option>
-                    <option value="music3.mp3">音樂3</option>
-                    <option value="music4.mp3">音樂4</option>
-                    <option value="music5.mp3">音樂5</option>
-                </select>
+<select id="music-choice" name="music-choice" required onchange="previewMusic()">
+    <option value="music1.mp3" data-src="music1.mp3">音樂1</option>
+    <option value="music2.mp3" data-src="music2.mp3">音樂2</option>
+    <option value="music3.mp3" data-src="music3.mp3">音樂3</option>
+    <option value="music4.mp3" data-src="music4.mp3">音樂4</option>
+    <option value="music5.mp3" data-src="music5.mp3">音樂5</option>
+</select>
+
+<audio id="music-preview" controls>
+    <source src="" type="mp3">
+    Your browser does not support the audio element.
+</audio>
+
+                    <!-- 音樂播放控制 -->
+    <div id="music-control" onclick="toggleMusic()">
+        <img id="music-icon" src="music_off.png" alt="音樂播放開關">
+    </div>
 
                 <button type="submit">提交</button>
             </form>
@@ -75,11 +85,11 @@
         <img id="music-icon" src="music_off.png" alt="音樂播放開關">
     </div>
 
-    <mp3 id="background-music" preload="auto">
+    <audio id="background-music" preload="auto">
         <source src="music1.mp3" type="/mp3.">
         Your browser does not support the audio element.
-    </mp3>
+    </audio>
 
-    <script src="scripts.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>
