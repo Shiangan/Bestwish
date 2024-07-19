@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>祥安生命有限公司－雲端訃聞</title>
-    <link rel="stylesheet" href="obituary.css">
+    <link rel="stylesheet" href=style.css">
 </head>
 <body>
     <header>
@@ -43,8 +43,34 @@
         <section id="flower-order-section">
             <h2>訂購花籃</h2>
             <form id="flower-order-form">
-                <label for="recipient-name">收件人姓名:</label>
+                <label for="recipient-name">訂購人姓名:</label>
                 <input type="text" id="recipient-name" name="recipient-name" required>
 
-                <label for="recipient-address">收件地址:</label>
-                <input type="text
+                <label for="recipient-angel">訂購人聯絡電話:</label>
+                <input type="text id="recipient-phone-number" name="phone-number" required>
+
+                <label for="invoice-required">是否需要發票(+5%):</label>
+                <select id="invoice-required" name="invoice-required" required>
+                    <option value="no">否</option>
+                    <option value="yes">是</option>
+                </select>
+
+                <label for="sender-names">落款名單:</label>
+                <input type="text" id="sender-names" name="sender-names" required placeholder="例如：祥安生命有限公司 負責人 陳柏元,姻親 陳妍如">
+
+                <label for="flower-basket-quantity">花籃數量（每對計價）:</label>
+                <input type="number" id="flower-basket-quantity" name="flower-basket-quantity" min="1" required>
+
+                <button type="submit">提交訂單</button>
+            </form>
+            <div id="flower-orders-container"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
