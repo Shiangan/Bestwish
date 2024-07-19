@@ -4,9 +4,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const flowerOrderForm = document.getElementById('flower-order-form');
     
     let flowerPrices = {
-        flower1: 1000, // 示例價格，根據實際情況修改
-        flower2: 1200,
-        flower3: 1500,
+        flower1: 2500, // 示例價格，根據實際情況修改
+        flower2: 3000,
+        flower3: 3500,
+        flower4: 4000,
+        flower5: 4500,
+        flower6: 5500,
         // 其他花籃樣式
     };
 
