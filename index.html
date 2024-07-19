@@ -12,10 +12,10 @@
     </header>
 
     <main>
-        <!-- 表单部分 -->
         <section id="info-form-section">
             <h2>訃聞資料提交</h2>
             <form id="info-form">
+                <!-- 表单内容 -->
                 <label for="name">姓名:</label>
                 <input type="text" id="name" name="name" required>
 
@@ -68,12 +68,12 @@
         </section>
 
         <!-- 渐显照片部分 -->
-        <section id="main-photo-section">
-            <div id="photo-container">
+        <section id="invitation-section" style="display: none;">
+            <div id="invitation-content">
                 <p id="invitation-text">敬邀您</p>
-                <img id="main-photo" src="" alt="主要照片">
+                <img id="invitation-photo" src="" alt="主要照片">
                 <a id="go-to-obituary" href="obituary.html">
-                    <button>點選我進入訃聞</button>
+                    <button>点选我进入訃闻</button>
                 </a>
             </div>
         </section>
@@ -89,8 +89,8 @@
     </audio>
 
     <div id="music-control">
-        <button id="play-music">播放音樂</button>
-        <button id="stop-music" style="display: none;">停止音樂</button>
+        <button id="play-music">🔊</button>
+        <button id="stop-music" style="display: none;">🔇</button>
     </div>
 
     <script src="index.js"></script>
