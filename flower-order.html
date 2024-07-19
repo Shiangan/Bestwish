@@ -8,86 +8,59 @@
 </head>
 <body>
     <header>
-        <h1>訂購花籃</h1>
+        <img src="image/logo.png" alt="祥安生命有限公司 Logo" class="logo">
     </header>
 
     <main>
-        <section id="flower-selection">
-            <h2>選擇花籃樣式</h2>
-            <div class="flower-photos">
-                <!-- 八張花籃樣式照片 -->
-                <img src="image/flower1.jpg" alt="花籃樣式1" class="flower-photo">
-                <img src="image/flower2.jpg" alt="花籃樣式2" class="flower-photo">
-                <img src="image/flower3.jpg" alt="花籃樣式3" class="flower-photo">
-                <img src="image/flower4.jpg" alt="花籃樣式4" class="flower-photo">
-                <img src="image/flower5.jpg" alt="花籃樣式5" class="flower-photo">
-                <img src="image/flower6.jpg" alt="花籃樣式6" class="flower-photo">
-                <img src="image/flower7.jpg" alt="花籃樣式7" class="flower-photo">
-                <img src="image/flower8.jpg" alt="花籃樣式8" class="flower-photo">
-            </div>
-        </section>
-
-        <section id="order-details">
-            <h2>訂購詳情</h2>
+        <section id="flower-order-section">
+            <h1>訂購花籃</h1>
             <form id="flower-order-form">
+                <label for="flower-type">選擇花籃樣式:</label>
+                <div id="flower-type">
+                    <div class="flower-option">
+                        <img src="image/flower1.jpg" alt="花籃樣式1">
+                        <button type="button" class="plus-minus" data-type="flower1">+1</button>
+                        <button type="button" class="plus-minus" data-type="flower1">-1</button>
+                    </div>
+                    <!-- 其他花籃樣式 -->
+                </div>
+
                 <label for="orderer-name">訂購人姓名:</label>
                 <input type="text" id="orderer-name" name="orderer-name" required>
 
                 <label for="orderer-phone">訂購人電話:</label>
-                <input type="tel" id="orderer-phone" name="orderer-phone" required>
+                <input type="text" id="orderer-phone" name="orderer-phone" required>
 
-                <label for="deceased-name">致贈給（亡者名）:</label>
+                <label for="deceased-name">致贈給亡者:</label>
                 <input type="text" id="deceased-name" name="deceased-name" required>
 
-                <label for="invoice">是否需要發票（加收5%）:</label>
-                <input type="checkbox" id="invoice" name="invoice">
+                <label for="invoice">是否需要發票 (5%):</label>
+                <select id="invoice" name="invoice">
+                    <option value="no">不需要</option>
+                    <option value="yes">需要</option>
+                </select>
 
-                <label for="sender-names">落款名單:</label>
-                <textarea id="sender-names" name="sender-names"></textarea>
+                <label for="payer-name">落款名單:</label>
+                <textarea id="payer-name" name="payer-name"></textarea>
 
-                <label for="quantity">數量:</label>
-                <div class="quantity-control">
-                    <button type="button" id="decrease-quantity">-</button>
-                    <input type="number" id="quantity" name="quantity" value="1" min="1" readonly>
-                    <button type="button" id="increase-quantity">+</button>
+                <label for="address">若需發票，請填寫地址:</label>
+                <input type="text" id="address" name="address">
+
+                <label for="payer-phone">收件人電話:</label>
+                <input type="text" id="payer-phone" name="payer-phone">
+
+                <div id="order-summary">
+                    <p>總計：$<span id="total-amount">0</span></p>
                 </div>
-
-                <p id="total-amount">總計：$金額</p>
 
                 <button type="submit">確認訂單</button>
             </form>
         </section>
-
-        <section id="address-details" style="display:none;">
-            <h2>發票/收據地址</h2>
-            <form id="address-form">
-                <label for="recipient-name">收件人姓名:</label>
-                <input type="text" id="recipient-name" name="recipient-name">
-
-                <label for="recipient-phone">收件人電話:</label>
-                <input type="tel" id="recipient-phone" name="recipient-phone">
-
-                <label for="recipient-address">地址:</label>
-                <input type="text" id="recipient-address" name="recipient-address">
-
-                <button type="submit">確認地址</button>
-            </form>
-        </section>
-
-        <section id="confirmation-section" style="display:none;">
-            <h2>訂單確認</h2>
-            <p>訂購人: <span id="confirm-orderer-name"></span></p>
-            <p>電話: <span id="confirm-orderer-phone"></span></p>
-            <p>致贈給: <span id="confirm-deceased-name"></span></p>
-            <p>花籃樣式: <span id="confirm-flower-style"></span></p>
-            <p>數量: <span id="confirm-quantity"></span></p>
-            <p>發票: <span id="confirm-invoice"></span></p>
-            <p>落款名單: <span id="confirm-sender-names"></span></p>
-            <p>總計: <span id="confirm-total-amount"></span></p>
-
-            <button id="finalize-order">完成訂單</button>
-        </section>
     </main>
+
+    <footer>
+        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
+    </footer>
 
     <script src="flower-order.js"></script>
 </body>
