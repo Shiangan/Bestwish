@@ -1,67 +1,62 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('info-form');
-    const infoFormSection = document.getElementById('info-form-section');
+// index.js
+
+document.addEventListener('DOMContentLoaded', () => {
+    const infoForm = document.getElementById('info-form');
     const invitationSection = document.getElementById('invitation-section');
-    const mainPhotoContainer = document.getElementById('main-photo-container');
-    const mainPhoto = document.getElementById('main-photo');
-    const enterObituaryButton = document.getElementById('enter-obituary');
-    const musicSelect = document.getElementById('music-choice');
-    const musicPlayer = document.getElementById('background-music');
-    const playButton = document.getElementById('play-music');
-    const stopButton = document.getElementById('stop-music');
+    const invitationPhoto = document.getElementById('invitation-photo');
+    const goToObituaryButton = document.getElementById('go-to-obituary');
+    const playMusicButton = document.getElementById('play-music');
+    const stopMusicButton = document.getElementById('stop-music');
+    const backgroundMusic = document.getElementById('background-music');
 
-    // Handle form submission
-    form.addEventListener('submit', function (event) {
-        event.preventDefault(); // Prevent the form from submitting normally
-        
-        // Collect form data and handle photo display
-        const formData = new FormData(form);
-        const mainPhotoFile = formData.get('photo'); // Assuming the file input has the name 'photo'
+    // 表单提交处理
+    infoForm.addEventListener('submit', (event) => {
+        event.preventDefault(); // 阻止表单的默认提交行为
 
-        if (mainPhotoFile) {
+        // 处理表单数据
+        const formData = new FormData(infoForm);
+
+        // 模拟表单提交成功后的处理
+        // 这里你可以添加实际的表单处理代码，比如发送到服务器等
+
+        // 显示渐显照片部分
+        invitationSection.style.display = 'block';
+
+        // 设置主要照片的 URL（假设使用 FormData 提交的照片）
+        const photoFile = formData.get('photo');
+        if (photoFile) {
             const reader = new FileReader();
             reader.onload = function (e) {
-                mainPhoto.src = e.target.result;
-                mainPhotoContainer.style.display = 'block';
-                mainPhoto.style.opacity = 0;
-                setTimeout(() => mainPhoto.style.opacity = 1, 100); // Fade in effect
-
-                // Transition to the invitation section after photo fades in
+                invitationPhoto.src = e.target.result;
                 setTimeout(() => {
-                    infoFormSection.style.display = 'none';
-                    invitationSection.style.display = 'block';
-                }, 3000); // Adjust the timing as needed for slower fade-in
+                    invitationPhoto.style.opacity = 1; // 开始渐显
+                }, 100); // 延迟显示效果
             };
-            reader.readAsDataURL(mainPhotoFile);
-        } else {
-            // Handle case where no photo is selected
-            infoFormSection.style.display = 'none';
-            invitationSection.style.display = 'block';
+            reader.readAsDataURL(photoFile);
         }
     });
 
-    // Handle music selection
-    musicSelect.addEventListener('change', function () {
-        const selectedMusic = musicSelect.value;
-        musicPlayer.src = selectedMusic;
-        musicPlayer.play();
+    // 音乐播放控制
+    playMusicButton.addEventListener('click', () => {
+        backgroundMusic.play();
+        playMusicButton.style.display = 'none';
+        stopMusicButton.style.display = 'inline';
     });
 
-    // Handle play and stop music buttons
-    playButton.addEventListener('click', function () {
-        musicPlayer.play();
-        playButton.style.display = 'none';
-        stopButton.style.display = 'block';
+    stopMusicButton.addEventListener('click', () => {
+        backgroundMusic.pause();
+        playMusicButton.style.display = 'inline';
+        stopMusicButton.style.display = 'none';
     });
 
-    stopButton.addEventListener('click', function () {
-        musicPlayer.pause();
-        playButton.style.display = 'block';
-        stopButton.style.display = 'none';
+    // 确保音乐控制按钮的状态与音乐播放器的状态同步
+    backgroundMusic.addEventListener('play', () => {
+        playMusicButton.style.display = 'none';
+        stopMusicButton.style.display = 'inline';
     });
 
-    // Handle navigation to obituary page
-    enterObituaryButton.addEventListener('click', function () {
-        window.location.href = 'obituary.html';
+    backgroundMusic.addEventListener('pause', () => {
+        playMusicButton.style.display = 'inline';
+        stopMusicButton.style.display = 'none';
     });
 });
