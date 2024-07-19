@@ -1,29 +1,61 @@
-/* 樣式調整 */
-.logo {
-    max-width: 100px;
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
 }
 
-#deceased-photo img {
-    max-width: 100%;
-    height: auto;
+header {
+    background: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: left;
 }
 
-#photo-slider img {
-    max-width: 100px;
-    height: auto;
-    margin: 5px;
+header .logo {
+    width: 100px;
 }
 
-#flower-order-button {
-    text-align: center;
+#obituary-section {
+    padding: 20px;
+    background: #fff;
+}
+
+#deceased-name {
+    font-size: 2em;
+    color: #333;
+}
+
+#obituary-content {
+    font-size: 1.2em;
+    margin-top: 10px;
+}
+
+#tribute-photos {
     margin-top: 20px;
 }
 
-#flower-order-button button {
-    padding: 10px 20px;
-    font-size: 16px;
+#tribute-photos img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    margin-bottom: 10px;
 }
 
-#map-section {
+#order-flower-button {
+    background: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+#order-flower-button:hover {
+    background: #555;
+}
+
+#map-and-transit {
     margin-top: 20px;
 }
