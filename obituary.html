@@ -3,22 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>雲端訃聞</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <h1>訃聞公告</h1>
-    </header>
-
-    <!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>祥安生命有限公司－雲端訃聞</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="style.js" defer></script>
+    <link rel="stylesheet" href="obituary.css">
 </head>
 <body>
     <header>
@@ -27,58 +13,38 @@
     </header>
 
     <main>
-        <section id="welcome-screen">
-            <img src="image/main-photo.jpg" alt="主要照片" class="main-photo">
-            <div class="welcome-text">
-                <h2>敬邀您</h2>
-                <p>點擊進入訃聞內容</p>
-            </div>
+        <section id="deceased-info">
+            <h2>往生者資料</h2>
+            <div id="deceased-photo"></div>
+            <div id="deceased-name"></div>
+            <div id="birth-death-dates"></div>
+            <div id="funeral-space"></div>
+            <div id="funeral-date"></div>
+            <div id="funeral-location"></div>
+            <div id="family-service-time"></div>
+            <div id="public-service-time"></div>
+            <div id="life-story"></div>
         </section>
 
-        
-
-    <footer>
-        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
-    </footer>
-
-    <audio id="background-music" preload="auto">
-        <source src="audio/music1.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-</body>
-</html>
-    <main>
-        <section id="obituary">
-            <h2 id="deceased-name"></h2>
-            <img id="deceased-photo" alt="追思照片" style="display:none;">
-            <div id="deceased-details"></div>
-            <p>我們摯愛的親人，於 <span id="death-date-text"></span> 已逝世，敬邀各位一同緬懷。</p>
-        </section>
-
-        <section id="messages-section">
+        <section id="message-section">
             <h2>留言區</h2>
             <form id="message-form">
-                <input type="text" id="name-input" placeholder="您的名稱或暱稱">
-                <textarea id="message-input" placeholder="留下您的追思"></textarea>
-                <button type="submit">提交</button>
+                <label for="name-input">姓名:</label>
+                <input type="text" id="name-input" name="name" required>
+
+                <label for="message-input">留言:</label>
+                <textarea id="message-input" name="message" required></textarea>
+
+                <button type="submit">留言</button>
             </form>
-            <div id="messages"></div>
+            <div id="messages-container"></div>
         </section>
 
-        <section id="flower-basket-section">
-            <h2>致贈花禮 送上祝福</h2>
-            <button id="flower-order-button">進入訂購花籃頁面</button>
-        </section>
-    </main>
+        <section id="flower-order-section">
+            <h2>訂購花籃</h2>
+            <form id="flower-order-form">
+                <label for="recipient-name">收件人姓名:</label>
+                <input type="text" id="recipient-name" name="recipient-name" required>
 
-    <footer>
-        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
-    </footer>
-
-    <form id="deceased-form" action="flower-order.html" method="GET" enctype="multipart/form-data">
-
-    <audio id="background-music" loop></audio>
-
-    <script src="script.js"></script>
-</body>
-</html>
+                <label for="recipient-address">收件地址:</label>
+                <input type="text
