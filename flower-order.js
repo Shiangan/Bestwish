@@ -1,69 +1,73 @@
 document.addEventListener('DOMContentLoaded', function () {
+    const quantityButtons = document.querySelectorAll('.quantity-button');
     const form = document.getElementById('flower-order-form');
-    const totalPriceElement = document.getElementById('total-price');
-    const invoiceSelect = document.getElementById('invoice');
+    const invoiceCheckbox = document.getElementById('invoice');
     const invoiceDetails = document.getElementById('invoice-details');
+    const orderSummarySection = document.getElementById('order-summary');
+    const confirmOrderButton = document.getElementById('confirm-order');
 
-    // 更新價格
-    function updatePrice() {
-        let total = 0;
-        const flowerOptions = document.querySelectorAll('.flower-option');
+    quantityButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const action = this.getAttribute('data-action');
+            const price = parseFloat(this.getAttribute('data-price'));
+            const id = this.getAttribute('data-id');
+            const quantityInput = document.getElementById(`${id}-quantity`);
+            const priceElement = document.getElementById(`${id}-price`);
+            let currentQuantity = parseInt(quantityInput.value);
 
-        flowerOptions.forEach(option => {
-            const price = parseFloat(option.querySelector('.increase').getAttribute('data-price'));
-            const quantity = parseInt(option.querySelector('.quantity').value);
-            total += price * quantity;
+            if (action === 'increase') {
+                currentQuantity++;
+            } else if (action === 'decrease' && currentQuantity > 0) {
+                currentQuantity--;
+            }
+
+            quantityInput.value = currentQuantity;
+            priceElement.textContent = `$${currentQuantity * price}`;
+            updateTotalPrice();
         });
+    });
 
-        const isInvoice = invoiceSelect.value === 'yes';
-        if (isInvoice) {
-            total *= 1.05; // 加上5%的發票費用
-        }
-
-        totalPriceElement.textContent = `總計: $${total.toFixed(2)}`;
+    function updateTotalPrice() {
+        let total = 0;
+        document.querySelectorAll('.flower-item').forEach(item => {
+            const priceText = item.querySelector('.price').textContent;
+            const price = parseFloat(priceText.replace('$', ''));
+            total += price;
+        });
+        document.getElementById('summary-total-price').textContent = total.toFixed(2);
     }
 
-    // 事件處理: +1 和 -1 按鈕
-    document.querySelectorAll('.increase').forEach(button => {
-        button.addEventListener('click', function () {
-            const quantityInput = this.parentElement.querySelector('.quantity');
-            quantityInput.value = parseInt(quantityInput.value) + 1;
-            updatePrice();
-        });
-    });
-
-    document.querySelectorAll('.decrease').forEach(button => {
-        button.addEventListener('click', function () {
-            const quantityInput = this.parentElement.querySelector('.quantity');
-            quantityInput.value = Math.max(parseInt(quantityInput.value) - 1, 0);
-            updatePrice();
-        });
-    });
-
-    // 顯示/隱藏發票詳細資訊
-    invoiceSelect.addEventListener('change', function () {
-        if (this.value === 'yes') {
-            invoiceDetails.style.display = 'block';
+    invoiceCheckbox.addEventListener('change', function () {
+        if (this.checked) {
+            invoiceDetails.disabled = false;
         } else {
-            invoiceDetails.style.display = 'none';
+            invoiceDetails.disabled = true;
+            invoiceDetails.value = '';
         }
     });
 
-    // 提交表單
     form.addEventListener('submit', function (event) {
         event.preventDefault();
 
-        // 收集表單數據
         const formData = new FormData(form);
         const data = {};
         formData.forEach((value, key) => {
             data[key] = value;
         });
 
-        // 保存數據到 localStorage（可選）
-        localStorage.setItem('flowerOrder', JSON.stringify(data));
+        // 填寫訂單摘要
+        document.getElementById('summary-deceased-name').textContent = data['deceased-name'];
+        document.getElementById('summary-sender-name').textContent = data['sender-name'];
+        document.getElementById('summary-contact-number').textContent = data['contact-number'];
+        document.getElementById('summary-tribute-list').textContent = data['tribute-list'] || '無';
+        document.getElementById('summary-invoice-needed').textContent = data['invoice'] ? '需要' : '不需要';
+        document.getElementById('summary-invoice-details').textContent = data['invoice-details'] || '無';
 
-        // 跳轉到訂單狀態頁面
-        window.location.href = 'flower-order-states.html';
+        form.style.display = 'none';
+        orderSummarySection.style.display = 'block';
+    });
+
+    confirmOrderButton.addEventListener('click', function () {
+        window.location.href = 'thanks.html';
     });
 });
