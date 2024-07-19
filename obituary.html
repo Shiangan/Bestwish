@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>祥安生命有限公司－雲端訃聞</title>
-    <link rel="stylesheet" href=style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
@@ -16,60 +16,41 @@
         <section id="deceased-info">
             <h2>往生者資料</h2>
             <div id="deceased-photo"></div>
-            <div id="deceased-name"></div>
-            <div id="birth-death-dates"></div>
-            <div id="funeral-space"></div>
-            <div id="funeral-date"></div>
-            <div id="funeral-location"></div>
-            <div id="family-service-time"></div>
-            <div id="public-service-time"></div>
-            <div id="life-story"></div>
+            <p id="obituary-text"></p>
         </section>
 
-        <section id="message-section">
-            <h2>留言區</h2>
+        <section id="photo-slider">
+            <!-- 輪播照片區域 -->
+        </section>
+
+        <section id="messages-section">
+            <h2>悼念留言</h2>
             <form id="message-form">
-                <label for="name-input">姓名:</label>
-                <input type="text" id="name-input" name="name" required>
+                <label for="name-input">您的名字:</label>
+                <input type="text" id="name-input" required>
 
                 <label for="message-input">留言:</label>
-                <textarea id="message-input" name="message" required></textarea>
+                <textarea id="message-input" required></textarea>
 
-                <button type="submit">留言</button>
+                <button type="submit">提交留言</button>
             </form>
             <div id="messages-container"></div>
         </section>
 
-        <section id="flower-order-section">
-            <h2>訂購花籃</h2>
-            <form id="flower-order-form">
-                <label for="recipient-name">訂購人姓名:</label>
-                <input type="text" id="recipient-name" name="recipient-name" required>
+        <section id="map-section">
+            <h2>儀式地圖及交通方式</h2>
+            <!-- 地圖和交通方式 -->
+        </section>
 
-                <label for="recipient-angel">訂購人聯絡電話:</label>
-                <input type="text id="recipient-phone-number" name="phone-number" required>
-
-                <label for="invoice-required">是否需要發票(+5%):</label>
-                <select id="invoice-required" name="invoice-required" required>
-                    <option value="no">否</option>
-                    <option value="yes">是</option>
-                </select>
-
-                <label for="sender-names">落款名單:</label>
-                <input type="text" id="sender-names" name="sender-names" required placeholder="例如：祥安生命有限公司 負責人 陳柏元,姻親 陳妍如">
-
-                <label for="flower-basket-quantity">花籃數量（每對計價）:</label>
-                <input type="number" id="flower-basket-quantity" name="flower-basket-quantity" min="1" required>
-
-                <button type="submit">提交訂單</button>
-            </form>
-            <div id="flower-orders-container"></div>
+        <section id="flower-order-button">
+            <button onclick="location.href='flower-order.html'">致贈花籃送上祝福</button>
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
-    </footer>
+    <audio id="background-music" preload="auto">
+        <source src="audio/background-music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
     <script src="script.js"></script>
 </body>
