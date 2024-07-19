@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>祥安生命有限公司－訃聞</title>
-    <link rel="stylesheet" href="style.css">
+    <title>祥安生命有限公司－訃聞公告</title>
+    <link rel="stylesheet" href="obituary.css">
 </head>
 <body>
     <header>
@@ -12,21 +12,47 @@
     </header>
 
     <main>
-        <section id="main-info">
-            <img id="main-photo" src="" alt="主要照片">
-            <h1 id="deceased-name"></h1>
-            <p id="deceased-info"></p>
-            <button id="order-flower">致贈花籃送上祝福</button>
-        </section>
+        <section id="obituary-content">
+            <h2>訃聞公告</h2>
+            <div id="photo-slider">
+                <img class="slide" src="image/photo1.jpg" alt="照片1">
+                <img class="slide" src="image/photo2.jpg" alt="照片2">
+                <img class="slide" src="image/photo3.jpg" alt="照片3">
+                <!-- 其他照片 -->
+            </div>
+            <p id="obituary-text">
+                <!-- 在此处显示详细的訃闻内容，例如：
+                我们怀着无比沉痛的心情，宣布 XXX（姓名）于 YYYY 年 MM 月 DD 日（出生日期： YYYY 年 MM 月 DD 日，享年 XX 岁）离世。 XXX（姓名）生前为人诚恳、善良，终年 XX 岁，离世前在亲友的陪伴下安详离世。
+                -->
+            </p>
 
-        <section id="tribute-section">
-            <h2>留言區</h2>
-            <div id="tribute-messages"></div>
-        </section>
+            <section id="tribute-section">
+                <h3>留言区</h3>
+                <form id="tribute-form">
+                    <label for="name">姓名:</label>
+                    <input type="text" id="name" name="name" required>
 
-        <section id="map-section">
-            <h2>儀式地點與交通資訊</h2>
-            <div id="map-info"></div>
+                    <label for="message">留言:</label>
+                    <textarea id="message" name="message" required></textarea>
+
+                    <button type="submit">提交留言</button>
+                </form>
+
+                <div id="tribute-list">
+                    <!-- 留言列表将通过 JavaScript 动态添加 -->
+                </div>
+            </section>
+
+            <section id="map-section">
+                <h3>仪式地图</h3>
+                <div id="map-container">
+                    <button id="show-funeral-map">显示安灵地图</button>
+                    <button id="show-burial-map">显示出殯地图</button>
+                </div>
+                <div id="map-display">
+                    <!-- 地图显示区域 -->
+                </div>
+            </section>
         </section>
     </main>
 
