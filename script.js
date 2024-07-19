@@ -1,99 +1,48 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const welcomeSection = document.getElementById('welcome-section');
-    const enterButton = document.getElementById('enter-button');
-    const infoFormSection = document.getElementById('info-form-section');
-    const mainPhoto = document.getElementById('main-photo');
-    const backgroundMusic = document.getElementById('background-music');
+    const obituaryContent = document.getElementById('obituary-content');
+    const tributePhotos = document.getElementById('tribute-photos');
+    const orderFlowerButton = document.getElementById('order-flower-button');
+    const mapAndTransit = document.getElementById('map-and-transit');
 
-    // 淡入主要照片
-    mainPhoto.style.opacity = 1;
-
-    // 播放背景音樂
-    backgroundMusic.play();
-
-    // 點擊進入頁面按鈕
-    enterButton.addEventListener('click', function () {
-        welcomeSection.style.display = 'none';
-        infoFormSection.style.display = 'block';
-    });
-
-    // 表單提交
-    const infoForm = document.getElementById('info-form');
-    infoForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        const formData = new FormData(infoForm);
-        const data = {};
-        formData.forEach((value, key) => {
-            data[key] = value;
-        });
-
-        // 將表單數據保存到本地存儲
-        localStorage.setItem('deceasedInfo', JSON.stringify(data));
-
-        // 導向到訃聞頁面
-        window.location.href = 'obituary.html';
-    });
-
-    // 讀取並顯示訃聞信息
+    // 從本地存儲中獲取資料
     const deceasedInfo = JSON.parse(localStorage.getItem('deceasedInfo'));
+
     if (deceasedInfo) {
-        const obituaryText = `我們的至親 ${deceasedInfo.name} 於 ${deceasedInfo['death-date']} 往生，享年 ${calculateAge(deceasedInfo['birth-date'], deceasedInfo['death-date'])} 歲。牌位安置於 ${deceasedInfo['funeral-space']}。`;
-        document.getElementById('obituary-text').textContent = obituaryText;
+        document.getElementById('deceased-name').textContent = `我們的至親 ${deceasedInfo.name}`;
+        obituaryContent.innerHTML = `
+            ${deceasedInfo.name} 於 ${deceasedInfo.death-date} 往生，享年 ${calculateAge(deceasedInfo.birth-date, deceasedInfo.death-date)} 歲。<br>
+            牌位安置地點: ${deceasedInfo['funeral-space']}<br>
+            出殯日期: ${deceasedInfo['funeral-date']}<br>
+            出殯地點: ${deceasedInfo['funeral-location']}<br>
+            生平介紹: ${deceasedInfo['life-story']}
+        `;
 
-        const photoContainer = document.getElementById('deceased-photo');
-        if (deceasedInfo.photo) {
-            const photoElement = document.createElement('img');
-            photoElement.src = deceasedInfo.photo;
-            photoContainer.appendChild(photoElement);
+        // 加載追思照片
+        if (deceasedInfo['photo']) {
+            tributePhotos.innerHTML += `<img src="${URL.createObjectURL(deceasedInfo['photo'])}" alt="追思照片">`;
         }
 
-        // 顯示其他照片
-        const photoSlider = document.getElementById('photo-slider');
-        if (deceasedInfo['additional-photos']) {
-            deceasedInfo['additional-photos'].forEach(photo => {
-                const photoElement = document.createElement('img');
-                photoElement.src = photo;
-                photoSlider.appendChild(photoElement);
-            });
-        }
+        // 添加地圖和公共交通資訊（這裡可以用 Google Maps 或其他地圖服務 API）
+        mapAndTransit.innerHTML = `
+            <iframe src="https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=${encodeURIComponent(deceasedInfo['funeral-location'])}" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+            <p>公共交通：從...到...的詳細資訊</p>
+        `;
     }
 
+    // 點擊訂購花籃按鈕
+    orderFlowerButton.addEventListener('click', function () {
+        window.location.href = 'flower-order.html';
+    });
+
+    // 計算年齡的函數
     function calculateAge(birthDate, deathDate) {
         const birth = new Date(birthDate);
         const death = new Date(deathDate);
         let age = death.getFullYear() - birth.getFullYear();
-        const m = death.getMonth() - birth.getMonth();
-        if (m < 0 || (m === 0 && death.getDate() < birth.getDate())) {
+        const monthDiff = death.getMonth() - birth.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && death.getDate() < birth.getDate())) {
             age--;
         }
         return age;
     }
-
-    // 留言提交
-    const messageForm = document.getElementById('message-form');
-    messageForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-        const name = document.getElementById('name-input').value;
-        const message = document.getElementById('message-input').value;
-
-        const messages = JSON.parse(localStorage.getItem('messages')) || [];
-        messages.push({ name, message });
-        localStorage.setItem('messages', JSON.stringify(messages));
-
-        displayMessages();
-    });
-
-    function displayMessages() {
-        const messagesContainer = document.getElementById('messages-container');
-        messagesContainer.innerHTML = '';
-        const messages = JSON.parse(localStorage.getItem('messages')) || [];
-        messages.forEach(msg => {
-            const messageElement = document.createElement('p');
-            messageElement.textContent = `${msg.name}: ${msg.message}`;
-            messagesContainer.appendChild(messageElement);
-        });
-    }
-
-    displayMessages();
 });
