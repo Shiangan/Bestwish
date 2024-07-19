@@ -1,70 +1,70 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const infoFormSection = document.getElementById('info-form-section');
-    const welcomeSection = document.getElementById('welcome-section');
-    const enterButton = document.getElementById('enter-button');
-    const musicChoice = document.getElementById('music-choice');
-    const musicPreview = document.getElementById('music-preview');
-    const backgroundMusic = document.getElementById('background-music');
-    const playMusicButton = document.getElementById('play-music');
-    const stopMusicButton = document.getElementById('stop-music');
-
-    // 播放背景音樂
-    backgroundMusic.play();
-
-    // 音樂選擇預覽
-    musicChoice.addEventListener('change', function () {
-        const selectedMusic = this.value;
-        musicPreview.src = selectedMusic;
-        musicPreview.play();
-    });
-
-    // 播放和停止音樂按鈕
-    playMusicButton.addEventListener('click', function () {
-        backgroundMusic.play();
-        playMusicButton.style.display = 'none';
-        stopMusicButton.style.display = 'inline';
-    });
-
-    stopMusicButton.addEventListener('click', function () {
-        backgroundMusic.pause();
-        playMusicButton.style.display = 'inline';
-        stopMusicButton.style.display = 'none';
-    });
-
-    // 表單提交
+document.addEventListener('DOMContentLoaded', function() {
     const infoForm = document.getElementById('info-form');
-    infoForm.addEventListener('submit', function (event) {
-        event.preventDefault();
+    const mainPhotoSection = document.getElementById('main-photo-section');
+    const mainPhoto = document.getElementById('main-photo');
+    const invitationText = document.getElementById('invitation-text');
+    const photoInput = document.getElementById('photo');
 
-        // 獲取表單數據
-        const formData = new FormData(infoForm);
-        const data = {};
-        formData.forEach((value, key) => {
-            data[key] = value;
-        });
+    // 当表单提交时
+    infoForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // 防止表单默认提交行为
 
-        // 保存數據到本地存儲
-        localStorage.setItem('deceasedInfo', JSON.stringify(data));
-
-        // 隱藏表單區域，顯示敬邀您頁面
-        infoFormSection.style.display = 'none';
-        welcomeSection.style.display = 'block';
-
-        // 設置主要照片為第一張
-        const mainPhoto = document.getElementById('main-photo');
-        const additionalPhotos = document.getElementById('additional-photos').files;
-        if (additionalPhotos.length > 0) {
-            const firstPhotoFile = additionalPhotos[0]; // 第一張照片
+        // 获取用户上传的照片文件
+        const file = photoInput.files[0];
+        if (file) {
+            // 使用FileReader读取照片文件
             const reader = new FileReader();
             reader.onload = function(e) {
+                // 设置主要照片的src
                 mainPhoto.src = e.target.result;
-            };
-            reader.readAsDataURL(firstPhotoFile);
+
+                // 显示渐显照片部分
+                mainPhotoSection.style.display = 'block';
+
+                // 使主要照片渐显
+                mainPhoto.style.opacity = 1;
+
+                // 隐藏表单部分
+                infoForm.style.display = 'none';
+            }
+            reader.readAsDataURL(file);
         }
     });
 
-    // 點擊進入頁面按鈕
-    enterButton.addEventListener('click', function () {
-        window.location.href = 'obituary.html';
+    // 音乐控制按钮功能
+    const playMusicButton = document.getElementById('play-music');
+    const stopMusicButton = document.getElementById('stop-music');
+    const musicChoice = document.getElementById('music-choice');
+
+    let audio = new Audio();
+
+    function loadMusic(url) {
+        audio.src = url;
+        audio.play();
+        playMusicButton.style.display = 'none';
+        stopMusicButton.style.display = 'inline-block';
+    }
+
+    playMusicButton.addEventListener('click', function() {
+        if (!audio.src) {
+            loadMusic(musicChoice.value);
+        } else {
+            audio.play();
+            playMusicButton.style.display = 'none';
+            stopMusicButton.style.display = 'inline-block';
+        }
+    });
+
+    stopMusicButton.addEventListener('click', function() {
+        audio.pause();
+        playMusicButton.style.display = 'inline-block';
+        stopMusicButton.style.display = 'none';
+    });
+
+    // 选择音乐时
+    musicChoice.addEventListener('change', function() {
+        if (audio.src) {
+            loadMusic(musicChoice.value);
+        }
     });
 });
