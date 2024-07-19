@@ -8,22 +8,26 @@
 </head>
 <body>
     <header>
-        <img src="標準字LOGO標準色.jpg" alt="祥安生命有限公司 Logo" class="logo">
+        <img src="image/logo.png" alt="祥安生命有限公司 Logo" class="logo">
         <h1>雲端訃聞</h1>
     </header>
 
     <main>
-        <section id="deceased-info">
-            <h2>往生者資料</h2>
-            <form id="deceased-form" action="obituary.html" method="GET" enctype="multipart/form-data">
+        <section id="welcome-section">
+            <img id="main-photo" src="image/main-photo.jpg" alt="主要照片">
+            <div id="welcome-text">
+                <h2>敬邀您</h2>
+                <button id="enter-button">進入頁面</button>
+            </div>
+        </section>
+
+        <section id="info-form-section">
+            <form id="info-form">
                 <label for="name">姓名:</label>
                 <input type="text" id="name" name="name" required>
 
                 <label for="photo">追思照片:</label>
                 <input type="file" id="photo" name="photo" accept="image/*" required>
-
-                <label for="additional-photos">其他照片（可選）:</label>
-                <input type="file" id="additional-photos" name="additional-photos" accept="image/*" multiple>
 
                 <label for="birth-date">出生日期:</label>
                 <input type="date" id="birth-date" name="birth-date" required>
@@ -68,10 +72,11 @@
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
-    </footer>
+    <audio id="background-music" preload="auto">
+        <source src="audio/background-music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
-    <script src="indext.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>
