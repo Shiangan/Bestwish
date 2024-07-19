@@ -4,16 +4,29 @@ document.addEventListener('DOMContentLoaded', function() {
     const name = urlParams.get('name');
     const photo = urlParams.get('photo');
     const deathDate = urlParams.get('death-date');
+    const familyContact = urlParams.get('family-contact');
 
-    // 更新訃聞內容
-    document.getElementById('deceased-name').textContent = name;
+    // 更新第一頁訃聞內容
     document.getElementById('deceased-photo').src = photo;
-    document.getElementById('deceased-photo').style.display = 'block'; // 顯示照片
-    document.getElementById('death-date-text').textContent = deathDate;
+    document.getElementById('obituary-photo').classList.add('show');
+    document.getElementById('invite-message').classList.add('show');
+    document.getElementById('death-announcement').textContent = `我們摯愛的${name}，於 ${deathDate} 已逝世，敬邀各位一同緬懷。`;
+    document.getElementById('family-contact-info').textContent = familyContact;
+    document.getElementById('enter-obituary-button').classList.add('show');
+
+    // 當點擊進入訃聞內容按鈕時跳轉到訃聞內容頁面
+    const enterObituaryButton = document.getElementById('enter-obituary-button');
+    enterObituaryButton.addEventListener('click', function() {
+        window.location.href = 'obituary.html'; // 導向到訃聞內容頁面
+    });
+
+    // 自動播放背景音樂
+    const backgroundMusic = document.getElementById('background-music');
+    backgroundMusic.play();
 
     // 留言表單提交事件
     const messageForm = document.getElementById('message-form');
-    const messagesContainer = document.getElementById('messages');
+    const messagesContainer = document.getElementById('messages-section');
 
     messageForm.addEventListener('submit', function(event) {
         event.preventDefault();
@@ -27,16 +40,4 @@ document.addEventListener('DOMContentLoaded', function() {
         messageElement.classList.add('message');
         messageElement.innerHTML = `<strong>${nameInput}：</strong>${messageInput}`;
 
-        // 將新留言添加到留言區域
-        messagesContainer.appendChild(messageElement);
-
-        // 清空表單
-        messageForm.reset();
-    });
-
-    // 跳轉至訂購花籃頁面
-    const flowerOrderButton = document.getElementById('flower-order-button');
-    flowerOrderButton.addEventListener('click', function() {
-        window.location.href = 'flower-order.html'; // 導向到花籃訂購頁面
-    });
-});
+        // 將新留言添加到留言區
