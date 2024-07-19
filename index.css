@@ -37,34 +37,17 @@ form input, form textarea, form select {
     border-radius: 5px;
 }
 
-#welcome-text {
+#main-photo-section {
     text-align: center;
-    margin-top: -150px;
+    padding: 20px;
+    background: #fff;
     position: relative;
 }
 
-#welcome-text h1 {
+#invitation-text {
     font-size: 2em;
-    color: #fff;
-}
-
-#welcome-text button {
-    background: #333;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1.2em;
-    cursor: pointer;
-}
-
-#welcome-text button:hover {
-    background: #555;
-}
-
-#photo-container {
-    position: relative;
-    width: 100%;
-    height: auto;
+    color: #888; /* 淡色 */
+    margin-bottom: 20px;
 }
 
 #main-photo {
@@ -74,15 +57,17 @@ form input, form textarea, form select {
     transition: opacity 2s ease-in-out;
 }
 
-#invitation-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 2em;
-    color: rgba(255, 255, 255, 0.8);
-    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
-    text-align: center;
+#go-to-obituary button {
+    background: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+#go-to-obituary button:hover {
+    background: #555;
 }
 
 #music-control {
@@ -99,4 +84,14 @@ form input, form textarea, form select {
     padding: 5px 10px;
     margin: 5px;
     cursor: pointer;
+}
+
+#music-control button#play-music {
+    background: #4CAF50;
+    color: white;
+}
+
+#music-control button#stop-music {
+    background: #f44336;
+    color: white;
 }
