@@ -3,32 +3,41 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background: #f4f4f4;
+    background: linear-gradient(to right, #f8f9fa, #e9ecef);
+    color: #333;
 }
 
 /* 头部样式 */
 header {
-    background: #333;
+    background: #007bff;
     color: #fff;
-    padding: 10px;
+    padding: 15px;
     text-align: center;
 }
 
 header .logo {
-    width: 100px;
+    width: 120px;
 }
 
 /* 表单部分样式 */
 #info-form-section {
-    padding: 20px;
     background: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 20px auto;
 }
 
-/* 表单样式 */
+#info-form-section h2 {
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
 form {
     display: grid;
-    gap: 10px;
+    gap: 15px;
 }
 
 form label {
@@ -37,65 +46,76 @@ form label {
 
 form input, form textarea, form select {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+form input[type="file"] {
+    border: none;
 }
 
 form button {
-    background: #333;
+    background: #007bff;
     color: #fff;
     border: none;
-    padding: 10px 20px;
-    font-size: 1.2em;
+    padding: 15px;
+    border-radius: 8px;
     cursor: pointer;
-    border-radius: 5px;
+    font-size: 16px;
 }
 
 form button:hover {
-    background: #555;
+    background: #0056b3;
 }
 
-/* 渐显图片部分样式 */
+/* 渐显照片部分样式 */
 #invitation-section {
     display: none;
     text-align: center;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.9); /* 半透明背景 */
+    margin: 20px;
+}
+
+#photo-container {
     position: relative;
-    height: 100vh;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 #invitation-text {
     font-size: 2em;
-    color: #333;
+    color: #007bff;
     margin-bottom: 20px;
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
 }
 
 #invitation-photo {
-    max-width: 80%;
+    max-width: 100%;
     height: auto;
+    border-radius: 10px;
     opacity: 0;
-    transition: opacity 3s ease-in-out; /* 渐显效果 */
-}
-
-#go-to-obituary {
-    display: block;
-    margin-top: 20px;
+    transition: opacity 2s ease-in-out;
 }
 
 #go-to-obituary button {
-    background: #333;
+    background: #28a745;
     color: #fff;
     border: none;
-    padding: 10px 20px;
-    font-size: 1.2em;
+    padding: 12px 24px;
+    font-size: 18px;
+    border-radius: 8px;
     cursor: pointer;
-    border-radius: 5px;
+    margin-top: 20px;
 }
 
 #go-to-obituary button:hover {
-    background: #555;
+    background: #218838;
 }
 
 /* 音乐控制样式 */
@@ -105,22 +125,30 @@ form button:hover {
     right: 20px;
     background: #fff;
     padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 #music-control button {
-    background: #333;
+    background: #007bff;
     color: #fff;
     border: none;
-    padding: 5px 10px;
-    margin: 0 5px;
+    padding: 10px 15px;
+    border-radius: 8px;
     cursor: pointer;
-    border-radius: 5px;
+    font-size: 16px;
+    margin: 5px;
 }
 
 #music-control button:hover {
-    background: #555;
+    background: #0056b3;
+}
+
+/* 页脚样式 */
+footer {
+    background: #f8f9fa;
+    color: #333;
+    text-align: center;
+    padding: 15px;
+    border-top: 1px solid #ddd;
 }
