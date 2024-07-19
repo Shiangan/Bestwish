@@ -50,15 +50,16 @@ document.addEventListener('DOMContentLoaded', function () {
         infoFormSection.style.display = 'none';
         welcomeSection.style.display = 'block';
 
-        // 設置主要照片
+        // 設置主要照片為第一張
         const mainPhoto = document.getElementById('main-photo');
-        const photoFile = document.getElementById('photo').files[0];
-        if (photoFile) {
+        const additionalPhotos = document.getElementById('additional-photos').files;
+        if (additionalPhotos.length > 0) {
+            const firstPhotoFile = additionalPhotos[0]; // 第一張照片
             const reader = new FileReader();
             reader.onload = function(e) {
                 mainPhoto.src = e.target.result;
             };
-            reader.readAsDataURL(photoFile);
+            reader.readAsDataURL(firstPhotoFile);
         }
     });
 
