@@ -1,80 +1,65 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const photo = localStorage.getItem('photoUrl');
-    const name = localStorage.getItem('name');
-    const birthDate = localStorage.getItem('birthDate');
-    const deathDate = localStorage.getItem('deathDate');
-    const funeralSpace = localStorage.getItem('funeralSpace');
-    const funeralLocation = localStorage.getItem('funeralLocation');
-    const familyServiceTime = localStorage.getItem('familyServiceTime');
-    const publicServiceTime = localStorage.getItem('publicServiceTime');
-    const age = localStorage.getItem('age');
+    const name = localStorage.getItem('name') || '某某';
+    const birthDate = localStorage.getItem('birthDate') || '1970-01-01';
+    const deathDate = localStorage.getItem('deathDate') || '2024-01-01';
+    const funeralSpace = localStorage.getItem('funeralSpace') || '台北市某某堂';
+    const familyServiceTime = localStorage.getItem('familyServiceTime') || '2024-01-05 10:00';
+    const publicServiceTime = localStorage.getItem('publicServiceTime') || '2024-01-06 14:00';
+    const funeralLocation = localStorage.getItem('funeralLocation') || '台北市某某禮堂';
+    const age = localStorage.getItem('age') || '50';
+    const photoUrl = localStorage.getItem('photoUrl') || 'image/default.jpg';
+    const funeralMap = localStorage.getItem('funeralMap') || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.2528262466894!2d144.96313831531834!3d-37.8162189797517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0x5045675218ce6e0!2sVictoria%20Harbour%20Promenade%2C%20Docklands%20VIC%203008%2C%20Australia!5e0!3m2!1sen!2stw!4v1622461560451!5m2!1sen!2stw';
+    const photoUrls = JSON.parse(localStorage.getItem('photoUrls')) || [
+        'image/photo1.jpg',
+        'image/photo2.jpg',
+        'image/photo3.jpg'
+    ];
 
-    if (photo) {
-        document.getElementById('obituary-photo').src = photo;
-    }
+    // 填充訃聞信息
     document.getElementById('name').textContent = name;
     document.getElementById('birth-date').textContent = birthDate;
     document.getElementById('death-date').textContent = deathDate;
+    document.getElementById('age').textContent = age;
     document.getElementById('funeral-space').textContent = funeralSpace;
-    document.getElementById('funeral-location').textContent = funeralLocation;
     document.getElementById('family-service-time').textContent = familyServiceTime;
     document.getElementById('public-service-time').textContent = publicServiceTime;
-    document.getElementById('age').textContent = age;
+    document.getElementById('funeral-location').textContent = funeralLocation;
+    document.getElementById('obituary-photo').src = photoUrl;
+    document.getElementById('funeral-map').src = funeralMap;
 
-    $('.carousel').slick({
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 2000,
+    // 填充輪播照片
+    const photoCarousel = document.getElementById('photo-carousel');
+    photoUrls.forEach(url => {
+        const div = document.createElement('div');
+        const img = document.createElement('img');
+        img.src = url;
+        img.alt = '追思照片';
+        div.appendChild(img);
+        photoCarousel.appendChild(div);
     });
 
+    // 啟動背景音樂
+    const backgroundMusic = document.getElementById('background-music');
+    backgroundMusic.play();
+
+    // 啟動輪播
+    $('.carousel').slick({
+        autoplay: true,
+        autoplaySpeed: 3000,
+        dots: true,
+        arrows: true,
+    });
+
+    // 留言表單提交處理
     const messageForm = document.getElementById('message-form');
     const messagesContainer = document.getElementById('messages-container');
 
-    messageForm.addEventListener('submit', function(event) {
-        event.preventDefault();
+    messageForm.addEventListener('submit', function(e) {
+        e.preventDefault();
         const messageContent = document.getElementById('message-content').value;
-        if (messageContent.trim()) {
-            const messageElement = document.createElement('div');
-            messageElement.textContent = messageContent;
-            messagesContainer.appendChild(messageElement);
-            messageForm.reset();
-        }
-    });
-
-    // Initialize Google Map
-    const mapContainer = document.getElementById('map-container');
-    const mapOptions = {
-        zoom: 15,
-        center: { lat: 25.0330, lng: 121.5654 },
-                // Replace these coordinates with the actual location
-        map: new google.maps.Map(mapContainer, {
-            center: { lat: 25.0330, lng: 121.5654 },
-            zoom: 15,
-        })
-    };
-
-    const map = new google.maps.Map(mapContainer, mapOptions);
-
-    const marker = new google.maps.Marker({
-        position: mapOptions.center,
-        map: map,
-        title: '儀式地點'
-    });
-
-    // Lazy loading sections with fade-in effect
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in');
-            }
-        });
-    });
-
-    document.querySelectorAll('section').forEach(section => {
-        observer.observe(section);
+        const messageElement = document.createElement('div');
+        messageElement.textContent = messageContent;
+        messagesContainer.appendChild(messageElement);
+        messageForm.reset();
     });
 });
