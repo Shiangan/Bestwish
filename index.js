@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const stopMusicButton = document.getElementById("stop-music");
     const backgroundMusic = document.getElementById("background-music");
 
+    // 处理表单提交
     form.addEventListener("submit", function(event) {
         event.preventDefault();
         const formData = new FormData(form);
@@ -27,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 localStorage.setItem('publicServiceTime', formData.get('public-service-time'));
                 localStorage.setItem('age', calculateAge(new Date(formData.get('birth-date')), new Date(formData.get('death-date'))));
 
-                invitationSection.style.display = "block";
+                invitationSection.style.display = "flex"; // 使用 flex 布局以确保居中显示
                 invitationText.style.opacity = 1;
                 mainPhoto.style.opacity = 1;
                 mainPhoto.src = e.target.result;
@@ -38,18 +39,21 @@ document.addEventListener("DOMContentLoaded", function() {
         form.style.display = "none";
     });
 
+    // 计算年龄
     function calculateAge(birthDate, deathDate) {
         const ageDifMs = deathDate - birthDate;
         const ageDate = new Date(ageDifMs);
         return Math.abs(ageDate.getUTCFullYear() - 1970);
     }
 
+    // 播放音乐
     playMusicButton.addEventListener("click", function() {
         backgroundMusic.play();
         playMusicButton.style.display = "none";
         stopMusicButton.style.display = "inline";
     });
 
+    // 停止音乐
     stopMusicButton.addEventListener("click", function() {
         backgroundMusic.pause();
         playMusicButton.style.display = "inline";
