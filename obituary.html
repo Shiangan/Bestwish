@@ -26,17 +26,8 @@
 
         <section id="photo-gallery" class="fade-in">
             <h2>追思相册</h2>
-            <div class="carousel">
-                <div><img src="image/photo1.jpg" alt="追思照片1"></div>
-                <div><img src="image/photo2.jpg" alt="追思照片2"></div>
-                <div><img src="image/photo3.jpg" alt="追思照片3"></div>
-            </div>
-        </section>
-
-        <section id="map" class="fade-in">
-            <h2>儀式地圖</h2>
-            <div id="map-container">
-                <!-- 地圖會顯示在這裡 -->
+            <div class="carousel" id="photo-carousel">
+                <!-- 照片將動態插入 -->
             </div>
         </section>
 
@@ -55,9 +46,28 @@
         </section>
     </main>
 
+    <section id="map" class="fade-in">
+            <h2>儀式地圖</h2>
+            <div id="map-container">
+                <iframe
+                    id="funeral-map"
+                    width="600"
+                    height="450"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                ></iframe>
+            </div>
+        </section>
+
     <footer>
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
     </footer>
+
+    <audio id="background-music" loop>
+        <source src="path/to/your/music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
