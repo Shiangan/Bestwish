@@ -3,28 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>祥安生命有限公司－雲端訃聞</title>
+    <title>祥安生命有限公司－訃聞公告</title>
     <link rel="stylesheet" href="index.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
     <header>
         <img src="image/logo.png" alt="祥安生命有限公司 Logo" class="logo">
-        <h1>雲端訃聞系統</h1>
     </header>
 
     <main>
-        <!-- 欢迎界面 -->
-        <section id="welcome-section">
-            <h2>歡迎使用雲端訃聞系統</h2>
-            <p>請點擊下方按鈕以開始填寫訃聞資料。</p>
-            <button id="start-button">開始</button>
-        </section>
-
-        <!-- 表单提交区域 -->
-        <section id="info-form-section" style="display: none;">
+        <!-- 表单部分 -->
+        <section id="info-form-section">
             <h2>訃聞資料提交</h2>
             <form id="info-form">
+                <!-- 表单内容 -->
                 <label for="name">姓名:</label>
                 <input type="text" id="name" name="name" required>
 
@@ -65,25 +57,23 @@
 
                 <label for="music-choice">選擇背景音樂:</label>
                 <select id="music-choice" name="music-choice">
-                    <option value="audio/music1.mp3">音樂1</option>
-                    <option value="audio/music2.mp3">音樂2</option>
-                    <option value="audio/music3.mp3">音樂3</option>
-                    <option value="audio/music4.mp3">音樂4</option>
-                    <option value="audio/music5.mp3">音樂5</option>
+                    <option value="https://www.youtube.com/embed/音樂1">音樂1</option>
+                    <option value="https://www.youtube.com/embed/音樂2">音樂2</option>
+                    <option value="https://www.youtube.com/embed/音樂3">音樂3</option>
+                    <option value="https://www.youtube.com/embed/音樂4">音樂4</option>
+                    <option value="https://www.youtube.com/embed/音樂5">音樂5</option>
                 </select>
-                <audio id="music-preview" controls>
-                    <source src="" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
 
                 <button type="submit">提交</button>
             </form>
         </section>
 
-        <!-- 图片渐显区域 -->
-        <section id="image-preview-section" style="display: none;">
-            <h2>訃聞照片預覽</h2>
-            <img id="main-photo" src="" alt="主要照片" class="photo-preview">
+        <!-- 渐显照片部分 -->
+        <section id="main-photo-section" style="display: none;">
+            <div id="photo-container">
+                <p id="invitation-text">敬邀您</p>
+                <img id="main-photo" src="" alt="主要照片">
+            </div>
         </section>
     </main>
 
@@ -91,14 +81,9 @@
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
     </footer>
 
-    <audio id="background-music" preload="auto" loop>
-        <source src="audio/background-music.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-
     <div id="music-control">
-        <button id="play-music">🔊 播放音樂</button>
-        <button id="stop-music" style="display: none;">🔇 停止音樂</button>
+        <button id="play-music" aria-label="播放音樂">🔊</button>
+        <button id="stop-music" aria-label="停止音樂" style="display: none;">🔇</button>
     </div>
 
     <script src="index.js"></script>
