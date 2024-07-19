@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>訂單狀態與結帳</title>
-    <link rel="stylesheet" href="flower-order-states.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
@@ -19,8 +19,7 @@
                 <p><strong>往生者姓名:</strong> <span id="deceased-name"></span></p>
                 <p><strong>訂購人姓名:</strong> <span id="sender-name"></span></p>
                 <p><strong>聯絡電話:</strong> <span id="contact-number"></span></p>
-                <p><strong>落款名單:</strong></p>
-                <ul id="tribute-list"></ul>
+                <p><strong>落款名單:</strong> <span id="tribute-list"></span></p>
                 <p><strong>總金額:</strong> $<span id="total-price"></span></p>
                 <p><strong>需發票:</strong> <span id="invoice-needed"></span></p>
                 <p><strong>發票詳情:</strong> <span id="invoice-details"></span></p>
@@ -30,31 +29,45 @@
         <section id="checkout">
             <h2>結帳資訊</h2>
             <p>請選擇以下支付方式：</p>
-            <div class="payment-methods">
-                <a href="line://nv/pay" target="_blank">
-                    <img src="linepay_icon.png" alt="Line Pay 支付圖標" class="payment-icon">
-                </a>
-                <div class="bank-info">
-                    <h3>銀行帳戶匯款：</h3>
-                    <p>銀行名稱：中國信託（822）</p>
-                    <p>帳號：237540143423</p>
-                    <p>戶名：陳妍如</p>
-                </div>
-            </div>
-            <p>24H禮儀服務電話：</p>
-            <a href="tel:0978583699" class="phone-link">
-                <img src="phone.png" alt="打電話圖標" class="payment-icon">
+            <a href="line://nv/pay" target="_blank">
+                <img src="linepay_icon.png" alt="Line Pay 支付圖標" style="width: 100px; height: 100px;">
             </a>
-            <p>請點擊下方圖片加入我們的Line並回傳訂單確認照片：</p>
+            <p>銀行帳戶匯款：（822）中國信託 匯款帳號：237540143423 戶名：陳妍如</p>
+            <p>24H禮儀服務電話：</p>
+            <a href="tel:0978583699" target="_blank">
+                <img src="phone.png" alt="打電話圖標" style="width: 100px; height: 100px;">
+            </a>
+            <p>請點擊下方圖片加入我們的Line並回傳照片：</p>
             <a href="https://line.me/R/ti/p/@yourlineaccount" target="_blank">
-                <img src="line.png" alt="加入Line" class="payment-icon">
+                <img src="line.png" alt="加入Line" style="width: 150px; height: 150px;">
             </a>
             <p>Line帳號: @yourlineaccount</p>
+            <button id="complete-order">完成訂單</button>
         </section>
     </main>
 
     <footer>
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const orderDetails = JSON.parse(localStorage.getItem('orderDetails'));
+            
+            if (orderDetails) {
+                document.getElementById('deceased-name').textContent = orderDetails.deceasedName;
+                document.getElementById('sender-name').textContent = orderDetails.senderName;
+                document.getElementById('contact-number').textContent = orderDetails.contactNumber;
+                document.getElementById('tribute-list').textContent = orderDetails.tributeList || '無';
+                document.getElementById('total-price').textContent = orderDetails.totalPrice;
+                document.getElementById('invoice-needed').textContent = orderDetails.invoiceNeeded ? '需要' : '不需要';
+                document.getElementById('invoice-details').textContent = orderDetails.invoiceDetails || '無';
+            }
+
+            document.getElementById('complete-order').addEventListener('click', function () {
+                window.location.href = 'thanks.html';
+            });
+        });
+    </script>
 </body>
 </html>
