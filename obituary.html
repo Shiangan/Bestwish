@@ -3,55 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>祥安生命有限公司－雲端訃聞</title>
+    <title>訃聞公告</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <img src="image/logo.png" alt="祥安生命有限公司 Logo" class="logo">
-        <h1>雲端訃聞</h1>
     </header>
 
     <main>
-        <section id="deceased-info">
-            <h2>往生者資料</h2>
-            <div id="deceased-photo"></div>
-            <p id="obituary-text"></p>
-        </section>
-
-        <section id="photo-slider">
-            <!-- 輪播照片區域 -->
-        </section>
-
-        <section id="messages-section">
-            <h2>悼念留言</h2>
-            <form id="message-form">
-                <label for="name-input">您的名字:</label>
-                <input type="text" id="name-input" required>
-
-                <label for="message-input">留言:</label>
-                <textarea id="message-input" required></textarea>
-
-                <button type="submit">提交留言</button>
-            </form>
-            <div id="messages-container"></div>
-        </section>
-
-        <section id="map-section">
-            <h2>儀式地圖及交通方式</h2>
-            <!-- 地圖和交通方式 -->
-        </section>
-
-        <section id="flower-order-button">
-            <button onclick="location.href='flower-order.html'">致贈花籃送上祝福</button>
+        <section id="obituary-section">
+            <h1 id="deceased-name">我們的至親</h1>
+            <p id="obituary-content"></p>
+            <div id="tribute-photos">
+                <!-- 這裡展示追思照片 -->
+            </div>
+            <button id="order-flower-button">致贈花籃送上祝福</button>
+            <div id="map-and-transit">
+                <!-- 儀式地圖和公共交通資訊 -->
+            </div>
         </section>
     </main>
 
-    <audio id="background-music" preload="auto">
-        <source src="audio/background-music.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+    <footer>
+        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
+    </footer>
 
-    <script src="script.js"></script>
+    <script src="index.js"></script>
+    <script src="obituary.js"></script>
 </body>
 </html>
