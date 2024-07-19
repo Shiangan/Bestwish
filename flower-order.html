@@ -8,53 +8,66 @@
 </head>
 <body>
     <header>
-        <img src="image/logo.png" alt="祥安生命有限公司 Logo" class="logo">
+        <img src="logo.png" alt="祥安生命有限公司 Logo" class="logo">
+        <h1>訂購花籃</h1>
     </header>
 
     <main>
-        <section id="flower-order-section">
-            <h1>訂購花籃</h1>
+        <section id="order-form">
+            <h2>選擇花籃</h2>
             <form id="flower-order-form">
-                <label for="flower-type">選擇花籃樣式:</label>
-                <div id="flower-type">
-                    <div class="flower-option">
-                        <img src="image/flower1.jpg" alt="花籃樣式1">
-                        <button type="button" class="plus-minus" data-type="flower1">+1</button>
-                        <button type="button" class="plus-minus" data-type="flower1">-1</button>
-                    </div>
-                    <!-- 其他花籃樣式 -->
+                <div class="flower-item">
+                    <img src="flower1.jpg" alt="花籃1">
+                    <p>花籃1 - $100</p>
+                    <button type="button" class="quantity-button" data-price="100" data-id="flower1" data-action="decrease">-</button>
+                    <input type="number" id="flower1-quantity" class="quantity-input" value="0" min="0" readonly>
+                    <button type="button" class="quantity-button" data-price="100" data-id="flower1" data-action="increase">+</button>
+                    <p class="price" id="flower1-price">$0</p>
                 </div>
+                <div class="flower-item">
+                    <img src="flower2.jpg" alt="花籃2">
+                    <p>花籃2 - $200</p>
+                    <button type="button" class="quantity-button" data-price="200" data-id="flower2" data-action="decrease">-</button>
+                    <input type="number" id="flower2-quantity" class="quantity-input" value="0" min="0" readonly>
+                    <button type="button" class="quantity-button" data-price="200" data-id="flower2" data-action="increase">+</button>
+                    <p class="price" id="flower2-price">$0</p>
+                </div>
+                <!-- 添加更多花籃項目 -->
+                
+                <label for="sender-name">訂購人姓名:</label>
+                <input type="text" id="sender-name" name="sender-name" required>
 
-                <label for="orderer-name">訂購人姓名:</label>
-                <input type="text" id="orderer-name" name="orderer-name" required>
+                <label for="contact-number">聯絡電話:</label>
+                <input type="text" id="contact-number" name="contact-number" required>
 
-                <label for="orderer-phone">訂購人電話:</label>
-                <input type="text" id="orderer-phone" name="orderer-phone" required>
-
-                <label for="deceased-name">致贈給亡者:</label>
+                <label for="deceased-name">致贈給亡者姓名:</label>
                 <input type="text" id="deceased-name" name="deceased-name" required>
 
-                <label for="invoice">是否需要發票 (5%):</label>
-                <select id="invoice" name="invoice">
-                    <option value="no">不需要</option>
-                    <option value="yes">需要</option>
-                </select>
+                <label for="invoice">是否需要發票:</label>
+                <input type="checkbox" id="invoice" name="invoice">
 
-                <label for="payer-name">落款名單:</label>
-                <textarea id="payer-name" name="payer-name"></textarea>
+                <label for="invoice-details">發票詳情:</label>
+                <textarea id="invoice-details" name="invoice-details" placeholder="請輸入發票詳情，如抬頭和統編" disabled></textarea>
 
-                <label for="address">若需發票，請填寫地址:</label>
-                <input type="text" id="address" name="address">
-
-                <label for="payer-phone">收件人電話:</label>
-                <input type="text" id="payer-phone" name="payer-phone">
-
-                <div id="order-summary">
-                    <p>總計：$<span id="total-amount">0</span></p>
-                </div>
+                <label for="tribute-list">落款名單:</label>
+                <textarea id="tribute-list" name="tribute-list"></textarea>
 
                 <button type="submit">確認訂單</button>
             </form>
+        </section>
+
+        <section id="order-summary" style="display: none;">
+            <h2>訂單摘要</h2>
+            <div id="order-details">
+                <p><strong>往生者姓名:</strong> <span id="summary-deceased-name"></span></p>
+                <p><strong>訂購人姓名:</strong> <span id="summary-sender-name"></span></p>
+                <p><strong>聯絡電話:</strong> <span id="summary-contact-number"></span></p>
+                <p><strong>落款名單:</strong> <span id="summary-tribute-list"></span></p>
+                <p><strong>總金額:</strong> $<span id="summary-total-price"></span></p>
+                <p><strong>需發票:</strong> <span id="summary-invoice-needed"></span></p>
+                <p><strong>發票詳情:</strong> <span id="summary-invoice-details"></span></p>
+                <button id="confirm-order">完成訂單</button>
+            </div>
         </section>
     </main>
 
