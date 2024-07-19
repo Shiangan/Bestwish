@@ -1,45 +1,37 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const otherFuneralLocationInput = document.getElementById('other-funeral-location');
-    const funeralLocationSelect = document.getElementById('funeral-location');
-    const musicChoice = document.getElementById('music-choice');
-    const audioElement = new Audio();
+document.addEventListener('DOMContentLoaded', function () {
+    const welcomeSection = document.getElementById('welcome-section');
+    const enterButton = document.getElementById('enter-button');
+    const infoFormSection = document.getElementById('info-form-section');
+    const mainPhoto = document.getElementById('main-photo');
+    const backgroundMusic = document.getElementById('background-music');
 
-    funeralLocationSelect.addEventListener('change', () => {
-        if (funeralLocationSelect.value === '其他') {
-            otherFuneralLocationInput.style.display = "block";
-            otherFuneralLocationInput.required = true;
-        } else {
-            otherFuneralLocationInput.style.display = "none";
-            otherFuneralLocationInput.required = false;
-            otherFuneralLocationInput.value = ""; // Clear the input value if not required
-        }
+    // 淡入主要照片
+    mainPhoto.style.opacity = 1;
+
+    // 播放背景音樂
+    backgroundMusic.play();
+
+    // 點擊進入頁面按鈕
+    enterButton.addEventListener('click', function () {
+        welcomeSection.style.display = 'none';
+        infoFormSection.style.display = 'block';
     });
 
-    musicChoice.addEventListener('change', () => {
-        audioElement.src = musicChoice.value;
-        audioElement.play();
+    // 表單提交
+    const infoForm = document.getElementById('info-form');
+    infoForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const formData = new FormData(infoForm);
+        const data = {};
+        formData.forEach((value, key) => {
+            data[key] = value;
+        });
+
+        // 將表單數據保存到本地存儲
+        localStorage.setItem('deceasedInfo', JSON.stringify(data));
+
+        // 導向到訃聞頁面
+        window.location.href = 'obituary.html';
     });
-
-    // Control music play/pause
-    const musicControlButton = document.createElement('button');
-    musicControlButton.textContent = '🔊 開啟音樂';
-    document.body.appendChild(musicControlButton);
-
-    let isPlaying = true;
-    musicControlButton.addEventListener('click', () => {
-        if (isPlaying) {
-            audioElement.pause();
-            musicControlButton.textContent = '🔇 關閉音樂';
-        } else {
-            audioElement.play();
-            musicControlButton.textContent = '🔊 開啟音樂';
-        }
-        isPlaying = !isPlaying;
-    });
-
-    // Ensure music starts playing on page load with selected choice
-    if (musicChoice.value) {
-        audioElement.src = musicChoice.value;
-        audioElement.play();
-    }
 });
