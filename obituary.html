@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>祥安生命有限公司－訃聞公告</title>
+    <title>訃聞公告</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
     <link rel="stylesheet" href="obituary.css">
 </head>
 <body>
@@ -12,47 +14,44 @@
     </header>
 
     <main>
-        <section id="obituary-content">
-            <h2>訃聞公告</h2>
-            <div id="photo-slider">
-                <img class="slide" src="image/photo1.jpg" alt="照片1">
-                <img class="slide" src="image/photo2.jpg" alt="照片2">
-                <img class="slide" src="image/photo3.jpg" alt="照片3">
-                <!-- 其他照片 -->
+        <section id="obituary-info" class="fade-in">
+            <h1>訃聞公告</h1>
+            <div id="obituary-photo-container">
+                <img id="obituary-photo" src="" alt="追思照片">
             </div>
             <p id="obituary-text">
-                <!-- 在此处显示详细的訃闻内容，例如：
-                我们怀着无比沉痛的心情，宣布 XXX（姓名）于 YYYY 年 MM 月 DD 日（出生日期： YYYY 年 MM 月 DD 日，享年 XX 岁）离世。 XXX（姓名）生前为人诚恳、善良，终年 XX 岁，离世前在亲友的陪伴下安详离世。
-                -->
+                我們沉痛公告，<span id="name">[姓名]</span>，生於<span id="birth-date">[出生日期]</span>，逝於<span id="death-date">[死亡日期]</span>，享年<span id="age">[享年]</span>。其牌位安置於<span id="funeral-space">[牌位安置地點]</span>。家奠禮將於<span id="family-service-time">[家奠禮時間]</span>舉行，公奠禮於<span id="public-service-time">[公奠禮時間]</span>舉行，地點為<span id="funeral-location">[出殯地點]</span>。願靈魂安息。
             </p>
+        </section>
 
-            <section id="tribute-section">
-                <h3>留言区</h3>
-                <form id="tribute-form">
-                    <label for="name">姓名:</label>
-                    <input type="text" id="name" name="name" required>
+        <section id="photo-gallery" class="fade-in">
+            <h2>追思相册</h2>
+            <div class="carousel">
+                <div><img src="image/photo1.jpg" alt="追思照片1"></div>
+                <div><img src="image/photo2.jpg" alt="追思照片2"></div>
+                <div><img src="image/photo3.jpg" alt="追思照片3"></div>
+            </div>
+        </section>
 
-                    <label for="message">留言:</label>
-                    <textarea id="message" name="message" required></textarea>
+        <section id="map" class="fade-in">
+            <h2>儀式地圖</h2>
+            <div id="map-container">
+                <!-- 地圖會顯示在這裡 -->
+            </div>
+        </section>
 
-                    <button type="submit">提交留言</button>
-                </form>
+        <section id="messages" class="fade-in">
+            <h2>留言區</h2>
+            <div id="messages-container"></div>
+            <form id="message-form">
+                <textarea id="message-content" name="message-content" placeholder="請留下您的追思信息..." required></textarea>
+                <button type="submit">提交留言</button>
+            </form>
+        </section>
 
-                <div id="tribute-list">
-                    <!-- 留言列表将通过 JavaScript 动态添加 -->
-                </div>
-            </section>
-
-            <section id="map-section">
-                <h3>仪式地图</h3>
-                <div id="map-container">
-                    <button id="show-funeral-map">显示安灵地图</button>
-                    <button id="show-burial-map">显示出殯地图</button>
-                </div>
-                <div id="map-display">
-                    <!-- 地图显示区域 -->
-                </div>
-            </section>
+        <section id="flower-basket" class="fade-in">
+            <h2>致贈花禮送上祝福</h2>
+            <a href="flower-order.html" id="flower-order-link">訂購花籃請點選我</a>
         </section>
     </main>
 
@@ -60,6 +59,9 @@
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
     <script src="obituary.js"></script>
 </body>
 </html>
