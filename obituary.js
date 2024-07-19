@@ -50,3 +50,31 @@ document.addEventListener("DOMContentLoaded", function() {
     const mapOptions = {
         zoom: 15,
         center: { lat: 25.0330, lng: 121.5654 },
+                // Replace these coordinates with the actual location
+        map: new google.maps.Map(mapContainer, {
+            center: { lat: 25.0330, lng: 121.5654 },
+            zoom: 15,
+        })
+    };
+
+    const map = new google.maps.Map(mapContainer, mapOptions);
+
+    const marker = new google.maps.Marker({
+        position: mapOptions.center,
+        map: map,
+        title: '儀式地點'
+    });
+
+    // Lazy loading sections with fade-in effect
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in');
+            }
+        });
+    });
+
+    document.querySelectorAll('section').forEach(section => {
+        observer.observe(section);
+    });
+});
