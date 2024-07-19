@@ -9,25 +9,28 @@
 <body>
     <header>
         <img src="image/logo.png" alt="祥安生命有限公司 Logo" class="logo">
-        <h1>雲端訃聞</h1>
     </header>
 
     <main>
         <section id="welcome-section">
             <img id="main-photo" src="image/main-photo.jpg" alt="主要照片">
             <div id="welcome-text">
-                <h2>敬邀您</h2>
+                <h1>敬邀您</h1>
                 <button id="enter-button">進入頁面</button>
             </div>
         </section>
 
         <section id="info-form-section" style="display: none;">
+            <h2>訃聞資料提交</h2>
             <form id="info-form">
                 <label for="name">姓名:</label>
                 <input type="text" id="name" name="name" required>
 
                 <label for="photo">追思照片:</label>
                 <input type="file" id="photo" name="photo" accept="image/*" required>
+
+                <label for="additional-photos">其他照片（可選）:</label>
+                <input type="file" id="additional-photos" name="additional-photos" accept="image/*" multiple>
 
                 <label for="birth-date">出生日期:</label>
                 <input type="date" id="birth-date" name="birth-date" required>
@@ -59,23 +62,36 @@
                 <textarea id="life-story" name="life-story"></textarea>
 
                 <label for="music-choice">選擇背景音樂:</label>
-                <select id="music-choice" name="music-choice" required>
-                    <option value="music1.mp3">音樂1</option>
-                    <option value="music2.mp3">音樂2</option>
-                    <option value="music3.mp3">音樂3</option>
-                    <option value="music4.mp3">音樂4</option>
-                    <option value="music5.mp3">音樂5</option>
+                <select id="music-choice" name="music-choice">
+                    <option value="audio/music1.mp3">音樂1</option>
+                    <option value="audio/music2.mp3">音樂2</option>
+                    <option value="audio/music3.mp3">音樂3</option>
+                    <option value="audio/music4.mp3">音樂4</option>
+                    <option value="audio/music5.mp3">音樂5</option>
                 </select>
+                <audio id="music-preview" controls>
+                    <source src="" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
 
                 <button type="submit">提交</button>
             </form>
         </section>
     </main>
 
-    <audio id="background-music" preload="auto">
+    <footer>
+        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
+    </footer>
+
+    <audio id="background-music" preload="auto" loop>
         <source src="audio/background-music.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
+
+    <div id="music-control">
+        <button id="play-music">播放音樂</button>
+        <button id="stop-music" style="display: none;">停止音樂</button>
+    </div>
 
     <script src="index.js"></script>
 </body>
