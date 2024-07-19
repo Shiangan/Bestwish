@@ -72,35 +72,44 @@ form button:hover {
 
 /* 渐显照片部分样式 */
 #invitation-section {
-    display: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
     text-align: center;
-    margin: 20px;
+    position: relative;
 }
 
 #photo-container {
     position: relative;
-    background: rgba(255, 255, 255, 0.9);
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    overflow: hidden;
+}
+
+#main-photo {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    opacity: 0.7; /* 淡化效果 */
+}
+
+#invitation-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+    font-size: 2em;
+    background: rgba(0, 0, 0, 0.5); /* 半透明背景 */
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 600px;
-    margin: 0 auto;
 }
 
-#invitation-text {
-    font-size: 2em;
-    color: #007bff;
-    margin-bottom: 20px;
-    opacity: 0;
-    transition: opacity 2s ease-in-out;
-}
-
-#invitation-photo {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    opacity: 0;
-    transition: opacity 2s ease-in-out;
+#invitation-overlay p {
+    margin: 0;
 }
 
 #go-to-obituary button {
