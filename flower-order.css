@@ -1,41 +1,85 @@
-/* 花籃訂購頁面樣式 */
-header {
-    text-align: center;
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
 }
 
-.flower-photos {
+header {
+    background: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: left;
+}
+
+header .logo {width: 100px;
+}
+
+#flower-order-section {
+    padding: 20px;
+    background: #fff;
+}
+
+#flower-type {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    gap: 10px;
 }
 
-.flower-photo {
-    max-width: 100px;
+.flower-option {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    width: 200px;
+    position: relative;
+}
+
+.flower-option img {
+    width: 100%;
+    max-height: 150px;
+    object-fit: cover;
+}
+
+.plus-minus {
+    background: #333;
+    color: #fff;
+    border: none;
+    padding: 5px;
     margin: 5px;
     cursor: pointer;
-    border: 2px solid transparent;
 }
 
-.flower-photo.selected {
-    border: 2px solid blue;
+.plus-minus:hover {
+    background: #555;
 }
 
-.quantity-control {
-    display: flex;
-    align-items: center;
+#flower-order-form {
+    display: grid;
+    gap: 10px;
 }
 
-.quantity-control button {
-    padding: 5px;
+#order-summary {
+    margin-top: 20px;
 }
 
-#total-amount {
-    font-size: 18px;
+#order-summary p {
+    font-size: 1.2em;
+}
+
+#order-summary span {
     font-weight: bold;
-    margin-top: 10px;
 }
 
-#address-details,
-#confirmation-section {
-    display: none;
+button {
+    background: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #555;
 }
