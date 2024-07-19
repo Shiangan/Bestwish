@@ -16,11 +16,25 @@ header .logo {
     width: 100px;
 }
 
-#main-photo {
+#info-form-section {
+    padding: 20px;
+    background: #fff;
+}
+
+form {
+    display: grid;
+    gap: 10px;
+}
+
+form label {
+    font-weight: bold;
+}
+
+form input, form textarea, form select {
     width: 100%;
-    height: auto;
-    opacity: 0;
-    transition: opacity 2s ease-in-out;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 #welcome-text {
@@ -47,25 +61,28 @@ header .logo {
     background: #555;
 }
 
-#info-form-section {
-    padding: 20px;
-    background: #fff;
-}
-
-form {
-    display: grid;
-    gap: 10px;
-}
-
-form label {
-    font-weight: bold;
-}
-
-form input, form textarea, form select {
+#photo-container {
+    position: relative;
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    height: auto;
+}
+
+#main-photo {
+    width: 100%;
+    height: auto;
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+}
+
+#invitation-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2em;
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+    text-align: center;
 }
 
 #music-control {
