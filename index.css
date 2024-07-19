@@ -83,15 +83,17 @@ form button:hover {
 #photo-container {
     position: relative;
     width: 100%;
-    max-width: 800px;
+    max-width: 1200px;
     height: auto;
     overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 #main-photo {
     width: 100%;
     height: auto;
-    object-fit: cover;
+    object-fit: cover; /* 保持图片比例，裁剪超出部分 */
     opacity: 0.7; /* 淡化效果 */
 }
 
@@ -106,25 +108,8 @@ form button:hover {
     background: rgba(0, 0, 0, 0.5); /* 半透明背景 */
     padding: 20px;
     border-radius: 10px;
-}
-
-#invitation-overlay p {
-    margin: 0;
-}
-
-#go-to-obituary button {
-    background: #28a745;
-    color: #fff;
-    border: none;
-    padding: 12px 24px;
-    font-size: 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 20px;
-}
-
-#go-to-obituary button:hover {
-    background: #218838;
+    max-width: 80%;
+    width: auto;
 }
 
 /* 音乐控制样式 */
