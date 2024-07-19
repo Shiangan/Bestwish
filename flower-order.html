@@ -1,3 +1,72 @@
+了解了，我會把這些要求分步實現並更新相關的HTML、CSS和JavaScript文件。
+
+### 第一部分：訃聞頁面
+
+#### HTML - `obituary.html`
+```html
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>祥安生命有限公司－雲端訃聞</title>
+    <link rel="stylesheet" href="obituary.css">
+</head>
+<body>
+    <header>
+        <img src="image/logo.png" alt="祥安生命有限公司 Logo" class="logo">
+        <h1>雲端訃聞</h1>
+    </header>
+
+    <main>
+        <section id="deceased-info">
+            <h2>往生者資料</h2>
+            <div id="deceased-photo"></div>
+            <p id="obituary-text"></p>
+        </section>
+
+        <section id="photo-slider">
+            <!-- 輪播照片區域 -->
+        </section>
+
+        <section id="messages-section">
+            <h2>悼念留言</h2>
+            <form id="message-form">
+                <label for="name-input">您的名字:</label>
+                <input type="text" id="name-input" required>
+
+                <label for="message-input">留言:</label>
+                <textarea id="message-input" required></textarea>
+
+                <button type="submit">提交留言</button>
+            </form>
+            <div id="messages-container"></div>
+        </section>
+
+        <section id="map-section">
+            <h2>儀式地圖及交通方式</h2>
+            <!-- 地圖和交通方式 -->
+        </section>
+
+        <section id="flower-order-button">
+            <button onclick="location.href='flower-order.html'">致贈花籃送上祝福</button>
+        </section>
+    </main>
+
+    <audio id="background-music" preload="auto">
+        <source src="audio/background-music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script src="obituary.js"></script>
+</body>
+</html>
+```
+
+### 第二部分：花籃訂購頁面
+
+#### HTML - `flower-order.html`
+```html
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -8,95 +77,146 @@
 </head>
 <body>
     <header>
-        <img src="logo.png" alt="祥安生命有限公司 Logo" class="logo">
         <h1>訂購花籃</h1>
     </header>
 
     <main>
-        <section id="flower-basket-options">
+        <section id="flower-selection">
             <h2>選擇花籃樣式</h2>
-            <div class="flower-option" data-baskettpe="standard" data-price="1000">
-                <img src="standard-basket.jpg" alt="標準花籃">
-                <h3>標準花籃</h3>
-                <p>價格: $1000</p>
-                <button class="add-to-cart">加入購物車</button>
+            <div class="flower-photos">
+                <!-- 八張花籃樣式照片 -->
+                <img src="image/flower1.jpg" alt="花籃樣式1" class="flower-photo">
+                <img src="image/flower2.jpg" alt="花籃樣式2" class="flower-photo">
+                <img src="image/flower3.jpg" alt="花籃樣式3" class="flower-photo">
+                <img src="image/flower4.jpg" alt="花籃樣式4" class="flower-photo">
+                <img src="image/flower5.jpg" alt="花籃樣式5" class="flower-photo">
+                <img src="image/flower6.jpg" alt="花籃樣式6" class="flower-photo">
+                <img src="image/flower7.jpg" alt="花籃樣式7" class="flower-photo">
+                <img src="image/flower8.jpg" alt="花籃樣式8" class="flower-photo">
             </div>
-            <div class="flower-option" data-baskettpe="premium" data-price="2000">
-                <img src="premium-basket.jpg" alt="高級花籃">
-                <h3>高級花籃</h3>
-                <p>價格: $2000</p>
-                <button class="add-to-cart">加入購物車</button>
-            </div>
-            <!-- 其他花籃樣式 -->
         </section>
 
-        <section id="shopping-cart">
-            <h3>購物車</h3>
-            <ul id="cart-items"></ul>
-            <p>總數量: <span id="total-quantity">0</span></p>
-            <p>總金額: $<span id="total-price">0.00</span></p>
-            <button id="view-cart">查看我的購物車</button>
-        </section>
-        
         <section id="order-details">
-            <h3>填寫訂購資訊</h3>
+            <h2>訂購詳情</h2>
             <form id="flower-order-form">
-                <label for="sender-name">訂購人姓名:</label>
-                <input type="text" id="sender-name" name="sender-name" required>
-                
-                <label for="recipient-name">收件人姓名:</label>
-                <input type="text" id="recipient-name" name="recipient-name" required>
-                
-                <label for="deceased-name">亡者姓名:</label>
+                <label for="orderer-name">訂購人姓名:</label>
+                <input type="text" id="orderer-name" name="orderer-name" required>
+
+                <label for="orderer-phone">訂購人電話:</label>
+                <input type="tel" id="orderer-phone" name="orderer-phone" required>
+
+                <label for="deceased-name">致贈給（亡者名）:</label>
                 <input type="text" id="deceased-name" name="deceased-name" required>
 
-                <label for="tribute-list">落款名單:</label>
-                <textarea id="tribute-list" name="tribute-list" required></textarea>
+                <label for="invoice">是否需要發票（加收5%）:</label>
+                <input type="checkbox" id="invoice" name="invoice">
 
-                <label for="need-invoice">是否需要發票(總金額+5%）:</label>
-                <input type="checkbox" id="need-invoice" name="need-invoice">
-                
-                <label for="invoice-details">發票抬頭及地址:</label>
-                <textarea id="invoice-details" name="invoice-details" disabled></textarea>
-                
-                <button type="submit">提交訂單</button>
+                <label for="sender-names">落款名單:</label>
+                <textarea id="sender-names" name="sender-names"></textarea>
+
+                <label for="quantity">數量:</label>
+                <div class="quantity-control">
+                    <button type="button" id="decrease-quantity">-</button>
+                    <input type="number" id="quantity" name="quantity" value="1" min="1" readonly>
+                    <button type="button" id="increase-quantity">+</button>
+                </div>
+
+                <p id="total-amount">總計：$金額</p>
+
+                <button type="submit">確認訂單</button>
             </form>
         </section>
 
-        <section id="payment-method">
-            <h3>選擇支付方式</h3>
-            <a href="line://nv/pay" target="_blank">
-                <img src="linepay_icon.png" alt="Line Pay 支付图标" style="width: 100px; height: 100px;">
-            </a>
-            
-            <p>銀行帳戶匯款：（822）中國信託
-                匯款帳號：237540143423
-                戶名：陳妍如
-            </p>
+        <section id="address-details" style="display:none;">
+            <h2>發票/收據地址</h2>
+            <form id="address-form">
+                <label for="recipient-name">收件人姓名:</label>
+                <input type="text" id="recipient-name" name="recipient-name">
 
-            <p>請點擊下方圖片加入我們的Line並回傳照片：</p>
-            <a href="https://line.me/R/ti/p/@yourlineaccount" target="_blank">
-                <img src="line.png" alt="加入Line" style="width: 150px; height: 150px;">
-            </a>
-            <p>Line帳號: @yourlineaccount</p>
+                <label for="recipient-phone">收件人電話:</label>
+                <input type="tel" id="recipient-phone" name="recipient-phone">
 
-            <p>24H禮儀服務電話：
-                <a href="phone：0978583699" target="_blank">
-                    <img src="phone.png" alt="打電話图标" style="width: 100px; height: 100px;">
-                </a>
-            </p>
+                <label for="recipient-address">地址:</label>
+                <input type="text" id="recipient-address" name="recipient-address">
+
+                <button type="submit">確認地址</button>
+            </form>
+        </section>
+
+        <section id="confirmation-section" style="display:none;">
+            <h2>訂單確認</h2>
+            <p>訂購人: <span id="confirm-orderer-name"></span></p>
+            <p>電話: <span id="confirm-orderer-phone"></span></p>
+            <p>致贈給: <span id="confirm-deceased-name"></span></p>
+            <p>花籃樣式: <span id="confirm-flower-style"></span></p>
+            <p>數量: <span id="confirm-quantity"></span></p>
+            <p>發票: <span id="confirm-invoice"></span></p>
+            <p>落款名單: <span id="confirm-sender-names"></span></p>
+            <p>總計: <span id="confirm-total-amount"></span></p>
+
+            <button id="finalize-order">完成訂單</button>
         </section>
     </main>
-
-    <footer>
-        <p>&copy; 2024 祥安生命有限公司. 版权所有.</p>
-    </footer>
-
-    <form id="flower-order-form" action="submit-order.php" method="POST">
-    <!-- 表单内容 -->
-    <button type="submit">提交訂單</button>
-</form>
 
     <script src="flower-order.js"></script>
 </body>
 </html>
+```
+
+### JavaScript - `flower-order.js`
+```javascript
+document.addEventListener('DOMContentLoaded', function () {
+    const flowerPhotos = document.querySelectorAll('.flower-photo');
+    const flowerOrderForm = document.getElementById('flower-order-form');
+    const quantityInput = document.getElementById('quantity');
+    const decreaseQuantityButton = document.getElementById('decrease-quantity');
+    const increaseQuantityButton = document.getElementById('increase-quantity');
+    const invoiceCheckbox = document.getElementById('invoice');
+    const totalAmountElement = document.getElementById('total-amount');
+
+    let selectedFlowerPhoto = '';
+    let quantity = 1;
+    let basePrice = 1000; // 假設每個花籃的基礎價格
+    let totalPrice = basePrice;
+
+    flowerPhotos.forEach(photo => {
+        photo.addEventListener('click', function () {
+            selectedFlowerPhoto = photo.src;
+            flowerPhotos.forEach(p => p.classList.remove('selected'));
+            photo.classList.add('selected');
+        });
+    });
+
+    decreaseQuantityButton.addEventListener('click', function () {
+        if (quantity > 1) {
+            quantity--;
+            quantityInput.value = quantity;
+            updateTotalAmount();
+        }
+    });
+
+    increaseQuantityButton.addEventListener('click', function () {
+        quantity++;
+        quantityInput.value = quantity;
+        updateTotalAmount();
+    });
+
+    invoiceCheckbox.addEventListener('change', function () {
+        updateTotalAmount();
+    });
+
+    function updateTotalAmount() {
+        totalPrice = basePrice * quantity;
+        if (invoiceCheckbox.checked) {
+            totalPrice *= 1.05;
+        }
+        totalAmountElement.textContent = `總計：$${totalPrice.toFixed(2)}`;
+    }
+
+    flowerOrderForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const ordererName = document.getElementById('orderer-name').value;
+        const ordererPhone = document.getElementById('orderer-phone').value;
+        const deceasedName = document.getElementById('deceased-name').value;
+        const senderNames = document.getElementById('sender-n
