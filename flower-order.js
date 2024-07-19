@@ -1,51 +1,69 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const flowerTypeButtons = document.querySelectorAll('.plus-minus');
-    const totalAmountElement = document.getElementById('total-amount');
-    const flowerOrderForm = document.getElementById('flower-order-form');
-    
-    let flowerPrices = {
-        flower1: 2500, // 示例價格，根據實際情況修改
-        flower2: 3000,
-        flower3: 3500,
-        flower4: 4000,
-        flower5: 4500,
-        flower6: 5500,
-        // 其他花籃樣式
-    };
+    const form = document.getElementById('flower-order-form');
+    const totalPriceElement = document.getElementById('total-price');
+    const invoiceSelect = document.getElementById('invoice');
+    const invoiceDetails = document.getElementById('invoice-details');
 
-    let orderData = {
-        flower1: 0,
-        flower2: 0,
-        flower3: 0,
-        // 初始化其他花籃樣式數量
-    };
-
-    function updateTotalAmount() {
+    // 更新價格
+    function updatePrice() {
         let total = 0;
-        for (let type in orderData) {
-            total += orderData[type] * flowerPrices[type];
+        const flowerOptions = document.querySelectorAll('.flower-option');
+
+        flowerOptions.forEach(option => {
+            const price = parseFloat(option.querySelector('.increase').getAttribute('data-price'));
+            const quantity = parseInt(option.querySelector('.quantity').value);
+            total += price * quantity;
+        });
+
+        const isInvoice = invoiceSelect.value === 'yes';
+        if (isInvoice) {
+            total *= 1.05; // 加上5%的發票費用
         }
-        totalAmountElement.textContent = total.toFixed(2);
+
+        totalPriceElement.textContent = `總計: $${total.toFixed(2)}`;
     }
 
-    flowerTypeButtons.forEach(button => {
+    // 事件處理: +1 和 -1 按鈕
+    document.querySelectorAll('.increase').forEach(button => {
         button.addEventListener('click', function () {
-            const type = this.getAttribute('data-type');
-            if (this.textContent === '+1') {
-                orderData[type]++;
-            } else if (this.textContent === '-1' && orderData[type] > 0) {
-                orderData[type]--;
-            }
-            updateTotalAmount();
+            const quantityInput = this.parentElement.querySelector('.quantity');
+            quantityInput.value = parseInt(quantityInput.value) + 1;
+            updatePrice();
         });
     });
 
-    flowerOrderForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-        // 確認訂單處理
-        alert('訂單已提交！');
+    document.querySelectorAll('.decrease').forEach(button => {
+        button.addEventListener('click', function () {
+            const quantityInput = this.parentElement.querySelector('.quantity');
+            quantityInput.value = Math.max(parseInt(quantityInput.value) - 1, 0);
+            updatePrice();
+        });
     });
 
-    // 初始化
-    updateTotalAmount();
+    // 顯示/隱藏發票詳細資訊
+    invoiceSelect.addEventListener('change', function () {
+        if (this.value === 'yes') {
+            invoiceDetails.style.display = 'block';
+        } else {
+            invoiceDetails.style.display = 'none';
+        }
+    });
+
+    // 提交表單
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        // 收集表單數據
+        const formData = new FormData(form);
+        const data = {};
+        formData.forEach((value, key) => {
+            data[key] = value;
+        });
+
+        // 保存數據到 localStorage（可選）
+        localStorage.setItem('flowerOrder', JSON.stringify(data));
+
+        // 跳轉到訂單狀態頁面
+        window.location.href = 'flower-order-states.html';
+    });
 });
