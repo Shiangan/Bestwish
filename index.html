@@ -5,15 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>祥安生命有限公司－雲端訃聞</title>
     <link rel="stylesheet" href="index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
     <header>
         <img src="image/logo.png" alt="祥安生命有限公司 Logo" class="logo">
+        <h1>雲端訃聞系統</h1>
     </header>
 
     <main>
-        <!-- 資料提交表單 -->
-        <section id="info-form-section">
+        <!-- 欢迎界面 -->
+        <section id="welcome-section">
+            <h2>歡迎使用雲端訃聞系統</h2>
+            <p>請點擊下方按鈕以開始填寫訃聞資料。</p>
+            <button id="start-button">開始</button>
+        </section>
+
+        <!-- 表单提交区域 -->
+        <section id="info-form-section" style="display: none;">
             <h2>訃聞資料提交</h2>
             <form id="info-form">
                 <label for="name">姓名:</label>
@@ -56,7 +65,7 @@
 
                 <label for="music-choice">選擇背景音樂:</label>
                 <select id="music-choice" name="music-choice">
-                    <option value="audio/終章.mp4">終章</option>
+                    <option value="audio/music1.mp3">音樂1</option>
                     <option value="audio/music2.mp3">音樂2</option>
                     <option value="audio/music3.mp3">音樂3</option>
                     <option value="audio/music4.mp3">音樂4</option>
@@ -71,11 +80,10 @@
             </form>
         </section>
 
-        <!-- 敬邀您頁面 -->
-        <section id="welcome-section" style="display: none;">
-            <img id="main-photo" src="" alt="主要照片">
-            <h1>敬邀您</h1>
-            <button id="enter-button">進入訃聞內容</button>
+        <!-- 图片渐显区域 -->
+        <section id="image-preview-section" style="display: none;">
+            <h2>訃聞照片預覽</h2>
+            <img id="main-photo" src="" alt="主要照片" class="photo-preview">
         </section>
     </main>
 
@@ -89,8 +97,8 @@
     </audio>
 
     <div id="music-control">
-        <button id="play-music">播放音樂</button>
-        <button id="stop-music" style="display: none;">停止音樂</button>
+        <button id="play-music">🔊 播放音樂</button>
+        <button id="stop-music" style="display: none;">🔇 停止音樂</button>
     </div>
 
     <script src="index.js"></script>
