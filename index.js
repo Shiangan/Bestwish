@@ -1,70 +1,67 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const infoForm = document.getElementById('info-form');
-    const mainPhotoSection = document.getElementById('main-photo-section');
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('info-form');
+    const infoFormSection = document.getElementById('info-form-section');
+    const invitationSection = document.getElementById('invitation-section');
+    const mainPhotoContainer = document.getElementById('main-photo-container');
     const mainPhoto = document.getElementById('main-photo');
-    const invitationText = document.getElementById('invitation-text');
-    const photoInput = document.getElementById('photo');
+    const enterObituaryButton = document.getElementById('enter-obituary');
+    const musicSelect = document.getElementById('music-choice');
+    const musicPlayer = document.getElementById('background-music');
+    const playButton = document.getElementById('play-music');
+    const stopButton = document.getElementById('stop-music');
 
-    // 当表单提交时
-    infoForm.addEventListener('submit', function(event) {
-        event.preventDefault(); // 防止表单默认提交行为
+    // Handle form submission
+    form.addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+        
+        // Collect form data and handle photo display
+        const formData = new FormData(form);
+        const mainPhotoFile = formData.get('photo'); // Assuming the file input has the name 'photo'
 
-        // 获取用户上传的照片文件
-        const file = photoInput.files[0];
-        if (file) {
-            // 使用FileReader读取照片文件
+        if (mainPhotoFile) {
             const reader = new FileReader();
-            reader.onload = function(e) {
-                // 设置主要照片的src
+            reader.onload = function (e) {
                 mainPhoto.src = e.target.result;
+                mainPhotoContainer.style.display = 'block';
+                mainPhoto.style.opacity = 0;
+                setTimeout(() => mainPhoto.style.opacity = 1, 100); // Fade in effect
 
-                // 显示渐显照片部分
-                mainPhotoSection.style.display = 'block';
-
-                // 使主要照片渐显
-                mainPhoto.style.opacity = 1;
-
-                // 隐藏表单部分
-                infoForm.style.display = 'none';
-            }
-            reader.readAsDataURL(file);
-        }
-    });
-
-    // 音乐控制按钮功能
-    const playMusicButton = document.getElementById('play-music');
-    const stopMusicButton = document.getElementById('stop-music');
-    const musicChoice = document.getElementById('music-choice');
-
-    let audio = new Audio();
-
-    function loadMusic(url) {
-        audio.src = url;
-        audio.play();
-        playMusicButton.style.display = 'none';
-        stopMusicButton.style.display = 'inline-block';
-    }
-
-    playMusicButton.addEventListener('click', function() {
-        if (!audio.src) {
-            loadMusic(musicChoice.value);
+                // Transition to the invitation section after photo fades in
+                setTimeout(() => {
+                    infoFormSection.style.display = 'none';
+                    invitationSection.style.display = 'block';
+                }, 3000); // Adjust the timing as needed for slower fade-in
+            };
+            reader.readAsDataURL(mainPhotoFile);
         } else {
-            audio.play();
-            playMusicButton.style.display = 'none';
-            stopMusicButton.style.display = 'inline-block';
+            // Handle case where no photo is selected
+            infoFormSection.style.display = 'none';
+            invitationSection.style.display = 'block';
         }
     });
 
-    stopMusicButton.addEventListener('click', function() {
-        audio.pause();
-        playMusicButton.style.display = 'inline-block';
-        stopMusicButton.style.display = 'none';
+    // Handle music selection
+    musicSelect.addEventListener('change', function () {
+        const selectedMusic = musicSelect.value;
+        musicPlayer.src = selectedMusic;
+        musicPlayer.play();
     });
 
-    // 选择音乐时
-    musicChoice.addEventListener('change', function() {
-        if (audio.src) {
-            loadMusic(musicChoice.value);
-        }
+    // Handle play and stop music buttons
+    playButton.addEventListener('click', function () {
+        musicPlayer.play();
+        playButton.style.display = 'none';
+        stopButton.style.display = 'block';
+    });
+
+    stopButton.addEventListener('click', function () {
+        musicPlayer.pause();
+        playButton.style.display = 'block';
+        stopButton.style.display = 'none';
+    });
+
+    // Handle navigation to obituary page
+    enterObituaryButton.addEventListener('click', function () {
+        window.location.href = 'obituary.html';
     });
 });
