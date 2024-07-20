@@ -72,12 +72,13 @@ form button:hover {
 
 /* 渐显照片部分样式 */
 #invitation-section {
-    display: flex;
+    display: none; /* Initially hidden */
     align-items: center;
     justify-content: center;
     height: 100vh;
     text-align: center;
     position: relative;
+    background: #000; /* Optional: background for better visibility */
 }
 
 #photo-container {
@@ -93,8 +94,9 @@ form button:hover {
 #main-photo {
     width: 100%;
     height: auto;
-    object-fit: cover; /* 保持图片比例，裁剪超出部分 */
-    opacity: 0.7; /* 淡化效果 */
+    object-fit: cover;
+    opacity: 0; /* Initial opacity for fade-in effect */
+    transition: opacity 2s ease-in-out;
 }
 
 #invitation-overlay {
@@ -105,11 +107,13 @@ form button:hover {
     text-align: center;
     color: #fff;
     font-size: 2em;
-    background: rgba(0, 0, 0, 0.5); /* 半透明背景 */
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
     padding: 20px;
     border-radius: 10px;
     max-width: 80%;
     width: auto;
+    opacity: 0; /* Initial opacity for fade-in effect */
+    transition: opacity 2s ease-in-out;
 }
 
 /* 音乐控制样式 */
