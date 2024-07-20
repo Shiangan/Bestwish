@@ -17,7 +17,7 @@
         <section id="obituary-info" class="fade-in">
             <h1>訃聞公告</h1>
             <div id="obituary-photo-container">
-                <img id="obituary-photo" src="" alt="追思照片">
+                <img id="obituary-photo" src="image/photo1.jpg" alt="主要追思照片">
             </div>
             <p id="obituary-text">
                 我們沉痛公告，<span id="name">[姓名]</span>，生於<span id="birth-date">[出生日期]</span>，逝於<span id="death-date">[死亡日期]</span>，享年<span id="age">[享年]</span>。其牌位安置於<span id="funeral-space">[牌位安置地點]</span>。家奠禮將於<span id="family-service-time">[家奠禮時間]</span>舉行，公奠禮於<span id="public-service-time">[公奠禮時間]</span>舉行，地點為<span id="funeral-location">[出殯地點]</span>。願靈魂安息。
@@ -30,6 +30,7 @@
                 <div><img src="image/photo1.jpg" alt="追思照片1"></div>
                 <div><img src="image/photo2.jpg" alt="追思照片2"></div>
                 <div><img src="image/photo3.jpg" alt="追思照片3"></div>
+                <!-- 可以添加更多图片 -->
             </div>
         </section>
 
@@ -48,8 +49,8 @@
                 <textarea id="message-content" name="message-content" placeholder="請留下您的追思信息..." required></textarea>
                 <button type="submit">提交留言</button>
             </form>
-        </section> 
-        
+        </section>
+
         <section id="flower-basket" class="fade-in">
             <h2>致贈花禮送上祝福</h2>
             <a href="flower-order.html" id="flower-order-link">訂購花籃請點選我</a>
@@ -60,10 +61,7 @@
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
     </footer>
 
-    <!-- 添加音乐控制按钮 -->
-    <button id="music-control">🔊</button>
-    <!-- 添加音乐文件 -->
-    <audio id="background-music" src="path/to/music.mp3" autoplay loop></audio>
+    <button id="music-toggle">🔊</button>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
