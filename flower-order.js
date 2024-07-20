@@ -8,6 +8,27 @@ document.addEventListener('DOMContentLoaded', function () {
             addToCart(productName, productPrice);
         });
     });
+    playButton.addEventListener('click', () => {
+    const music = document.getElementById('background-music');
+    const playButton = document.getElementById('play-music');
+    const stopButton = document.getElementById('stop-music');
+
+    // 確保音樂播放
+    music.play();
+
+    // 音量開關控制
+    playButton.addEventListener('click', () => {
+        music.volume = 1.0; // 最大音量
+        playButton.style.display = 'none';
+        stopButton.style.display = 'inline-block';
+    });
+
+    stopButton.addEventListener('click', () => {
+        music.volume = 0.0; // 靜音
+        playButton.style.display = 'inline-block';
+        stopButton.style.display = 'none';
+    });
+});
 
     // Handle invoice checkbox change
     document.getElementById('invoice-checkbox').addEventListener('change', calculateTotal);
