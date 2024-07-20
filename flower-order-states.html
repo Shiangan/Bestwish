@@ -1,78 +1,32 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>訂單確認</title>
-    <link rel="stylesheet" href="flower-order.css">
-</head>
-<body>
-    <header>
-        <h1>訂單確認</h1>
-    </header>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const order = JSON.parse(localStorage.getItem('order'));
+        if (!order) {
+            alert('沒有找到訂單信息，請返回重新填寫訂單。');
+            window.location.href = 'flower-order.html';
+            return;
+        }
 
-    <main>
-        <section id="confirmation-details">
-            <h2>訂單詳情</h2>
-            <div id="order-summary">
-                <!-- 这里展示订单详细信息 -->
-            </div>
-            <h3>支付信息</h3>
-            <p>感謝您的訂購，我們已經收到您的訂單。請按照以下說明進行支付。</p>
-            <p>支付方式: 匯款或 LinePay</p>
-            <p>請將款項匯至以下帳號並保留匯款憑證：</p>
-            <p>銀行: XXXX銀行</p>
-            <p>帳號: 123-456789-01</p>
-            <p>戶名: 祥安生命禮儀公司</p>
-            <p>或使用 LinePay 支付至以下帳號：</p>
-            <p>LinePay ID: @shianganlife</p>
+        const orderSummary = `
+            <p>花籃樣式: ${order.selectedStyle}</p>
+            <p>數量: ${order.quantity} 對</p>
+            <p>單價: $${order.unitPrice}</p>
+            <p>總金額: $${order.totalAmount}</p>
+            <p>發票附加費: $${order.invoiceCharge.toFixed(2)}</p>
+            <p>最終金額: $${order.finalAmount.toFixed(2)}</p>
+            <p>故人姓名: ${order.name}</p>
+            <p>訂購人姓名: ${order.orderName}</p>
+            <p>訂購人聯絡電話: ${order.orderNumber}</p>
+            <p>落款人名單: ${order.ordererNames}</p>
+            ${order.needsInvoice ? `<p>發票抬頭: ${order.companyName}</p><p>收件人姓名: ${order.recipientName}</p><p>收件地址: ${order.recipientAddress}</p>` : ''}
+        `;
+        document.getElementById('order-summary').innerHTML = orderSummary;
+    });
 
-            <h3>付款確認</h3>
-            <p>請完成付款後，將您的匯款憑證或付款截圖發送至以下郵箱或 Line：</p>
-            <p>郵箱: payment@shianganlife.com</p>
-            <p>Line: <a href="https://line.me/ti/p/line-id" target="_blank">添加我們的Line</a></p>
-            <p>我們將在確認款項後發送確認郵件。</p>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
-    </footer>
-
-    <audio id="background-music" preload="auto" loop>
-        <source src="" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-
-    <div id="music-control">
-        <button id="play-music" style="background: url('images/sound-on.png');">🔊</button>
-        <button id="stop-music" style="display: none; background: url('images/sound-off.png');">🔇</button>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const order = JSON.parse(localStorage.getItem('order'));
-            if (!order) {
-                alert('沒有找到訂單信息，請返回重新填寫訂單。');
-                window.location.href = 'flower-order.html';
-                return;
-            }
-
-            const orderSummary = `
-                <p>花籃樣式: ${order.selectedStyle}</p>
-                <p>數量: ${order.quantity} 對</p>
-                <p>單價: $${order.unitPrice}</p>
-                <p>總金額: $${order.totalAmount}</p>
-                <p>發票附加費: $${order.invoiceCharge.toFixed(2)}</p>
-                <p>最終金額: $${order.finalAmount.toFixed(2)}</p>
-                <p>故人姓名: ${order.name}</p>
-                <p>訂購人姓名: ${order.orderName}</p>
-                <p>訂購人聯絡電話: ${order.orderNumber}</p>
-                <p>落款人名單: ${order.ordererNames}</p>
-                ${order.needsInvoice ? `<p>發票抬頭: ${order.companyName}</p><p>收件人姓名: ${order.recipientName}</p><p>收件地址: ${order.recipientAddress}</p>` : ''}
-            `;
-            document.getElementById('order-summary').innerHTML = orderSummary;
-        });
-    </script>
-</body>
-</html>
+    function confirmPayment() {
+        // 模拟付款确认
+        alert('付款已確認，感謝您的訂購！');
+        window.location.href = 'thank-you.html';
+    }
+</script>
+<button onclick="confirmPayment()">確認付款</button>
