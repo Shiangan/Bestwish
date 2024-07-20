@@ -1,7 +1,3 @@
-修正后的代码
-
-#### `obituary.js`
-```javascript
 document.addEventListener("DOMContentLoaded", function() {
     const photo = localStorage.getItem('photoUrl');
     const name = localStorage.getItem('name');
@@ -95,12 +91,3 @@ $(document).ready(function(){
         $carousel.slick('slickAdd', `<div><img src="${photo}" alt="追思照片"></div>`);
     });
 });
-```
-
-### 检查点
-- **照片是否正确存储**：确保 `localStorage` 中的 `photos` 项存在且格式正确。
-- **CSS 样式**：检查 CSS 文件中是否定义了 `.fade-in` 类，并且确保轮播组件的样式正确。
-
-### 额外建议
-- 在开发时可以在浏览器的开发者工具中检查控制台的错误信息，确保所有资源都能正确加载。
-- 可以使用 `console.log` 打印调试信息，帮助
