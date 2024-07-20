@@ -1,3 +1,7 @@
+修正后的代码
+
+#### `obituary.js`
+```javascript
 document.addEventListener("DOMContentLoaded", function() {
     const photo = localStorage.getItem('photoUrl');
     const name = localStorage.getItem('name');
@@ -21,6 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('public-service-time').textContent = publicServiceTime;
     document.getElementById('age').textContent = age;
 
+    // Initialize carousel
     $('.carousel').slick({
         dots: true,
         infinite: true,
@@ -33,9 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
         cssEase: 'linear'
     });
 
-    const messageForm = document.getElementById('message-form');
-    const messagesContainer = document.getElementById('messages-container');
-
+    // Message form submission
     $('#message-form').on('submit', function(e) {
         e.preventDefault();
         const name = $('#message-name').val();
@@ -45,8 +48,9 @@ document.addEventListener("DOMContentLoaded", function() {
         $('#message-form')[0].reset();
     });
 
+    // Initialize Google Maps
     function initMap() {
-        const location = { lat: 25.0330, lng: 121.5654 }; // 替換為實際地點坐標
+        const location = { lat: 25.0330, lng: 121.5654 }; // Replace with actual location coordinates
         const map = new google.maps.Map(document.getElementById('map-container'), {
             zoom: 15,
             center: location
@@ -56,9 +60,9 @@ document.addEventListener("DOMContentLoaded", function() {
             map: map
         });
     }
-
     google.maps.event.addDomListener(window, 'load', initMap);
 
+    // Lazy load sections with fade-in effect
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -66,11 +70,11 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     });
-
     document.querySelectorAll('section').forEach(section => {
         observer.observe(section);
     });
 
+    // Music control toggle
     $('#music-toggle').click(function() {
         var music = document.getElementById('background-music');
         if (music.paused) {
@@ -83,18 +87,20 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+// Initialize carousel and add photos
 $(document).ready(function(){
-    $('.carousel').slick({
-        dots: true,
-        infinite: true,
-        speed: 300,
-        slidesToShow: 1,
-        adaptiveHeight: true
-    });
-
     const photos = JSON.parse(localStorage.getItem('photos')) || [];
     const $carousel = $('.carousel');
     photos.forEach(photo => {
         $carousel.slick('slickAdd', `<div><img src="${photo}" alt="追思照片"></div>`);
     });
 });
+```
+
+### 检查点
+- **照片是否正确存储**：确保 `localStorage` 中的 `photos` 项存在且格式正确。
+- **CSS 样式**：检查 CSS 文件中是否定义了 `.fade-in` 类，并且确保轮播组件的样式正确。
+
+### 额外建议
+- 在开发时可以在浏览器的开发者工具中检查控制台的错误信息，确保所有资源都能正确加载。
+- 可以使用 `console.log` 打印调试信息，帮助
