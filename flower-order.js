@@ -83,6 +83,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // Assuming form submission here or redirect to states.html
-        window.location.href = 'states.html';
+        window.location.href = 'flower-order-states.html';
     }
 });
