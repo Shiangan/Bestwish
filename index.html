@@ -56,15 +56,28 @@
 
                 <label for="music-choice">選擇背景音樂:</label>
                 <select id="music-choice" name="music-choice">
-                    <option value="https://youtu.be/Ptk_1Dc2iPY?si=W2x14B6xJA6G4VHc">音樂1</option>
-                    <option value="https://www.youtube.com/embed/音樂2">音樂2</option>
-                    <option value="https://www.youtube.com/embed/音樂3">音樂3</option>
-                    <option value="https://www.youtube.com/embed/音樂4">音樂4</option>
-                    <option value="https://www.youtube.com/embed/音樂5">音樂5</option>
+                    <option value="https://www.youtube.com/embed/音樂1" data-music="audio/music1.mp3">音樂1</option>
+                    <option value="https://www.youtube.com/embed/音樂2" data-music="audio/music2.mp3">音樂2</option>
+                    <option value="https://www.youtube.com/embed/音樂3" data-music="audio/music3.mp3">音樂3</option>
+                    <option value="https://www.youtube.com/embed/音樂4" data-music="audio/music4.mp3">音樂4</option>
+                    <option value="https://www.youtube.com/embed/音樂5" data-music="audio/music5.mp3">音樂5</option>
                 </select>
 
                 <button type="submit">提交</button>
             </form>
+        </section>
+
+        <!-- 渐显照片部分 -->
+        <section id="invitation-section" style="display: none;">
+            <div id="photo-container">
+                <img id="main-photo" src="" alt="主要照片">
+                <div id="invitation-overlay">
+                    <p>敬邀您</p>
+                    <a id="go-to-obituary" href="obituary.html">
+                        <button>點選我進入訃聞</button>
+                    </a>
+                </div>
+            </div>
         </section>
     </main>
 
@@ -73,13 +86,13 @@
     </footer>
 
     <audio id="background-music" preload="auto" loop>
-        <source src="audio/background-music.mp3" type="audio/mpeg">
+        <source src="" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
     <div id="music-control">
-        <button id="play-music">🔊</button>
-        <button id="stop-music" style="display: none;">🔇</button>
+        <button id="play-music" style="background: url('images/sound-on.png');">🔊</button>
+        <button id="stop-music" style="display: none; background: url('images/sound-off.png');">🔇</button>
     </div>
 
     <script src="index.js"></script>
