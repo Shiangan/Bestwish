@@ -1,71 +1,88 @@
-function toggleInvoiceDetails() {
-    const invoiceCheckbox = document.getElementById('invoice-checkbox').checked;
-    const invoiceDetails = document.getElementById('invoice-details');
-    const receiptDetails = document.getElementById('receipt-details');
-    
-    if (invoiceCheckbox) {
-        invoiceDetails.style.display = 'block';
-        receiptDetails.style.display = 'none';
-    } else {
-        invoiceDetails.style.display = 'none';
-        receiptDetails.style.display = 'block';
-    }
-}
+document.addEventListener('DOMContentLoaded', function () {
+    // Add event listeners to product buttons
+    const productButtons = document.querySelectorAll('.product button');
+    productButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const productName = this.parentElement.querySelector('h2').textContent;
+            const productPrice = parseFloat(this.parentElement.querySelector('p').textContent.replace('價格: NT$', ''));
+            addToCart(productName, productPrice);
+        });
+    });
 
-function confirmOrder() {
-    const totalAmount = parseFloat(document.getElementById('total-amount').textContent);
-    const invoiceCharge = parseFloat(document.getElementById('invoice-charge').textContent);
-    const finalAmount = parseFloat(document.getElementById('final-amount').textContent);
-    
-    // Validate form inputs
-    const name = document.getElementById('name').value;
-    const orderName = document.getElementById('order-name').value;
-    const orderNumber = document.getElementById('order-number').value;
-    const ordererNames = document.getElementById('orderer-names').value;
-    
-    if (!name || !orderName || !orderNumber || !ordererNames) {
-        alert('請填寫所有必填項目！');
-        return;
+    // Handle invoice checkbox change
+    document.getElementById('invoice-checkbox').addEventListener('change', calculateTotal);
+
+    // Handle confirm order button click
+    document.querySelector('button[type="button"]').addEventListener('click', confirmOrder);
+
+    function addToCart(name, price) {
+        const cartItems = document.getElementById('cartItems');
+        const existingItem = document.querySelector(`#cartItems li[data-name="${name}"]`);
+
+        if (existingItem) {
+            const quantityElem = existingItem.querySelector('.quantity');
+            quantityElem.textContent = parseInt(quantityElem.textContent) + 1;
+        } else {
+            const li = document.createElement('li');
+            li.setAttribute('data-name', name);
+            li.setAttribute('data-price', price);
+            li.innerHTML = `
+                ${name} - NT$${price.toFixed(2)} <span class="quantity">1</span>
+                <button onclick="removeFromCart(this)">移除</button>
+            `;
+            cartItems.appendChild(li);
+        }
+
+        calculateTotal();
     }
-    
-    const invoiceCheckbox = document.getElementById('invoice-checkbox').checked;
-    let companyName = '';
-    let recipientName = '';
-    let recipientAddress = '';
-    if (invoiceCheckbox) {
-        companyName = document.getElementById('company-name').value;
-        recipientName = document.getElementById('recipient-name').value;
-        recipientAddress = document.getElementById('recipient-address').value;
-        if (!companyName || !recipientName || !recipientAddress) {
-            alert('若選擇開立發票，必須填寫公司抬頭、收件人及地址！');
+
+    function removeFromCart(button) {
+        button.parentElement.remove();
+        calculateTotal();
+    }
+
+    function calculateTotal() {
+        const cartItems = [...document.querySelectorAll('#cartItems li')];
+        let subtotal = 0;
+
+        cartItems.forEach(item => {
+            const price = parseFloat(item.getAttribute('data-price'));
+            const quantity = parseInt(item.querySelector('.quantity').textContent);
+            subtotal += price * quantity;
+        });
+
+        const needsInvoice = document.getElementById('invoice-checkbox').checked;
+        const invoiceCharge = needsInvoice ? subtotal * 0.05 : 0;
+        const finalAmount = subtotal + invoiceCharge;
+
+        document.getElementById('total-amount').textContent = subtotal.toFixed(2);
+        document.getElementById('invoice-charge').textContent = invoiceCharge.toFixed(2);
+        document.getElementById('final-amount').textContent = finalAmount.toFixed(2);
+    }
+
+    function confirmOrder() {
+        const name = document.getElementById('name').value;
+        const ordererName = document.getElementById('order-name').value;
+        const orderNumber = document.getElementById('order-number').value;
+        const ordererNames = document.getElementById('orderer-names').value;
+        const needsInvoice = document.getElementById('invoice-checkbox').checked;
+        const companyName = document.getElementById('company-name').value;
+        const recipientName = document.getElementById('recipient-name').value;
+        const recipientAddress = document.getElementById('recipient-address').value;
+
+        if (!name || !ordererName || !orderNumber || !ordererNames) {
+            alert('請填寫所有必填項目！');
             return;
         }
-    } else {
-        recipientName = document.getElementById('receipt-recipient').value;
-        recipientAddress = document.getElementById('receipt-address').value;
-        if (!recipientName || !recipientAddress) {
-            alert('若只需收據，請填寫收件人及地址！');
-            return;
-        }
-    }
-    
-    // Create order summary object
-    const orderSummary = {
-        name,
-        orderName,
-        orderNumber,
-        ordererNames,
-        totalAmount,
-        invoiceCharge,
-        finalAmount,
-        companyName,
-        recipientName,
-        recipientAddress
-    };
 
-    // Save orderSummary to sessionStorage or send to backend
-    sessionStorage.setItem('orderSummary', JSON.stringify(orderSummary));
-    
-    // Redirect to states.html
-    window.location.href = 'flower-order.states.html';
-}
+        if (needsInvoice) {
+            if (!companyName || !recipientName || !recipientAddress) {
+                alert('若需要發票，請填寫公司抬頭及收件人信息！');
+                return;
+            }
+        }
+
+        // Assuming form submission here or redirect to states.html
+        window.location.href = 'states.html';
+    }
+});
