@@ -1,102 +1,112 @@
 /* 全局样式 */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(to right, #f8f9fa, #e9ecef);
+    background: linear-gradient(to right, #f0f2f5, #d1d9e6);
     color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 /* 头部样式 */
 header {
-    background: #007bff;
+    background: #003366;
     color: #fff;
-    padding: 15px;
+    padding: 20px;
     text-align: center;
 }
 
 header .logo {
-    width: 120px;
+    width: 150px;
 }
 
 /* 表单部分样式 */
 #info-form-section {
-    background: #fff;
+    background: #ffffff;
     padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     max-width: 800px;
-    margin: 20px auto;
+    margin: 40px auto;
 }
 
 #info-form-section h2 {
-    color: #007bff;
+    color: #003366;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    font-size: 1.5em;
 }
 
 form {
     display: grid;
-    gap: 15px;
+    gap: 20px;
 }
 
 form label {
-    font-weight: bold;
+    font-size: 1.1em;
+    color: #333;
 }
 
-form input, form textarea, form select {
+form input[type="text"],
+form input[type="date"],
+form input[type="file"],
+form input[type="time"],
+form textarea,
+form select {
     width: 100%;
-    padding: 12px;
+    padding: 10px;
+    border-radius: 6px;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    font-size: 1em;
     box-sizing: border-box;
 }
 
-form input[type="file"] {
-    border: none;
+form textarea {
+    resize: vertical;
 }
 
-form button {
-    background: #007bff;
+form input[type="file"] {
+    padding: 0;
+}
+
+form button[type="submit"] {
+    background: #003366;
     color: #fff;
     border: none;
-    padding: 15px;
-    border-radius: 8px;
+    padding: 15px 20px;
+    border-radius: 6px;
+    font-size: 1.1em;
     cursor: pointer;
-    font-size: 16px;
+    transition: background 0.3s ease;
 }
 
-form button:hover {
-    background: #0056b3;
+form button[type="submit"]:hover {
+    background: #002244;
 }
 
-/* 渐显照片部分样式 */
+/* 邀请页面样式 */
 #invitation-section {
-    display: none; /* Initially hidden */
+    display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    text-align: center;
+    background: rgba(0, 0, 0, 0.5);
     position: relative;
-    background: #000; /* Optional: background for better visibility */
 }
 
 #photo-container {
     position: relative;
     width: 100%;
-    max-width: 1200px;
-    height: auto;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    height: 100%;
 }
 
 #main-photo {
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: cover;
-    opacity: 0; /* Initial opacity for fade-in effect */
-    transition: opacity 2s ease-in-out;
+    opacity: 0.5;
 }
 
 #invitation-overlay {
@@ -104,103 +114,66 @@ form button:hover {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    color: #ffffff;
     text-align: center;
-    color: #fff;
-    font-size: 2em;
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 80%;
-    width: auto;
-    opacity: 0; /* Initial opacity for fade-in effect */
-    transition: opacity 2s ease-in-out;
+    font-size: 3em;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    z-index: 2;
 }
 
-/* 音乐控制样式 */
+#invitation-overlay p {
+    margin: 0;
+}
+
+#invitation-overlay button {
+    background: #003366;
+    color: #fff;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 6px;
+    font-size: 1.1em;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background 0.3s ease;
+}
+
+#invitation-overlay button:hover {
+    background: #002244;
+}
+
+/* 控制音量按钮样式 */
 #music-control {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background: #fff;
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.9);
     padding: 10px;
-    border-radius: 8px;
+    border-radius: 6px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 #music-control button {
-    background: #007bff;
-    color: #fff;
+    background: none;
     border: none;
-    padding: 10px 15px;
-    border-radius: 8px;
     cursor: pointer;
-    font-size: 16px;
+    width: 40px;
+    height: 40px;
     margin: 5px;
+    background-size: cover;
 }
 
-#music-control button:hover {
-    background: #0056b3;
+#music-control #play-music {
+    background-image: url('images/sound-on.png');
 }
 
-/* 页脚样式 */
-footer {
-    background: #f8f9fa;
-    color: #333;
-    text-align: center;
-    padding: 15px;
-    border-top: 1px solid #ddd;
+#music-control #stop-music {
+    background-image: url('images/sound-off.png');
 }
 
-/* 留言区样式 */
-#message-section {
-    background: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
-    margin: 20px auto;
-}
-
-#message-section h2 {
-    color: #007bff;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.message {
-    border-bottom: 1px solid #ddd;
-    padding: 15px 0;
-}
-
-.message:last-child {
-    border-bottom: none;
-}
-
-.message p {
-    margin: 5px 0;
-}
-
-.message .author {
-    font-weight: bold;
-}
-
-/* 地图部分样式 */
-#map-section {
-    background: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
-    margin: 20px auto;
-}
-
-#map-section h2 {
-    color: #007bff;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-#map {
-    height: 400px;
-    width: 100%;
+/* 音乐控制按钮 */
+#music-control #volume-control {
+    background-image: url('images/volume.png');
 }
