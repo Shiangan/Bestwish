@@ -7,44 +7,92 @@
     <link rel="stylesheet" href="flower-order.css">
 </head>
 <body>
-    <div id="order-process">
-        <h2>選擇花籃</h2>
-        <div class="flower-basket-options">
-            <!-- 花籃選擇內容 -->
-            <div class="flower-option">
-                <img src="basket1.jpg" alt="花籃1">
-                <p>花籃1</p>
-                <p>價格: NT$500</p>
-                <input type="radio" name="flower-basket" value="500">
-            </div>
-            <!-- 更多選項 -->
-        </div>
-        
-        <h2>填寫基本資訊</h2>
-        <form id="basic-info-form">
-            <label for="order-name">訂購人姓名:</label>
-            <input type="text" id="order-name" name="order-name" required>
-            
-            <label for="order-phone">聯絡電話:</label>
-            <input type="tel" id="order-phone" name="order-phone" required>
-            
-            <label for="deceased-name">亡者姓名:</label>
-            <input type="text" id="deceased-name" name="deceased-name" required>
-            
-            <label for="invoice">需要發票:</label>
-            <input type="checkbox" id="invoice" name="invoice">
-            
-            <div id="invoice-info" class="hidden">
-                <label for="invoice-title">發票抬頭:</label>
-                <input type="text" id="invoice-title" name="invoice-title" placeholder="如公司名稱、個人名稱等">
-                
-                <label for="invoice-address">發票地址:</label>
-                <input type="text" id="invoice-address" name="invoice-address" placeholder="如公司地址等">
+    <header>
+        <h1>花籃訂購</h1>
+    </header>
+
+    <main>
+        <section id="order-form">
+            <h2>選擇花籃樣式</h2>
+            <div class="flower-options">
+                <div class="flower-item">
+                    <img src="flower1.jpg" alt="花籃樣式1">
+                    <p>樣式1 - $50</p>
+                    <button type="button" onclick="selectFlower('style1', 50)">選擇</button>
+                </div>
+                <div class="flower-item">
+                    <img src="flower2.jpg" alt="花籃樣式2">
+                    <p>樣式2 - $60</p>
+                    <button type="button" onclick="selectFlower('style2', 60)">選擇</button>
+                </div>
+                <!-- 添加其他樣式 -->
             </div>
 
-            <button type="button" id="next-step-btn">下一步</button>
-        </form>
+            <h2>訂單詳情</h2>
+            <form id="flower-order-form">
+                <div class="item">
+                    <p>選擇的花籃樣式：<span id="selected-style">無</span></p>
+                    <p>每對價格：$<span id="unit-price">0</span></p>
+                    <button type="button" class="quantity-btn" onclick="updateQuantity(-1)">-</button>
+                    <input type="text" id="quantity" value="0" readonly>
+                    <button type="button" class="quantity-btn" onclick="updateQuantity(1)">+</button>
+                </div>
+                
+                <div class="total">
+                    <p>總金額：$<span id="total-amount">0</span></p>
+                    <p>發票附加費 (5%)：$<span id="invoice-charge">0</span></p>
+                    <p>最終金額：$<span id="final-amount">0</span></p>
+                </div>
+
+                <label for="name">故人姓名：</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="address">訂購人姓名：</label>
+                <input type="text" id="order-name" name="order-name" required>
+
+                <label for="address">訂購人聯絡電話：</label>
+                <input type="text" id="order-number" name="order-number" required>
+
+                <label for="orderer-names">落款人名單（用逗號分隔）：</label>
+                <input type="text" id="orderer-names" name="orderer-names" required>
+
+                <label>
+                    <input type="checkbox" id="invoice-checkbox">
+                    需要發票
+                </label>
+
+                <div id="invoice-details" style="display: none;">
+                    <label for="company-name">公司抬頭：</label>
+                    <input type="text" id="company-name" name="company-name">
+                    <label for="recipient-name">收件人姓名：</label>
+                    <input type="text" id="recipient-name" name="recipient-name">
+                    <label for="recipient-address">收件地址：</label>
+                    <input type="text" id="recipient-address" name="recipient-address">
+                </div>
+
+                <button type="button" onclick="confirmOrder()">確認訂單</button>
+            </form>
+
+            <div class="contact">
+                <p>如有問題，隨時與我們聯繫：</p>
+                <a href="tel:0938179858" class="contact-icon" title="撥打電話"><img src="phone-icon.png" alt="電話圖標"></a>
+                <a href="https://line.me/ti/p/line-id" class="contact-icon" title="添加LINE"><img src="line-icon.png" alt="LINE圖標"></a>
+            </div>
+        </section>
+    </main>
+
+    <script src="scripts.js"></script>
+
+        <audio id="background-music" preload="auto" loop>
+        <source src="" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div id="music-control">
+        <button id="play-music" style="background: url('images/sound-on.png');">🔊</button>
+        <button id="stop-music" style="display: none; background: url('images/sound-off.png');">🔇</button>
     </div>
+
     <script src="flower-order.js"></script>
 </body>
 </html>
