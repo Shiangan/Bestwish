@@ -78,3 +78,36 @@ document.addEventListener("DOMContentLoaded", function() {
         observer.observe(section);
     });
 });
+
+
+$(document).ready(function(){
+    // 初始化轮播
+    $('.carousel').slick({
+        dots: true,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 1,
+        adaptiveHeight: true
+    });
+
+    // 加载追思照片
+    $.getJSON('photos.json', function(data) {
+        var carousel = $('.carousel');
+        carousel.empty(); // 清空当前轮播内容
+        $.each(data.photos, function(index, photo) {
+            carousel.slick('slickAdd', '<div><img src="' + photo.url + '" alt="追思照片' + (index + 1) + '"></div>');
+        });
+    });
+
+    // 音乐控制
+    $('#music-control').click(function() {
+        var music = document.getElementById('background-music');
+        if (music.paused) {
+            music.play();
+            $(this).text('🔊');
+        } else {
+            music.pause();
+            $(this).text('🔇');
+        }
+    });
+});
