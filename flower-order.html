@@ -16,14 +16,14 @@
             <h2>選擇花籃樣式</h2>
             <div class="flower-options">
                 <div class="flower-item">
-                    <img src="flower1.jpg" alt="花籃樣式1">
-                    <p>樣式1 - $50</p>
-                    <button type="button" onclick="selectFlower('style1', 50)">選擇</button>
+                    <img src="flower1.jpg" alt="花籃A款">
+                    <p>1對 - $2500</p>
+                    <button type="button" onclick="selectFlower('花籃A款', 2500)">選擇</button>
                 </div>
                 <div class="flower-item">
-                    <img src="flower2.jpg" alt="花籃樣式2">
-                    <p>樣式2 - $60</p>
-                    <button type="button" onclick="selectFlower('style2', 60)">選擇</button>
+                    <img src="flower2.jpg" alt="花籃B款">
+                    <p>1對 - $3000</p>
+                    <button type="button" onclick="selectFlower('花籃B款', 3000)">選擇</button>
                 </div>
                 <!-- 添加其他樣式 -->
             </div>
@@ -47,17 +47,17 @@
                 <label for="name">故人姓名：</label>
                 <input type="text" id="name" name="name" required>
                 
-                <label for="address">訂購人姓名：</label>
+                <label for="order-name">訂購人姓名：</label>
                 <input type="text" id="order-name" name="order-name" required>
 
-                <label for="address">訂購人聯絡電話：</label>
-                <input type="text" id="order-number" name="order-number" required>
+                <label for="order-number">訂購人聯絡電話：</label>
+                <input type="tel" id="order-number" name="order-number" required>
 
                 <label for="orderer-names">落款人名單（用逗號分隔）：</label>
                 <input type="text" id="orderer-names" name="orderer-names" required>
 
                 <label>
-                    <input type="checkbox" id="invoice-checkbox">
+                    <input type="checkbox" id="invoice-checkbox" onchange="toggleInvoiceDetails()">
                     需要發票
                 </label>
 
@@ -81,9 +81,11 @@
         </section>
     </main>
 
-    <script src="scripts.js"></script>
+    <footer>
+        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
+    </footer>
 
-        <audio id="background-music" preload="auto" loop>
+    <audio id="background-music" preload="auto" loop>
         <source src="" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
