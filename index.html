@@ -21,6 +21,29 @@
 
                 <label for="photo">追思照片:</label>
                 <input type="file" id="photo" name="photo" accept="image/*" required>
+                <form id="photo-form">
+        <input type="file" id="photo-input" multiple />
+        <button type="button" id="upload-photos">上傳照片</button>
+    </form>
+
+                    <script>
+        $('#upload-photos').click(function() {
+            const files = $('#photo-input')[0].files;
+            const photos = [];
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const url = URL.createObjectURL(file);
+                photos.push(url);
+            }
+
+            // Store the photo URLs in localStorage
+            localStorage.setItem('photos', JSON.stringify(photos));
+            alert('照片已上传！');
+        });
+    </script>
+</body>
+</html>
 
                 <label for="additional-photos">其他照片（可選）:</label>
                 <input type="file" id="additional-photos" name="additional-photos[]" accept="image/*" multiple>
