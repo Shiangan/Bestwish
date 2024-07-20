@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 // 显示 invitationSection
                 invitationSection.style.display = "flex"; // 使用 flex 布局以确保居中显示
+                photoContainer.style.opacity = 0;
                 invitationText.style.opacity = 1;
                 mainPhoto.style.opacity = 1;
                 mainPhoto.src = e.target.result;
@@ -68,10 +69,10 @@ document.addEventListener("DOMContentLoaded", function() {
         stopMusicButton.style.display = "none";
     });
 
-    // 显示照片渐显动画
-    mainPhoto.style.opacity = 0;
-    mainPhoto.style.transition = "opacity 2s";
-
     // 确保音乐控制在页面加载时有正确的显示状态
     backgroundMusic.volume = 0.5;
+
+    // 照片渐显动画
+    const photoContainer = document.getElementById('photo-container');
+    photoContainer.style.transition = "opacity 2s";
 });
