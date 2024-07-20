@@ -1,36 +1,118 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>確認訂單</title>
-    <link rel="stylesheet" href="flower-order-states.css">
+    <title>订单确认</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        .order-details {
+            margin-bottom: 20px;
+        }
+        .order-details label {
+            font-weight: bold;
+        }
+        .order-details p {
+            margin: 5px 0;
+        }
+        .cart-items {
+            margin-top: 20px;
+        }
+        .cart-items ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .cart-items li {
+            margin-bottom: 10px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            text-align: center;
+        }
+        .button.red {
+            background-color: #dc3545;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>訂單確認</h1>
-    </header>
-    <main>
-        <div id="order-summary">
-            <!-- 訂單摘要將顯示在這裡 -->
+    <div class="container">
+        <h1>订单确认</h1>
+        <div class="order-details">
+            <h2>订单信息</h2>
+            <p><strong>订购人姓名：</strong><span id="name"></span></p>
+            <p><strong>订单名称：</strong><span id="order-name"></span></p>
+            <p><strong>订单编号：</strong><span id="order-number"></span></p>
+            <p><strong>订购人联系姓名：</strong><span id="orderer-names"></span></p>
+            <p><strong>是否开具发票：</strong><span id="invoice"></span></p>
+            <div id="invoice-info" style="display: none;">
+                <p><strong>公司名称：</strong><span id="company-name"></span></p>
+                <p><strong>收件人姓名：</strong><span id="recipient-name"></span></p>
+                <p><strong>收件人地址：</strong><span id="recipient-address"></span></p>
+            </div>
         </div>
-        <button onclick="makePayment()">匯款/LinePay</button>
-    </main>
 
-    <footer>
-        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
-    </footer>
+        <div class="cart-items">
+            <h2>购物车</h2>
+            <ul id="cartItems"></ul>
+        </div>
 
-    <audio id="background-music" preload="auto" loop>
-        <source src="background-music.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-
-    <div id="music-control">
-        <button id="play-music" style="background: url('images/sound-on.png');">🔊</button>
-        <button id="stop-music" style="display: none; background: url('images/sound-off.png');">🔇</button>
+        <button class="button" onclick="goToPayment()">确认并付款</button>
+        <a class="button red" href="flower-order.html">返回修改</a>
     </div>
 
-    <script src="flower-order.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 从 localStorage 读取订单信息
+            const orderInfo = JSON.parse(localStorage.getItem('orderInfo'));
+
+            if (orderInfo) {
+                document.getElementById('name').textContent = orderInfo.name;
+                document.getElementById('order-name').textContent = orderInfo.orderName;
+                document.getElementById('order-number').textContent = orderInfo.orderNumber;
+                document.getElementById('orderer-names').textContent = orderInfo.ordererNames;
+                document.getElementById('invoice').textContent = orderInfo.isInvoice ? '是' : '否';
+
+                if (orderInfo.isInvoice) {
+                    document.getElementById('invoice-info').style.display = 'block';
+                    document.getElementById('company-name').textContent = orderInfo.companyName;
+                    document.getElementById('recipient-name').textContent = orderInfo.recipientName;
+                    document.getElementById('recipient-address').textContent = orderInfo.recipientAddress;
+                }
+
+                let cartItems = document.getElementById('cartItems');
+                for (let item in orderInfo.cart) {
+                    let li = document.createElement('li');
+                    li.textContent = `${item} - NT$${orderInfo.cart[item].price} x ${orderInfo.cart[item].quantity}`;
+                    cartItems.appendChild(li);
+                }
+            } else {
+                alert('没有找到订单信息。');
+            }
+        });
+
+        function goToPayment() {
+            // 可以在这里处理付款逻辑
+            alert('感谢您的订单！');
+            // 假设付款完成后清除 localStorage
+            localStorage.removeItem('orderInfo');
+            // 可以重定向到付款页面或完成页面
+            window.location.href = 'thanks.html'; // 付款完成后重定向到感谢页面
+        }
+    </script>
 </body>
 </html>
