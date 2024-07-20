@@ -1,175 +1,208 @@
+/* 基本樣式 */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    background: #f4f4f4;
 }
 
+/* 標題 */
 header {
-    background-color: #4CAF50;
-    color: white;
-    padding: 15px 0;
+    background: #007bff;
+    color: #fff;
+    padding: 1.5rem 0;
     text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-header h1 {
-    margin: 0;
-}
-
+/* 主要內容 */
 main {
-    flex: 1;
-    padding: 20px;
+    padding: 2rem;
 }
 
+/* 商品顯示 */
 .product-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
 }
 
 .product {
-    background: #fff;
     border: 1px solid #ddd;
-    border-radius: 10px;
+    border-radius: 8px;
     overflow: hidden;
-    width: calc(50% - 20px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-}
-
-.product:hover {
-    transform: scale(1.02);
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: box-shadow 0.3s ease;
 }
 
 .product img {
     width: 100%;
-    height: auto;
+    height: 150px;
+    object-fit: cover;
 }
 
 .product h2 {
-    font-size: 1.25em;
-    margin: 15px;
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+    color: #333;
 }
 
 .product p {
-    margin: 0 15px 15px;
+    font-size: 1rem;
+    color: #555;
 }
 
-button {
-    background-color: #4CAF50;
-    color: white;
+.product button {
+    background: #007bff;
     border: none;
-    padding: 12px;
-    margin: 10px;
-    cursor: pointer;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
     border-radius: 5px;
-    font-size: 1em;
-    transition: background-color 0.3s ease;
+    cursor: pointer;
+    margin: 0.5rem;
+    transition: background 0.3s ease;
 }
 
-button:hover {
-    background-color: #45a049;
+.product button:hover {
+    background: #0056b3;
 }
 
+/* 購物車 */
 .cart {
+    margin-top: 2rem;
     background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cart h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #333;
 }
 
 .cart ul {
     list-style: none;
     padding: 0;
-}
-
-.cart ul li {
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.cart ul li button {
-    background-color: #f44336;
-}
-
-#total-section {
-    margin-top: 20px;
-}
-
-.order-form {
-    margin-top: 20px;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.order-form label {
-    display: block;
-    margin: 10px 0 5px;
-}
-
-.order-form input[type="text"], 
-.order-form input[type="tel"], 
-.order-form input[type="email"] {
-    width: calc(100% - 22px);
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-.contact {
-    margin-top: 20px;
-}
-
-.contact p {
     margin: 0;
 }
 
-.contact-icon {
-    margin-right: 15px;
-    display: inline-block;
+.cart li {
+    border-bottom: 1px solid #ddd;
+    padding: 0.5rem 0;
+    font-size: 1rem;
+    color: #555;
 }
 
-footer {
-    background-color: #4CAF50;
-    color: white;
+.cart .total {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+}
+
+.cart .total p {
+    margin: 0.5rem 0;
+}
+
+/* 表單 */
+form {
+    margin-top: 2rem;
+    background: #fff;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+    display: block;
+    margin: 0.5rem 0;
+    font-weight: bold;
+}
+
+form input[type="text"], form input[type="tel"] {
+    width: calc(100% - 22px);
+    padding: 0.5rem;
+    margin-top: 0.2rem;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+form button {
+    background: #007bff;
+    border: none;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background 0.3s ease;
+}
+
+form button:hover {
+    background: #0056b3;
+}
+
+/* 聯繫方式 */
+.contact {
+    margin-top: 2rem;
     text-align: center;
-    padding: 15px 0;
-    position: relative;
-    bottom: 0;
-    width: 100%;
 }
 
+.contact p {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.contact-icon {
+    display: inline-block;
+    margin: 0 0.5rem;
+}
+
+.contact-icon img {
+    width: 36px;
+    height: 36px;
+    transition: opacity 0.3s ease;
+}
+
+.contact-icon img:hover {
+    opacity: 0.7;
+}
+
+/* 音樂控制 */
 #music-control {
     position: fixed;
-    bottom: 10px;
-    right: 10px;
+    bottom: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-#play-music, #stop-music {
+#music-control button {
     background: none;
     border: none;
     cursor: pointer;
-    width: 40px;
-    height: 40px;
-    font-size: 1.5em;
-    background-color: #fff;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    transition: opacity 0.3s ease;
 }
 
-#play-music {
-    display: inline-block;
+#music-control button:hover {
+    opacity: 0.7;
 }
 
-#stop-music {
-    display: none;
+/* 版權信息 */
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 }
