@@ -34,36 +34,30 @@ document.addEventListener("DOMContentLoaded", function() {
     const messageForm = document.getElementById('message-form');
     const messagesContainer = document.getElementById('messages-container');
 
-    messageForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        const messageContent = document.getElementById('message-content').value;
-        if (messageContent.trim()) {
-            const messageElement = document.createElement('div');
-            messageElement.textContent = messageContent;
-            messagesContainer.appendChild(messageElement);
-            messageForm.reset();
-        }
+     // 處理留言提交
+    $('#message-form').on('submit', function(e) {
+        e.preventDefault();
+        const name = $('#message-name').val();
+        const content = $('#message-content').val();
+        const messageHtml = `<div class="message"><strong>${name}</strong><p>${content}</p></div>`;
+        $('#messages-container').append(messageHtml);
+        $('#message-form')[0].reset();
     });
-
-    // Initialize Google Map
-    const mapContainer = document.getElementById('map-container');
-    const mapOptions = {
-        zoom: 15,
-        center: { lat: 25.0330, lng: 121.5654 },
-                // Replace these coordinates with the actual location
-        map: new google.maps.Map(mapContainer, {
-            center: { lat: 25.0330, lng: 121.5654 },
+});
+    // 加載Google地圖
+    function initMap() {
+        const location = { lat: 25.0330, lng: 121.5654 }; // 台北101坐標（需替換為實際地點）
+        const map = new google.maps.Map(document.getElementById('map-container'), {
             zoom: 15,
-        })
-    };
+            center: location
+        });
+        new google.maps.Marker({
+            position: location,
+            map: map
+        });
+    }
 
-    const map = new google.maps.Map(mapContainer, mapOptions);
-
-    const marker = new google.maps.Marker({
-        position: mapOptions.center,
-        map: map,
-        title: '儀式地點'
-    });
+    google.maps.event.addDomListener(window, 'load', initMap);
 
     // Lazy loading sections with fade-in effect
     const observer = new IntersectionObserver(entries => {
@@ -90,13 +84,11 @@ $(document).ready(function(){
         adaptiveHeight: true
     });
 
-    // 加载追思照片
-    $.getJSON('photos.json', function(data) {
-        var carousel = $('.carousel');
-        carousel.empty(); // 清空当前轮播内容
-        $.each(data.photos, function(index, photo) {
-            carousel.slick('slickAdd', '<div><img src="' + photo.url + '" alt="追思照片' + (index + 1) + '"></div>');
-        });
+    // 加載追思照片（假設照片URLs存儲在localStorage中）
+    const photos = JSON.parse(localStorage.getItem('photos')) || [];
+    const $carousel = $('.carousel');
+    photos.forEach(photo => {
+        $carousel.slick('slickAdd', `<div><img src="${photo}" alt="追思照片"></div>`);
     });
 
     // 音乐控制
