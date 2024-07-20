@@ -1,109 +1,81 @@
-document.addEventListener('DOMContentLoaded', function () {
-    // Add event listeners to product buttons
-    const productButtons = document.querySelectorAll('.product button');
-    productButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            const productName = this.parentElement.querySelector('h2').textContent;
-            const productPrice = parseFloat(this.parentElement.querySelector('p').textContent.replace('價格: NT$', ''));
-            addToCart(productName, productPrice);
-        });
-    });
-    playButton.addEventListener('click', () => {
-    const music = document.getElementById('background-music');
-    const playButton = document.getElementById('play-music');
-    const stopButton = document.getElementById('stop-music');
+        cart[name] = { price: price, quantity: 1 };
+    }
+    updateCart();
+}
 
-    // 確保音樂播放
-    music.play();
+function updateCart() {
+    let cartItems = document.getElementById('cartItems');
+    let totalAmount = 0;
+    let invoiceCharge = 0;
 
-    // 音量開關控制
-    playButton.addEventListener('click', () => {
-        music.volume = 1.0; // 最大音量
-        playButton.style.display = 'none';
-        stopButton.style.display = 'inline-block';
-    });
+    cartItems.innerHTML = '';
+    for (let item in cart) {
+        let itemTotal = cart[item].price * cart[item].quantity;
+        totalAmount += itemTotal;
 
-    stopButton.addEventListener('click', () => {
-        music.volume = 0.0; // 靜音
-        playButton.style.display = 'inline-block';
-        stopButton.style.display = 'none';
-    });
+        let li = document.createElement('li');
+        li.innerHTML = `${item} - NT$${cart[item].price} x ${cart[item].quantity} 
+                         <button onclick="changeQuantity('${item}', -1)">-</button> 
+                         <button onclick="changeQuantity('${item}', 1)">+</button>`;
+        cartItems.appendChild(li);
+    }
+
+    let isInvoice = document.getElementById('invoice-checkbox').checked;
+    if (isInvoice) {
+        invoiceCharge = totalAmount * 0.05;
+    }
+
+    document.getElementById('total-amount').innerText = totalAmount.toFixed(2);
+    document.getElementById('invoice-charge').innerText = invoiceCharge.toFixed(2);
+    document.getElementById('final-amount').innerText = (totalAmount + invoiceCharge).toFixed(2);
+}
+
+function changeQuantity(item, change) {
+    if (cart[item]) {
+        cart[item].quantity += change;
+        if (cart[item].quantity <= 0) {
+            delete cart[item];
+        }
+        updateCart();
+    }
+}
+
+function toggleInvoiceDetails() {
+    let invoiceDetails = document.getElementById('invoice-details');
+    if (document.getElementById('invoice-checkbox').checked) {
+        invoiceDetails.style.display = 'block';
+    } else {
+        invoiceDetails.style.display = 'none';
+    }
+}
+
+function confirmOrder() {
+    let name = document.getElementById('name').value;
+    let orderName = document.getElementById('order-name').value;
+    let orderNumber = document.getElementById('order-number').value;
+    let ordererNames = document.getElementById('orderer-names').value;
+    let isInvoice = document.getElementById('invoice-checkbox').checked;
+    let companyName = isInvoice ? document.getElementById('company-name').value : '';
+    let recipientName = isInvoice ? document.getElementById('recipient-name').value : '';
+    let recipientAddress = isInvoice ? document.getElementById('recipient-address').value : '';
+
+    if (name && orderName && orderNumber && ordererNames && (!isInvoice || (companyName && recipientName && recipientAddress))) {
+        // Redirect to states.html
+        window.location.href = 'flower-order-states.html';
+    } else {
+        alert('請填寫所有必要的欄位。');
+    }
+}
+
+// Music controls
+document.getElementById('play-music').addEventListener('click', function() {
+    document.getElementById('background-music').play();
+    this.style.display = 'none';
+    document.getElementById('stop-music').style.display = 'inline-block';
 });
 
-    // Handle invoice checkbox change
-    document.getElementById('invoice-checkbox').addEventListener('change', calculateTotal);
-
-    // Handle confirm order button click
-    document.querySelector('button[type="button"]').addEventListener('click', confirmOrder);
-
-    function addToCart(name, price) {
-        const cartItems = document.getElementById('cartItems');
-        const existingItem = document.querySelector(`#cartItems li[data-name="${name}"]`);
-
-        if (existingItem) {
-            const quantityElem = existingItem.querySelector('.quantity');
-            quantityElem.textContent = parseInt(quantityElem.textContent) + 1;
-        } else {
-            const li = document.createElement('li');
-            li.setAttribute('data-name', name);
-            li.setAttribute('data-price', price);
-            li.innerHTML = `
-                ${name} - NT$${price.toFixed(2)} <span class="quantity">1</span>
-                <button onclick="removeFromCart(this)">移除</button>
-            `;
-            cartItems.appendChild(li);
-        }
-
-        calculateTotal();
-    }
-
-    function removeFromCart(button) {
-        button.parentElement.remove();
-        calculateTotal();
-    }
-
-    function calculateTotal() {
-        const cartItems = [...document.querySelectorAll('#cartItems li')];
-        let subtotal = 0;
-
-        cartItems.forEach(item => {
-            const price = parseFloat(item.getAttribute('data-price'));
-            const quantity = parseInt(item.querySelector('.quantity').textContent);
-            subtotal += price * quantity;
-        });
-
-        const needsInvoice = document.getElementById('invoice-checkbox').checked;
-        const invoiceCharge = needsInvoice ? subtotal * 0.05 : 0;
-        const finalAmount = subtotal + invoiceCharge;
-
-        document.getElementById('total-amount').textContent = subtotal.toFixed(2);
-        document.getElementById('invoice-charge').textContent = invoiceCharge.toFixed(2);
-        document.getElementById('final-amount').textContent = finalAmount.toFixed(2);
-    }
-
-    function confirmOrder() {
-        const name = document.getElementById('name').value;
-        const ordererName = document.getElementById('order-name').value;
-        const orderNumber = document.getElementById('order-number').value;
-        const ordererNames = document.getElementById('orderer-names').value;
-        const needsInvoice = document.getElementById('invoice-checkbox').checked;
-        const companyName = document.getElementById('company-name').value;
-        const recipientName = document.getElementById('recipient-name').value;
-        const recipientAddress = document.getElementById('recipient-address').value;
-
-        if (!name || !ordererName || !orderNumber || !ordererNames) {
-            alert('請填寫所有必填項目！');
-            return;
-        }
-
-        if (needsInvoice) {
-            if (!companyName || !recipientName || !recipientAddress) {
-                alert('若需要發票，請填寫公司抬頭及收件人信息！');
-                return;
-            }
-        }
-
-        // Assuming form submission here or redirect to states.html
-        window.location.href = 'flower-order-states.html';
-    }
+document.getElementById('stop-music').addEventListener('click', function() {
+    document.getElementById('background-music').pause();
+    this.style.display = 'none';
+    document.getElementById('play-music').style.display = 'inline-block';
 });
