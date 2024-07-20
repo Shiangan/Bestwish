@@ -26,7 +26,7 @@
     function confirmPayment() {
         // 模拟付款确认
         alert('付款已確認，感謝您的訂購！');
-        window.location.href = 'thank-you.html';
+        window.location.href = 'thanks.html';
     }
 </script>
 <button onclick="confirmPayment()">確認付款</button>
