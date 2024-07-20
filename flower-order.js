@@ -1,8 +1,17 @@
+// 初始化購物車
+let cart = {};
+
+// 添加商品到購物車
+function addToCart(name, price) {
+    if (cart[name]) {
+        cart[name].quantity += 1;
+    } else {
         cart[name] = { price: price, quantity: 1 };
     }
     updateCart();
 }
 
+// 更新購物車顯示
 function updateCart() {
     let cartItems = document.getElementById('cartItems');
     let totalAmount = 0;
@@ -16,7 +25,7 @@ function updateCart() {
         let li = document.createElement('li');
         li.innerHTML = `${item} - NT$${cart[item].price} x ${cart[item].quantity} 
                          <button onclick="changeQuantity('${item}', -1)">-</button> 
-                         <button onclick="changeQuantity('${item}', 1)">+</button>`;
+                         <button onclick="changeQuantity('${item}', 1)">+1</button>`;
         cartItems.appendChild(li);
     }
 
@@ -25,11 +34,12 @@ function updateCart() {
         invoiceCharge = totalAmount * 0.05;
     }
 
-    document.getElementById('total-amount').innerText = totalAmount.toFixed(2);
+    document.getElementById('totalPrice').innerText = `總金額（未稅）: NT$${totalAmount.toFixed(2)}`;
     document.getElementById('invoice-charge').innerText = invoiceCharge.toFixed(2);
     document.getElementById('final-amount').innerText = (totalAmount + invoiceCharge).toFixed(2);
 }
 
+// 改變商品數量
 function changeQuantity(item, change) {
     if (cart[item]) {
         cart[item].quantity += change;
@@ -40,15 +50,22 @@ function changeQuantity(item, change) {
     }
 }
 
+// 切換發票詳細信息顯示
 function toggleInvoiceDetails() {
     let invoiceDetails = document.getElementById('invoice-details');
-    if (document.getElementById('invoice-checkbox').checked) {
+    let receiptDetails = document.getElementById('receipt-details');
+    let isInvoice = document.getElementById('invoice-checkbox').checked;
+    
+    if (isInvoice) {
         invoiceDetails.style.display = 'block';
+        receiptDetails.style.display = 'none';
     } else {
         invoiceDetails.style.display = 'none';
+        receiptDetails.style.display = 'block';
     }
 }
 
+// 確認訂單
 function confirmOrder() {
     let name = document.getElementById('name').value;
     let orderName = document.getElementById('order-name').value;
@@ -61,21 +78,27 @@ function confirmOrder() {
 
     if (name && orderName && orderNumber && ordererNames && (!isInvoice || (companyName && recipientName && recipientAddress))) {
         // Redirect to states.html
-        window.location.href = 'flower-order-states.html';
+        window.location.href = 'states.html';
     } else {
         alert('請填寫所有必要的欄位。');
     }
 }
 
-// Music controls
+// 音樂控制
 document.getElementById('play-music').addEventListener('click', function() {
     document.getElementById('background-music').play();
     this.style.display = 'none';
-    document.getElementById('stop-music').style.display = 'inline-block';
+    document.getElementById('stop-music').style.display = 'block';
 });
 
 document.getElementById('stop-music').addEventListener('click', function() {
     document.getElementById('background-music').pause();
     this.style.display = 'none';
-    document.getElementById('play-music').style.display = 'inline-block';
+    document.getElementById('play-music').style.display = 'block';
+});
+
+// 頁面加載完成後，初始化音樂控制
+window.addEventListener('load', function() {
+    document.getElementById('play-music').style.display = 'block';
+    document.getElementById('stop-music').style.display = 'none';
 });
