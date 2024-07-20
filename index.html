@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>祥安生命有限公司－訃聞公告</title>
     <link rel="stylesheet" href="index.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
     <header>
@@ -22,6 +21,29 @@
 
                 <label for="photo">追思照片:</label>
                 <input type="file" id="photo" name="photo" accept="image/*" required>
+                <form id="photo-form">
+        <input type="file" id="photo-input" multiple />
+        <button type="button" id="upload-photos">上傳照片</button>
+    </form>
+
+                    <script>
+        $('#upload-photos').click(function() {
+            const files = $('#photo-input')[0].files;
+            const photos = [];
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const url = URL.createObjectURL(file);
+                photos.push(url);
+            }
+
+            // Store the photo URLs in localStorage
+            localStorage.setItem('photos', JSON.stringify(photos));
+            alert('照片已上传！');
+        });
+    </script>
+</body>
+</html>
 
                 <label for="additional-photos">其他照片（可選）:</label>
                 <input type="file" id="additional-photos" name="additional-photos[]" accept="image/*" multiple>
@@ -97,22 +119,5 @@
     </div>
 
     <script src="index.js"></script>
-    <script>
-        // JavaScript to handle photo upload
-        $('#upload-photos').click(function() {
-            const files = $('#photo-input')[0].files;
-            const photos = [];
-
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const url = URL.createObjectURL(file);
-                photos.push(url);
-            }
-
-            // Store the photo URLs in localStorage
-            localStorage.setItem('photos', JSON.stringify(photos));
-            alert('照片已上傳！');
-        });
-    </script>
 </body>
 </html>
