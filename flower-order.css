@@ -139,13 +139,14 @@ footer {
     cursor: pointer;
     width: 40px;
     height: 40px;
-    background-size: cover;
+    font-size: 1.5em;
+    background-color: #fff;
 }
 
 #play-music {
-    background-image: url('images/sound-on.png');
+    display: inline-block;
 }
 
 #stop-music {
-    background-image: url('images/sound-off.png');
+    display: none;
 }
