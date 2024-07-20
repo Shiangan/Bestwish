@@ -1,80 +1,93 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>訂購花籃</title>
-    <link rel="stylesheet" href="flower-order.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <img src="logo.png" alt="祥安生命有限公司 Logo" class="logo">
         <h1>訂購花籃</h1>
     </header>
-
     <main>
-        <section id="order-form">
-            <h2>選擇花籃</h2>
-            <form id="flower-order-form">
-                <div class="flower-item">
-                    <img src="flower1.jpg" alt="花籃1">
-                    <p>花籃1 - $100</p>
-                    <button type="button" class="quantity-button" data-price="100" data-id="flower1" data-action="decrease">-</button>
-                    <input type="number" id="flower1-quantity" class="quantity-input" value="0" min="0" readonly>
-                    <button type="button" class="quantity-button" data-price="100" data-id="flower1" data-action="increase">+</button>
-                    <p class="price" id="flower1-price">$0</p>
+        <form id="order-form">
+            <section class="flower-basket-selection">
+                <h2>選擇花籃</h2>
+                <div class="flower-basket-options">
+                    <!-- Example Flower Basket -->
+                    <div class="flower-basket">
+                        <img src="flower1.jpg" alt="花籃1">
+                        <p>花籃1 - NT$1000</p>
+                        <input type="radio" name="basket" value="1000" data-price="1000">
+                        <label>數量:
+                            <button type="button" class="quantity-btn" data-action="decrease">-</button>
+                            <input type="number" class="quantity" value="1" min="1" readonly>
+                            <button type="button" class="quantity-btn" data-action="increase">+</button>
+                        </label>
+                        <button type="button" class="add-to-cart">加入購物車</button>
+                    </div>
+                    <!-- Add other flower baskets similarly -->
                 </div>
-                <div class="flower-item">
-                    <img src="flower2.jpg" alt="花籃2">
-                    <p>花籃2 - $200</p>
-                    <button type="button" class="quantity-button" data-price="200" data-id="flower2" data-action="decrease">-</button>
-                    <input type="number" id="flower2-quantity" class="quantity-input" value="0" min="0" readonly>
-                    <button type="button" class="quantity-button" data-price="200" data-id="flower2" data-action="increase">+</button>
-                    <p class="price" id="flower2-price">$0</p>
+            </section>
+
+            <section class="invoice-selection">
+                <h2>發票選擇</h2>
+                <label>
+                    <input type="checkbox" id="invoice">
+                    需要發票 (額外加收 5%)
+                </label>
+                <div id="invoice-details" class="hidden">
+                    <label for="invoice-title">發票抬頭:</label>
+                    <input type="text" id="invoice-title" name="invoice-title">
+
+                    <label for="invoice-recipient">收件人:</label>
+                    <input type="text" id="invoice-recipient" name="invoice-recipient" required>
+
+                    <label for="invoice-address">收件地址:</label>
+                    <input type="text" id="invoice-address" name="invoice-address" required>
                 </div>
-                <!-- 添加更多花籃項目 -->
-                
-                <label for="sender-name">訂購人姓名:</label>
-                <input type="text" id="sender-name" name="sender-name" required>
+            </section>
 
-                <label for="contact-number">聯絡電話:</label>
-                <input type="text" id="contact-number" name="contact-number" required>
+            <section class="cart-summary">
+                <h2>購物車</h2>
+                <ul id="cart-items">
+                    <!-- Selected items will appear here -->
+                </ul>
+                <p id="total-price">總價: NT$0</p>
+            </section>
 
-                <label for="deceased-name">致贈給亡者姓名:</label>
+            <section id="order-details" class="hidden">
+                <h2>填寫訂購人資料</h2>
+                <label for="order-name">訂購人姓名:</label>
+                <input type="text" id="order-name" name="order-name" required>
+
+                <label for="order-phone">聯絡電話:</label>
+                <input type="tel" id="order-phone" name="order-phone" required>
+
+                <label for="deceased-name">亡者姓名:</label>
                 <input type="text" id="deceased-name" name="deceased-name" required>
 
-                <label for="invoice">是否需要發票:</label>
-                <input type="checkbox" id="invoice" name="invoice">
+                <button type="button" id="confirm-order-btn">確認訂購</button>
+            </section>
+        </form>
 
-                <label for="invoice-details">發票詳情:</label>
-                <textarea id="invoice-details" name="invoice-details" placeholder="請輸入發票詳情，如抬頭和統編" disabled></textarea>
-
-                <label for="tribute-list">落款名單:</label>
-                <textarea id="tribute-list" name="tribute-list"></textarea>
-
-                <button type="submit">確認訂單</button>
-            </form>
-        </section>
-
-        <section id="order-summary" style="display: none;">
-            <h2>訂單摘要</h2>
-            <div id="order-details">
-                <p><strong>往生者姓名:</strong> <span id="summary-deceased-name"></span></p>
-                <p><strong>訂購人姓名:</strong> <span id="summary-sender-name"></span></p>
-                <p><strong>聯絡電話:</strong> <span id="summary-contact-number"></span></p>
-                <p><strong>落款名單:</strong> <span id="summary-tribute-list"></span></p>
-                <p><strong>總金額:</strong> $<span id="summary-total-price"></span></p>
-                <p><strong>需發票:</strong> <span id="summary-invoice-needed"></span></p>
-                <p><strong>發票詳情:</strong> <span id="summary-invoice-details"></span></p>
-                <button id="confirm-order">完成訂單</button>
+        <!-- Order Confirmation Page -->
+        <div id="order-confirmation" class="hidden">
+            <h2>訂單確認</h2>
+            <p>請確認以下資訊無誤：</p>
+            <div id="confirmation-details">
+                <!-- Order details will be displayed here -->
             </div>
-        </section>
+            <p>總金額: NT$<span id="final-total-price">0</span></p>
+            <p>支付方式:</p>
+            <ul>
+                <li><a href="payment-info.html">匯款資訊</a></li>
+                <li><a href="linepay.html">Line Pay</a></li>
+            </ul>
+            <p>完成付款後，請點擊<a href="thanks.html">這裡</a>確認付款完成。</p>
+        </div>
     </main>
-
-    <footer>
-        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
-    </footer>
-
-    <script src="flower-order.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
