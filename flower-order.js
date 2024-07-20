@@ -78,7 +78,7 @@ function confirmOrder() {
 
     if (name && orderName && orderNumber && ordererNames && (!isInvoice || (companyName && recipientName && recipientAddress))) {
         // Redirect to states.html
-        window.location.href = 'states.html';
+        window.location.href = 'flower-order-states.html';
     } else {
         alert('請填寫所有必要的欄位。');
     }
