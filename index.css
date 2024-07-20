@@ -146,3 +146,57 @@ footer {
     padding: 15px;
     border-top: 1px solid #ddd;
 }
+
+/* 留言区样式 */
+#message-section {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+#message-section h2 {
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.message {
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+}
+
+.message:last-child {
+    border-bottom: none;
+}
+
+.message p {
+    margin: 5px 0;
+}
+
+.message .author {
+    font-weight: bold;
+}
+
+/* 地图部分样式 */
+#map-section {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+#map-section h2 {
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#map {
+    height: 400px;
+    width: 100%;
+}
