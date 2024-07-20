@@ -16,6 +16,7 @@
         <section id="info-form-section">
             <h2>訃聞資料提交</h2>
             <form id="info-form">
+                <!-- 表单内容 -->
                 <label for="name">姓名:</label>
                 <input type="text" id="name" name="name" required>
 
@@ -67,42 +68,47 @@
             </form>
         </section>
 
+        <!-- Google 地图嵌入部分 -->
+        <section id="map-section">
+            <h2>儀式地點</h2>
+            <div id="map-container">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0888204883897!2d144.96332831562373!3d-37.81421797975185!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0x5045675218ceed11!2z5ZyL5b6X5biC6aaZ5riv5Y2A!5e0!3m2!1szh-TW!2stw!4v1619585792171!5m2!1szh-TW!2stw"
+                    width="600"
+                    height="450"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                ></iframe>
+            </div>
+        </section>
+
         <!-- 渐显照片部分 -->
         <section id="invitation-section">
             <div id="photo-container">
-                <img id="main-photo" src="path/to/your/photo.jpg" alt="追思照片">
-                <p id="invitation-overlay">敬邀您</p>
-            </div>
-        </section>
-
-        <!-- 音乐控制部分 -->
-        <div id="music-control">
-            <button id="play-music">播放音樂</button>
-            <button id="pause-music">暫停音樂</button>
-        </div>
-
-        <!-- 地图部分 -->
-        <section id="map-section">
-            <h2>地圖位置</h2>
-            <div id="map"></div>
-        </section>
-
-        <!-- 留言區 -->
-        <section id="message-section">
-            <h2>留言區</h2>
-            <div class="message">
-                <p class="author">訪客1:</p>
-                <p>悼念信息...</p>
-            </div>
-            <div class="message">
-                <p class="author">訪客2:</p>
-                <p>悼念信息...</p>
+                <p id="invitation-text">敬邀您</p>
+                <img id="main-photo" src="" alt="主要照片">
+                <a id="go-to-obituary" href="obituary.html">
+                    <button>點選我進入訃聞</button>
+                </a>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>祥安生命有限公司 © 2024</p>
+        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
     </footer>
+
+    <audio id="background-music" preload="auto" loop>
+        <source src="audio/background-music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div id="music-control">
+        <button id="play-music">🔊</button>
+        <button id="stop-music" style="display: none;">🔇</button>
+    </div>
+
+    <script src="index.js"></script>
 </body>
 </html>
