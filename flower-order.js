@@ -1,12 +1,11 @@
-// 初始化购物车
 let cart = {};
 
 // 添加商品到购物车
-function addToCart(name, price) {
+function addToCart(name, price, imageUrl, description) {
     if (cart[name]) {
         cart[name].quantity += 1;
     } else {
-        cart[name] = { price: price, quantity: 1 };
+        cart[name] = { price: price, quantity: 1, imageUrl: imageUrl, description: description };
     }
     updateCart();
 }
@@ -25,7 +24,8 @@ function updateCart() {
         let li = document.createElement('li');
         li.innerHTML = `${item} - NT$${cart[item].price} x ${cart[item].quantity} 
                          <button onclick="changeQuantity('${item}', -1)">-</button> 
-                         <button onclick="changeQuantity('${item}', 1)">+1</button>`;
+                         <button onclick="changeQuantity('${item}', 1)">+1</button> 
+                         <button onclick="showDetails('${item}')">查看详情</button>`;
         cartItems.appendChild(li);
     }
 
@@ -37,6 +37,20 @@ function updateCart() {
     document.getElementById('totalPrice').innerText = `总金额（未税）: NT$${totalAmount.toFixed(2)}`;
     document.getElementById('invoice-charge').innerText = invoiceCharge.toFixed(2);
     document.getElementById('final-amount').innerText = (totalAmount + invoiceCharge).toFixed(2);
+}
+
+// 显示商品详情模态窗口
+function showDetails(itemName) {
+    let item = cart[itemName];
+    document.getElementById('modalTitle').innerText = itemName;
+    document.getElementById('modalImage').src = item.imageUrl;
+    document.getElementById('modalDescription').innerText = item.description;
+    document.getElementById('flowerModal').style.display = 'block';
+}
+
+// 关闭模态窗口
+function closeModal() {
+    document.getElementById('flowerModal').style.display = 'none';
 }
 
 // 改变商品数量
@@ -55,7 +69,7 @@ function toggleInvoiceDetails() {
     let invoiceDetails = document.getElementById('invoice-details');
     let receiptDetails = document.getElementById('receipt-details');
     let isInvoice = document.getElementById('invoice-checkbox').checked;
-
+    
     if (isInvoice) {
         invoiceDetails.style.display = 'block';
         receiptDetails.style.display = 'none';
@@ -77,7 +91,20 @@ function confirmOrder() {
     let recipientAddress = isInvoice ? document.getElementById('recipient-address').value : '';
 
     if (name && orderName && orderNumber && ordererNames && (!isInvoice || (companyName && recipientName && recipientAddress))) {
-        // Redirect to flower-order-states.html
+        // 保存订单信息到 localStorage
+        localStorage.setItem('orderInfo', JSON.stringify({
+            name: name,
+            orderName: orderName,
+            orderNumber: orderNumber,
+            ordererNames: ordererNames,
+            isInvoice: isInvoice,
+            companyName: companyName,
+            recipientName: recipientName,
+            recipientAddress: recipientAddress,
+            cart: cart
+        }));
+
+        // 跳转到确认页面
         window.location.href = 'flower-order-states.html';
     } else {
         alert('请填写所有必要的字段。');
@@ -97,56 +124,7 @@ document.getElementById('stop-music').addEventListener('click', function() {
     document.getElementById('play-music').style.display = 'block';
 });
 
-// 页面加载完成后，初始化音乐控制
 window.addEventListener('load', function() {
     document.getElementById('play-music').style.display = 'block';
     document.getElementById('stop-music').style.display = 'none';
 });
-
-// 更新总金额、发票附加费和最终金额
-function updateTotals() {
-    let cartItems = document.getElementById('cartItems').getElementsByTagName('li');
-    let total = 0;
-
-    for (let item of cartItems) {
-        let price = parseFloat(item.dataset.price);
-        let quantity = parseInt(item.querySelector('.quantity').innerText);
-        total += price * quantity;
-    }
-
-    let invoiceCheckbox = document.getElementById('invoice-checkbox');
-    let invoiceCharge = invoiceCheckbox.checked ? total * 0.05 : 0;
-    let finalAmount = total + invoiceCharge;
-
-    document.getElementById('totalPrice').innerText = `总金额（未税）: NT$${total.toFixed(2)}`;
-    document.getElementById('invoice-charge').innerText = invoiceCharge.toFixed(2);
-    document.getElementById('final-amount').innerText = finalAmount.toFixed(2);
-}
-
-// 添加到购物车功能
-function addToCart(name, price) {
-    let cartItems = document.getElementById('cartItems');
-    let item = Array.from(cartItems.getElementsByTagName('li')).find(item => item.dataset.name === name);
-
-    if (item) {
-        let quantityElement = item.querySelector('.quantity');
-        quantityElement.innerText = parseInt(quantityElement.innerText) + 1;
-    } else {
-        let li = document.createElement('li');
-        li.dataset.name = name;
-        li.dataset.price = price;
-        li.innerHTML = `
-            ${name} - NT$${price} <span class="quantity">1</span>
-            <button onclick="removeFromCart(this)">移除</button>
-        `;
-        cartItems.appendChild(li);
-    }
-
-    updateTotals();
-}
-
-// 移除购物车中的项目
-function removeFromCart(button) {
-    button.parentElement.remove();
-    updateTotals();
-}
