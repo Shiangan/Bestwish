@@ -10,41 +10,32 @@
     <header>
         <h1>花籃訂購</h1>
     </header>
-
     <main>
-        <section id="order-form">
-            <h2>選擇花籃樣式</h2>
-            <div class="flower-options">
-                <div class="flower-item">
-                    <img src="flower1.jpg" alt="花籃A款">
-                    <p>1對 - $2500</p>
-                    <button type="button" onclick="selectFlower('花籃A款', 2500)">選擇</button>
-                </div>
-                <div class="flower-item">
-                    <img src="flower2.jpg" alt="花籃B款">
-                    <p>1對 - $3000</p>
-                    <button type="button" onclick="selectFlower('花籃B款', 3000)">選擇</button>
-                </div>
-                <!-- 添加其他樣式 -->
+        <div class="product-grid">
+            <div class="product">
+                <img src="flower1.jpg" alt="Flower Basket 1">
+                <h2>花籃 1</h2>
+                <p>價格: NT$2000</p>
+                <button onclick="addToCart('花籃 1', 2000)">添加到購物車</button>
             </div>
-
-            <h2>訂單詳情</h2>
-            <form id="flower-order-form">
-                <div class="item">
-                    <p>選擇的花籃樣式：<span id="selected-style">無</span></p>
-                    <p>每對價格：$<span id="unit-price">0</span></p>
-                    <button type="button" class="quantity-btn" onclick="updateQuantity(-1)">-</button>
-                    <input type="text" id="quantity" value="0" readonly>
-                    <button type="button" class="quantity-btn" onclick="updateQuantity(1)">+</button>
-                </div>
-                
-                <div class="total">
-                    <p>總金額：$<span id="total-amount">0</span></p>
-                    <p>發票附加費 (5%)：$<span id="invoice-charge">0</span></p>
-                    <p>最終金額：$<span id="final-amount">0</span></p>
-                </div>
-
-                <label for="name">故人姓名：</label>
+            <div class="product">
+                <img src="flower2.jpg" alt="Flower Basket 2">
+                <h2>花籃 2</h2>
+                <p>價格: NT$2500</p>
+                <button onclick="addToCart('花籃 2', 2500)">添加到購物車</button>
+            </div>
+            <!-- 其他產品 -->
+        </div>
+        <div class="cart">
+            <h2>購物車</h2>
+            <ul id="cartItems"></ul>
+            <p id="totalPrice">總金額（未稅）: NT$0</p>
+            <div class="total">
+                <p>發票附加費 (5%)：$<span id="invoice-charge">0</span></p>
+                <p>最終金額：$<span id="final-amount">0</span></p>
+            </div>
+            <form id="order-form">
+                <label for="name">致贈給：</label>
                 <input type="text" id="name" name="name" required>
                 
                 <label for="order-name">訂購人姓名：</label>
@@ -53,7 +44,7 @@
                 <label for="order-number">訂購人聯絡電話：</label>
                 <input type="tel" id="order-number" name="order-number" required>
 
-                <label for="orderer-names">落款人名單（用逗號分隔）：</label>
+                <label for="orderer-names">落款名單（用逗號分隔）：</label>
                 <input type="text" id="orderer-names" name="orderer-names" required>
 
                 <label>
@@ -70,15 +61,22 @@
                     <input type="text" id="recipient-address" name="recipient-address">
                 </div>
 
+                <div id="receipt-details" style="display: none;">
+                    <label for="receipt-recipient">收件人姓名：</label>
+                    <input type="text" id="receipt-recipient" name="receipt-recipient">
+                    <label for="receipt-address">收件地址：</label>
+                    <input type="text" id="receipt-address" name="receipt-address">
+                </div>
+
                 <button type="button" onclick="confirmOrder()">確認訂單</button>
             </form>
+        </div>
 
-            <div class="contact">
-                <p>如有問題，隨時與我們聯繫：</p>
-                <a href="tel:0938179858" class="contact-icon" title="撥打電話"><img src="phone-icon.png" alt="電話圖標"></a>
-                <a href="https://line.me/ti/p/line-id" class="contact-icon" title="添加LINE"><img src="line-icon.png" alt="LINE圖標"></a>
-            </div>
-        </section>
+        <div class="contact">
+            <p>如有問題，隨時與我們聯繫：</p>
+            <a href="tel:0938179858" class="contact-icon" title="撥打電話"><img src="phone-icon.png" alt="電話圖標"></a>
+            <a href="https://line.me/ti/p/line-id" class="contact-icon" title="添加LINE"><img src="line-icon.png" alt="LINE圖標"></a>
+        </div>
     </main>
 
     <footer>
@@ -86,7 +84,7 @@
     </footer>
 
     <audio id="background-music" preload="auto" loop>
-        <source src="" type="audio/mpeg">
+        <source src="background-music.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
