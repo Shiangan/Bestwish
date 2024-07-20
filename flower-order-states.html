@@ -3,46 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>訂單狀態與結帳</title>
-    <link rel="stylesheet" href="flower-order-states.css">
+    <title>訂單確認</title>
+    <link rel="stylesheet" href="flower-order.css">
 </head>
 <body>
     <header>
-        <img src="logo.png" alt="祥安生命有限公司 Logo" class="logo">
-        <h1>訂單狀態與結帳</h1>
+        <h1>訂單確認</h1>
     </header>
 
     <main>
-        <section id="order-summary">
-            <h2>訂單摘要</h2>
-            <div id="order-details">
-                <p><strong>往生者姓名:</strong> <span id="deceased-name"></span></p>
-                <p><strong>訂購人姓名:</strong> <span id="sender-name"></span></p>
-                <p><strong>聯絡電話:</strong> <span id="contact-number"></span></p>
-                <p><strong>落款名單:</strong> <span id="tribute-list"></span></p>
-                <p><strong>總金額:</strong> $<span id="total-price"></span></p>
-                <p><strong>需發票:</strong> <span id="invoice-needed"></span></p>
-                <p><strong>發票詳情:</strong> <span id="invoice-details"></span></p>
+        <section id="confirmation-details">
+            <h2>訂單詳情</h2>
+            <div id="order-summary">
+                <!-- 这里展示订单详细信息 -->
             </div>
-        </section>
+            <h3>支付信息</h3>
+            <p>感謝您的訂購，我們已經收到您的訂單。請按照以下說明進行支付。</p>
+            <p>支付方式: 匯款或 LinePay</p>
+            <p>請將款項匯至以下帳號並保留匯款憑證：</p>
+            <p>銀行: XXXX銀行</p>
+            <p>帳號: 123-456789-01</p>
+            <p>戶名: 祥安生命禮儀公司</p>
+            <p>或使用 LinePay 支付至以下帳號：</p>
+            <p>LinePay ID: @shianganlife</p>
 
-        <section id="checkout">
-            <h2>結帳資訊</h2>
-            <p>請選擇以下支付方式：</p>
-            <a href="line://nv/pay" target="_blank">
-                <img src="linepay_icon.png" alt="Line Pay 支付圖標" style="width: 100px; height: 100px;">
-            </a>
-            <p>銀行帳戶匯款：（822）中國信託 匯款帳號：237540143423 戶名：陳妍如</p>
-            <p>24H禮儀服務電話：</p>
-            <a href="tel:0978583699" target="_blank">
-                <img src="phone.png" alt="打電話圖標" style="width: 100px; height: 100px;">
-            </a>
-            <p>請點擊下方圖片加入我們的Line並回傳照片：</p>
-            <a href="https://line.me/R/ti/p/@yourlineaccount" target="_blank">
-                <img src="line.png" alt="加入Line" style="width: 150px; height: 150px;">
-            </a>
-            <p>Line帳號: @yourlineaccount</p>
-            <button id="complete-order">完成訂單</button>
+            <h3>付款確認</h3>
+            <p>請完成付款後，將您的匯款憑證或付款截圖發送至以下郵箱或 Line：</p>
+            <p>郵箱: payment@shianganlife.com</p>
+            <p>Line: <a href="https://line.me/ti/p/line-id" target="_blank">添加我們的Line</a></p>
+            <p>我們將在確認款項後發送確認郵件。</p>
         </section>
     </main>
 
@@ -50,23 +39,39 @@
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
     </footer>
 
+    <audio id="background-music" preload="auto" loop>
+        <source src="" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div id="music-control">
+        <button id="play-music" style="background: url('images/sound-on.png');">🔊</button>
+        <button id="stop-music" style="display: none; background: url('images/sound-off.png');">🔇</button>
+    </div>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const orderDetails = JSON.parse(localStorage.getItem('orderDetails'));
-            
-            if (orderDetails) {
-                document.getElementById('deceased-name').textContent = orderDetails.deceasedName;
-                document.getElementById('sender-name').textContent = orderDetails.senderName;
-                document.getElementById('contact-number').textContent = orderDetails.contactNumber;
-                document.getElementById('tribute-list').textContent = orderDetails.tributeList || '無';
-                document.getElementById('total-price').textContent = orderDetails.totalPrice;
-                document.getElementById('invoice-needed').textContent = orderDetails.invoiceNeeded ? '需要' : '不需要';
-                document.getElementById('invoice-details').textContent = orderDetails.invoiceDetails || '無';
+        document.addEventListener('DOMContentLoaded', function() {
+            const order = JSON.parse(localStorage.getItem('order'));
+            if (!order) {
+                alert('沒有找到訂單信息，請返回重新填寫訂單。');
+                window.location.href = 'flower-order.html';
+                return;
             }
 
-            document.getElementById('complete-order').addEventListener('click', function () {
-                window.location.href = 'thanks.html';
-            });
+            const orderSummary = `
+                <p>花籃樣式: ${order.selectedStyle}</p>
+                <p>數量: ${order.quantity} 對</p>
+                <p>單價: $${order.unitPrice}</p>
+                <p>總金額: $${order.totalAmount}</p>
+                <p>發票附加費: $${order.invoiceCharge.toFixed(2)}</p>
+                <p>最終金額: $${order.finalAmount.toFixed(2)}</p>
+                <p>故人姓名: ${order.name}</p>
+                <p>訂購人姓名: ${order.orderName}</p>
+                <p>訂購人聯絡電話: ${order.orderNumber}</p>
+                <p>落款人名單: ${order.ordererNames}</p>
+                ${order.needsInvoice ? `<p>發票抬頭: ${order.companyName}</p><p>收件人姓名: ${order.recipientName}</p><p>收件地址: ${order.recipientAddress}</p>` : ''}
+            `;
+            document.getElementById('order-summary').innerHTML = orderSummary;
         });
     </script>
 </body>
