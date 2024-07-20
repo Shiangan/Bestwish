@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>訃聞公告</title>
-    <link rel="stylesheet" href="obituary.css">
+    <title>祥安生命有限公司－訃聞公告</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
     <header>
@@ -12,43 +12,97 @@
     </header>
 
     <main>
-        <section id="obituary-details">
-            <h2>訃聞</h2>
-            <p><strong>姓名:</strong> <span id="name"></span></p>
-            <p><strong>出生日期:</strong> <span id="birth-date"></span></p>
-            <p><strong>死亡日期:</strong> <span id="death-date"></span></p>
-            <p><strong>安靈地點:</strong> <span id="placement-location"></span></p>
-            <p><strong>出殯地點:</strong> <span id="funeral-location"></span></p>
-            <p><strong>交通方式:</strong> <span id="transportation"></span></p>
-            <p><strong>生平介紹:</strong> <span id="life-story"></span></p>
+        <!-- 表单部分 -->
+        <section id="info-form-section">
+            <h2>訃聞資料提交</h2>
+            <form id="info-form">
+                <label for="name">姓名:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="photo">追思照片:</label>
+                <input type="file" id="photo" name="photo" accept="image/*" required>
+
+                <label for="additional-photos">其他照片（可選）:</label>
+                <input type="file" id="additional-photos" name="additional-photos" accept="image/*" multiple>
+
+                <label for="birth-date">出生日期:</label>
+                <input type="date" id="birth-date" name="birth-date" required>
+
+                <label for="death-date">死亡日期:</label>
+                <input type="date" id="death-date" name="death-date" required>
+
+                <label for="funeral-space">牌位安置地點:</label>
+                <textarea id="funeral-space" name="funeral-space"></textarea>
+
+                <label for="funeral-date">出殯日期:</label>
+                <input type="date" id="funeral-date" name="funeral-date" required>
+
+                <label for="funeral-location">出殯地點:</label>
+                <select id="funeral-location" name="funeral-location" required>
+                    <option value="第二殯儀館">第二殯儀館 禮廳</option>
+                    <option value="板橋殯儀館">板橋殯儀館 禮廳</option>
+                    <option value="其他">其他</option>
+                </select>
+                <input type="text" id="other-funeral-location" name="other-funeral-location" placeholder="若選擇其他，請填寫地點">
+
+                <label for="family-service-time">家奠禮時間:</label>
+                <input type="time" id="family-service-time" name="family-service-time" required>
+
+                <label for="public-service-time">公奠禮時間:</label>
+                <input type="time" id="public-service-time" name="public-service-time" required>
+
+                <label for="life-story">生平介紹:</label>
+                <textarea id="life-story" name="life-story"></textarea>
+
+                <label for="music-choice">選擇背景音樂:</label>
+                <select id="music-choice" name="music-choice">
+                    <option value="https://youtu.be/Ptk_1Dc2iPY?si=W2x14B6xJA6G4VHc">音樂1</option>
+                    <option value="https://www.youtube.com/embed/音樂2">音樂2</option>
+                    <option value="https://www.youtube.com/embed/音樂3">音樂3</option>
+                    <option value="https://www.youtube.com/embed/音樂4">音樂4</option>
+                    <option value="https://www.youtube.com/embed/音樂5">音樂5</option>
+                </select>
+
+                <button type="submit">提交</button>
+            </form>
         </section>
 
-        <section id="photo-gallery">
-            <h2>追思照片</h2>
-            <div id="additional-photos-container"></div>
+        <!-- 渐显照片部分 -->
+        <section id="invitation-section">
+            <div id="photo-container">
+                <img id="main-photo" src="path/to/your/photo.jpg" alt="追思照片">
+                <p id="invitation-overlay">敬邀您</p>
+            </div>
         </section>
 
+        <!-- 音乐控制部分 -->
+        <div id="music-control">
+            <button id="play-music">播放音樂</button>
+            <button id="pause-music">暫停音樂</button>
+        </div>
+
+        <!-- 地图部分 -->
         <section id="map-section">
-            <h2>地圖</h2>
+            <h2>地圖位置</h2>
             <div id="map"></div>
+        </section>
+
+        <!-- 留言區 -->
+        <section id="message-section">
+            <h2>留言區</h2>
+            <div class="message">
+                <p class="author">訪客1:</p>
+                <p>悼念信息...</p>
+            </div>
+            <div class="message">
+                <p class="author">訪客2:</p>
+                <p>悼念信息...</p>
+            </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
+        <p>祥安生命有限公司 © 2024</p>
     </footer>
-
-    <audio id="background-music" preload="auto" loop>
-        <source src="audio/background-music.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-
-    <div id="music-control">
-        <button id="play-music">🔊</button>
-        <button id="stop-music" style="display: none;">🔇</button>
-    </div>
-
-    <script src="obituary.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
 </body>
 </html>
