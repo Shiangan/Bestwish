@@ -1,85 +1,101 @@
+/* 基本樣式 */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
+    background: #f4f7f9;
     margin: 0;
     padding: 0;
-    background: #f4f4f4;
+    color: #333;
 }
 
-header {
-    background: #333;
-    color: #fff;
-    padding: 10px;
-    text-align: left;
-}
-
-header .logo {width: 100px;
-}
-
-#flower-order-section {
+/* 主要容器 */
+#order-process {
+    max-width: 800px;
+    margin: 20px auto;
     padding: 20px;
-    background: #fff;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-#flower-type {
+/* 標題 */
+h2 {
+    color: #007BFF;
+    font-size: 24px;
+    border-bottom: 2px solid #007BFF;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* 花籃選項 */
+.flower-basket-options {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 15px;
 }
 
 .flower-option {
+    flex: 1;
+    min-width: 220px;
+    background: #f9f9f9;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px;
-    text-align: center;
-    width: 200px;
-    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.flower-option:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .flower-option img {
     width: 100%;
-    max-height: 150px;
-    object-fit: cover;
+    height: auto;
+    display: block;
 }
 
-.plus-minus {
-    background: #333;
-    color: #fff;
-    border: none;
-    padding: 5px;
-    margin: 5px;
-    cursor: pointer;
+.flower-option p {
+    margin: 10px 0;
 }
 
-.plus-minus:hover {
-    background: #555;
-}
-
-#flower-order-form {
-    display: grid;
-    gap: 10px;
-}
-
-#order-summary {
+/* 表單 */
+form {
     margin-top: 20px;
 }
 
-#order-summary p {
-    font-size: 1.2em;
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 
-#order-summary span {
-    font-weight: bold;
+input[type="text"], input[type="tel"], input[type="file"], input[type="checkbox"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
 }
 
 button {
-    background: #333;
+    background: #007BFF;
     color: #fff;
     border: none;
     padding: 10px 20px;
-    font-size: 1.2em;
+    border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease;
 }
 
 button:hover {
-    background: #555;
+    background: #0056b3;
+}
+
+.hidden {
+    display: none;
 }
