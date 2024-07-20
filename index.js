@@ -1,9 +1,17 @@
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("info-form");
+    const invitationSection = document.getElementById("invitation-section");
+    const photoContainer = document.getElementById("photo-container");
+    const mainPhoto = document.getElementById("main-photo");
+    const invitationOverlay = document.getElementById("invitation-overlay");
     const playMusicButton = document.getElementById("play-music");
     const stopMusicButton = document.getElementById("stop-music");
     const backgroundMusic = document.getElementById("background-music");
+    const musicChoice = document.getElementById("music-choice");
 
+    let currentMusic = '';
+
+    // 处理表单提交
     form.addEventListener("submit", function(event) {
         event.preventDefault();
         const formData = new FormData(form);
@@ -21,26 +29,44 @@ document.addEventListener("DOMContentLoaded", function() {
                 localStorage.setItem('funeralLocation', formData.get('funeral-location'));
                 localStorage.setItem('familyServiceTime', formData.get('family-service-time'));
                 localStorage.setItem('publicServiceTime', formData.get('public-service-time'));
-                localStorage.setItem('age', calculateAge(new Date(formData.get('birth-date')), new Date(formData.get('death-date'))));
 
-                window.location.href = "invitation.html"; // 跳转到“敬邀您”页面
+                // 显示敬邀您页面
+                invitationSection.style.display = "flex";
+                mainPhoto.src = e.target.result;
+                document.querySelector("#invitation-overlay p").textContent = '敬邀您';
+
+                // 播放音乐
+                if (currentMusic) {
+                    backgroundMusic.src = currentMusic;
+                    backgroundMusic.play();
+                }
             };
             reader.readAsDataURL(photoFile);
         }
+
+        form.style.display = "none";
     });
 
-    function calculateAge(birthDate, deathDate) {
-        const ageDifMs = deathDate - birthDate;
-        const ageDate = new Date(ageDifMs);
-        return Math.abs(ageDate.getUTCFullYear() - 1970);
-    }
+    // 选择音乐
+    musicChoice.addEventListener("change", function() {
+        const selectedOption = musicChoice.options[musicChoice.selectedIndex];
+        const musicUrl = selectedOption.getAttribute("data-music");
+        currentMusic = musicUrl;
+        backgroundMusic.src = musicUrl;
 
+        if (playMusicButton.style.display === "none") {
+            backgroundMusic.play();
+        }
+    });
+
+    // 播放音乐
     playMusicButton.addEventListener("click", function() {
         backgroundMusic.play();
         playMusicButton.style.display = "none";
         stopMusicButton.style.display = "inline";
     });
 
+    // 停止音乐
     stopMusicButton.addEventListener("click", function() {
         backgroundMusic.pause();
         playMusicButton.style.display = "inline";
