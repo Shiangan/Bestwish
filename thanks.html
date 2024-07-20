@@ -3,37 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>感謝您的訂購</title>
-    <link rel="stylesheet" href="flower-order.css">
+    <title>訂單完成</title>
+    <link rel="stylesheet" href="thanks.css">
 </head>
 <body>
     <header>
-        <h1>感謝您的訂購</h1>
+        <h1>訂單完成</h1>
     </header>
-
     <main>
-        <section id="thank-you-message">
-            <h2>您的訂單已確認</h2>
-            <p>感謝您的訂購。我們已收到您的訂單，請按照之前的指示完成付款。</p>
-            <p>一旦我們確認收到您的款項，將會發送確認郵件給您。</p>
-            <p>如有任何問題，請隨時與我們聯繫。</p>
-
-            <button onclick="window.location.href='obituary.html'">返回訃聞內容</button>
-        </section>
+        <p>感謝您的訂購！</p>
+        <button onclick="goBackToObituary()">返回訃聞內容</button>
     </main>
 
     <footer>
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
     </footer>
 
-    <audio id="background-music" preload="auto" loop>
-        <source src="" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-
-    <div id="music-control">
-        <button id="play-music" style="background: url('images/sound-on.png');">🔊</button>
-        <button id="stop-music" style="display: none; background: url('images/sound-off.png');">🔇</button>
-    </div>
+    <script>
+        function goBackToObituary() {
+            window.location.href = 'obituary.html';
+        }
+    </script>
 </body>
 </html>
