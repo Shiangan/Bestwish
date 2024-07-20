@@ -1,73 +1,55 @@
 body {
     font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
     margin: 0;
     padding: 0;
-    color: #333;
-    background-color: #f5f5f5;
 }
 
 header {
-    background-color: #fff;
-    padding: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 0;
     text-align: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.logo {
-    max-width: 150px;
+h1 {
+    margin: 0;
 }
 
 main {
     padding: 20px;
 }
 
-h1, h2 {
-    color: #333;
-}
-
-#order-summary, #checkout {
-    background-color: #fff;
+#order-summary {
+    background: #fff;
+    border: 1px solid #ddd;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     padding: 20px;
-    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-#order-details ul {
-    list-style-type: none;
-    padding: 0;
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1em;
 }
 
-#order-details li {
-    margin-bottom: 10px;
-}
-
-.payment-methods {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.payment-icon {
-    width: 100px;
-    height: 100px;
-    margin: 10px;
-}
-
-.bank-info {
-    text-align: center;
-}
-
-.phone-link {
-    display: block;
-    text-align: center;
-    margin: 20px 0;
+button:hover {
+    background-color: #45a049;
 }
 
 footer {
-    background-color: #fff;
+    background-color: #4CAF50;
+    color: white;
     text-align: center;
-    padding: 10px;
-    border-top: 1px solid #ddd;
-    box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+    padding: 10px 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
