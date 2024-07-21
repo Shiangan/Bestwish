@@ -1,57 +1,57 @@
-window.addEventListener('load', function() {
-    // 从 localStorage 获取订单信息
-    let orderInfo = JSON.parse(localStorage.getItem('orderInfo'));
-    if (!orderInfo) {
-        alert('订单信息未找到，请返回重新填写。');
-        window.location.href = 'flower-order.html';
-        return;
+document.addEventListener('DOMContentLoaded', function() {
+    // 从 localStorage 读取订单信息
+    const orderInfo = JSON.parse(localStorage.getItem('orderInfo'));
+
+    if (orderInfo) {
+        document.getElementById('name').textContent = orderInfo.name;
+        document.getElementById('order-name').textContent = orderInfo.orderName;
+        document.getElementById('order-number').textContent = orderInfo.orderNumber;
+        document.getElementById('orderer-names').textContent = orderInfo.ordererNames;
+        document.getElementById('invoice').textContent = orderInfo.isInvoice ? '是' : '否';
+
+        if (orderInfo.isInvoice) {
+            document.getElementById('invoice-info').style.display = 'block';
+            document.getElementById('company-name').textContent = orderInfo.companyName;
+            document.getElementById('recipient-name').textContent = orderInfo.recipientName;
+            document.getElementById('recipient-address').textContent = orderInfo.recipientAddress;
+        }
+
+        let signerNames = document.getElementById('signer-names');
+        orderInfo.signerNames.forEach(function(signer) {
+            let li = document.createElement('li');
+            li.textContent = signer;
+            signerNames.appendChild(li);
+        });
+
+        let cartItems = document.getElementById('cartItems');
+        for (let item in orderInfo.cart) {
+            let li = document.createElement('li');
+            li.textContent = `${item} - NT$${orderInfo.cart[item].price} x ${orderInfo.cart[item].quantity}`;
+            cartItems.appendChild(li);
+        }
+    } else {
+        alert('没有找到订单信息。');
     }
-
-    // 显示订单信息
-    document.getElementById('confirm-name').innerText = orderInfo.name;
-    document.getElementById('confirm-order-name').innerText = orderInfo.orderName;
-    document.getElementById('confirm-order-number').innerText = orderInfo.orderNumber;
-    document.getElementById('confirm-orderer-names').innerText = orderInfo.ordererNames;
-    document.getElementById('confirm-invoice').innerText = orderInfo.isInvoice ? '是' : '否';
-
-    if (orderInfo.isInvoice) {
-        document.getElementById('company-name-summary').style.display = 'block';
-        document.getElementById('confirm-company-name').innerText = orderInfo.companyName;
-        document.getElementById('recipient-name-summary').style.display = 'block';
-        document.getElementById('confirm-recipient-name').innerText = orderInfo.recipientName;
-        document.getElementById('recipient-address-summary').style.display = 'block';
-        document.getElementById('confirm-recipient-address').innerText = orderInfo.recipientAddress;
-    }
-
-    let cart = orderInfo.cart;
-    let cartItemsSummary = document.getElementById('cartItemsSummary');
-    let totalAmount = 0;
-    let invoiceCharge = 0;
-
-    cartItemsSummary.innerHTML = '';
-    for (let item in cart) {
-        let itemTotal = cart[item].price * cart[item].quantity;
-        totalAmount += itemTotal;
-
-        let li = document.createElement('li');
-        li.innerHTML = `${item} - NT$${cart[item].price} x ${cart[item].quantity}`;
-        cartItemsSummary.appendChild(li);
-    }
-
-    if (orderInfo.isInvoice) {
-        invoiceCharge = totalAmount * 0.05;
-    }
-
-    document.getElementById('confirm-total-price').innerText = totalAmount.toFixed(2);
-    document.getElementById('confirm-invoice-charge').innerText = invoiceCharge.toFixed(2);
-    document.getElementById('confirm-final-amount').innerText = (totalAmount + invoiceCharge).toFixed(2);
 });
 
-// 跳转到付款页面
-function proceedToPayment() {
-    // 进行付款处理
-    alert('请继续到付款页面进行结账。');
+function goToPayment() {
     // 可以在这里处理付款逻辑
-    // 跳转到付款页面（示例）
-    window.location.href = 'payment.html';
+    alert('感谢您的订单！');
+    // 假设付款完成后清除 localStorage
+    localStorage.removeItem('orderInfo');
+    // 可以重定向到付款页面或完成页面
+    window.location.href = 'thanks.html'; // 付款完成后重定向到感谢页面
 }
+
+// 音乐控制
+document.getElementById('play-music').addEventListener('click', function() {
+    document.getElementById('background-music').play();
+    this.style.display = 'none';
+    document.getElementById('stop-music').style.display = 'inline-block';
+});
+
+document.getElementById('stop-music').addEventListener('click', function() {
+    document.getElementById('background-music').pause();
+    this.style.display = 'none';
+    document.getElementById('play-music').style.display = 'inline-block';
+});
