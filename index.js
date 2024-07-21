@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const invitationSection = document.getElementById("invitation-section");
     const photoContainer = document.getElementById("photo-container");
     const mainPhoto = document.getElementById("main-photo");
+    const invitationOverlay = document.getElementById("invitation-overlay");
     const playMusicButton = document.getElementById("play-music");
     const stopMusicButton = document.getElementById("stop-music");
     const backgroundMusic = document.getElementById("background-music");
@@ -30,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 localStorage.setItem('publicServiceTime', formData.get('public-service-time'));
 
                 // 显示敬邀您页面
-                invitationSection.classList.remove('hidden');
+                invitationSection.style.display = "flex";
                 mainPhoto.src = e.target.result;
                 document.querySelector("#invitation-overlay p").textContent = '敬邀您';
 
