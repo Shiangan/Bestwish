@@ -12,79 +12,83 @@
     </header>
     <main>
         <div class="product-grid">
-            <div class="product">
-                <img src="image/花籃A.JPG" alt="Flower Basket A">
+            <!-- 每个花篮项 -->
+            <div class="product" onclick="openModal('花籃 A', 'image/花籃A.JPG', '花籃 A 詳細描述...', 2500)">
+                <img src="image/花籃A.JPG" alt="花籃 A">
                 <h2>花籃 A</h2>
                 <p>價格: NT$2500</p>
-                <button onclick="addToCart('花籃 1', 2500)">添加到購物車</button>
             </div>
-            <div class="product">
-                <img src="image/花籃B.JPG" alt="Flower Basket B">
+            <!-- 其他花篮 -->
+            <div class="product" onclick="openModal('花籃 B', 'image/花籃B.JPG', '花籃 B 詳細描述...', 3000)">
+                <img src="image/花籃B.JPG" alt="花籃 B">
                 <h2>花籃 B</h2>
                 <p>價格: NT$3000</p>
-                <button onclick="addToCart('花籃 2', 3000)">添加到購物車</button>
             </div>
-             <div class="product">
-                <img src="image/花籃C.JPG" alt="Flower Basket C">
+            <!-- 继续添加其他花篮 -->
+            <div class="product" onclick="openModal('花籃 C', 'image/花籃C.JPG', '花籃 C 詳細描述...', 3500)">
+                <img src="image/花籃C.JPG" alt="花籃 C">
                 <h2>花籃 C</h2>
                 <p>價格: NT$3500</p>
-                <button onclick="addToCart('花籃 3', 3500)">添加到購物車</button>
             </div>
-             <div class="product">
-                <img src="image/花籃D.JPG" alt="Flower Basket D">
+            <div class="product" onclick="openModal('花籃 D', 'image/花籃D.JPG', '花籃 D 詳細描述...', 4000)">
+                <img src="image/花籃D.JPG" alt="花籃 D">
                 <h2>花籃 D</h2>
                 <p>價格: NT$4000</p>
-                <button onclick="addToCart('花籃 4', 4000)">添加到購物車</button>
             </div>
-             <div class="product">
-                <img src="image/花籃E.JPG" alt="Flower Basket E">
+            <div class="product" onclick="openModal('花籃 E', 'image/花籃E.JPG', '花籃 E 詳細描述...', 5000)">
+                <img src="image/花籃E.JPG" alt="花籃 E">
                 <h2>花籃 E</h2>
                 <p>價格: NT$5000</p>
-                <button onclick="addToCart('花籃 5', 5000)">添加到購物車</button>
             </div>
-             <div class="product">
-                <img src="image/花籃F.JPG" alt="Flower Basket F">
+            <div class="product" onclick="openModal('花籃 F', 'image/花籃F.JPG', '花籃 F 詳細描述...', 5500)">
+                <img src="image/花籃F.JPG" alt="花籃 F">
                 <h2>花籃 F</h2>
                 <p>價格: NT$5500</p>
-                <button onclick="addToCart('花籃 6', 5500)">添加到購物車</button>
             </div>
-             <div class="product">
-                <img src="image/花籃G.JPG" alt="Flower Basket G">
+            <div class="product" onclick="openModal('花籃 G', 'image/花籃G.JPG', '花籃 G 詳細描述...', 6000)">
+                <img src="image/花籃G.JPG" alt="花籃 G">
                 <h2>花籃 G</h2>
                 <p>價格: NT$6000</p>
-                <button onclick="addToCart('花籃 7', 6000)">添加到購物車</button>
             </div>
-             <div class="product">
-                <img src="image/花籃H.JPG" alt="Flower Basket H">
+            <div class="product" onclick="openModal('花籃 H', 'image/花籃H.JPG', '花籃 H 詳細描述...', 6500)">
+                <img src="image/花籃H.JPG" alt="花籃 H">
                 <h2>花籃 H</h2>
                 <p>價格: NT$6500</p>
-                <button onclick="addToCart('花籃 8', 6500)">添加到購物車</button>
             </div>
-            <!-- 其他產品 -->
         </div>
 
-            <!-- 模态窗口 -->
+        <!-- 模态窗口 -->
         <div id="flowerModal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal()">&times;</span>
                 <h2 id="modalTitle">花籃名稱</h2>
                 <img id="modalImage" src="" alt="花篮图片" style="width:100%;">
                 <p id="modalDescription">花籃详细描述...</p>
+                <div class="quantity-controls">
+                    <button onclick="updateQuantity(-1)">-</button>
+                    <span id="quantity">1</span>
+                    <button onclick="updateQuantity(1)">+</button>
+                </div>
+                <button id="addToCartBtn" onclick="addToCart()">添加到購物車</button>
             </div>
         </div>
 
         <div class="cart">
             <h2>購物車</h2>
             <ul id="cartItems"></ul>
-            <p id="totalPrice">總金額（未稅）: NT$0</p>
-            <div class="total">
-                <p>發票附加費 (5%)：$<span id="invoice-charge">0</span></p>
-                <p>最終金額：$<span id="final-amount">0</span></p>
+            <div class="invoice-options">
+                <label>
+                    <input type="checkbox" id="invoice-checkbox" onchange="updateTotal()">
+                    需要發票
+                </label>
             </div>
+            <p id="totalPrice">總金額（未稅）: NT$0</p>
+            <p>發票附加費 (5%)：NT$<span id="invoice-charge">0</span></p>
+            <p>最終金額：NT$<span id="final-amount">0</span></p>
             <form id="order-form">
                 <label for="name">致贈給：</label>
                 <input type="text" id="name" name="name" required>
-                
+
                 <label for="order-name">訂購人姓名：</label>
                 <input type="text" id="order-name" name="order-name" required>
 
@@ -94,25 +98,13 @@
                 <label for="orderer-names">落款名單（用逗號分隔）：</label>
                 <input type="text" id="orderer-names" name="orderer-names" required>
 
-                <label>
-                    <input type="checkbox" id="invoice-checkbox" onchange="toggleInvoiceDetails()">
-                    需要發票
-                </label>
-
-                <div id="invoice-details" style="display: none;">
+                <div id="invoice-details" class="hidden">
                     <label for="company-name">公司抬頭：</label>
                     <input type="text" id="company-name" name="company-name">
                     <label for="recipient-name">收件人姓名：</label>
                     <input type="text" id="recipient-name" name="recipient-name">
                     <label for="recipient-address">收件地址：</label>
                     <input type="text" id="recipient-address" name="recipient-address">
-                </div>
-
-                <div id="receipt-details" style="display: none;">
-                    <label for="receipt-recipient">收件人姓名：</label>
-                    <input type="text" id="receipt-recipient" name="receipt-recipient">
-                    <label for="receipt-address">收件地址：</label>
-                    <input type="text" id="receipt-address" name="receipt-address">
                 </div>
 
                 <button type="button" onclick="confirmOrder()">確認訂單</button>
