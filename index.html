@@ -15,66 +15,88 @@
         <section id="info-form-section">
             <h2>訃聞資料提交</h2>
             <form id="info-form">
-                <!-- 表单内容 -->
-                <label for="name">姓名:</label>
-                <input type="text" id="name" name="name" required>
+                <div class="form-group">
+                    <label for="name">姓名:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
 
-                <label for="photo">追思照片:</label>
-                <input type="file" id="photo" name="photo" accept="image/*" required>
-       
-                <label for="additional-photos">其他照片（可選）:</label>
-                <input type="file" id="additional-photos" name="additional-photos[]" accept="image/*" multiple>
+                <div class="form-group">
+                    <label for="photo">追思照片:</label>
+                    <input type="file" id="photo" name="photo" accept="image/*" required>
+                </div>
 
-                <label for="birth-date">出生日期:</label>
-                <input type="date" id="birth-date" name="birth-date" required>
+                <div class="form-group">
+                    <label for="additional-photos">其他照片（可選）:</label>
+                    <input type="file" id="additional-photos" name="additional-photos[]" accept="image/*" multiple>
+                </div>
 
-                <label for="death-date">死亡日期:</label>
-                <input type="date" id="death-date" name="death-date" required>
+                <div class="form-group">
+                    <label for="birth-date">出生日期:</label>
+                    <input type="date" id="birth-date" name="birth-date" required>
+                </div>
 
-                <label for="funeral-space">牌位安置地點:</label>
-                <textarea id="funeral-space" name="funeral-space"></textarea>
+                <div class="form-group">
+                    <label for="death-date">死亡日期:</label>
+                    <input type="date" id="death-date" name="death-date" required>
+                </div>
 
-                <label for="funeral-date">出殯日期:</label>
-                <input type="date" id="funeral-date" name="funeral-date" required>
+                <div class="form-group">
+                    <label for="funeral-space">牌位安置地點:</label>
+                    <textarea id="funeral-space" name="funeral-space"></textarea>
+                </div>
 
-                <label for="funeral-location">出殯地點:</label>
-                <select id="funeral-location" name="funeral-location" required>
-                    <option value="第二殯儀館">第二殯儀館 禮廳</option>
-                    <option value="板橋殯儀館">板橋殯儀館 禮廳</option>
-                    <option value="其他">其他</option>
-                </select>
-                <input type="text" id="other-funeral-location" name="other-funeral-location" placeholder="若選擇其他，請填寫地點">
+                <div class="form-group">
+                    <label for="funeral-date">出殯日期:</label>
+                    <input type="date" id="funeral-date" name="funeral-date" required>
+                </div>
 
-                <label for="family-service-time">家奠禮時間:</label>
-                <input type="time" id="family-service-time" name="family-service-time" required>
+                <div class="form-group">
+                    <label for="funeral-location">出殯地點:</label>
+                    <select id="funeral-location" name="funeral-location" required>
+                        <option value="第二殯儀館">第二殯儀館 禮廳</option>
+                        <option value="板橋殯儀館">板橋殯儀館 禮廳</option>
+                        <option value="其他">其他</option>
+                    </select>
+                    <input type="text" id="other-funeral-location" name="other-funeral-location" placeholder="若選擇其他，請填寫地點">
+                </div>
 
-                <label for="public-service-time">公奠禮時間:</label>
-                <input type="time" id="public-service-time" name="public-service-time" required>
+                <div class="form-group">
+                    <label for="family-service-time">家奠禮時間:</label>
+                    <input type="time" id="family-service-time" name="family-service-time" required>
+                </div>
 
-                <label for="life-story">生平介紹:</label>
-                <textarea id="life-story" name="life-story"></textarea>
+                <div class="form-group">
+                    <label for="public-service-time">公奠禮時間:</label>
+                    <input type="time" id="public-service-time" name="public-service-time" required>
+                </div>
 
-                <label for="music-choice">選擇背景音樂:</label>
-                <select id="music-choice" name="music-choice">
-                    <option value="https://www.youtube.com/embed/音樂1" data-music="audio/music1.mp3">音樂1</option>
-                    <option value="https://www.youtube.com/embed/音樂2" data-music="audio/music2.mp3">音樂2</option>
-                    <option value="https://www.youtube.com/embed/音樂3" data-music="audio/music3.mp3">音樂3</option>
-                    <option value="https://www.youtube.com/embed/音樂4" data-music="audio/music4.mp3">音樂4</option>
-                    <option value="https://www.youtube.com/embed/音樂5" data-music="audio/music5.mp3">音樂5</option>
-                </select>
+                <div class="form-group">
+                    <label for="life-story">生平介紹:</label>
+                    <textarea id="life-story" name="life-story"></textarea>
+                </div>
 
-                <button type="submit">提交</button>
+                <div class="form-group">
+                    <label for="music-choice">選擇背景音樂:</label>
+                    <select id="music-choice" name="music-choice">
+                        <option value="https://www.youtube.com/embed/音樂1" data-music="audio/music1.mp3">音樂1</option>
+                        <option value="https://www.youtube.com/embed/音樂2" data-music="audio/music2.mp3">音樂2</option>
+                        <option value="https://www.youtube.com/embed/音樂3" data-music="audio/music3.mp3">音樂3</option>
+                        <option value="https://www.youtube.com/embed/音樂4" data-music="audio/music4.mp3">音樂4</option>
+                        <option value="https://www.youtube.com/embed/音樂5" data-music="audio/music5.mp3">音樂5</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="submit-btn">提交</button>
             </form>
         </section>
 
-        <!-- 渐显照片部分 -->
-        <section id="invitation-section" style="display: none;">
+        <section id="invitation-section" class="hidden">
             <div id="photo-container">
                 <img id="main-photo" src="" alt="主要照片">
                 <div id="invitation-overlay">
                     <p>敬邀您</p>
                     <a id="go-to-obituary" href="obituary.html">
-                        <button>點選我進入訃聞</button>
+                        <button class="invitation-btn">點選我進入訃聞</button>
                     </a>
                 </div>
             </div>
@@ -91,8 +113,8 @@
     </audio>
 
     <div id="music-control">
-        <button id="play-music" style="background: url('images/sound-on.png');">🔊</button>
-        <button id="stop-music" style="display: none; background: url('images/sound-off.png');">🔇</button>
+        <button id="play-music" class="music-btn" style="background: url('images/sound-on.png');">🔊</button>
+        <button id="stop-music" class="music-btn" style="display: none; background: url('images/sound-off.png');">🔇</button>
     </div>
 
     <script src="index.js"></script>
