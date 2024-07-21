@@ -1,145 +1,96 @@
-let cart = {};
+let cart = [];
 
-// 添加商品到购物车
-function addToCart(name, price, imageUrl, description) {
-    if (cart[name]) {
-        cart[name].quantity += 1;
-    } else {
-        cart[name] = { price: price, quantity: 1, imageUrl: imageUrl, description: description };
-    }
-    updateCart();
+function openModal(title, imageSrc, description, price) {
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalImage').src = imageSrc;
+    document.getElementById('modalDescription').textContent = description;
+    document.getElementById('modalPrice').textContent = `價格: NT$${price}`;
+    document.getElementById('quantity').textContent = 1;
+    document.getElementById('flowerModal').style.display = 'block';
+    document.getElementById('addToCartBtn').dataset.title = title;
+    document.getElementById('addToCartBtn').dataset.price = price;
 }
 
-// 更新购物车显示
-function updateCart() {
-    const cartItems = document.getElementById('cartItems');
-    const totalAmountElem = document.getElementById('totalPrice');
-    const invoiceChargeElem = document.getElementById('invoice-charge');
-    const finalAmountElem = document.getElementById('final-amount');
-    let totalAmount = 0;
-    let invoiceCharge = 0;
-
-    cartItems.innerHTML = '';
-    for (const item in cart) {
-        const itemTotal = cart[item].price * cart[item].quantity;
-        totalAmount += itemTotal;
-
-        const li = document.createElement('li');
-        li.innerHTML = `
-            ${item} - NT$${cart[item].price} x ${cart[item].quantity} 
-            <button onclick="changeQuantity('${item}', -1)">-</button> 
-            <button onclick="changeQuantity('${item}', 1)">+1</button> 
-            <button onclick="showDetails('${item}')">查看详情</button>
-        `;
-        cartItems.appendChild(li);
-    }
-
-    const isInvoice = document.getElementById('invoice-checkbox').checked;
-    if (isInvoice) {
-        invoiceCharge = totalAmount * 0.05;
-    }
-
-    totalAmountElem.innerText = `总金额（未税）: NT$${totalAmount.toFixed(2)}`;
-    invoiceChargeElem.innerText = `发票附加费: NT$${invoiceCharge.toFixed(2)}`;
-    finalAmountElem.innerText = `总金额（含税）: NT$${(totalAmount + invoiceCharge).toFixed(2)}`;
-}
-
-// 显示商品详情模态窗口
-function showDetails(itemName) {
-    const item = cart[itemName];
-    if (item) {
-        document.getElementById('modalTitle').innerText = itemName;
-        document.getElementById('modalImage').src = item.imageUrl;
-        document.getElementById('modalDescription').innerText = item.description;
-        document.getElementById('flowerModal').style.display = 'block';
-    }
-}
-
-// 关闭模态窗口
 function closeModal() {
     document.getElementById('flowerModal').style.display = 'none';
 }
 
-// 改变商品数量
-function changeQuantity(item, change) {
-    if (cart[item]) {
-        cart[item].quantity += change;
-        if (cart[item].quantity <= 0) {
-            delete cart[item];
-        }
-        updateCart();
-    }
+function updateQuantity(amount) {
+    const quantityElement = document.getElementById('quantity');
+    let quantity = parseInt(quantityElement.textContent);
+    quantity += amount;
+    if (quantity < 1) quantity = 1;
+    quantityElement.textContent = quantity;
 }
 
-// 切换发票详细信息显示
-function toggleInvoiceDetails() {
-    const invoiceDetails = document.getElementById('invoice-details');
-    const receiptDetails = document.getElementById('receipt-details');
-    const isInvoice = document.getElementById('invoice-checkbox').checked;
-    
-    if (isInvoice) {
-        invoiceDetails.style.display = 'block';
-        receiptDetails.style.display = 'none';
-    } else {
-        invoiceDetails.style.display = 'none';
-        receiptDetails.style.display = 'block';
-    }
+function addToCart() {
+    const title = document.getElementById('addToCartBtn').dataset.title;
+    const price = parseInt(document.getElementById('addToCartBtn').dataset.price);
+    const quantity = parseInt(document.getElementById('quantity').textContent);
+
+    // 添加到购物车
+    cart.push({ title, price, quantity });
+
+    // 更新购物车显示
+    updateCart();
+    closeModal();
 }
 
-// 确认订单
+function updateCart() {
+    const cartItems = document.getElementById('cartItems');
+    const invoiceCheckbox = document.getElementById('invoice-checkbox');
+    let totalPrice = 0;
+
+    // 清空购物车项目
+    cartItems.innerHTML = '';
+
+    // 计算总价
+    cart.forEach(item => {
+        totalPrice += item.price * item.quantity;
+        const listItem = document.createElement('li');
+        listItem.textContent = `${item.title} x ${item.quantity} - NT$${item.price * item.quantity}`;
+        cartItems.appendChild(listItem);
+    });
+
+    // 计算发票附加费用
+    const invoiceCharge = invoiceCheckbox.checked ? totalPrice * 0.05 : 0;
+    const finalAmount = totalPrice + invoiceCharge;
+
+    // 更新显示的价格
+    document.getElementById('totalPrice').textContent = `總金額: NT$${totalPrice}`;
+    document.getElementById('invoice-charge').textContent = invoiceCharge.toFixed(2);
+    document.getElementById('final-amount').textContent = finalAmount.toFixed(2);
+    document.getElementById('final-amount').classList.toggle('hidden', cart.length === 0);
+}
+
 function confirmOrder() {
-    const name = document.getElementById('name').value;
-    const orderName = document.getElementById('order-name').value;
-    const orderNumber = document.getElementById('order-number').value;
-    const ordererNames = document.getElementById('orderer-names').value;
-    const isInvoice = document.getElementById('invoice-checkbox').checked;
-    const companyName = isInvoice ? document.getElementById('company-name').value : '';
-    const recipientName = isInvoice ? document.getElementById('recipient-name').value : '';
-    const recipientAddress = isInvoice ? document.getElementById('recipient-address').value : '';
+    // 获取表单数据
+    const form = document.getElementById('order-form');
+    const formData = new FormData(form);
 
-    if (name && orderName && orderNumber && ordererNames && (!isInvoice || (companyName && recipientName && recipientAddress))) {
-        // 保存订单信息到 localStorage
-        localStorage.setItem('orderInfo', JSON.stringify({
-            name: name,
-            orderName: orderName,
-            orderNumber: orderNumber,
-            ordererNames: ordererNames,
-            isInvoice: isInvoice,
-            companyName: companyName,
-            recipientName: recipientName,
-            recipientAddress: recipientAddress,
-            cart: cart
-        }));
+    // 处理发票信息
+    const invoiceCheckbox = document.getElementById('invoice-checkbox');
+    if (invoiceCheckbox.checked) {
+        // 需要发票
+        const companyName = formData.get('company-name');
+        const recipientName = formData.get('recipient-name');
+        const recipientAddress = formData.get('recipient-address');
 
-        // 跳转到确认页面
-        window.location.href = 'flower-order-states.html';
-    } else {
-        alert('请填写所有必要的字段。');
+        if (!companyName || !recipientName || !recipientAddress) {
+            alert('请填写所有发票信息');
+            return;
+        }
     }
+
+    // 提交订单数据
+    // 你可以在这里添加代码来将订单数据发送到服务器
+    alert('訂單已確認！');
+
+    // 重置购物车和表单
+    cart = [];
+    document.getElementById('cartItems').innerHTML = '';
+    document.getElementById('invoice-checkbox').checked = false;
+    document.getElementById('invoice-details').classList.add('hidden');
+    document.getElementById('final-amount').classList.add('hidden');
+    form.reset();
 }
-
-// 音乐控制
-const playMusicButton = document.getElementById('play-music');
-const stopMusicButton = document.getElementById('stop-music');
-const backgroundMusic = document.getElementById('background-music');
-
-playMusicButton.addEventListener('click', function() {
-    if (backgroundMusic) {
-        backgroundMusic.play();
-        playMusicButton.style.display = 'none';
-        stopMusicButton.style.display = 'block';
-    }
-});
-
-stopMusicButton.addEventListener('click', function() {
-    if (backgroundMusic) {
-        backgroundMusic.pause();
-        stopMusicButton.style.display = 'none';
-        playMusicButton.style.display = 'block';
-    }
-});
-
-window.addEventListener('load', function() {
-    playMusicButton.style.display = 'block';
-    stopMusicButton.style.display = 'none';
-});
