@@ -1,208 +1,203 @@
-/* 基本樣式 */
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
     margin: 0;
     padding: 0;
-    background: #f4f4f4;
+    color: #333;
 }
 
-/* 標題 */
 header {
-    background: #007bff;
-    color: #fff;
-    padding: 1.5rem 0;
+    background-color: #4CAF50;
+    color: white;
     text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1em 0;
 }
 
-/* 主要內容 */
-main {
-    padding: 2rem;
-}
-
-/* 商品顯示 */
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1.5rem;
-}
-
-.product {
-    border: 1px solid #ddd;
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    overflow: hidden;
-    background: #fff;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2, h3 {
     text-align: center;
-    transition: box-shadow 0.3s ease;
 }
 
-.product img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-}
-
-.product h2 {
-    font-size: 1.2rem;
-    margin: 0.5rem 0;
-    color: #333;
-}
-
-.product p {
-    font-size: 1rem;
-    color: #555;
-}
-
-.product button {
-    background: #007bff;
-    border: none;
-    color: #fff;
-    padding: 0.75rem 1.5rem;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 0.5rem;
-    transition: background 0.3s ease;
-}
-
-.product button:hover {
-    background: #0056b3;
-}
-
-/* 購物車 */
-.cart {
-    margin-top: 2rem;
-    background: #fff;
-    border-radius: 8px;
-    padding: 1rem;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.cart h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: #333;
-}
-
-.cart ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.cart li {
-    border-bottom: 1px solid #ddd;
-    padding: 0.5rem 0;
-    font-size: 1rem;
-    color: #555;
-}
-
-.cart .total {
-    margin-top: 1rem;
-    font-size: 1.2rem;
-}
-
-.cart .total p {
-    margin: 0.5rem 0;
-}
-
-/* 表單 */
 form {
-    margin-top: 2rem;
-    background: #fff;
-    border-radius: 8px;
-    padding: 1rem;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
 }
 
-form label {
-    display: block;
-    margin: 0.5rem 0;
+label {
     font-weight: bold;
 }
 
-form input[type="text"], form input[type="tel"] {
-    width: calc(100% - 22px);
-    padding: 0.5rem;
-    margin-top: 0.2rem;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-}
-
-form button {
-    background: #007bff;
-    border: none;
-    color: #fff;
-    padding: 0.75rem 1.5rem;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 1rem;
-    transition: background 0.3s ease;
-}
-
-form button:hover {
-    background: #0056b3;
-}
-
-/* 聯繫方式 */
-.contact {
-    margin-top: 2rem;
-    text-align: center;
-}
-
-.contact p {
-    margin-bottom: 0.5rem;
-    font-size: 1.2rem;
-    color: #333;
-}
-
-.contact-icon {
-    display: inline-block;
-    margin: 0 0.5rem;
-}
-
-.contact-icon img {
-    width: 36px;
-    height: 36px;
-    transition: opacity 0.3s ease;
-}
-
-.contact-icon img:hover {
-    opacity: 0.7;
-}
-
-/* 音樂控制 */
-#music-control {
-    position: fixed;
-    bottom: 1rem;
-    right: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-#music-control button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.5rem;
-    padding: 0.5rem;
-    transition: opacity 0.3s ease;
-}
-
-#music-control button:hover {
-    opacity: 0.7;
-}
-
-/* 版權信息 */
-footer {
-    background: #333;
-    color: #fff;
-    text-align: center;
-    padding: 1rem;
-    position: relative;
-    bottom: 0;
+input[type="text"], input[type="number"], input[type="email"], textarea {
     width: 100%;
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    padding: 0.5em;
+    margin-top: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 0.75em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+    margin: 0.25em 0;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.cart-item img {
+    width: 50px;
+    height: 50px;
+    margin-right: 1em;
+    border-radius: 4px;
+}
+
+.cart-item-details {
+    flex: 1;
+}
+
+.cart-item-actions {
+    display: flex;
+    gap: 0.5em;
+}
+
+.cart-item-actions button {
+    background-color: #ff5722;
+    color: white;
+    padding: 0.5em;
+    border-radius: 4px;
+}
+
+.cart-item-actions button:hover {
+    background-color: #e64a19;
+}
+
+#cartItems {
+    list-style: none;
+    padding: 0;
+}
+
+#cartItems li {
+    margin: 1em 0;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#background-music {
+    display: none;
+}
+
+#play-music, #stop-music {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 0.5em 1em;
+    margin: 0.5em;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#play-music:hover, #stop-music:hover {
+    background-color: #45a049;
+}
+
+.invoice-details, .receipt-details {
+    display: none;
+    padding: 1em;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 1em;
+}
+
+.total-amount {
+    font-size: 1.25em;
+    font-weight: bold;
+    text-align: right;
+    margin-top: 1em;
+}
+
+.footer {
+    text-align: center;
+    padding: 1em 0;
+    background-color: #f1f1f1;
+    margin-top: 2em;
 }
