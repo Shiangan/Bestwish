@@ -1,75 +1,98 @@
-body {
-    font-family: Arial, sans-serif;
+/* 基本样式重置 */
+* {
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    box-sizing: border-box;
 }
 
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    background: #f4f4f4;
+    line-height: 1.6;
+}
+
+/* 页眉样式 */
 header {
-    background-color: #333;
-    padding: 10px;
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .logo {
-    max-width: 150px;
+    max-width: 150px; /* Logo 大小 */
+    height: auto;
 }
 
+/* 主要内容样式 */
 main {
     padding: 20px;
 }
 
+/* 信息展示部分 */
 #obituary-info {
-    text-align: center;
+    background: #fff;
+    padding: 20px;
     margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-#obituary-photo-container {
-    margin-bottom: 15px;
+#obituary-info h1 {
+    margin-bottom: 10px;
+    font-size: 24px;
 }
 
-#obituary-photo {
+#obituary-info #obituary-photo-container {
+    text-align: center;
+}
+
+#obituary-info #obituary-photo {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-#obituary-text {
-    font-size: 1.2em;
-    line-height: 1.6;
-}
-
+/* 相册轮播样式 */
 #photo-gallery {
     margin-bottom: 20px;
 }
 
 .carousel {
     width: 100%;
-    margin: 0 auto;
 }
 
-.carousel img {
+.slick-slide img {
     width: 100%;
-    height: auto;
     border-radius: 8px;
 }
 
+/* 地图样式 */
 #map {
     margin-bottom: 20px;
 }
 
 #map-container {
-    width: 100%;
-    height: 300px;
+    height: 400px;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+/* 留言区样式 */
 #messages {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#messages-container {
     margin-bottom: 20px;
+}
+
+.message-item {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
 }
 
 #message-form {
@@ -77,75 +100,88 @@ main {
     flex-direction: column;
 }
 
-#message-form input,
-#message-form textarea {
+#message-form input, #message-form textarea {
     margin-bottom: 10px;
     padding: 10px;
-    border-radius: 4px;
     border: 1px solid #ddd;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
 }
 
 #message-form button {
     padding: 10px;
-    background-color: #333;
+    background: #007bff;
     color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 1em;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 #message-form button:hover {
-    background-color: #555;
+    background: #0056b3;
 }
 
+/* 花篮部分样式 */
 #flower-basket {
     text-align: center;
-    margin-bottom: 20px;
 }
 
 #flower-order-link {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-    font-size: 1.2em;
-    background-color: #f0f0f0;
+    display: inline-block;
     padding: 10px 20px;
+    background: #28a745;
+    color: #fff;
+    text-decoration: none;
     border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 #flower-order-link:hover {
-    background-color: #e0e0e0;
+    background: #218838;
 }
 
+/* 页脚样式 */
 footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
+    background: #fff;
     padding: 10px;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
 }
 
+/* 音乐控制样式 */
 #music-toggle {
     position: fixed;
-    bottom: 70px;
+    bottom: 20px;
     right: 20px;
-    background-color: #333;
+    background: #007bff;
     color: #fff;
     border: none;
-    padding: 10px;
     border-radius: 50%;
-    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
     font-size: 18px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
 }
 
 #music-toggle:hover {
-    background-color: #555;
+    background: #0056b3;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    header {
+        padding: 10px;
+    }
+
+    .logo {
+        max-width: 120px; /* 在小屏幕上稍微缩小 Logo */
+    }
+
+    #obituary-info {
+        padding: 15px;
+    }
+
+    #message-form input, #message-form textarea, #message-form button {
+        font-size: 14px;
+    }
 }
