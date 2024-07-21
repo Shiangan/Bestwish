@@ -1,27 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const photo = localStorage.getItem('photoUrl');
-    const name = localStorage.getItem('name');
-    const birthDate = localStorage.getItem('birthDate');
-    const deathDate = localStorage.getItem('deathDate');
-    const funeralSpace = localStorage.getItem('funeralSpace');
-    const funeralLocation = localStorage.getItem('funeralLocation');
-    const familyServiceTime = localStorage.getItem('familyServiceTime');
-    const publicServiceTime = localStorage.getItem('publicServiceTime');
-    const age = localStorage.getItem('age');
-
-    if (photo) {
-        document.getElementById('obituary-photo').src = photo;
-    }
-    document.getElementById('name').textContent = name;
-    document.getElementById('birth-date').textContent = birthDate;
-    document.getElementById('death-date').textContent = deathDate;
-    document.getElementById('funeral-space').textContent = funeralSpace;
-    document.getElementById('funeral-location').textContent = funeralLocation;
-    document.getElementById('family-service-time').textContent = familyServiceTime;
-    document.getElementById('public-service-time').textContent = publicServiceTime;
-    document.getElementById('age').textContent = age;
-
-    // Initialize carousel
+    // 初始化轮播图
     $('.carousel').slick({
         dots: true,
         infinite: true,
@@ -29,65 +7,105 @@ document.addEventListener("DOMContentLoaded", function() {
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 2000,
-        fade: true,
-        cssEase: 'linear'
+        autoplaySpeed: 3000,
+        arrows: true // 添加箭头
     });
 
-    // Message form submission
-    $('#message-form').on('submit', function(e) {
-        e.preventDefault();
-        const name = $('#message-name').val();
-        const content = $('#message-content').val();
-        const messageHtml = `<div class="message"><strong>${name}:</strong> <p>${content}</p></div>`;
-        $('#messages-container').append(messageHtml);
-        $('#message-form')[0].reset();
-    });
-
-    // Initialize Google Maps
+    // 设置地图
     function initMap() {
-        const location = { lat: 25.0330, lng: 121.5654 }; // Replace with actual location coordinates
-        const map = new google.maps.Map(document.getElementById('map-container'), {
-            zoom: 15,
-            center: location
-        });
-        new google.maps.Marker({
-            position: location,
-            map: map
-        });
-    }
-    google.maps.event.addDomListener(window, 'load', initMap);
+        const funeralSpaceLocation = { lat: 25.038, lng: 121.5645 }; // 替换为实际位置
+        const funeralLocation = { lat: 25.045, lng: 121.5654 }; // 替换为实际位置
 
-    // Lazy load sections with fade-in effect
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in');
+        const mapOptions = {
+            zoom: 15,
+            center: funeralSpaceLocation
+        };
+
+        const map = new google.maps.Map(document.getElementById("map-container"), mapOptions);
+
+        new google.maps.Marker({
+            position: funeralSpaceLocation,
+            map: map,
+            title: "牌位安置地點"
+        });
+
+        new google.maps.Marker({
+            position: funeralLocation,
+            map: map,
+            title: "出殯地點"
+        });
+
+        const bounds = new google.maps.LatLngBounds();
+        bounds.extend(funeralSpaceLocation);
+        bounds.extend(funeralLocation);
+        map.fitBounds(bounds);
+    }
+
+    if (document.getElementById("map-container")) {
+        initMap();
+    }
+
+    // 处理留言表单
+    const messageForm = document.getElementById("message-form");
+    const messagesContainer = document.getElementById("messages-container");
+
+    if (messageForm) {
+        messageForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById("message-name").value;
+            const content = document.getElementById("message-content").value;
+
+            if (name && content) {
+                const messageItem = document.createElement("div");
+                messageItem.classList.add("message-item");
+                messageItem.innerHTML = `<strong>${name}</strong><p>${content}</p>`;
+                messagesContainer.appendChild(messageItem);
+
+                // 清除表单字段
+                messageForm.reset();
             }
         });
-    });
-    document.querySelectorAll('section').forEach(section => {
-        observer.observe(section);
-    });
+    }
 
-    // Music control toggle
-    $('#music-toggle').click(function() {
-        var music = document.getElementById('background-music');
-        if (music.paused) {
-            music.play();
-            $(this).text('🔊');
-        } else {
-            music.pause();
-            $(this).text('🔇');
-        }
-    });
-});
+    // 音乐播放控制
+    const musicToggle = document.getElementById("music-toggle");
+    const backgroundMusic = document.getElementById("background-music");
 
-// Initialize carousel and add photos
-$(document).ready(function(){
-    const photos = JSON.parse(localStorage.getItem('photos')) || [];
-    const $carousel = $('.carousel');
-    photos.forEach(photo => {
-        $carousel.slick('slickAdd', `<div><img src="${photo}" alt="追思照片"></div>`);
-    });
+    if (musicToggle && backgroundMusic) {
+        musicToggle.addEventListener("click", function() {
+            if (backgroundMusic.paused) {
+                backgroundMusic.play();
+                musicToggle.textContent = "🔊";
+            } else {
+                backgroundMusic.pause();
+                musicToggle.textContent = "🔇";
+            }
+        });
+    }
+
+    // 处理第一页的信息提交表单
+    const infoForm = document.getElementById("info-form");
+
+    if (infoForm) {
+        infoForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(infoForm);
+
+            // 可以通过 AJAX 将数据发送到服务器
+            // 或进行其他处理
+
+            alert("信息已提交！");
+        });
+    }
+
+    // 处理花篮订单链接
+    const flowerOrderLink = document.getElementById("flower-order-link");
+
+    if (flowerOrderLink) {
+        flowerOrderLink.addEventListener("click", function() {
+            window.location.href = "flower-order.html";
+        });
+    }
 });
