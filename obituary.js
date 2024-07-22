@@ -84,22 +84,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // 处理第一页的信息提交表单
-    const infoForm = document.getElementById("info-form");
-
-    if (infoForm) {
-        infoForm.addEventListener("submit", function(event) {
-            event.preventDefault();
-
-            const formData = new FormData(infoForm);
-
-            // 可以通过 AJAX 将数据发送到服务器
-            // 或进行其他处理
-
-            alert("信息已提交！");
-        });
-    }
-
     // 处理花篮订单链接
     const flowerOrderLink = document.getElementById("flower-order-link");
 
