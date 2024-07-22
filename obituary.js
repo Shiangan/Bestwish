@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // 初始化轮播图
+    // Initialize carousel
     $('.carousel').slick({
         dots: true,
         infinite: true,
@@ -8,13 +8,14 @@ document.addEventListener("DOMContentLoaded", function() {
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 3000,
-        arrows: true // 添加箭头
+        arrows: true
     });
 
-    // 设置地图
+    // Set up map
     function initMap() {
-        const funeralSpaceLocation = { lat: 25.038, lng: 121.5645 }; // 替换为实际位置
-        const funeralLocation = { lat: 25.045, lng: 121.5654 }; // 替换为实际位置
+        const params = getQueryParams();
+        const funeralSpaceLocation = { lat: params['funeral-space-lat'], lng: params['funeral-space-lng'] };
+        const funeralLocation = { lat: params['funeral-location-lat'], lng: params['funeral-location-lng'] };
 
         const mapOptions = {
             zoom: 15,
@@ -45,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
         initMap();
     }
 
-    // 处理留言表单
+    // Handle message form
     const messageForm = document.getElementById("message-form");
     const messagesContainer = document.getElementById("messages-container");
 
@@ -62,13 +63,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 messageItem.innerHTML = `<strong>${name}</strong><p>${content}</p>`;
                 messagesContainer.appendChild(messageItem);
 
-                // 清除表单字段
+                // Clear form fields
                 messageForm.reset();
             }
         });
     }
 
-    // 音乐播放控制
+    // Music control
     const musicToggle = document.getElementById("music-toggle");
     const backgroundMusic = document.getElementById("background-music");
 
@@ -84,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // 处理花篮订单链接
+    // Handle flower order link
     const flowerOrderLink = document.getElementById("flower-order-link");
 
     if (flowerOrderLink) {
@@ -93,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // 从 URL 参数获取数据并填充页面
+    // Fill page with query parameters
     function getQueryParams() {
         const params = {};
         window.location.search.substring(1).split("&").forEach(pair => {
