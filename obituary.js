@@ -108,4 +108,59 @@ document.addEventListener("DOMContentLoaded", function() {
             window.location.href = "flower-order.html";
         });
     }
+
+    // 从 URL 参数获取数据并填充页面
+    function getQueryParams() {
+        const params = {};
+        window.location.search.substring(1).split("&").forEach(pair => {
+            const [key, value] = pair.split("=");
+            params[decodeURIComponent(key)] = decodeURIComponent(value);
+        });
+        return params;
+    }
+
+    const params = getQueryParams();
+
+    if (params.name) {
+        document.getElementById("name").textContent = params.name;
+    }
+
+    if (params.photo) {
+        document.getElementById("obituary-photo").src = params.photo;
+    }
+
+    if (params['birth-date']) {
+        document.getElementById("birth-date").textContent = params['birth-date'];
+    }
+
+    if (params['death-date']) {
+        document.getElementById("death-date").textContent = params['death-date'];
+    }
+
+    if (params['funeral-space']) {
+        document.getElementById("funeral-space").textContent = params['funeral-space'];
+    }
+
+    if (params['family-service-time']) {
+        document.getElementById("family-service-time").textContent = params['family-service-time'];
+    }
+
+    if (params['public-service-time']) {
+        document.getElementById("public-service-time").textContent = params['public-service-time'];
+    }
+
+    if (params['funeral-location']) {
+        document.getElementById("funeral-location").textContent = params['funeral-location'];
+    }
+
+    if (params['music-choice']) {
+        document.getElementById("background-music").src = params['music-choice'];
+    }
+
+    if (params['additional-photos']) {
+        const additionalPhotos = params['additional-photos'].split(',');
+        additionalPhotos.forEach(photo => {
+            $('.carousel').slick('slickAdd', `<div><img src="${photo}" alt="追思照片"></div>`);
+        });
+    }
 });
