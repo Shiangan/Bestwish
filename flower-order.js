@@ -1,5 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize quantities to 0
+0
     const quantityElements = document.querySelectorAll('.quantity');
     quantityElements.forEach(element => element.textContent = '0');
 
