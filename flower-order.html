@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>花籃訂購</title>
     <link rel="stylesheet" href="flower-order.css">
+    <script src="flower-order.js" defer></script>
 </head>
 <body>
     <header>
@@ -13,10 +14,7 @@
     <main>
         <div class="product-grid">
             <!-- 每个花篮项 -->
-            <div class="product flower-item" data-item-id="A" onclick="openModal('A', 'image/花籃A.JPG', '花籃 A 詳細描述...', 2500)">
-                <img src="image/花籃A.JPG" alt="花籃 A">
-                <h2>花籃 A</h2>
-                <p>價格: NT$2500</p>
+            <div class="product flower-item" data-item-id="A" onclick="openModal('花籃 A', 'image/花籃A.JPG', '花籃 A 詳細描述...', 2500)">
             </div>
             <div class="product flower-item" data-item-id="B" onclick="openModal('B', 'image/花籃B.JPG', '花籃 B 詳細描述...', 3000)">
                 <img src="image/花籃B.JPG" alt="花籃 B">
