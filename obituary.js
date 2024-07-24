@@ -19,11 +19,6 @@ document.addEventListener("DOMContentLoaded", function() {
         const funeralSpaceLocation = { lat: parseFloat(params['funeral-space-lat']), lng: parseFloat(params['funeral-space-lng']) };
         const funeralLocation = { lat: parseFloat(params['funeral-location-lat']), lng: parseFloat(params['funeral-location-lng']) };
 
-        if (!funeralSpaceLocation.lat || !funeralLocation.lat) {
-            console.error("Invalid map coordinates");
-            return;
-        }
-
         const mapOptions = {
             zoom: 15,
             center: funeralSpaceLocation
@@ -72,9 +67,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 // Clear form fields
                 messageForm.reset();
-                
-                // Optionally show a success message
-                alert("留言已提交！");
             }
         });
     }
@@ -104,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Fill page with query parameters
+        // Fill page with query parameters
     function getQueryParams() {
         const params = {};
         window.location.search.substring(1).split("&").forEach(pair => {
