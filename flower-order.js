@@ -1,7 +1,6 @@
-
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize quantities to 0
-    const quantityElements = document.querySelectorAll('.quantity');
+    const quantityElements = document.querySelectorAll('.quantity-controls span');
     quantityElements.forEach(element => element.textContent = '0');
 });
 
