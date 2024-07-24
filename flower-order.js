@@ -1,91 +1,39 @@
-let cart = [];
-let currentProduct = null;
+window.addEventListener('load', function() {
+    // Retrieve and display order data
+    const urlParams = new URLSearchParams(window.location.search);
+    document.getElementById('name').innerText = urlParams.get('name');
+    document.getElementById('order-name').innerText = urlParams.get('orderName');
+    document.getElementById('order-number').innerText = urlParams.get('orderNumber');
+    document.getElementById('orderer-names').innerText = urlParams.get('ordererNames');
+    document.getElementById('invoice').innerText = urlParams.get('invoiceRequired') === 'true' ? '是' : '否';
 
-function openModal(title, image, description, price) {
-    currentProduct = { title, image, description, price, quantity: 1 };
-    document.getElementById('modalTitle').innerText = title;
-    document.getElementById('modalImage').src = image;
-    document.getElementById('modalDescription').innerText = description;
-    document.getElementById('quantity').innerText = 1;
-    document.getElementById('flowerModal').style.display = 'flex';
-}
-
-function closeModal() {
-    document.getElementById('flowerModal').style.display = 'none';
-}
-
-function updateQuantity(amount) {
-    const quantityElement = document.getElementById('quantity');
-    let currentQuantity = parseInt(quantityElement.innerText);
-    currentQuantity = Math.max(1, currentQuantity + amount);
-    quantityElement.innerText = currentQuantity;
-}
-
-function addToCart() {
-    if (currentProduct) {
-        const quantity = parseInt(document.getElementById('quantity').innerText);
-        const existingItem = cart.find(item => item.title === currentProduct.title);
-        if (existingItem) {
-            existingItem.quantity += quantity;
-        } else {
-            cart.push({ ...currentProduct, quantity });
-        }
-        closeModal();
-        updateCart();
+    if (urlParams.get('invoiceRequired') === 'true') {
+        document.getElementById('invoice-info').style.display = 'block';
+        document.getElementById('company-name').innerText = urlParams.get('companyName');
+        document.getElementById('recipient-name').innerText = urlParams.get('recipientName');
+        document.getElementById('recipient-address').innerText = urlParams.get('recipientAddress');
     }
-}
 
-function updateCart() {
-    const cartItems = document.getElementById('cartItems');
-    cartItems.innerHTML = '';
-    let total = 0;
-
-    cart.forEach(item => {
-        total += item.price * item.quantity;
-        cartItems.innerHTML += `
-            <li>${item.title} - NT$${item.price} x ${item.quantity}</li>
-        `;
+    // Populate cart items
+    const cartItems = JSON.parse(urlParams.get('cartItems') || '[]');
+    const cartItemsList = document.getElementById('cartItems');
+    cartItemsList.innerHTML = '';
+    cartItems.forEach(item => {
+        cartItemsList.innerHTML += `<li>${item.title} - NT$${item.price} x ${item.quantity}</li>`;
     });
 
-    const invoiceCheckbox = document.getElementById('invoice-checkbox');
-    const invoiceCharge = invoiceCheckbox.checked ? total * 0.05 : 0;
-    const finalAmount = total + invoiceCharge;
+    // Populate signer names
+    const signerNames = urlParams.get('ordererNames').split(',');
+    const signerNamesList = document.getElementById('signer-names');
+    signerNames.forEach(name => {
+        signerNamesList.innerHTML += `<li>${name}</li>`;
+    });
+});
 
-    document.getElementById('totalPrice').innerText = `總金額（未稅）: NT$${total}`;
-    document.getElementById('invoice-charge').innerText = invoiceCharge.toFixed(2);
-    document.getElementById('final-amount').innerText = finalAmount.toFixed(2);
-}
-
-function updateTotal() {
-    updateCart();
-    document.getElementById('invoice-details').style.display = document.getElementById('invoice-checkbox').checked ? 'block' : 'none';
-}
-
-function confirmOrder() {
-    const form = document.getElementById('order-form');
-    const formData = new FormData(form);
-    const data = {
-        name: formData.get('name'),
-        orderName: formData.get('order-name'),
-        orderNumber: formData.get('order-number'),
-        ordererNames: formData.get('orderer-names'),
-        companyName: formData.get('company-name') || null,
-        recipientName: formData.get('recipient-name') || null,
-        recipientAddress: formData.get('recipient-address') || null,
-        invoiceRequired: document.getElementById('invoice-checkbox').checked
-    };
-
-    // Perform validation
-    if (!data.name || !data.orderName || !data.orderNumber || !data.ordererNames) {
-        alert('请填写所有必填项！');
-        return;
-    }
-
-    // Log the order data for now
-    console.log('Order data:', data);
-
-    // Redirect to the order status page
-    window.location.href = 'flower-order-states.html';
+function goToPayment() {
+    // Redirect to the payment page with the same order data
+    const urlParams = new URLSearchParams(window.location.search);
+    window.location.href = `payment-page.html?${urlParams.toString()}`;
 }
 
 // Audio controls
