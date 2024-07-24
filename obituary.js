@@ -1,21 +1,28 @@
 document.addEventListener("DOMContentLoaded", function() {
     // Initialize carousel
-    $('.carousel').slick({
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        arrows: true
-    });
+    if ($('.carousel').length) {
+        $('.carousel').slick({
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            arrows: true
+        });
+    }
 
     // Set up map
     function initMap() {
         const params = getQueryParams();
-        const funeralSpaceLocation = { lat: params['funeral-space-lat'], lng: params['funeral-space-lng'] };
-        const funeralLocation = { lat: params['funeral-location-lat'], lng: params['funeral-location-lng'] };
+        const funeralSpaceLocation = { lat: parseFloat(params['funeral-space-lat']), lng: parseFloat(params['funeral-space-lng']) };
+        const funeralLocation = { lat: parseFloat(params['funeral-location-lat']), lng: parseFloat(params['funeral-location-lng']) };
+
+        if (!funeralSpaceLocation.lat || !funeralLocation.lat) {
+            console.error("Invalid map coordinates");
+            return;
+        }
 
         const mapOptions = {
             zoom: 15,
@@ -65,6 +72,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 // Clear form fields
                 messageForm.reset();
+                
+                // Optionally show a success message
+                alert("留言已提交！");
             }
         });
     }
