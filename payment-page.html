@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>付款页面</title>
+    <link rel="stylesheet" href="payment-page.css">
+</head>
+<body>
+    <div class="container">
+        <h1>付款页面</h1>
+        <section id="payment-options">
+            <h2>选择付款方式</h2>
+            <button onclick="startLinePay()">使用 LinePay</button>
+            <button onclick="showBankTransfer()">使用银行转账</button>
+        </section>
+
+        <section id="payment-details" style="display: none;">
+            <h2>银行转账详细信息</h2>
+            <p>银行名称: XYZ银行</p>
+            <p>账户号码: 123456789</p>
+            <p>账户名: 祥安生命礼仪公司</p>
+            <p>请在转账后上传回单。</p>
+            <input type="file" id="receipt" />
+            <button onclick="submitReceipt()">提交回单</button>
+        </section>
+    </div>
+
+    <script src="payment-page.js"></script>
+</body>
+</html>
