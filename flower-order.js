@@ -75,7 +75,13 @@ function confirmOrder() {
         invoiceRequired: document.getElementById('invoice-checkbox').checked
     };
 
-    // Assuming you handle this data server-side; for now, just logging it
+    // Perform validation
+    if (!data.name || !data.orderName || !data.orderNumber || !data.ordererNames) {
+        alert('请填写所有必填项！');
+        return;
+    }
+
+    // Log the order data for now
     console.log('Order data:', data);
 
     // Redirect to the order status page
