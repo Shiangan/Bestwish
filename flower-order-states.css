@@ -1,87 +1,50 @@
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f7f7f7;
-    margin: 0;
-    padding: 0;
-    color: #333;
+window.addEventListener('load', function() {
+    // Retrieve and display order data
+    const urlParams = new URLSearchParams(window.location.search);
+    document.getElementById('name').innerText = urlParams.get('name');
+    document.getElementById('order-name').innerText = urlParams.get('orderName');
+    document.getElementById('order-number').innerText = urlParams.get('orderNumber');
+    document.getElementById('orderer-names').innerText = urlParams.get('ordererNames');
+    document.getElementById('invoice').innerText = urlParams.get('invoiceRequired') === 'true' ? '是' : '否';
+
+    if (urlParams.get('invoiceRequired') === 'true') {
+        document.getElementById('invoice-info').style.display = 'block';
+        document.getElementById('company-name').innerText = urlParams.get('companyName');
+        document.getElementById('recipient-name').innerText = urlParams.get('recipientName');
+        document.getElementById('recipient-address').innerText = urlParams.get('recipientAddress');
+    }
+
+    // Populate cart items
+    const cartItems = JSON.parse(urlParams.get('cartItems') || '[]');
+    const cartItemsList = document.getElementById('cartItems');
+    cartItemsList.innerHTML = '';
+    cartItems.forEach(item => {
+        cartItemsList.innerHTML += `<li>${item.title} - NT$${item.price} x ${item.quantity}</li>`;
+    });
+
+    // Populate signer names
+    const signerNames = urlParams.get('ordererNames').split(',');
+    const signerNamesList = document.getElementById('signer-names');
+    signerNames.forEach(name => {
+        signerNamesList.innerHTML += `<li>${name}</li>`;
+    });
+});
+
+function goToPayment() {
+    // Redirect to the payment page with the same order data
+    const urlParams = new URLSearchParams(window.location.search);
+    window.location.href = `payment-page.html?${urlParams.toString()}`;
 }
 
-.container {
-    width: 90%;
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
+// Audio controls
+document.getElementById('play-music').addEventListener('click', function() {
+    document.getElementById('background-music').play();
+    this.style.display = 'none';
+    document.getElementById('stop-music').style.display = 'block';
+});
 
-h1, h2 {
-    text-align: center;
-    color: #444;
-    font-family: 'Georgia', serif;
-}
-
-.order-details, .cart-items {
-    margin-bottom: 20px;
-}
-
-.order-details p, .cart-items ul {
-    margin: 5px 0;
-}
-
-.cart-items ul {
-    list-style: none;
-    padding: 0;
-}
-
-.cart-items li {
-    margin: 10px 0;
-    padding: 10px;
-    background: #f1f1f1;
-    border-radius: 4px;
-    color: #555;
-}
-
-.button {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 16px;
-    color: white;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    cursor: pointer;
-    text-align: center;
-    margin-top: 10px;
-}
-
-.button.red {
-    background-color: #dc3545;
-}
-
-.button:hover {
-    opacity: 0.9;
-}
-
-.music-controls {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.music-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    color: white;
-    background-color: #28a745;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    margin: 5px;
-}
-
-.music-button:hover {
-    opacity: 0.9;
-}
+document.getElementById('stop-music').addEventListener('click', function() {
+    document.getElementById('background-music').pause();
+    this.style.display = 'none';
+    document.getElementById('play-music').style.display = 'block';
+});
