@@ -46,7 +46,7 @@ function updateTotal() {
     cartItems.forEach(item => {
         const itemId = item.getAttribute('data-item-id');
         const quantity = parseInt(document.getElementById(`quantity-${itemId}`).textContent, 10);
-        const price = parseFloat(item.querySelector('p').textContent.split(' - NT$')[1].replace(',', ''));
+        const price = parseFloat(item.querySelector('p').textContent.split('NT$')[1].replace(',', ''));
         totalPrice += price * quantity;
     });
 
@@ -97,8 +97,8 @@ function confirmOrder() {
         const itemId = item.getAttribute('data-item-id');
         const quantity = parseInt(document.getElementById(`quantity-${itemId}`).textContent, 10);
         if (quantity > 0) {
-            const title = item.querySelector('p').textContent.split(' - ')[0];
-            const price = parseFloat(item.querySelector('p').textContent.split(' - NT$')[1].replace(',', ''));
+            const title = item.querySelector('h2').textContent;
+            const price = parseFloat(item.querySelector('p').textContent.split('NT$')[1].replace(',', ''));
             cartItems.push({ title, price, quantity });
         }
     });
@@ -119,6 +119,19 @@ function confirmOrder() {
     // 跳转到订单总结页面，并传递订单数据作为查询参数
     const queryString = new URLSearchParams(orderData).toString();
     window.location.href = `order-flower-states.html?${queryString}`;
+}
+
+function openModal(title, imageUrl, description, price) {
+    const modal = document.getElementById('flowerModal');
+    document.getElementById('modalTitle').innerText = title;
+    document.getElementById('modalImage').src = imageUrl;
+    document.getElementById('modalDescription').innerText = description;
+    document.getElementById('addToCartBtn').setAttribute('data-price', price);
+    modal.style.display = 'block';
+}
+
+function closeModal() {
+    document.getElementById('flowerModal').style.display = 'none';
 }
 
 function showImage(img) {
