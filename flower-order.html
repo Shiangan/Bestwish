@@ -13,46 +13,7 @@
     <main>
         <div class="product-grid">
             <!-- 每个花篮项 -->
-            <div class="product" onclick="openModal('花籃 A', 'image/花籃A.JPG', '花籃 A 詳細描述...', 2500)">
-                <img src="image/花籃A.JPG" alt="花籃 A">
-                <h2>花籃 A</h2>
-                <p>價格: NT$2500</p>
-            </div>
-            <div class="product" onclick="openModal('花籃 B', 'image/花籃B.JPG', '花籃 B 詳細描述...', 3000)">
-                <img src="image/花籃B.JPG" alt="花籃 B">
-                <h2>花籃 B</h2>
-                <p>價格: NT$3000</p>
-            </div>
-            <div class="product" onclick="openModal('花籃 C', 'image/花籃C.JPG', '花籃 C 詳細描述...', 3500)">
-                <img src="image/花籃C.JPG" alt="花籃 C">
-                <h2>花籃 C</h2>
-                <p>價格: NT$3500</p>
-            </div>
-            <div class="product" onclick="openModal('花籃 D', 'image/花籃D.JPG', '花籃 D 詳細描述...', 4000)">
-                <img src="image/花籃D.JPG" alt="花籃 D">
-                <h2>花籃 D</h2>
-                <p>價格: NT$4000</p>
-            </div>
-            <div class="product" onclick="openModal('花籃 E', 'image/花籃E.JPG', '花籃 E 詳細描述...', 5000)">
-                <img src="image/花籃E.JPG" alt="花籃 E">
-                <h2>花籃 E</h2>
-                <p>價格: NT$5000</p>
-            </div>
-            <div class="product" onclick="openModal('花籃 F', 'image/花籃F.JPG', '花籃 F 詳細描述...', 5500)">
-                <img src="image/花籃F.JPG" alt="花籃 F">
-                <h2>花籃 F</h2>
-                <p>價格: NT$5500</p>
-            </div>
-            <div class="product" onclick="openModal('花籃 G', 'image/花籃G.JPG', '花籃 G 詳細描述...', 6000)">
-                <img src="image/花籃G.JPG" alt="花籃 G">
-                <h2>花籃 G</h2>
-                <p>價格: NT$6000</p>
-            </div>
-            <div class="product" onclick="openModal('花籃 H', 'image/花籃H.JPG', '花籃 H 詳細描述...', 6500)">
-                <img src="image/花籃H.JPG" alt="花籃 H">
-                <h2>花籃 H</h2>
-                <p>價格: NT$6500</p>
-            </div>
+            <!-- 略 -->
         </div>
 
         <!-- 模态窗口 -->
@@ -61,7 +22,7 @@
                 <span class="close" onclick="closeModal()">&times;</span>
                 <h2 id="modalTitle">花籃名稱</h2>
                 <img id="modalImage" src="" alt="花篮图片" style="width:100%;">
-                <p id="modalDescription">花籃详细描述...</p>
+                <p id="modalDescription">花籃詳細描述...</p>
                 <div class="quantity-controls">
                     <button onclick="updateQuantity(-1)">-</button>
                     <span id="quantity">1</span>
@@ -78,6 +39,10 @@
                 <label>
                     <input type="checkbox" id="invoice-checkbox" onchange="updateTotal()">
                     需要發票
+                </label>
+                <label>
+                    <input type="checkbox" id="receipt-checkbox" onchange="updateTotal()">
+                    需要收據
                 </label>
             </div>
             <p id="totalPrice">總金額（未稅）: NT$0</p>
@@ -104,6 +69,16 @@
                     <label for="recipient-address">收件地址：</label>
                     <input type="text" id="recipient-address" name="recipient-address">
                 </div>
+
+                <div id="receipt-details" class="hidden">
+                    <label for="receipt-address">收件地址：</label>
+                    <input type="text" id="receipt-address" name="receipt-address">
+                </div>
+
+                <label>
+                    <input type="checkbox" id="same-day-pickup">
+                    當天領取
+                </label>
 
                 <button type="button" onclick="confirmOrder()">確認訂單</button>
             </form>
