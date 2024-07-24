@@ -1,6 +1,7 @@
 window.addEventListener('load', function() {
     // Retrieve and display order data
     const urlParams = new URLSearchParams(window.location.search);
+
     document.getElementById('name').innerText = urlParams.get('name');
     document.getElementById('order-name').innerText = urlParams.get('orderName');
     document.getElementById('order-number').innerText = urlParams.get('orderNumber');
@@ -23,7 +24,7 @@ window.addEventListener('load', function() {
     });
 
     // Populate signer names
-    const signerNames = urlParams.get('ordererNames').split(',');
+    const signerNames = urlParams.get('signerNames').split(',');
     const signerNamesList = document.getElementById('signer-names');
     signerNames.forEach(name => {
         signerNamesList.innerHTML += `<li>${name}</li>`;
@@ -40,11 +41,11 @@ function goToPayment() {
 document.getElementById('play-music').addEventListener('click', function() {
     document.getElementById('background-music').play();
     this.style.display = 'none';
-    document.getElementById('stop-music').style.display = 'block';
+    document.getElementById('stop-music').style.display = 'inline-block';
 });
 
 document.getElementById('stop-music').addEventListener('click', function() {
     document.getElementById('background-music').pause();
     this.style.display = 'none';
-    document.getElementById('play-music').style.display = 'block';
+    document.getElementById('play-music').style.display = 'inline-block';
 });
