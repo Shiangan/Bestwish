@@ -14,7 +14,11 @@
     <main>
         <div class="product-grid">
             <!-- 每个花篮项 -->
-            <div class="product flower-item" data-item-id="A" onclick="openModal('花籃 A', 'image/花籃A.JPG', '花籃 A 詳細描述...', 2500)">
+             <div class="product flower-item" data-item-id="A" onclick="openModal('花籃 A', 'image/花籃A.JPG', '花籃 A 詳細描述...', 2500)">
+                <img src="image/花籃A.JPG" alt="花籃 A" onclick="showImage(this);">
+                <h2>花籃 A</h2>
+                <p>價格: NT$2500</p>
+                <span class="quantity" id="quantity-A">0</span>
             </div>
             <div class="product flower-item" data-item-id="B" onclick="openModal('B', 'image/花籃B.JPG', '花籃 B 詳細描述...', 3000)">
                 <img src="image/花籃B.JPG" alt="花籃 B">
@@ -61,14 +65,90 @@
                 <img id="modalImage" src="" alt="花篮图片" style="width:100%;">
                 <p id="modalDescription">花籃详细描述...</p>
                 <div class="quantity-controls">
-                    <button onclick="changeQuantity(-1)">-</button>
-                    <span id="quantity">1</span>
-                    <button onclick="changeQuantity(1)">+</button>
+                    <button onclick="changeQuantity('A', -1)">-</button>
+                    <span id="quantity-A">1</span>
+                    <button onclick="changeQuantity('A', 1)">+</button>
                 </div>
                 <button id="addToCartBtn" onclick="addToCart()">添加到購物車</button>
             </div>
         </div>
+
+        <!-- 订单总结 -->
+        <div id="order-summary">
+            <!-- 订单表单及相关内容 -->
+        </div>
+
+                    <!-- 图片灯箱 -->
+            <div id="lightbox" style="display:none;">
+                <span onclick="hideImage()" style="position: absolute; top: 10px; right: 10px; cursor: pointer;">&times;</span>
+                <img id="lightbox-img" style="width: 100%; max-height: 90vh;">
+            </div>
+
+            <!-- 音乐控制 -->
+            <div id="music-controls">
+                <button id="play-music">播放音乐</button>
+                <button id="stop-music" style="display:none;">停止音乐</button>
+                <audio id="background-music" src="path-to-your-music-file.mp3" loop></audio>
+            </div>
+        </div>
     </main>
+
+    <!-- 订单确认表单 -->
+    <div id="order-form">
+        <h2>确认订单</h2>
+        <form id="order-form">
+            <label for="name">您的姓名:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="order-name">订单名称:</label>
+            <input type="text" id="order-name" name="order-name" required>
+
+            <label for="orderer-names">订购人姓名:</label>
+            <input type="text" id="orderer-names" name="orderer-names" required>
+
+            <div>
+                <label for="invoice-checkbox">需要发票:</label>
+                <input type="checkbox" id="invoice-checkbox">
+            </div>
+            <div id="invoice-details" style="display:none;">
+                <label for="company-name">公司名称:</label>
+                <input type="text" id="company-name" name="company-name">
+                <label for="recipient-name">发票收件人姓名:</label>
+                <input type="text" id="recipient-name" name="recipient-name">
+                <label for="recipient-address">发票收件地址:</label>
+                <input type="text" id="recipient-address" name="recipient-address">
+            </div>
+
+            <div>
+                <label for="receipt-checkbox">需要收据:</label>
+                <input type="checkbox" id="receipt-checkbox">
+            </div>
+            <div id="receipt-details" style="display:none;">
+                <label for="receipt-name">收据收件人姓名:</label>
+                <input type="text" id="receipt-name" name="receipt-name">
+                <label for="receipt-address">收据收件地址:</label>
+                <input type="text" id="receipt-address" name="receipt-address">
+            </div>
+
+            <div>
+                <label for="same-day-pickup">当日取货:</label>
+                <input type="checkbox" id="same-day-pickup">
+            </div>
+
+            <div id="recipient-info" style="display:none;">
+                <label for="recipient-name">收件人姓名:</label>
+                <input type="text" id="recipient-name" name="recipient-name">
+                <label for="recipient-address">收件地址:</label>
+                <input type="text" id="recipient-address" name="recipient-address">
+            </div>
+
+            <h3>总计</h3>
+            <p>发票附加费用: NT$<span id="invoice-charge">0.00</span></p>
+            <p>最终金额: NT$<span id="final-amount">0.00</span></p>
+
+            <button type="button" onclick="confirmOrder()">确认订单</button>
+        </form>
+    </div>
 
     <script src="flower-order.js"></script>
 </body>
