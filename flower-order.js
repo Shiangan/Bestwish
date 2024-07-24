@@ -1,4 +1,4 @@
-0
+
     const quantityElements = document.querySelectorAll('.quantity');
     quantityElements.forEach(element => element.textContent = '0');
 
