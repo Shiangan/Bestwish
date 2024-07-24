@@ -5,6 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>花籃訂購</title>
     <link rel="stylesheet" href="flower-order.css">
+    <style>
+        /* Add your CSS styling here */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        .product {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+            cursor: pointer;
+        }
+        .product img {
+            width: 100%;
+            height: auto;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+        }
+        .modal img {
+            width: 100%;
+        }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .hidden {
+            display: none;
+        }
+        .cart, .contact {
+            margin-top: 20px;
+        }
+        .contact-icon {
+            margin-right: 10px;
+        }
+        #music-control button {
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        #play-music {
+            background: url('images/sound-on.png') no-repeat center;
+        }
+        #stop-music {
+            background: url('images/sound-off.png') no-repeat center;
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -94,10 +164,10 @@
                     需要收據
                 </label>
                 <div id="receipt-details" class="hidden">
-                    <label for="recipient-name">收件人姓名：</label>
+                    <label for="receipt-recipient-name">收件人姓名：</label>
                     <input type="text" id="receipt-recipient-name" name="receipt-recipient-name">
 
-                    <label for="recipient-address">收件地址：</label>
+                    <label for="receipt-recipient-address">收件地址：</label>
                     <input type="text" id="receipt-recipient-address" name="receipt-recipient-address">
                 </div>
                 <label>
@@ -119,33 +189,108 @@
                 <input type="tel" id="order-number" name="order-number" required>
 
                 <label for="orderer-names">落款名單（用逗號分隔）：</label>
-                <input type="text" id="orderer-names" name="orderer-names" required>
+                <input type="text" id="orderer-names" name="orderer-names">
 
-                <button type="button" onclick="confirmOrder()">確認訂單</button>
+                <button type="submit">確認訂單</button>
             </form>
         </div>
 
         <div class="contact">
-            <p>如有問題，隨時與我們聯繫：</p>
-            <a href="tel:0938179858" class="contact-icon" title="撥打電話"><img src="phone-icon.png" alt="電話圖標"></a>
-            <a href="https://line.me/ti/p/line-id" class="contact-icon" title="添加LINE"><img src="line-icon.png" alt="LINE圖標"></a>
+            <h2>聯絡我們</h2>
+            <p>
+                <span class="contact-icon">📞</span>
+                電話：0938-179-858
+            </p>
+            <p>
+                <span class="contact-icon">LINE</span>
+                <a href="https://line.me/ti/p/@your-line-id">加入 LINE</a>
+            </p>
+        </div>
+
+        <!-- 音乐控制 -->
+        <div id="music-control">
+            <button id="play-music" onclick="playMusic()"></button>
+            <button id="stop-music" onclick="stopMusic()"></button>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
+        <p>&copy; 2024 祥安生命禮儀公司. 版權所有。</p>
     </footer>
 
-    <audio id="background-music" preload="auto" loop>
-        <source src="background-music.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+    <script>
+        let cart = {};
+        let total = 0;
+        let invoiceRequired = false;
+        let receiptRequired = false;
 
-    <div id="music-control">
-        <button id="play-music" style="background: url('images/sound-on.png');">🔊</button>
-        <button id="stop-music" style="display: none; background: url('images/sound-off.png');">🔇</button>
-    </div>
+        function openModal(title, imageUrl, description, price) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalImage').src = imageUrl;
+            document.getElementById('modalDescription').innerText = description;
+            document.getElementById('addToCartBtn').onclick = () => addToCart(price);
+            document.getElementById('flowerModal').style.display = 'flex';
+        }
 
-    <script src="flower-order.js"></script>
+        function closeModal() {
+            document.getElementById('flowerModal').style.display = 'none';
+        }
+
+        function addToCart(price) {
+            const itemId = document.querySelector('.flower-item.selected').dataset.itemId;
+            if (!cart[itemId]) {
+                cart[itemId] = { quantity: 0, price };
+            }
+            cart[itemId].quantity++;
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartItems = document.getElementById('cartItems');
+            cartItems.innerHTML = '';
+            total = 0;
+
+            for (let itemId in cart) {
+                const item = cart[itemId];
+                const itemTotal = item.quantity * item.price;
+                total += itemTotal;
+                cartItems.innerHTML += `<li>花籃 ${itemId} - ${item.quantity} 個 - NT$${itemTotal}</li>`;
+            }
+
+            updateTotal();
+        }
+
+        function updateTotal() {
+            const invoiceCheckbox = document.getElementById('invoice-checkbox');
+            invoiceRequired = invoiceCheckbox.checked;
+            const receiptCheckbox = document.getElementById('receipt-checkbox');
+            receiptRequired = receiptCheckbox.checked;
+
+            const invoiceCharge = invoiceRequired ? total * 0.05 : 0;
+            const finalAmount = total + invoiceCharge;
+
+            document.getElementById('invoice-charge').innerText = invoiceCharge.toFixed(2);
+            document.getElementById('final-amount').innerText = finalAmount.toFixed(2);
+            document.getElementById('totalPrice').innerText = `總金額（未稅）: NT$${total.toFixed(2)}`;
+        }
+
+        function playMusic() {
+            document.getElementById('play-music').style.display = 'none';
+            document.getElementById('stop-music').style.display = 'block';
+            // Add music play functionality here
+        }
+
+        function stopMusic() {
+            document.getElementById('stop-music').style.display = 'none';
+            document.getElementById('play-music').style.display = 'block';
+            // Add music stop functionality here
+        }
+
+        document.getElementById('order-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Handle form submission here
+            alert('訂單已提交');
+        });
+    </script>
 </body>
 </html>
