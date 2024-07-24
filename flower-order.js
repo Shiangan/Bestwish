@@ -1,4 +1,5 @@
-
+document.addEventListener('DOMContentLoaded', () => {
+    // 初始化数量
     const quantityElements = document.querySelectorAll('.quantity');
     quantityElements.forEach(element => element.textContent = '0');
 
@@ -6,6 +7,19 @@
     document.getElementById('invoice-checkbox').addEventListener('change', updateTotal);
     document.getElementById('receipt-checkbox').addEventListener('change', updateTotal);
     document.getElementById('same-day-pickup').addEventListener('change', updateTotal);
+
+    // 音乐控制事件监听
+    document.getElementById('play-music').addEventListener('click', function() {
+        document.getElementById('background-music').play();
+        this.style.display = 'none';
+        document.getElementById('stop-music').style.display = 'block';
+    });
+
+    document.getElementById('stop-music').addEventListener('click', function() {
+        document.getElementById('background-music').pause();
+        this.style.display = 'none';
+        document.getElementById('play-music').style.display = 'block';
+    });
 });
 
 function changeQuantity(itemId, delta) {
@@ -117,16 +131,3 @@ function showImage(img) {
 function hideImage() {
     document.getElementById('lightbox').style.display = 'none';
 }
-
-// 音乐控制
-document.getElementById('play-music').addEventListener('click', function() {
-    document.getElementById('background-music').play();
-    this.style.display = 'none';
-    document.getElementById('stop-music').style.display = 'block';
-});
-
-document.getElementById('stop-music').addEventListener('click', function() {
-    document.getElementById('background-music').pause();
-    this.style.display = 'none';
-    document.getElementById('play-music').style.display = 'block';
-});
