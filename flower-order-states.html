@@ -40,6 +40,10 @@
             text-decoration: none;
             cursor: pointer;
         }
+
+        .music-controls button {
+            font-size: 24px;
+        }
     </style>
 </head>
 <body>
@@ -69,12 +73,12 @@
             <ul id="cartItems"></ul>
         </div>
 
-        <button class="button" onclick="confirmOrder()">确认并付款</button>
+        <button class="button" onclick="goToPayment()">确认并付款</button>
         <a class="button red" href="flower-order.html">返回修改</a>
 
         <div class="music-controls">
-            <button id="play-music" class="music-button">播放音乐</button>
-            <button id="stop-music" class="music-button">停止音乐</button>
+            <button id="play-music" class="music-button">🔊</button>
+            <button id="stop-music" class="music-button" style="display: none;">🔇</button>
             <audio id="background-music" src="your-music-file.mp3"></audio>
         </div>
     </div>
@@ -86,7 +90,7 @@
             <h2>感谢您的订单！</h2>
             <p>我们已经收到您的订单，并会尽快处理。请查看您的电子邮件以获取订单确认和进一步的指示。</p>
             <p>如果您有任何问题，请随时联系我们。</p>
-            <button onclick="redirectToPayment()">前往付款页面</button>
+            <button onclick="redirectToObituary()">查看訃闻</button>
         </div>
     </div>
 
