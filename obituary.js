@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", function() {
+    console.log("DOM fully loaded and parsed");
+
     // 初始化轮播图
     if (document.querySelector('.carousel')) {
-        // 初始化 Slick 轮播图
+        console.log("Initializing carousel");
         $('.carousel').slick({
             dots: true,
             infinite: true,
@@ -13,8 +15,8 @@ document.addEventListener("DOMContentLoaded", function() {
             arrows: true
         });
 
-        // 将照片添加到轮播图中
         const additionalPhotos = JSON.parse(localStorage.getItem('additionalPhotoUrls') || '[]');
+        console.log("Additional photos:", additionalPhotos);
         const carousel = $('.carousel');
         additionalPhotos.forEach(photo => {
             carousel.slick('slickAdd', `<div><img src="${photo}" alt="追思照片"></div>`);
@@ -24,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // 设置地图
     function initMap() {
         const params = getQueryParams();
+        console.log("Map parameters:", params);
         const funeralSpaceLocation = { lat: parseFloat(params['funeral-space-lat']), lng: parseFloat(params['funeral-space-lng']) };
         const funeralLocation = { lat: parseFloat(params['funeral-location-lat']), lng: parseFloat(params['funeral-location-lng']) };
 
@@ -121,6 +124,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     const params = getQueryParams();
+    console.log("Query parameters:", params);
 
     if (params.name) {
         document.getElementById("name").textContent = params.name;
