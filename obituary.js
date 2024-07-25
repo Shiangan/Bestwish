@@ -67,19 +67,28 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // 處理留言表單提交
+       // 处理留言表单提交
     document.getElementById("message-form").addEventListener("submit", function(event) {
         event.preventDefault();
+
         const name = document.getElementById("message-name").value;
         const content = document.getElementById("message-content").value;
-        const messageContainer = document.getElementById("messages-container");
 
-        const messageDiv = document.createElement("div");
-        messageDiv.className = "message";
-        messageDiv.innerHTML = `<strong>${name}</strong>: <p>${content}</p>`;
-        messageContainer.appendChild(messageDiv);
+        if (name && content) {
+            const messageContainer = document.getElementById("messages-container");
+            const messageElement = document.createElement("div");
+            messageElement.classList.add("message");
+            messageElement.innerHTML = `<strong>${name}：</strong><p>${content}</p>`;
+            messageContainer.appendChild(messageElement);
 
-        // 可以在此處添加存儲留言的代碼，例如將留言保存到伺服器或 localStorage
-        document.getElementById("message-form").reset();
+            // 清空表单
+            document.getElementById("message-name").value = '';
+            document.getElementById("message-content").value = '';
+
+            <section id="flower-basket" class="fade-in">
+                  <h2>致贈花禮送上祝福</h2>
+    <a href="flower-order.html" id="flower-order-link">訂購花籃請點選我</a>
+</section> 
+        }
     });
-});
+}); 
