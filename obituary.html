@@ -17,7 +17,7 @@
         <section id="obituary-info" class="fade-in">
             <h1>訃聞公告</h1>
             <div id="obituary-photo-container">
-                <img id="obituary-photo" src="image/photo1.jpg" alt="主要追思照片">
+                <img id="obituary-photo" src="" alt="主要追思照片">
             </div>
             <p id="obituary-text">
                 我們摯愛的親人「<span id="name">[姓名]</span>」，生於<span id="birth-date">[出生日期]</span>，逝於<span id="death-date">[死亡日期]</span>，享年<span id="age">[享年]</span>。其牌位安置於<span id="funeral-space">[牌位安置地點]</span>。家奠禮將於<span id="family-service-time">[家奠禮時間]</span>舉行，公奠禮於<span id="public-service-time">[公奠禮時間]</span>舉行，地點為<span id="funeral-location">[出殯地點]</span>。願靈魂安息。
@@ -27,10 +27,7 @@
         <section id="photo-gallery" class="fade-in">
             <h2>追思相册</h2>
             <div class="carousel">
-                <!-- 轮播图项 -->
-                <div><img src="image/photo1.jpg" alt="追思照片"></div>
-                <div><img src="image/photo2.jpg" alt="追思照片"></div>
-                <!-- 更多轮播项 -->
+                <!-- 轮播图项将通过 JavaScript 动态添加 -->
             </div>
         </section>
 
@@ -66,5 +63,41 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
     <script src="obituary.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 从 URL 查询参数中获取图片 URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const photoUrl = urlParams.get('photo-url');
+            const additionalPhotoUrls = urlParams.getAll('additional-photo-urls');
+
+            // 显示主照片
+            if (photoUrl) {
+                document.getElementById('obituary-photo').src = photoUrl;
+            }
+
+            // 显示轮播图
+            const carouselContainer = document.querySelector('.carousel');
+            additionalPhotoUrls.forEach(url => {
+                const div = document.createElement('div');
+                const img = document.createElement('img');
+                img.src = url;
+                img.alt = '追思照片';
+                img.style.maxWidth = '100%';
+                img.style.height = 'auto';
+                div.appendChild(img);
+                carouselContainer.appendChild(div);
+            });
+
+            // 初始化轮播图
+            $('.carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 500,
+                slidesToShow: 1,
+                slidesToScroll: 1
+            });
+        });
+    </script>
 </body>
 </html>
