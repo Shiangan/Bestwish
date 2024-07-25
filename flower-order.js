@@ -1,14 +1,19 @@
 let cart = [];
 let currentProduct = null;
-let quantity = 1;
 
 function openModal(name, image, description, price) {
     currentProduct = { name, image, description, price, quantity: 1 };
     document.getElementById('modalTitle').innerText = name;
     document.getElementById('modalImage').src = image;
     document.getElementById('modalDescription').innerText = description;
-    document.getElementById('quantity').innerText = 1;
+    document.getElementById('quantity').innerText = currentProduct.quantity;
     document.getElementById('flowerModal').style.display = 'block';
+
+    // Enable image click for viewing larger image
+    const modalImage = document.getElementById('modalImage');
+    modalImage.addEventListener('click', function() {
+        window.open(image, '_blank'); // Open image in a new tab
+    });
 }
 
 function closeModal() {
@@ -16,28 +21,30 @@ function closeModal() {
 }
 
 function updateQuantity(amount) {
-    if (currentProduct.quantity + amount >= 1) {
+    if (currentProduct && currentProduct.quantity + amount >= 1) {
         currentProduct.quantity += amount;
         document.getElementById('quantity').innerText = currentProduct.quantity;
     }
 }
 
-function addTo
-Cart() {
-    cart.push(currentProduct);
-    updateCart();
-    closeModal();
+function addToCart() {
+    if (currentProduct) {
+        cart.push(currentProduct);
+        updateCart();
+        closeModal();
+    }
 }
 
 function updateCart() {
     const cartItems = document.getElementById('cartItems');
     cartItems.innerHTML = '';
     let total = 0;
+
     cart.forEach((item, index) => {
         const cartItem = document.createElement('li');
         cartItem.className = 'cart-item';
         cartItem.innerHTML = `
-            <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+            <img src="${item.image}" alt="${item.name}" class="cart-item-image" onclick="viewImage('${item.image}')">
             <div class="cart-item-details">
                 <h4>${item.name}</h4>
                 <p>${item.description}</p>
@@ -49,8 +56,10 @@ function updateCart() {
         cartItems.appendChild(cartItem);
         total += item.price * item.quantity;
     });
+
     document.getElementById('totalPrice').innerText = `總金額（未稅）: NT$${total}`;
     document.getElementById('final-amount').innerText = total;
+
     updateTotal();
 }
 
@@ -69,7 +78,6 @@ function updateTotal() {
 }
 
 function confirmOrder() {
-    // 将订单信息存储并跳转到订单状态页面
     const orderDetails = {
         recipientName: document.getElementById('recipient-name').value,
         ordererName: document.getElementById('orderer-name').value,
@@ -80,9 +88,14 @@ function confirmOrder() {
         cart,
         finalAmount: document.getElementById('final-amount').innerText
     };
+
     localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
     window.location.href = 'order-flower-states.html';
     return false;  // Prevent form submission
+}
+
+function viewImage(imageUrl) {
+    window.open(imageUrl, '_blank'); // Open image in a new tab
 }
 
 document.getElementById('play-music').addEventListener('click', function() {
