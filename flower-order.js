@@ -60,7 +60,7 @@ function handleOrderSubmit() {
     if (form.checkValidity()) {
         // 提交表单的逻辑（可以是 AJAX 请求）
         // 这里模拟表单提交后重定向到 order-flower-states 页面
-        window.location.href = 'order-flower-states.html';
+        window.location.href = 'flower-order-states.html';
         return false; // 阻止表单的默认提交行为
     }
     return false; // 阻止表单的默认提交行为
