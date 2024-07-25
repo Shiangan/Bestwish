@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     // Initialize carousel
     if (document.querySelector('.carousel')) {
+        // Initialize Slick carousel
         $('.carousel').slick({
             dots: true,
             infinite: true,
