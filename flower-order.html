@@ -3,86 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>祥安生命有限公司－訃聞公告</title>
-    <link rel="stylesheet" href="index.css">
+    <title>花籃訂購</title>
+    <link rel="stylesheet" href="flower-order.css">
 </head>
 <body>
     <header>
-        <img src="image/logo.png" alt="祥安生命有限公司 Logo" class="logo">
+        <h1>花籃訂購</h1>
     </header>
-
     <main>
-        <!-- 表單區 -->
-        <section id="info-form-section">
-            <h2>訃聞資料提交</h2>
-            <form id="info-form">
-                <!-- 表單內容 -->
-                <label for="name">姓名:</label>
+        <div class="product-grid">
+            <!-- 每个花篮项 -->
+            <div class="product" onclick="openModal('花籃 A', 'image/花籃A.JPG', '花籃 A 詳細描述...', 2500)">
+                <img src="image/花籃A.JPG" alt="花籃 A">
+                <h2>花籃 A</h2>
+                <p>價格: NT$2500</p>
+            </div>
+            <!-- 其他花篮 -->
+            <div class="product" onclick="openModal('花籃 B', 'image/花籃B.JPG', '花籃 B 詳細描述...', 3000)">
+                <img src="image/花籃B.JPG" alt="花籃 B">
+                <h2>花籃 B</h2>
+                <p>價格: NT$3000</p>
+            </div>
+            <!-- 继续添加其他花篮 -->
+            <div class="product" onclick="openModal('花籃 C', 'image/花籃C.JPG', '花籃 C 詳細描述...', 3500)">
+                <img src="image/花籃C.JPG" alt="花籃 C">
+                <h2>花籃 C</h2>
+                <p>價格: NT$3500</p>
+            </div>
+            <div class="product" onclick="openModal('花籃 D', 'image/花籃D.JPG', '花籃 D 詳細描述...', 4000)">
+                <img src="image/花籃D.JPG" alt="花籃 D">
+                <h2>花籃 D</h2>
+                <p>價格: NT$4000</p>
+            </div>
+            <div class="product" onclick="openModal('花籃 E', 'image/花籃E.JPG', '花籃 E 詳細描述...', 5000)">
+                <img src="image/花籃E.JPG" alt="花籃 E">
+                <h2>花籃 E</h2>
+                <p>價格: NT$5000</p>
+            </div>
+            <div class="product" onclick="openModal('花籃 F', 'image/花籃F.JPG', '花籃 F 詳細描述...', 5500)">
+                <img src="image/花籃F.JPG" alt="花籃 F">
+                <h2>花籃 F</h2>
+                <p>價格: NT$5500</p>
+            </div>
+            <div class="product" onclick="openModal('花籃 G', 'image/花籃G.JPG', '花籃 G 詳細描述...', 6000)">
+                <img src="image/花籃G.JPG" alt="花籃 G">
+                <h2>花籃 G</h2>
+                <p>價格: NT$6000</p>
+            </div>
+            <div class="product" onclick="openModal('花籃 H', 'image/花籃H.JPG', '花籃 H 詳細描述...', 6500)">
+                <img src="image/花籃H.JPG" alt="花籃 H">
+                <h2>花籃 H</h2>
+                <p>價格: NT$6500</p>
+            </div>
+        </div>
+
+        <!-- 模态窗口 -->
+        <div id="flowerModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2 id="modalTitle">花籃名稱</h2>
+                <img id="modalImage" src="" alt="花篮图片" style="width:100%;">
+                <p id="modalDescription">花籃详细描述...</p>
+                <div class="quantity-controls">
+                    <button onclick="updateQuantity(-1)">-</button>
+                    <span id="quantity">1</span>
+                    <button onclick="updateQuantity(1)">+</button>
+                </div>
+                <button id="addToCartBtn" onclick="addToCart()">添加到購物車</button>
+            </div>
+        </div>
+
+        <div class="cart">
+            <h2>購物車</h2>
+            <ul id="cartItems"></ul>
+            <div class="invoice-options">
+                <label>
+                    <input type="checkbox" id="invoice-checkbox" onchange="updateTotal()">
+                    需要發票
+                </label>
+            </div>
+            <p id="totalPrice">總金額（未稅）: NT$0</p>
+            <p>發票附加費 (5%)：NT$<span id="invoice-charge">0</span></p>
+            <p>最終金額：NT$<span id="final-amount">0</span></p>
+            <form id="order-form">
+                <label for="name">致贈給：</label>
                 <input type="text" id="name" name="name" required>
 
-                <label for="photo">追思照片:</label>
-                <input type="file" id="photo" name="photo" accept="image/*" required>
+                <label for="order-name">訂購人姓名：</label>
+                <input type="text" id="order-name" name="order-name" required>
 
-                <label for="additional-photos">其他照片（可選不限張數）:</label>
-                <input type="file" id="additional-photos" name="additional-photos[]" accept="image/*" multiple>
+                <label for="order-number">訂購人聯絡電話：</label>
+                <input type="tel" id="order-number" name="order-number" required>
 
-                <label for="paper-obituary">訃聞紙本內容:</label>
-                <input type="file" id="paper-obituary" name="paper-obituary" accept="image/*">
+                <label for="orderer-names">落款名單（用逗號分隔）：</label>
+                <input type="text" id="orderer-names" name="orderer-names" required>
 
-                <label for="birth-date">出生日期:</label>
-                <input type="date" id="birth-date" name="birth-date" required>
-
-                <label for="death-date">死亡日期:</label>
-                <input type="date" id="death-date" name="death-date" required>
-
-                <label for="funeral-space">牌位安置地點:</label>
-                <textarea id="funeral-space" name="funeral-space"></textarea>
-
-                <label for="funeral-date">出殯日期:</label>
-                <input type="date" id="funeral-date" name="funeral-date" required>
-
-                <label for="funeral-location">出殯地點:</label>
-                <select id="funeral-location" name="funeral-location" required>
-                    <option value="第二殯儀館">第二殯儀館 禮廳</option>
-                    <option value="板橋殯儀館">板橋殯儀館 禮廳</option>
-                    <option value="其他">其他</option>
-                </select>
-                <input type="text" id="other-funeral-location" name="other-funeral-location" placeholder="若選擇其他，請填寫地點">
-
-                <label for="family-service-time">家奠禮時間:</label>
-                <input type="time" id="family-service-time" name="family-service-time" required>
-
-                <label for="public-service-time">公奠禮時間:</label>
-                <input type="time" id="public-service-time" name="public-service-time" required>
-
-                <label for="life-story">生平介紹:</label>
-                <textarea id="life-story" name="life-story"></textarea>
-
-                <label for="music-choice">選擇背景音樂:</label>
-                <select id="music-choice" name="music-choice">
-                    <option value="audio/music1.mp3">父親</option>
-                    <option value="audio/music2.mp3">音樂2</option>
-                    <option value="audio/music3.mp3">音樂3</option>
-                    <option value="audio/music4.mp3">音樂4</option>
-                    <option value="audio/music5.mp3">音樂5</option>
-                </select>
-
-                <button type="submit">提交</button>
-            </form>
-        </section>
-
-        <!-- 敬邀您页面 -->
-        <section id="invitation-section" class="hidden">
-            <div id="photo-container">
-                <img id="main-photo" src="" alt="主要照片">
-                <div id="invitation-overlay">
-                    <p>敬邀您</p>
-                    <a id="go-to-obituary" href="obituary.html">
-                        <button>點選我進入訃聞</button>
-                    </a>
+                <div id="invoice-details" class="hidden">
+                    <label for="company-name">公司抬頭：</label>
+                    <input type="text" id="company-name" name="company-name">
+                    <label for="recipient-name">收件人姓名：</label>
+                    <input type="text" id="recipient-name" name="recipient-name">
+                    <label for="recipient-address">收件地址：</label>
+                    <input type="text" id="recipient-address" name="recipient-address">
                 </div>
-            </div>
-        </section>
+
+                <button type="button" onclick="confirmOrder()">確認訂單</button>
+            </form>
+        </div>
+
+        <div class="contact">
+            <p>如有問題，隨時與我們聯繫：</p>
+            <a href="tel:0938179858" class="contact-icon" title="撥打電話"><img src="phone-icon.png" alt="電話圖標"></a>
+            <a href="https://line.me/ti/p/line-id" class="contact-icon" title="添加LINE"><img src="line-icon.png" alt="LINE圖標"></a>
+        </div>
     </main>
 
     <footer>
@@ -90,8 +123,8 @@
     </footer>
 
     <audio id="background-music" preload="auto" loop>
-        <source src="" type="audio/mpeg">
-        您的瀏覽器不支持音頻元素。
+        <source src="background-music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
     </audio>
 
     <div id="music-control">
@@ -99,6 +132,6 @@
         <button id="stop-music" style="display: none; background: url('images/sound-off.png');">🔇</button>
     </div>
 
-    <script src="index.js"></script>
+    <script src="flower-order.js"></script>
 </body>
 </html>
