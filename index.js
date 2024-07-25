@@ -11,11 +11,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let currentMusic = '';
 
-    // 处理表单提交
     form.addEventListener("submit", function(event) {
         event.preventDefault();
         const formData = new FormData(form);
         const photoFile = formData.get("photo");
+        const additionalPhotos = formData.getAll("additional-photos[]");
 
         if (photoFile) {
             const reader = new FileReader();
@@ -30,12 +30,22 @@ document.addEventListener("DOMContentLoaded", function() {
                 localStorage.setItem('familyServiceTime', formData.get('family-service-time'));
                 localStorage.setItem('publicServiceTime', formData.get('public-service-time'));
 
-                // 显示敬邀您页面
+                const additionalPhotosUrls = [];
+                additionalPhotos.forEach((file) => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        additionalPhotosUrls.push(e.target.result);
+                        if (additionalPhotosUrls.length === additionalPhotos.length) {
+                            localStorage.setItem('additionalPhotosUrls', JSON.stringify(additionalPhotosUrls));
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                });
+
                 invitationSection.style.display = "flex";
                 mainPhoto.src = e.target.result;
                 document.querySelector("#invitation-overlay p").textContent = '敬邀您';
 
-                // 播放音乐
                 if (currentMusic) {
                     backgroundMusic.src = currentMusic;
                     backgroundMusic.play().catch(function(error) {
@@ -49,7 +59,6 @@ document.addEventListener("DOMContentLoaded", function() {
         form.style.display = "none";
     });
 
-    // 选择音乐
     musicChoice.addEventListener("change", function() {
         const selectedOption = musicChoice.options[musicChoice.selectedIndex];
         const musicUrl = selectedOption.value;
@@ -61,14 +70,12 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // 播放音乐
     playMusicButton.addEventListener("click", function() {
         backgroundMusic.play();
         playMusicButton.style.display = "none";
         stopMusicButton.style.display = "inline";
     });
 
-    // 停止音乐
     stopMusicButton.addEventListener("click", function() {
         backgroundMusic.pause();
         playMusicButton.style.display = "inline";
