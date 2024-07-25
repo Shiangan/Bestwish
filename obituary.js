@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Initialize carousel
+    // 初始化轮播图
     if (document.querySelector('.carousel')) {
-        // Initialize Slick carousel
+        // 初始化 Slick 轮播图
         $('.carousel').slick({
             dots: true,
             infinite: true,
@@ -13,15 +13,15 @@ document.addEventListener("DOMContentLoaded", function() {
             arrows: true
         });
 
-        // Add photos to the carousel
-        const additionalPhotos = JSON.parse(localStorage.getItem('additionalPhotosUrls') || '[]');
+        // 将照片添加到轮播图中
+        const additionalPhotos = JSON.parse(localStorage.getItem('additionalPhotoUrls') || '[]');
         const carousel = $('.carousel');
         additionalPhotos.forEach(photo => {
             carousel.slick('slickAdd', `<div><img src="${photo}" alt="追思照片"></div>`);
         });
     }
 
-    // Set up map
+    // 设置地图
     function initMap() {
         const params = getQueryParams();
         const funeralSpaceLocation = { lat: parseFloat(params['funeral-space-lat']), lng: parseFloat(params['funeral-space-lng']) };
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
         initMap();
     }
 
-    // Handle message form
+    // 处理留言表单
     const messageForm = document.getElementById("message-form");
     const messagesContainer = document.getElementById("messages-container");
 
@@ -73,13 +73,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 messageItem.innerHTML = `<strong>${name}</strong><p>${content}</p>`;
                 messagesContainer.appendChild(messageItem);
 
-                // Clear form fields
+                // 清空表单字段
                 messageForm.reset();
             }
         });
     }
 
-    // Music control
+    // 音乐控制
     const musicToggle = document.getElementById("music-toggle");
     const backgroundMusic = document.getElementById("background-music");
 
@@ -94,14 +94,14 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
 
-        // Set initial music source from query parameters
+        // 从查询参数中设置初始音乐来源
         const params = getQueryParams();
         if (params['music-choice']) {
             backgroundMusic.src = params['music-choice'];
         }
     }
 
-    // Handle flower order link
+    // 处理花篮订单链接
     const flowerOrderLink = document.getElementById("flower-order-link");
 
     if (flowerOrderLink) {
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Fill page with query parameters
+    // 根据查询参数填充页面
     function getQueryParams() {
         const params = {};
         window.location.search.substring(1).split("&").forEach(pair => {
