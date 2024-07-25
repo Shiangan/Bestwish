@@ -1,6 +1,7 @@
+// flower-order.js
+
 let cart = [];
 let currentProduct = null;
-let quantity = 1;
 
 function openModal(name, image, description, price) {
     currentProduct = { name, image, description, price, quantity: 1 };
@@ -8,7 +9,7 @@ function openModal(name, image, description, price) {
     document.getElementById('modalImage').src = image;
     document.getElementById('modalDescription').innerText = description;
     document.getElementById('quantity').innerText = 1;
-    document.getElementById('flowerModal').style.display = 'block';
+    document.getElementById('flowerModal').style.display = 'flex';
 }
 
 function closeModal() {
@@ -16,16 +17,18 @@ function closeModal() {
 }
 
 function updateQuantity(amount) {
-    if (currentProduct.quantity + amount >= 1) {
+    if (currentProduct && currentProduct.quantity + amount >= 1) {
         currentProduct.quantity += amount;
         document.getElementById('quantity').innerText = currentProduct.quantity;
     }
 }
 
 function addToCart() {
-    cart.push(currentProduct);
-    updateCart();
-    closeModal();
+    if (currentProduct) {
+        cart.push(currentProduct);
+        updateCart();
+        closeModal();
+    }
 }
 
 function updateCart() {
@@ -49,7 +52,6 @@ function updateCart() {
         total += item.price * item.quantity;
     });
     document.getElementById('totalPrice').innerText = `總金額（未稅）: NT$${total}`;
-    document.getElementById('final-amount').innerText = total;
     updateTotal();
 }
 
@@ -68,36 +70,22 @@ function updateTotal() {
 }
 
 function confirmOrder() {
-    // Validate required fields before proceeding
-    const recipientName = document.getElementById('recipient-name').value.trim();
-    const ordererName = document.getElementById('orderer-name').value.trim();
-    const ordererPhone = document.getElementById('orderer-phone').value.trim();
-    const ordererNames = document.getElementById('orderer-names').value.trim();
-    const companyName = document.getElementById('company-name').value.trim();
-    const recipientAddress = document.getElementById('recipient-address').value.trim();
-    
-    if (!recipientName || !ordererName || !ordererPhone) {
-        alert('Please fill in all required fields.');
-        return false;
-    }
-
-    // Save order details to local storage
+    // 将订单信息存储并跳转到订单状态页面
     const orderDetails = {
-        recipientName,
-        ordererName,
-        ordererPhone,
-        ordererNames,
-        companyName,
-        recipientAddress,
+        recipientName: document.getElementById('recipient-name').value,
+        ordererName: document.getElementById('orderer-name').value,
+        ordererPhone: document.getElementById('orderer-phone').value,
+        ordererNames: document.getElementById('orderer-names').value,
+        companyName: document.getElementById('company-name').value,
+        recipientAddress: document.getElementById('recipient-address').value,
         cart,
         finalAmount: document.getElementById('final-amount').innerText
     };
     localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
-    window.location.href = 'flower-order-states.html';
+    window.location.href = 'order-flower-states.html';
     return false;  // Prevent form submission
 }
 
-// Music control
 document.getElementById('play-music').addEventListener('click', function() {
     document.getElementById('background-music').play();
     document.getElementById('play-music').style.display = 'none';
