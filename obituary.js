@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     // Initialize carousel
-    if ($('.carousel').length) {
+    if (document.querySelector('.carousel')) {
         $('.carousel').slick({
             dots: true,
             infinite: true,
@@ -10,6 +10,13 @@ document.addEventListener("DOMContentLoaded", function() {
             autoplay: true,
             autoplaySpeed: 3000,
             arrows: true
+        });
+
+        // Add photos to the carousel
+        const additionalPhotos = JSON.parse(localStorage.getItem('additionalPhotosUrls') || '[]');
+        const carousel = $('.carousel');
+        additionalPhotos.forEach(photo => {
+            carousel.slick('slickAdd', `<div><img src="${photo}" alt="追思照片"></div>`);
         });
     }
 
@@ -85,6 +92,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 musicToggle.textContent = "🔇";
             }
         });
+
+        // Set initial music source from query parameters
+        const params = getQueryParams();
+        if (params['music-choice']) {
+            backgroundMusic.src = params['music-choice'];
+        }
     }
 
     // Handle flower order link
@@ -96,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-        // Fill page with query parameters
+    // Fill page with query parameters
     function getQueryParams() {
         const params = {};
         window.location.search.substring(1).split("&").forEach(pair => {
@@ -138,16 +151,5 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (params['funeral-location']) {
         document.getElementById("funeral-location").textContent = params['funeral-location'];
-    }
-
-    if (params['music-choice']) {
-        document.getElementById("background-music").src = params['music-choice'];
-    }
-
-    if (params['additional-photos']) {
-        const additionalPhotos = params['additional-photos'].split(',');
-        additionalPhotos.forEach(photo => {
-            $('.carousel').slick('slickAdd', `<div><img src="${photo}" alt="追思照片"></div>`);
-        });
     }
 });
