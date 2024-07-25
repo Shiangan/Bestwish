@@ -114,11 +114,9 @@ document.addEventListener("DOMContentLoaded", function() {
     if (localStorage.getItem('publicServiceTime')) {
         document.getElementById("public-service-time").textContent = localStorage.getItem('publicServiceTime');
     }
-    if (localStorage.getItem('additionalPhotosUrls')) {
-        const additionalPhotosUrls = JSON.parse(localStorage.getItem('additionalPhotosUrls'));
-        const carousel = $('.carousel');
-        additionalPhotosUrls.forEach(photo => {
-            carousel.slick('slickAdd', `<div><img src="${photo}" alt="追思照片"></div>`);
-        });
-    }
+
+    // Navigate to obituary page
+    invitationOverlay.addEventListener("click", function() {
+        window.location.href = "obituary.html";
+    });
 });
