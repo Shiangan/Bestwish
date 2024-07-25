@@ -1,19 +1,14 @@
 let cart = [];
 let currentProduct = null;
+let quantity = 1;
 
 function openModal(name, image, description, price) {
     currentProduct = { name, image, description, price, quantity: 1 };
     document.getElementById('modalTitle').innerText = name;
     document.getElementById('modalImage').src = image;
     document.getElementById('modalDescription').innerText = description;
-    document.getElementById('quantity').innerText = currentProduct.quantity;
+    document.getElementById('quantity').innerText = 1;
     document.getElementById('flowerModal').style.display = 'block';
-
-    // Enable image click for viewing larger image
-    const modalImage = document.getElementById('modalImage');
-    modalImage.addEventListener('click', function() {
-        window.open(image, '_blank'); // Open image in a new tab
-    });
 }
 
 function closeModal() {
@@ -21,30 +16,27 @@ function closeModal() {
 }
 
 function updateQuantity(amount) {
-    if (currentProduct && currentProduct.quantity + amount >= 1) {
+    if (currentProduct.quantity + amount >= 1) {
         currentProduct.quantity += amount;
         document.getElementById('quantity').innerText = currentProduct.quantity;
     }
 }
 
 function addToCart() {
-    if (currentProduct) {
-        cart.push(currentProduct);
-        updateCart();
-        closeModal();
-    }
+    cart.push(currentProduct);
+    updateCart();
+    closeModal();
 }
 
 function updateCart() {
     const cartItems = document.getElementById('cartItems');
     cartItems.innerHTML = '';
     let total = 0;
-
     cart.forEach((item, index) => {
         const cartItem = document.createElement('li');
         cartItem.className = 'cart-item';
         cartItem.innerHTML = `
-            <img src="${item.image}" alt="${item.name}" class="cart-item-image" onclick="viewImage('${item.image}')">
+            <img src="${item.image}" alt="${item.name}" class="cart-item-image">
             <div class="cart-item-details">
                 <h4>${item.name}</h4>
                 <p>${item.description}</p>
@@ -56,10 +48,8 @@ function updateCart() {
         cartItems.appendChild(cartItem);
         total += item.price * item.quantity;
     });
-
     document.getElementById('totalPrice').innerText = `總金額（未稅）: NT$${total}`;
     document.getElementById('final-amount').innerText = total;
-
     updateTotal();
 }
 
@@ -78,26 +68,36 @@ function updateTotal() {
 }
 
 function confirmOrder() {
+    // Validate required fields before proceeding
+    const recipientName = document.getElementById('recipient-name').value.trim();
+    const ordererName = document.getElementById('orderer-name').value.trim();
+    const ordererPhone = document.getElementById('orderer-phone').value.trim();
+    const ordererNames = document.getElementById('orderer-names').value.trim();
+    const companyName = document.getElementById('company-name').value.trim();
+    const recipientAddress = document.getElementById('recipient-address').value.trim();
+    
+    if (!recipientName || !ordererName || !ordererPhone) {
+        alert('Please fill in all required fields.');
+        return false;
+    }
+
+    // Save order details to local storage
     const orderDetails = {
-        recipientName: document.getElementById('recipient-name').value,
-        ordererName: document.getElementById('orderer-name').value,
-        ordererPhone: document.getElementById('orderer-phone').value,
-        ordererNames: document.getElementById('orderer-names').value,
-        companyName: document.getElementById('company-name').value,
-        recipientAddress: document.getElementById('recipient-address').value,
+        recipientName,
+        ordererName,
+        ordererPhone,
+        ordererNames,
+        companyName,
+        recipientAddress,
         cart,
         finalAmount: document.getElementById('final-amount').innerText
     };
-
     localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
-    window.location.href = 'order-flower-states.html';
+    window.location.href = 'flower-order-states.html';
     return false;  // Prevent form submission
 }
 
-function viewImage(imageUrl) {
-    window.open(imageUrl, '_blank'); // Open image in a new tab
-}
-
+// Music control
 document.getElementById('play-music').addEventListener('click', function() {
     document.getElementById('background-music').play();
     document.getElementById('play-music').style.display = 'none';
