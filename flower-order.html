@@ -57,7 +57,7 @@
             <p id="totalPrice">總金額（未稅）: NT$0</p>
             <p>發票附加費 (5%)：NT$<span id="invoice-charge">0</span></p>
             <p>最終金額：NT$<span id="final-amount">0</span></p>
-            <form id="order-form">
+            <form id="order-form" onsubmit="return confirmOrder()">
                 <label for="recipient-name">致贈給：</label>
                 <input type="text" id="recipient-name" name="recipient-name" required>
 
@@ -77,7 +77,7 @@
                     <input type="text" id="recipient-address" name="recipient-address">
                 </div>
 
-                <button type="button" onclick="confirmOrder()">確認訂單</button>
+                <button type="submit">確認訂單</button>
             </form>
         </section>
 
