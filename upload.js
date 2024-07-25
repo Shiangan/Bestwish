@@ -6,22 +6,24 @@ document.getElementById('deceased-form').addEventListener('submit', async functi
     const additionalPhotos = formData.getAll('additional-photos');
 
     try {
-        // 上傳主照片
+        // 上传主照片
         const photoUrl = await uploadImage(photoFile);
 
-        // 上傳額外照片
+        // 上传额外照片
         const additionalPhotoUrls = await Promise.all(additionalPhotos.map(file => uploadImage(file)));
 
-        // 將圖片URL添加到表單數據中
-        formData.append('photo-url', photoUrl);
-        additionalPhotoUrls.forEach(url => formData.append('additional-photo-urls', url));
+        // 将图片URL添加到表单数据中
+        const queryParams = new URLSearchParams({
+            ...Object.fromEntries(formData.entries()), // 包括所有表单字段
+            'photo-url': photoUrl,
+            'additional-photo-urls': additionalPhotoUrls.join(',')
+        }).toString();
 
-        // 將表單數據轉換為URL參數
-        const queryParams = new URLSearchParams(formData).toString();
+        // 重定向到 obituary.html 页面
         window.location.href = `obituary.html?${queryParams}`;
     } catch (error) {
-        console.error('圖片上傳失敗', error);
-        alert('圖片上傳失敗，請稍後重試');
+        console.error('图片上传失败', error);
+        alert('图片上传失败，请稍后重试');
     }
 });
 
