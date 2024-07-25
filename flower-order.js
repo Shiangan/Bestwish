@@ -1,146 +1,80 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // 初始化数量
-    const quantityElements = document.querySelectorAll('.quantity');
-    quantityElements.forEach(element => element.textContent = '0');
+// flower-order.js
 
-    // 监听发票和收据复选框变化
-    document.getElementById('invoice-checkbox').addEventListener('change', updateTotal);
-    document.getElementById('receipt-checkbox').addEventListener('change', updateTotal);
-    document.getElementById('same-day-pickup').addEventListener('change', updateTotal);
-
-    // 音乐控制事件监听
-    document.getElementById('play-music').addEventListener('click', function() {
-        document.getElementById('background-music').play();
-        this.style.display = 'none';
-        document.getElementById('stop-music').style.display = 'block';
-    });
-
-    document.getElementById('stop-music').addEventListener('click', function() {
-        document.getElementById('background-music').pause();
-        this.style.display = 'none';
-        document.getElementById('play-music').style.display = 'block';
-    });
-});
-
-function changeQuantity(itemId, delta) {
-    const quantityElement = document.getElementById(`quantity-${itemId}`);
-    let quantity = parseInt(quantityElement.textContent, 10);
-    quantity += delta;
-
-    // Ensure quantity is not negative
-    if (quantity < 0) {
-        quantity = 0;
-    }
-
+// 更新购物车数量和金额
+function updateQuantity(change) {
+    const quantityElement = document.getElementById('quantity');
+    let quantity = parseInt(quantityElement.textContent);
+    quantity = Math.max(1, quantity + change); // 保证数量至少为 1
     quantityElement.textContent = quantity;
-    updateTotal(); // Update total whenever quantity changes
+    updateTotal();
 }
 
-function updateTotal() {
-    const invoiceCheckbox = document.getElementById('invoice-checkbox').checked;
-    const receiptCheckbox = document.getElementById('receipt-checkbox').checked;
-    const sameDayPickup = document.getElementById('same-day-pickup').checked;
-
-    let totalPrice = 0;
-    const cartItems = document.querySelectorAll('.flower-item');
-    cartItems.forEach(item => {
-        const itemId = item.getAttribute('data-item-id');
-        const quantity = parseInt(document.getElementById(`quantity-${itemId}`).textContent, 10);
-        const price = parseFloat(item.querySelector('p').textContent.split('NT$')[1].replace(',', ''));
-        totalPrice += price * quantity;
-    });
-
-    let invoiceCharge = 0;
-    if (invoiceCheckbox) {
-        invoiceCharge = totalPrice * 0.05;
-    }
-
-    const finalAmount = totalPrice + invoiceCharge;
-
-    document.getElementById('invoice-charge').innerText = invoiceCharge.toFixed(2);
-    document.getElementById('final-amount').innerText = finalAmount.toFixed(2);
-
-    // 显示发票和收据寄件信息
-    document.getElementById('invoice-details').style.display = invoiceCheckbox ? 'block' : 'none';
-    document.getElementById('receipt-details').style.display = receiptCheckbox ? 'block' : 'none';
-
-    // 处理当日取货
-    const showRecipientInfo = (!sameDayPickup && (invoiceCheckbox || receiptCheckbox));
-    document.getElementById('recipient-info').style.display = showRecipientInfo ? 'block' : 'none';
-}
-
-function confirmOrder() {
-    const form = document.getElementById('order-form');
-    const invoiceCheckbox = document.getElementById('invoice-checkbox').checked;
-    const receiptCheckbox = document.getElementById('receipt-checkbox').checked;
-    const sameDayPickup = document.getElementById('same-day-pickup').checked;
-
-    // 处理发票和收据的收件人信息
-    if (invoiceCheckbox || receiptCheckbox) {
-        const recipientName = document.getElementById('recipient-name').value;
-        const recipientAddress = document.getElementById('recipient-address').value;
-
-        if (!recipientName || !recipientAddress) {
-            alert('请填写收件人姓名和收件地址。');
-            return;
-        }
-    }
-
-    if (!form.checkValidity()) {
-        alert('请填写所有必填字段。');
-        return;
-    }
-
-    const cartItems = [];
-    const flowerItems = document.querySelectorAll('.flower-item');
-    flowerItems.forEach(item => {
-        const itemId = item.getAttribute('data-item-id');
-        const quantity = parseInt(document.getElementById(`quantity-${itemId}`).textContent, 10);
-        if (quantity > 0) {
-            const title = item.querySelector('h2').textContent;
-            const price = parseFloat(item.querySelector('p').textContent.split('NT$')[1].replace(',', ''));
-            cartItems.push({ title, price, quantity });
-        }
-    });
-
-    // 准备订单数据
-    const orderData = {
-        name: document.getElementById('name').value,
-        orderName: document.getElementById('order-name').value,
-        orderNumber: Date.now(), // 示例订单编号
-        ordererNames: document.getElementById('orderer-names').value,
-        invoiceRequired: invoiceCheckbox,
-        companyName: invoiceCheckbox ? document.getElementById('company-name').value : '',
-        recipientName: invoiceCheckbox ? document.getElementById('recipient-name').value : '',
-        recipientAddress: invoiceCheckbox ? document.getElementById('recipient-address').value : '',
-        cartItems: JSON.stringify(cartItems)
-    };
-
-    // 跳转到订单总结页面，并传递订单数据作为查询参数
-    const queryString = new URLSearchParams(orderData).toString();
-    window.location.href = `order-flower-states.html?${queryString}`;
-}
-
+// 打开模态窗口
 function openModal(title, imageUrl, description, price) {
-    const modal = document.getElementById('flowerModal');
-    document.getElementById('modalTitle').innerText = title;
+    document.getElementById('modalTitle').textContent = title;
     document.getElementById('modalImage').src = imageUrl;
-    document.getElementById('modalDescription').innerText = description;
-    document.getElementById('addToCartBtn').setAttribute('data-price', price);
-    modal.style.display = 'block';
+    document.getElementById('modalDescription').textContent = description;
+    document.getElementById('addToCartBtn').dataset.price = price;
+    document.getElementById('flowerModal').style.display = 'flex';
 }
 
+// 关闭模态窗口
 function closeModal() {
     document.getElementById('flowerModal').style.display = 'none';
 }
 
-function showImage(img) {
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    lightboxImg.src = img.src;
-    lightbox.style.display = 'flex';
+// 更新总金额
+function updateTotal() {
+    const quantity = parseInt(document.getElementById('quantity').textContent);
+    const price = parseInt(document.getElementById('addToCartBtn').dataset.price);
+    const subtotal = quantity * price;
+    const invoiceCheckbox = document.getElementById('invoice-checkbox').checked;
+    const invoiceCharge = invoiceCheckbox ? subtotal * 0.05 : 0;
+    const finalAmount = subtotal + invoiceCharge;
+
+    document.getElementById('totalPrice').textContent = `總金額（未稅）: NT$${subtotal}`;
+    document.getElementById('invoice-charge').textContent = invoiceCharge.toFixed(0);
+    document.getElementById('final-amount').textContent = finalAmount.toFixed(0);
 }
 
-function hideImage() {
-    document.getElementById('lightbox').style.display = 'none';
+// 添加到购物车
+function addToCart() {
+    const title = document.getElementById('modalTitle').textContent;
+    const quantity = parseInt(document.getElementById('quantity').textContent);
+    const price = parseInt(document.getElementById('addToCartBtn').dataset.price);
+    const item = `${title} x${quantity} - NT$${quantity * price}`;
+
+    const cartItems = document.getElementById('cartItems');
+    const listItem = document.createElement('li');
+    listItem.textContent = item;
+    cartItems.appendChild(listItem);
+
+    closeModal();
+    updateTotal();
 }
+
+// 处理表单提交
+function handleOrderSubmit() {
+    // 表单数据验证（例如，可以在这里添加更多的验证逻辑）
+    const form = document.getElementById('order-form');
+    if (form.checkValidity()) {
+        // 提交表单的逻辑（可以是 AJAX 请求）
+        // 这里模拟表单提交后重定向到 order-flower-states 页面
+        window.location.href = 'order-flower-states.html';
+        return false; // 阻止表单的默认提交行为
+    }
+    return false; // 阻止表单的默认提交行为
+}
+
+// 控制背景音乐
+document.getElementById('play-music').addEventListener('click', function() {
+    document.getElementById('background-music').play();
+    this.style.display = 'none';
+    document.getElementById('stop-music').style.display = 'block';
+});
+
+document.getElementById('stop-music').addEventListener('click', function() {
+    document.getElementById('background-music').pause();
+    this.style.display = 'none';
+    document.getElementById('play-music').style.display = 'block';
+});
