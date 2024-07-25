@@ -1,5 +1,3 @@
-// flower-order.js
-
 let cart = [];
 let currentProduct = null;
 
