@@ -38,7 +38,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 // 播放音乐
                 if (currentMusic) {
                     backgroundMusic.src = currentMusic;
-                    backgroundMusic.play();
+                    backgroundMusic.play().catch(function(error) {
+                        console.log("自動播放音樂失敗，需要使用者互動", error);
+                    });
                 }
             };
             reader.readAsDataURL(photoFile);
@@ -50,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // 选择音乐
     musicChoice.addEventListener("change", function() {
         const selectedOption = musicChoice.options[musicChoice.selectedIndex];
-        const musicUrl = selectedOption.getAttribute("data-music");
+        const musicUrl = selectedOption.value;
         currentMusic = musicUrl;
         backgroundMusic.src = musicUrl;
 
