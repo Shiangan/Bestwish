@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (photoFile) {
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = async function(e) {
                 localStorage.setItem('photoUrl', e.target.result);
                 localStorage.setItem('name', formData.get('name'));
                 localStorage.setItem('birthDate', formData.get('birth-date'));
@@ -30,17 +30,20 @@ document.addEventListener("DOMContentLoaded", function() {
                 localStorage.setItem('familyServiceTime', formData.get('family-service-time'));
                 localStorage.setItem('publicServiceTime', formData.get('public-service-time'));
 
-                const additionalPhotosUrls = [];
-                additionalPhotos.forEach((file) => {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        additionalPhotosUrls.push(e.target.result);
-                        if (additionalPhotosUrls.length === additionalPhotos.length) {
-                            localStorage.setItem('additionalPhotosUrls', JSON.stringify(additionalPhotosUrls));
-                        }
-                    };
-                    reader.readAsDataURL(file);
-                });
+                const additionalPhotosUrls = await Promise.all(additionalPhotos.map(file => {
+                    return new Promise((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            resolve(e.target.result);
+                        };
+                        reader.onerror = function(error) {
+                            reject(error);
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                }));
+
+                localStorage.setItem('additionalPhotosUrls', JSON.stringify(additionalPhotosUrls));
 
                 invitationSection.style.display = "flex";
                 mainPhoto.src = e.target.result;
@@ -81,4 +84,41 @@ document.addEventListener("DOMContentLoaded", function() {
         playMusicButton.style.display = "inline";
         stopMusicButton.style.display = "none";
     });
+
+    // Load stored data on page load
+    if (localStorage.getItem('photoUrl')) {
+        mainPhoto.src = localStorage.getItem('photoUrl');
+        invitationSection.style.display = "flex";
+    }
+    if (localStorage.getItem('name')) {
+        document.getElementById("name").textContent = localStorage.getItem('name');
+    }
+    if (localStorage.getItem('birthDate')) {
+        document.getElementById("birth-date").textContent = localStorage.getItem('birthDate');
+    }
+    if (localStorage.getItem('deathDate')) {
+        document.getElementById("death-date").textContent = localStorage.getItem('deathDate');
+    }
+    if (localStorage.getItem('funeralSpace')) {
+        document.getElementById("funeral-space").textContent = localStorage.getItem('funeralSpace');
+    }
+    if (localStorage.getItem('funeralDate')) {
+        document.getElementById("funeral-date").textContent = localStorage.getItem('funeralDate');
+    }
+    if (localStorage.getItem('funeralLocation')) {
+        document.getElementById("funeral-location").textContent = localStorage.getItem('funeralLocation');
+    }
+    if (localStorage.getItem('familyServiceTime')) {
+        document.getElementById("family-service-time").textContent = localStorage.getItem('familyServiceTime');
+    }
+    if (localStorage.getItem('publicServiceTime')) {
+        document.getElementById("public-service-time").textContent = localStorage.getItem('publicServiceTime');
+    }
+    if (localStorage.getItem('additionalPhotosUrls')) {
+        const additionalPhotosUrls = JSON.parse(localStorage.getItem('additionalPhotosUrls'));
+        const carousel = $('.carousel');
+        additionalPhotosUrls.forEach(photo => {
+            carousel.slick('slickAdd', `<div><img src="${photo}" alt="追思照片"></div>`);
+        });
+    }
 });
