@@ -80,7 +80,7 @@ function confirmOrder() {
         finalAmount: document.getElementById('final-amount').innerText
     };
     localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
-    window.location.href = 'order-flower-states.html';
+    window.location.href = 'flower-order-states.html';
     return false;  // Prevent form submission
 }
 
