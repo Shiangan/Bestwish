@@ -26,29 +26,24 @@ document.addEventListener("DOMContentLoaded", function() {
     // Handle form submission
     form.addEventListener("submit", function(event) {
         event.preventDefault();
-        
-        console.log("Form submitted");
 
         const photoFile = document.getElementById("photo").files[0];
         if (photoFile) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                console.log("Photo loaded");
-
                 localStorage.setItem('photoUrl', e.target.result);
                 document.getElementById("main-photo").src = e.target.result;
                 document.getElementById("invitation-section").classList.remove("hidden");
 
-                // Play music
+                // Play music if selected
                 if (currentMusic) {
                     backgroundMusic.src = currentMusic;
                     backgroundMusic.play().catch(function(error) {
                         console.log("Autoplay music failed; user interaction needed", error);
                     });
                 }
-                
+
                 // Redirect to invitation.html
-                console.log("Redirecting to invitation.html");
                 window.location.href = "invitation.html";
             };
             reader.readAsDataURL(photoFile);
@@ -63,9 +58,9 @@ document.addEventListener("DOMContentLoaded", function() {
         const musicUrl = selectedOption.value;
         currentMusic = musicUrl;
         backgroundMusic.src = musicUrl;
-        localStorage.setItem('musicUrl', musicUrl); // Save to localStorage
+        localStorage.setItem('musicUrl', musicUrl);
 
-        // Play selected music
+        // Play selected music if already playing
         if (playMusicButton.style.display === "none") {
             backgroundMusic.play().catch(function(error) {
                 console.log("Autoplay music failed; user interaction needed", error);
