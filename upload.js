@@ -7,12 +7,12 @@ document.getElementById('deceased-form').addEventListener('submit', async functi
 
     try {
         // 上传主照片
-        const photoUrl = await uploadImage(photoFile);
+        const photoUrl = photoFile ? await uploadImage(photoFile) : '';
 
         // 上传额外照片
         const additionalPhotoUrls = await Promise.all(additionalPhotos.map(file => uploadImage(file)));
-
-        // 将图片URL添加到表单数据中
+        
+        // 创建查询参数
         const queryParams = new URLSearchParams({
             ...Object.fromEntries(formData.entries()), // 包括所有表单字段
             'photo-url': photoUrl,
@@ -31,11 +31,16 @@ async function uploadImage(file) {
     const formData = new FormData();
     formData.append('image', file);
 
-    const response = await axios.post('https://api.imgur.com/3/image', formData, {
-        headers: {
-            Authorization: 'Client-ID YOUR_IMGUR_CLIENT_ID',
-        }
-    });
+    try {
+        const response = await axios.post('https://api.imgur.com/3/image', formData, {
+            headers: {
+                Authorization: 'Client-ID YOUR_IMGUR_CLIENT_ID',
+            }
+        });
 
-    return response.data.data.link;
+        return response.data.data.link;
+    } catch (error) {
+        console.error('上传图片失败', error);
+        throw error; // 重新抛出错误，以便上层处理
+    }
 }
