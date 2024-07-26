@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 document.getElementById("main-photo").src = e.target.result;
                 document.getElementById("invitation-section").classList.remove("hidden");
 
-                // Play music if selected
+                // Play music
                 if (currentMusic) {
                     backgroundMusic.src = currentMusic;
                     backgroundMusic.play().catch(function(error) {
@@ -58,9 +58,9 @@ document.addEventListener("DOMContentLoaded", function() {
         const musicUrl = selectedOption.value;
         currentMusic = musicUrl;
         backgroundMusic.src = musicUrl;
-        localStorage.setItem('musicUrl', musicUrl);
+        localStorage.setItem('musicUrl', musicUrl); // Save to localStorage
 
-        // Play selected music if already playing
+        // Play selected music
         if (playMusicButton.style.display === "none") {
             backgroundMusic.play().catch(function(error) {
                 console.log("Autoplay music failed; user interaction needed", error);
