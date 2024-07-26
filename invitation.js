@@ -1,12 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
     // 获取页面元素
     const mainPhotoElement = document.getElementById('main-photo');
-    const invitationOverlay = document.getElementById('invitation-overlay');
     const playMusicButton = document.getElementById('play-music');
     const stopMusicButton = document.getElementById('stop-music');
     const backgroundMusic = document.getElementById('background-music');
     const musicChoice = document.getElementById('music-choice');
-    const infoForm = document.getElementById('info-form');
+    const goToObituaryButton = document.getElementById('go-to-obituary');
 
     // 从 localStorage 获取数据
     const photoUrl = localStorage.getItem('photoUrl');
@@ -49,28 +48,21 @@ document.addEventListener('DOMContentLoaded', function() {
             const selectedMusicUrl = selectedOption.value;
             backgroundMusic.src = selectedMusicUrl;
             localStorage.setItem('musicUrl', selectedMusicUrl); // 保存音乐 URL 到 localStorage
+
+            // 如果音乐正在播放，更新背景音乐并继续播放
+            if (!playMusicButton.style.display) {
+                backgroundMusic.play().catch(function(error) {
+                    console.log("自动播放音乐失败，需要用户交互", error);
+                });
+            }
         });
     }
 
-    // 表单提交逻辑
-    if (infoForm) {
-        infoForm.addEventListener('submit', function(event) {
-            event.preventDefault(); // 阻止默认的表单提交行为
-
-            // 提交表单数据（例如通过 AJAX）
-            const formData = new FormData(infoForm);
-            fetch('upload.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                // 提交成功后跳转到邀请页面
-                window.location.href = 'invitation.html';
-            })
-            .catch(error => {
-                console.error('提交表单失败:', error);
-            });
+    // 点击“进入訃闻”按钮后跳转到 obituary.html
+    if (goToObituaryButton) {
+        goToObituaryButton.addEventListener('click', function() {
+            // 可以在这里处理其他逻辑，比如保存表单数据到 localStorage
+            window.location.href = 'obituary.html';
         });
     }
 });
