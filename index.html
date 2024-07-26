@@ -59,7 +59,7 @@
 
                 <label for="music-choice">選擇背景音樂:</label>
                 <select id="music-choice" name="music-choice">
-                    <option value="父母.mp3">父母</option>
+                    <option value="audio/music1.mp3">父母</option>
                     <option value="audio/music2.mp3">音樂2</option>
                     <option value="audio/music3.mp3">音樂3</option>
                     <option value="audio/music4.mp3">音樂4</option>
@@ -81,8 +81,8 @@
     </audio>
 
     <div id="music-control">
-        <button id="play-music" style="background: url('images/sound-on.png');">🔊</button>
-        <button id="stop-music" style="display: none; background: url('images/sound-off.png');">🔇</button>
+        <button id="play-music" aria-label="播放音樂" style="background: url('images/sound-on.png');">🔊</button>
+        <button id="stop-music" aria-label="停止音樂" style="display: none; background: url('images/sound-off.png');">🔇</button>
     </div>
 
     <script src="index.js"></script>
