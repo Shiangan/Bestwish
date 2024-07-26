@@ -1,124 +1,168 @@
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-}
+/* 全域性樣式 */
+ 身體{
+     字型家族：Arial，無襯線；
+     保證金：0；
+     填充物：0；
+     盒子尺寸：邊框；
+     背景顏色：#f9f9f9;
+ }
 
-header {
-    background: #333;
-    color: #fff;
-    padding: 10px 0;
-    text-align: center;
-}
+ 標題{
+     位置：固定；
+     頂部：0；
+     左：0；
+     背景：#ffffff;
+     填充：10px 20px；
+     盒影：0 2px 4px rgba（0，0，0，0.1）；
+     寬度：100%；
+     z指數：1000；
+ }
 
-.logo {
-    max-width: 150px;
-}
+ .logo {
+     最大寬度：120px；
+     垂直對齊：中間；
+ }
 
-main {
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-}
+ 主要{
+     填充：60px 20px 20px；/*調整填充以考慮固定標頭*/
+ }
 
-form {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+ 形式 {
+     最大寬度：600px；
+     保證金：0自動；
+     背景：#ffffff;
+     填充：20px；
+     邊界半徑：8px；
+     盒子陰影：0 4px 8px rgba（0，0，0，0.1）；
+     邊框：1px solid #ddd;
+ }
 
-label {
-    display: block;
-    margin: 10px 0 5px;
-}
+ 標籤{
+     顯示：塊；
+     邊距底部：8px；
+     字型重量：粗體；
+ }
 
-input[type="text"],
-input[type="date"],
-input[type="time"],
-textarea,
-select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
+ 輸入[type="text"]，
+ 輸入[type="date"]，
+ 輸入[type="time"]，
+ 文字區域，
+ 選擇{
+     寬度：calc（100% - 20px）；
+     填充：10px；
+     邊距底部：12px；
+     邊框：1px solid #ddd;
+     邊界半徑：4px；
+     背景顏色：#fafafa;
+ }
 
-button[type="submit"] {
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-}
+ 輸入[type="file"] {
+     邊界：無；
+     填充物：0；
+ }
 
-button[type="submit"]:hover {
-    background-color: #0056b3;
-}
+ 按鈕{
+     背景顏色：#007bff；
+     顏色：#ffffff;
+     邊界：無；
+     填充：12px 20px；
+     邊界半徑：4px；
+     光標：指標；
+     字型大小：16px；
+     過渡：背景顏色0.3s輕鬆；
+ }
 
-footer {
-    background: #333;
-    color: #fff;
-    text-align: center;
-    padding: 10px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
+ 按鈕：懸停{
+     背景顏色：#0056b3；
+ }
 
-#music-control {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-}
+ .隱藏 {
+     顯示：無；
+ }
 
-#play-music,
-#stop-music {
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-size: 24px;
-    margin: 0 5px;
-}
+ #invitation-section {
+     文字對齊：中心；
+     邊距頂部：20px；
+ }
 
-#play-music {
-    background: url('images/sound-on.png') no-repeat center;
-    width: 40px;
-    height: 40px;
-}
+ #photo-container {
+     位置：相對；
+ }
 
-#stop-music {
-    background: url('images/sound-off.png') no-repeat center;
-    width: 40px;
-    height: 40px;
-}
+ #main-photo {
+     最大寬度：100%；
+     邊界半徑：8px；
+     不透明度：0.6; /* 使照片淡化 */
+ }
 
-/* Responsive Styles */
-@media (max-width: 600px) {
-    header, footer {
-        padding: 15px;
-    }
+ #invitation-overlay {
+     位置：絕對；
+     頂部：0；
+     左：0；
+     寬度：100%；
+     高度：100%；
+     顯示：柔性；
+     正當性內容：中心；
+     對齊專案：中心；
+     背景：rgba（0，0，0，0.5）；
+     顏色：#ffffff;
+     邊界半徑：8px；
+     柔性方向：列；
+     文字對齊：中心；
+ }
 
-    .logo {
-        max-width: 100px;
-    }
+ #invitation-overlay p {
+     字型大小：24px；
+     保證金：0；
+ }
 
-    form {
-        padding: 15px;
-    }
+ #invitation-overlay按鈕{
+     邊距頂部：20px；
+     背景顏色：#28a745；
+     邊界：無；
+     填充：10px 20px；
+     邊界半徑：4px；
+     光標：指標；
+     字型大小：16px；
+     過渡：背景顏色0.3s輕鬆；
+ }
 
-    button[type="submit"] {
-        padding: 8px 15px;
-    }
+ #invitation-overlay button:hover {
+     背景顏色：#218838；
+ }
 
-    #play-music,
-    #stop-music {
-        width: 30px;
-        height: 30px;
-        font-size: 20px;
-    }
-}
+ 頁尾{
+     背景：#ffffff;
+     文字對齊：中心；
+     填充：10px；
+     位置：相對；
+     寬度：100%；
+     底部：0；
+     邊框頂部：1px實心#ddd;
+     盒子陰影：0 -2px 4px rgba（0，0，0，0.1）；
+ }
+
+ #music-control {
+     位置：固定；
+     底部：20px；
+     右：20px；
+     顯示：柔性；
+     間隙：10px；
+ }
+
+ #music-control按鈕{
+     背景：無；
+     邊界：無；
+     光標：指標；
+     寬度：40px；
+     高度：40px；
+     背景尺寸：封面；
+ }
+
+ #music-control #play-music {
+     背景影象：url（'images/sound-on.png'）；
+ }
+
+ #music-control #stop-music {
+     顯示：無；
+     背景影象：url（'images/sound-off.png'）；
