@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("info-form");
-    const invitationSection = document.getElementById("invitation.html");
-    const mainPhotoElement = document.getElementById("main-photo");
     const playMusicButton = document.getElementById("play-music");
     const stopMusicButton = document.getElementById("stop-music");
     const backgroundMusic = document.getElementById("background-music");
@@ -14,8 +12,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const storedMusicUrl = localStorage.getItem('musicUrl');
 
     if (storedPhotoUrl) {
-        mainPhotoElement.src = storedPhotoUrl;
-        invitationSection.classList.remove("hidden");
+        document.getElementById("main-photo").src = storedPhotoUrl;
+        document.getElementById("invitation-section").classList.remove("hidden");
     }
 
     if (storedMusicUrl) {
@@ -28,13 +26,14 @@ document.addEventListener("DOMContentLoaded", function() {
     // Handle form submission
     form.addEventListener("submit", function(event) {
         event.preventDefault();
-        const photoFile = document.getElementById("photo-file").files[0];
+
+        const photoFile = document.getElementById("photo").files[0];
         if (photoFile) {
             const reader = new FileReader();
             reader.onload = function(e) {
                 localStorage.setItem('photoUrl', e.target.result);
-                mainPhotoElement.src = e.target.result;
-                invitationSection.classList.remove("hidden");
+                document.getElementById("main-photo").src = e.target.result;
+                document.getElementById("invitation-section").classList.remove("hidden");
 
                 // Play music
                 if (currentMusic) {
@@ -45,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
                 
                 // Redirect to invitation.html
-                window.location.href = "invitation.html"; // Redirect to the new page
+                window.location.href = "invitation.html";
             };
             reader.readAsDataURL(photoFile);
         }
