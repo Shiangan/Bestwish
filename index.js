@@ -1,75 +1,66 @@
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("info-form");
     const invitationSection = document.getElementById("invitation-section");
-    const mainPhotoElement = document.getElementById("main-photo");
+    const photoContainer = document.getElementById("photo-container");
+    const mainPhoto = document.getElementById("main-photo");
+    const invitationOverlay = document.getElementById("invitation-overlay");
     const playMusicButton = document.getElementById("play-music");
     const stopMusicButton = document.getElementById("stop-music");
     const backgroundMusic = document.getElementById("background-music");
     const musicChoice = document.getElementById("music-choice");
-
     讓currentMusic = '';
-
-    // 從localStorage 獲取資料並設定初始狀態
-    const storedPhotoUrl = localStorage.getItem('photoUrl');
-    const storedMusicUrl = localStorage.getItem('musicUrl');
-
-    如果（儲存PhotoUrl）{
-        mainPhotoElement.src = storedPhotoUrl；
-        invitationSection.classList.remove("隱藏");
-    }
-
-    如果（storedMusicUrl）{
-        currentMusic = storedMusicUrl；
-        backgroundMusic.src = storedMusicUrl；
-        playMusicButton.style.display =“無”；
-        stopMusicButton.style.display =“內聯”；
-    }
-
     // 處理表格提交
     form.addEventListener（“提交”，函式（事件）{
         event.preventDefault();
- @@ -35,24 +17,17 @@ document.addEventListener("DOMContentLoaded", function() {
+        const formData = new FormData（表格）；
+        const photoFile = formData.get("photo");
+        如果（照片檔案）{
             const reader = new FileReader();
             reader.onload = function(e) {
                 localStorage.setItem('photoUrl', e.target.result);
-                // 其他表格欄位儲存到 localStorage
-
+                localStorage.setItem('name', formData.get('name'));
+                localStorage.setItem('birthDate', formData.get('birth-date'));
+                localStorage.setItem('deathDate', formData.get('death-date'));
+                localStorage.setItem('funeralSpace', formData.get('funeral-space'));
+                localStorage.setItem('funeralDate', formData.get('funeral-date'));
+                localStorage.setItem('funeralLocation', formData.get('funeral-location'));
+                localStorage.setItem（'familyServiceTime'，formData.get（'family-service-time'））；
+                localStorage.setItem（'publicServiceTime'，formData.get（'public-service-time'））；
                 // 上來敬邀您
-                invitationSection.classList.remove("隱藏");
-                mainPhotoElement.src = e.target.result；
-
-                // 播放音樂
-                如果（當前音樂）{
-                    backgroundMusic.src = currentMusic；
-                    backgroundMusic.play().catch(function(error) {
-                        console.log("自動播放音樂失敗，需要使用者互動", error);
-                });
-                }
-            };
-            reader.readAsDataURL（照片檔案）；
+                invitationSection.style.display =“flex”；
+                mainPhoto.src = e.target.result;
+                document.querySelector("#invitation-overlay p").textContent = '敬邀你';
+                 // 播放音樂
+                 如果（當前音樂）{
+                     backgroundMusic.src = currentMusic；
+                     背景音樂.play（）；
+                 }
+             };
+             reader.readAsDataURL（照片檔案）；
         }
-
         form.style.display =“無”；
     });
+     // 選擇音樂
+     musicChoice.addEventListener("change", function() {
+         const selectedOption = musicChoice.options[musicChoice.selectedIndex];
+         const musicUrl = selectedOption.getAttribute("data-music");
+         currentMusic = musicUrl;
+         背景Music.src = musicUrl;
 
-    // 選擇音樂
- @@ -61,9 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
-        const musicUrl = selectedOption.value；
-        currentMusic = musicUrl;
-        背景Music.src = musicUrl;
-        localStorage.setItem('musicUrl', musicUrl); // 儲存到 localStorage
-
-        // 播放選擇的的音乐
         如果（playMusicButton.style.display ===“無”）{
-            backgroundMusic.play().catch(function(error) {
-                console.log("自動播放音樂失敗，需要使用者互動", error);
- @@ -73,9 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
-
+            背景音樂.play（）；
+        }
+    });
     // 播放音樂
     playMusicButton.addEventListener("click", function() {
-        backgroundMusic.play().catch(function(error) {
-            console.log("自動播放音樂失敗，需要使用者互動", error);
-        });
+        背景音樂.play（）；
         playMusicButton.style.display =“無”；
         stopMusicButton.style.display =“內聯”；
     });
+    // 停止音樂
+    stopMusicButton.addEventListener("點選", function() {
+        背景音樂.暫停（）；
+        playMusicButton.style.display =“內聯”；
+        stopMusicButton.style.display =“無”；
+    });
+});
