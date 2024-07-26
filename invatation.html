@@ -3,8 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>敬邀您 - 祥安生命有限公司</title>
+    <title>敬邀您</title>
     <link rel="stylesheet" href="invitation.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 自动跳转到 obituary.html 页面
+            setTimeout(() => {
+                window.location.href = `obituary.html?${localStorage.getItem('formData')}`;
+            }, 5000); // 5 秒后跳转到 obituary.html
+        });
+    </script>
 </head>
 <body>
     <header>
@@ -12,23 +20,25 @@
     </header>
 
     <main>
-        <div id="invitation-content">
-            <img id="main-photo" src="image/invitation-photo.jpg" alt="主要照片">
-            <div id="invitation-overlay">
-                <p>敬邀您</p>
-                <a href="obituary.html" target="_blank">
-                    <button>點選我進入訃聞</button>
-                </a>
+        <section id="invitation-section">
+            <div id="photo-container">
+                <img id="main-photo" src="image/invitation-photo.jpg" alt="主要照片">
+                <div id="invitation-overlay">
+                    <p>敬邀您</p>
+                    <a id="go-to-obituary" href="obituary.html">
+                        <button>點選我進入訃聞</button>
+                    </a>
+                </div>
             </div>
-        </div>
+        </section>
     </main>
 
     <footer>
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
     </footer>
 
-    <audio id="background-music" preload="auto" autoplay loop>
-        <source src="audio/music1.mp3" type="audio/mpeg">
+    <audio id="background-music" preload="auto" loop>
+        <source src="audio/default-music.mp3" type="audio/mpeg">
         您的瀏覽器不支持音頻元素。
     </audio>
 
@@ -36,7 +46,5 @@
         <button id="play-music" style="background: url('images/sound-on.png');">🔊</button>
         <button id="stop-music" style="display: none; background: url('images/sound-off.png');">🔇</button>
     </div>
-
-    <script src="invitation.js"></script>
 </body>
 </html>
