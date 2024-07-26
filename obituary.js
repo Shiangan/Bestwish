@@ -87,6 +87,14 @@ document.addEventListener("DOMContentLoaded", function() {
     const backgroundMusic = document.getElementById("background-music");
 
     if (musicToggle && backgroundMusic) {
+        // 设置初始音乐来源
+        const params = getQueryParams();
+        if (params['music-choice']) {
+            backgroundMusic.src = params['music-choice'];
+            backgroundMusic.loop = true;
+            backgroundMusic.play(); // 使音乐播放
+        }
+
         musicToggle.addEventListener("click", function() {
             if (backgroundMusic.paused) {
                 backgroundMusic.play();
@@ -96,12 +104,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 musicToggle.textContent = "🔇";
             }
         });
-
-        // 从查询参数中设置初始音乐来源
-        const params = getQueryParams();
-        if (params['music-choice']) {
-            backgroundMusic.src = params['music-choice'];
-        }
     }
 
     // 处理花篮订单链接
