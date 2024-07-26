@@ -1,79 +1,75 @@
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("info-form");
-    const musicChoice = document.getElementById("music-choice");
-    const backgroundMusic = document.getElementById("background-music");
+    const invitationSection = document.getElementById("invitation-section");
+    const mainPhotoElement = document.getElementById("main-photo");
     const playMusicButton = document.getElementById("play-music");
     const stopMusicButton = document.getElementById("stop-music");
+    const backgroundMusic = document.getElementById("background-music");
+    const musicChoice = document.getElementById("music-choice");
 
-    let currentMusic = '';
+    讓currentMusic = '';
 
-    form.addEventListener("submit", async function(e) {
-        e.preventDefault();
+    // 從localStorage 獲取資料並設定初始狀態
+    const storedPhotoUrl = localStorage.getItem('photoUrl');
+    const storedMusicUrl = localStorage.getItem('musicUrl');
 
-        const formData = new FormData(form);
-        const photoFile = formData.get('photo');
-        const additionalPhotos = formData.getAll('additional-photos');
-
-        try {
-            // 上传主照片
-            const photoUrl = photoFile ? await uploadImage(photoFile) : '';
-
-            // 上传额外照片
-            const additionalPhotoUrls = await Promise.all(additionalPhotos.map(file => uploadImage(file)));
-            
-            // 创建查询参数
-            const queryParams = new URLSearchParams({
-                ...Object.fromEntries(formData.entries()), // 包括所有表单字段
-                'photo-url': photoUrl,
-                'additional-photo-urls': additionalPhotoUrls.join(',')
-            }).toString();
-
-            // 重定向到 obituary.html 页面
-            window.location.href = `obituary.html?${queryParams}`;
-        } catch (error) {
-            console.error('图片上传失败', error);
-            alert('图片上传失败，请稍后重试');
-        }
-    });
-
-    async function uploadImage(file) {
-        const formData = new FormData();
-        formData.append('image', file);
-
-        try {
-            const response = await axios.post('https://api.imgur.com/3/image', formData, {
-                headers: {
-                    Authorization: 'Client-ID YOUR_IMGUR_CLIENT_ID',
-                }
-            });
-
-            return response.data.data.link;
-        } catch (error) {
-            console.error('上传图片失败', error);
-            throw error;
-        }
+    如果（儲存PhotoUrl）{
+        mainPhotoElement.src = storedPhotoUrl；
+        invitationSection.classList.remove("隱藏");
     }
 
-    musicChoice.addEventListener("change", function() {
-        const selectedOption = musicChoice.options[musicChoice.selectedIndex];
-        const musicUrl = selectedOption.value;
-        currentMusic = musicUrl;
-        backgroundMusic.src = musicUrl;
+    如果（storedMusicUrl）{
+        currentMusic = storedMusicUrl；
+        backgroundMusic.src = storedMusicUrl；
+        playMusicButton.style.display =“無”；
+        stopMusicButton.style.display =“內聯”；
+    }
 
-        if (playMusicButton.style.display === "none") {
-            backgroundMusic.play();
+    // 處理表格提交
+    form.addEventListener（“提交”，函式（事件）{
+        event.preventDefault();
+ @@ -35,24 +17,17 @@ document.addEventListener("DOMContentLoaded", function() {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                localStorage.setItem('photoUrl', e.target.result);
+                // 其他表格欄位儲存到 localStorage
+
+                // 上來敬邀您
+                invitationSection.classList.remove("隱藏");
+                mainPhotoElement.src = e.target.result；
+
+                // 播放音樂
+                如果（當前音樂）{
+                    backgroundMusic.src = currentMusic；
+                    backgroundMusic.play().catch(function(error) {
+                        console.log("自動播放音樂失敗，需要使用者互動", error);
+                });
+                }
+            };
+            reader.readAsDataURL（照片檔案）；
         }
+
+        form.style.display =“無”；
     });
 
+    // 選擇音樂
+ @@ -61,9 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
+        const musicUrl = selectedOption.value；
+        currentMusic = musicUrl;
+        背景Music.src = musicUrl;
+        localStorage.setItem('musicUrl', musicUrl); // 儲存到 localStorage
+
+        // 播放選擇的的音乐
+        如果（playMusicButton.style.display ===“無”）{
+            backgroundMusic.play().catch(function(error) {
+                console.log("自動播放音樂失敗，需要使用者互動", error);
+ @@ -73,9 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
+
+    // 播放音樂
     playMusicButton.addEventListener("click", function() {
-        backgroundMusic.play();
-        playMusicButton.style.display = "none";
-        stopMusicButton.style.display = "inline";
+        backgroundMusic.play().catch(function(error) {
+            console.log("自動播放音樂失敗，需要使用者互動", error);
+        });
+        playMusicButton.style.display =“無”；
+        stopMusicButton.style.display =“內聯”；
     });
-
-    stopMusicButton.addEventListener("click", function() {
-        backgroundMusic.pause();
-        playMusicButton.style.display = "inline";
-        stopMusicButton.style.display = "none";
-    });
-});
