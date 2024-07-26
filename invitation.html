@@ -9,7 +9,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             // 自动跳转到 obituary.html 页面
             setTimeout(() => {
-                window.location.href = `obituary.html?${localStorage.getItem('formData')}`;
+                window.location.href = 'obituary.html'; // 跳转到 obituary.html 页面
             }, 5000); // 5 秒后跳转到 obituary.html
         });
     </script>
@@ -26,50 +26,4 @@
                 <div id="invitation-overlay">
                     <p>敬邀您</p>
                     <a id="go-to-obituary" href="obituary.html">
-                        <button>點選我進入訃聞</button>
-                    </a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
-    </footer>
-
-    <audio id="background-music" preload="auto" loop>
-        <source src="audio/music.mp3" type="audio/mp3">
-        您的瀏覽器不支持音頻元素。
-    </audio>
-
-    <div id="music-control">
-        <button id="play-music" aria-label="播放音樂" style="background: url('images/sound-on.png');">🔊</button>
-        <button id="stop-music" aria-label="停止音樂" style="display: none; background: url('images/sound-off.png');">🔇</button>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const playMusicButton = document.getElementById('play-music');
-            const stopMusicButton = document.getElementById('stop-music');
-            const backgroundMusic = document.getElementById('background-music');
-
-            playMusicButton.addEventListener('click', function() {
-                backgroundMusic.play();
-                playMusicButton.style.display = 'none';
-                stopMusicButton.style.display = 'inline';
-            });
-
-            stopMusicButton.addEventListener('click', function() {
-                backgroundMusic.pause();
-                playMusicButton.style.display = 'inline';
-                stopMusicButton.style.display = 'none';
-            });
-
-            backgroundMusic.addEventListener('ended', function() {
-                playMusicButton.style.display = 'inline';
-                stopMusicButton.style.display = 'none';
-            });
-        });
-    </script>
-</body>
-</html>
+                        <button
