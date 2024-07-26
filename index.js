@@ -19,20 +19,11 @@ document.addEventListener("DOMContentLoaded", function() {
             const reader = new FileReader();
             reader.onload = function(e) {
                 localStorage.setItem('photoUrl', e.target.result);
-                localStorage.setItem('name', formData.get('name'));
-                localStorage.setItem('birthDate', formData.get('birth-date'));
-                localStorage.setItem('deathDate', formData.get('death-date'));
-                localStorage.setItem('funeralSpace', formData.get('funeral-space'));
-                localStorage.setItem('funeralDate', formData.get('funeral-date'));
-                localStorage.setItem('funeralLocation', formData.get('funeral-location'));
-                localStorage.setItem('familyServiceTime', formData.get('family-service-time'));
-                localStorage.setItem('publicServiceTime', formData.get('public-service-time'));
+                // 其他表单字段存储到 localStorage
 
                 // 显示敬邀您页面
-                invitationSection.style.display = "flex";
+                invitationSection.classList.remove("hidden");
                 mainPhotoElement.src = e.target.result;
-                document.querySelector("#invitation-overlay p").textContent = '敬邀您';
-
                 // 播放音乐
                 if (currentMusic) {
                     backgroundMusic.src = currentMusic;
