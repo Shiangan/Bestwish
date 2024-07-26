@@ -36,37 +36,41 @@ document.addEventListener('DOMContentLoaded', function() {
         stopMusicButton.style.display = "none";
     });
 
-    // 音乐控制逻辑
+    // 音乐结束后自动显示播放按钮
     backgroundMusic.addEventListener('ended', function() {
         playMusicButton.style.display = "inline";
         stopMusicButton.style.display = "none";
     });
 
     // 音乐选择逻辑
-    musicChoice.addEventListener("change", function() {
-        const selectedOption = musicChoice.options[musicChoice.selectedIndex];
-        const selectedMusicUrl = selectedOption.value;
-        backgroundMusic.src = selectedMusicUrl;
-        localStorage.setItem('musicUrl', selectedMusicUrl); // 保存音乐 URL 到 localStorage
-    });
+    if (musicChoice) {
+        musicChoice.addEventListener("change", function() {
+            const selectedOption = musicChoice.options[musicChoice.selectedIndex];
+            const selectedMusicUrl = selectedOption.value;
+            backgroundMusic.src = selectedMusicUrl;
+            localStorage.setItem('musicUrl', selectedMusicUrl); // 保存音乐 URL 到 localStorage
+        });
+    }
 
     // 表单提交逻辑
-    infoForm.addEventListener('submit', function(event) {
-        event.preventDefault(); // 阻止默认的表单提交行为
+    if (infoForm) {
+        infoForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // 阻止默认的表单提交行为
 
-        // 提交表单数据（例如通过 AJAX）
-        const formData = new FormData(infoForm);
-        fetch('upload.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.text())
-        .then(data => {
-            // 提交成功后跳转到邀请页面
-            window.location.href = 'invitation.html';
-        })
-        .catch(error => {
-            console.error('提交表单失败:', error);
+            // 提交表单数据（例如通过 AJAX）
+            const formData = new FormData(infoForm);
+            fetch('upload.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                // 提交成功后跳转到邀请页面
+                window.location.href = 'invitation.html';
+            })
+            .catch(error => {
+                console.error('提交表单失败:', error);
+            });
         });
-    });
+    }
 });
