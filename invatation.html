@@ -43,8 +43,33 @@
     </audio>
 
     <div id="music-control">
-        <button id="play-music" style="background: url('images/sound-on.png');">🔊</button>
-        <button id="stop-music" style="display: none; background: url('images/sound-off.png');">🔇</button>
+        <button id="play-music" aria-label="播放音樂" style="background: url('images/sound-on.png');">🔊</button>
+        <button id="stop-music" aria-label="停止音樂" style="display: none; background: url('images/sound-off.png');">🔇</button>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const playMusicButton = document.getElementById('play-music');
+            const stopMusicButton = document.getElementById('stop-music');
+            const backgroundMusic = document.getElementById('background-music');
+
+            playMusicButton.addEventListener('click', function() {
+                backgroundMusic.play();
+                playMusicButton.style.display = 'none';
+                stopMusicButton.style.display = 'inline';
+            });
+
+            stopMusicButton.addEventListener('click', function() {
+                backgroundMusic.pause();
+                playMusicButton.style.display = 'inline';
+                stopMusicButton.style.display = 'none';
+            });
+
+            backgroundMusic.addEventListener('ended', function() {
+                playMusicButton.style.display = 'inline';
+                stopMusicButton.style.display = 'none';
+            });
+        });
+    </script>
 </body>
 </html>
