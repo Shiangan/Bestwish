@@ -5,14 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>敬邀您</title>
     <link rel="stylesheet" href="invitation.css">
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // 自动跳转到 obituary.html 页面
-            setTimeout(() => {
-                window.location.href = 'obituary.html'; // 跳转到 obituary.html 页面
-            }, 5000); // 5 秒后跳转到 obituary.html
-        });
-    </script>
+    <script defer src="invitation.js"></script>
 </head>
 <body>
     <header>
@@ -25,5 +18,26 @@
                 <img id="main-photo" src="image/invitation-photo.jpg" alt="主要照片">
                 <div id="invitation-overlay">
                     <p>敬邀您</p>
-                    <a id="go-to-obituary" href="obituary.html">
-                        <button
+                    <a id="go-to-flower-order" href="flower-order.html">
+                        <button>點選我進入訂花籃頁面</button>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
+    </footer>
+
+    <audio id="background-music" preload="auto" loop>
+        <source src="audio/music.mp3" type="audio/mp3">
+        您的瀏覽器不支持音頻元素。
+    </audio>
+
+    <div id="music-control">
+        <button id="play-music" aria-label="播放音樂" style="background: url('images/sound-on.png');">🔊</button>
+        <button id="stop-music" aria-label="停止音樂" style="display: none; background: url('images/sound-off.png');">🔇</button>
+    </div>
+</body>
+</html>
