@@ -9,6 +9,22 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let currentMusic = '';
 
+    // 从 localStorage 获取数据并设置初始状态
+    const storedPhotoUrl = localStorage.getItem('photoUrl');
+    const storedMusicUrl = localStorage.getItem('musicUrl');
+
+    if (storedPhotoUrl) {
+        mainPhotoElement.src = storedPhotoUrl;
+        invitationSection.classList.remove("hidden");
+    }
+
+    if (storedMusicUrl) {
+        currentMusic = storedMusicUrl;
+        backgroundMusic.src = storedMusicUrl;
+        playMusicButton.style.display = "none";
+        stopMusicButton.style.display = "inline";
+    }
+
     // 处理表单提交
     form.addEventListener("submit", function(event) {
         event.preventDefault();
@@ -24,6 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 // 显示敬邀您页面
                 invitationSection.classList.remove("hidden");
                 mainPhotoElement.src = e.target.result;
+
                 // 播放音乐
                 if (currentMusic) {
                     backgroundMusic.src = currentMusic;
@@ -44,15 +61,21 @@ document.addEventListener("DOMContentLoaded", function() {
         const musicUrl = selectedOption.value;
         currentMusic = musicUrl;
         backgroundMusic.src = musicUrl;
+        localStorage.setItem('musicUrl', musicUrl); // 保存到 localStorage
 
+        // 播放选择的音乐
         if (playMusicButton.style.display === "none") {
-            backgroundMusic.play();
+            backgroundMusic.play().catch(function(error) {
+                console.log("自动播放音乐失败，需要用户互动", error);
+            });
         }
     });
 
     // 播放音乐
     playMusicButton.addEventListener("click", function() {
-        backgroundMusic.play();
+        backgroundMusic.play().catch(function(error) {
+            console.log("自动播放音乐失败，需要用户互动", error);
+        });
         playMusicButton.style.display = "none";
         stopMusicButton.style.display = "inline";
     });
