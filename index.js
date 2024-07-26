@@ -1,29 +1,11 @@
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("info-form");
-    const invitationSection = document.getElementById("invitation-section");
-    const mainPhotoElement = document.getElementById("main-photo");
     const playMusicButton = document.getElementById("play-music");
     const stopMusicButton = document.getElementById("stop-music");
     const backgroundMusic = document.getElementById("background-music");
     const musicChoice = document.getElementById("music-choice");
 
     let currentMusic = '';
-
-    // 从 localStorage 获取数据并设置初始状态
-    const storedPhotoUrl = localStorage.getItem('photoUrl');
-    const storedMusicUrl = localStorage.getItem('musicUrl');
-
-    if (storedPhotoUrl) {
-        mainPhotoElement.src = storedPhotoUrl;
-        invitationSection.classList.remove("hidden");
-    }
-
-    if (storedMusicUrl) {
-        currentMusic = storedMusicUrl;
-        backgroundMusic.src = storedMusicUrl;
-        playMusicButton.style.display = "none";
-        stopMusicButton.style.display = "inline";
-    }
 
     // 处理表单提交
     form.addEventListener("submit", function(event) {
@@ -35,24 +17,17 @@ document.addEventListener("DOMContentLoaded", function() {
             const reader = new FileReader();
             reader.onload = function(e) {
                 localStorage.setItem('photoUrl', e.target.result);
-                // 其他表单字段存储到 localStorage
+                // 存储其他表单字段到 localStorage
+                formData.forEach((value, key) => {
+                    localStorage.setItem(key, value);
+                });
+                localStorage.setItem('musicUrl', currentMusic);
 
-                // 显示敬邀您页面
-                invitationSection.classList.remove("hidden");
-                mainPhotoElement.src = e.target.result;
-
-                // 播放音乐
-                if (currentMusic) {
-                    backgroundMusic.src = currentMusic;
-                    backgroundMusic.play().catch(function(error) {
-                        console.log("自动播放音乐失败，需要用户互动", error);
-                    });
-                }
+                // 跳转到敬邀您页面
+                window.location.href = "invitation.html";
             };
             reader.readAsDataURL(photoFile);
         }
-
-        form.style.display = "none";
     });
 
     // 选择音乐
@@ -61,9 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const musicUrl = selectedOption.value;
         currentMusic = musicUrl;
         backgroundMusic.src = musicUrl;
-        localStorage.setItem('musicUrl', musicUrl); // 保存到 localStorage
 
-        // 播放选择的音乐
         if (playMusicButton.style.display === "none") {
             backgroundMusic.play().catch(function(error) {
                 console.log("自动播放音乐失败，需要用户互动", error);
@@ -73,9 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // 播放音乐
     playMusicButton.addEventListener("click", function() {
-        backgroundMusic.play().catch(function(error) {
-            console.log("自动播放音乐失败，需要用户互动", error);
-        });
+        backgroundMusic.play();
         playMusicButton.style.display = "none";
         stopMusicButton.style.display = "inline";
     });
