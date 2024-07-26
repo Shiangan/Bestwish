@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("info-form");
-    const invitationSection = document.getElementById("invitation-section");
+    const invitationSection = document.getElementById("invitation.html");
     const mainPhotoElement = document.getElementById("main-photo");
     const playMusicButton = document.getElementById("play-music");
     const stopMusicButton = document.getElementById("stop-music");
