@@ -43,6 +43,9 @@ document.addEventListener("DOMContentLoaded", function() {
                         console.log("Autoplay music failed; user interaction needed", error);
                     });
                 }
+                
+                // Redirect to invitation.html
+                window.location.href = "invitation.html"; // Redirect to the new page
             };
             reader.readAsDataURL(photoFile);
         }
