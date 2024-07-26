@@ -26,11 +26,15 @@ document.addEventListener("DOMContentLoaded", function() {
     // Handle form submission
     form.addEventListener("submit", function(event) {
         event.preventDefault();
+        
+        console.log("Form submitted");
 
         const photoFile = document.getElementById("photo").files[0];
         if (photoFile) {
             const reader = new FileReader();
             reader.onload = function(e) {
+                console.log("Photo loaded");
+
                 localStorage.setItem('photoUrl', e.target.result);
                 document.getElementById("main-photo").src = e.target.result;
                 document.getElementById("invitation-section").classList.remove("hidden");
@@ -44,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
                 
                 // Redirect to invitation.html
+                console.log("Redirecting to invitation.html");
                 window.location.href = "invitation.html";
             };
             reader.readAsDataURL(photoFile);
