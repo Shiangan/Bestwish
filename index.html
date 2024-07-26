@@ -12,11 +12,9 @@
     </header>
 
     <main>
-        <form id="info-form" action="upload.php" method="post" enctype="multipart/form-data">
-        <!-- 表單區 -->
         <section id="info-form-section">
             <h2>訃聞資料提交</h2>
-            <form id="info-form">
+            <form id="info-form" enctype="multipart/form-data">
                 <!-- 表單內容 -->
                 <label for="name">姓名:</label>
                 <input type="text" id="name" name="name" required>
@@ -71,19 +69,6 @@
                 <button type="submit">提交</button>
             </form>
         </section>
-
-        <!-- 敬邀您页面 -->
-        <section id="invitation-section" class="hidden">
-            <div id="photo-container">
-                <img id="main-photo" src="image/invitation-photo.jpg" alt="主要照片">
-                <div id="invitation-overlay">
-                    <p>敬邀您</p>
-                    <a id="go-to-obituary" href="obituary.html" target="_blank">
-                        <button>點選我進入訃聞</button>
-                    </a>
-                </div>
-            </div>
-        </section>
     </main>
 
     <footer>
@@ -91,7 +76,7 @@
     </footer>
 
     <audio id="background-music" preload="auto" loop>
-        <source src="audio/default-music.mp3" type="audio/mpeg"> <!-- 确保这里有实际的音频文件 -->
+        <source src="audio/default-music.mp3" type="audio/mpeg">
         您的瀏覽器不支持音頻元素。
     </audio>
 
