@@ -1,169 +1,168 @@
-/* 全域性樣式 */
- 身體{
-     字型家族：Arial，無襯線；
-     保證金：0；
-     填充物：0；
-     盒子尺寸：邊框；
-     背景顏色：#f9f9f9;
+/* 全局样式 */
+ body {
+     font-family: Arial, sans-serif;
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+     background-color: #f9f9f9;
  }
 
- 標題{
-     位置：固定；
-     頂部：0；
-     左：0；
-     背景：#ffffff;
-     填充：10px 20px；
-     盒影：0 2px 4px rgba（0，0，0，0.1）；
-     寬度：100%；
-     z指數：1000；
+ header {
+     position: fixed;
+     top: 0;
+     left: 0;
+     background: #ffffff;
+     padding: 10px 20px;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+     width: 100%;
+     z-index: 1000;
  }
 
  .logo {
-     最大寬度：120px；
-     垂直對齊：中間；
+     max-width: 120px;
+     vertical-align: middle;
  }
 
- 主要{
-     填充：60px 20px 20px；/*調整填充以考慮固定標頭*/
+ main {
+     padding: 60px 20px 20px; /* Adjusted padding to account for fixed header */
  }
 
- 形式 {
-     最大寬度：600px；
-     保證金：0自動；
-     背景：#ffffff;
-     填充：20px；
-     邊界半徑：8px；
-     盒子陰影：0 4px 8px rgba（0，0，0，0.1）；
-     邊框：1px solid #ddd;
+ form {
+     max-width: 600px;
+     margin: 0 auto;
+     background: #ffffff;
+     padding: 20px;
+     border-radius: 8px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+     border: 1px solid #ddd;
  }
 
- 標籤{
-     顯示：塊；
-     邊距底部：8px；
-     字型重量：粗體；
+ label {
+     display: block;
+     margin-bottom: 8px;
+     font-weight: bold;
  }
 
- 輸入[type="text"]，
- 輸入[type="date"]，
- 輸入[type="time"]，
- 文字區域，
- 選擇{
-     寬度：calc（100% - 20px）；
-     填充：10px；
-     邊距底部：12px；
-     邊框：1px solid #ddd;
-     邊界半徑：4px；
-     背景顏色：#fafafa;
+ input[type="text"],
+ input[type="date"],
+ input[type="time"],
+ textarea,
+ select {
+     width: calc(100% - 20px);
+     padding: 10px;
+     margin-bottom: 12px;
+     border: 1px solid #ddd;
+     border-radius: 4px;
+     background-color: #fafafa;
  }
 
- 輸入[type="file"] {
-     邊界：無；
-     填充物：0；
+ input[type="file"] {
+     border: none;
+     padding: 0;
  }
 
- 按鈕{
-     背景顏色：#007bff；
-     顏色：#ffffff;
-     邊界：無；
-     填充：12px 20px；
-     邊界半徑：4px；
-     光標：指標；
-     字型大小：16px；
-     過渡：背景顏色0.3s輕鬆；
+ button {
+     background-color: #007bff;
+     color: #ffffff;
+     border: none;
+     padding: 12px 20px;
+     border-radius: 4px;
+     cursor: pointer;
+     font-size: 16px;
+     transition: background-color 0.3s ease;
  }
 
- 按鈕：懸停{
-     背景顏色：#0056b3；
+ button:hover {
+     background-color: #0056b3;
  }
 
- .隱藏 {
-     顯示：無；
+ .hidden {
+     display: none;
  }
 
  #invitation-section {
-     文字對齊：中心；
-     邊距頂部：20px；
+     text-align: center;
+     margin-top: 20px;
  }
 
  #photo-container {
-     位置：相對；
+     position: relative;
  }
 
  #main-photo {
-     最大寬度：100%；
-     邊界半徑：8px；
-     不透明度：0.6; /* 使照片淡化 */
+     max-width: 100%;
+     border-radius: 8px;
+     opacity: 0.6; /* 使照片淡化 */
  }
 
  #invitation-overlay {
-     位置：絕對；
-     頂部：0；
-     左：0；
-     寬度：100%；
-     高度：100%；
-     顯示：柔性；
-     正當性內容：中心；
-     對齊專案：中心；
-     背景：rgba（0，0，0，0.5）；
-     顏色：#ffffff;
-     邊界半徑：8px；
-     柔性方向：列；
-     文字對齊：中心；
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     background: rgba(0, 0, 0, 0.5);
+     color: #ffffff;
+     border-radius: 8px;
+     flex-direction: column;
+     text-align: center;
  }
 
  #invitation-overlay p {
-     字型大小：24px；
-     保證金：0；
+     font-size: 24px;
+     margin: 0;
  }
 
- #invitation-overlay按鈕{
-     邊距頂部：20px；
-     背景顏色：#28a745；
-     邊界：無；
-     填充：10px 20px；
-     邊界半徑：4px；
-     光標：指標；
-     字型大小：16px；
-     過渡：背景顏色0.3s輕鬆；
+ #invitation-overlay button {
+     margin-top: 20px;
+     background-color: #28a745;
+     border: none;
+     padding: 10px 20px;
+     border-radius: 4px;
+     cursor: pointer;
+     font-size: 16px;
+     transition: background-color 0.3s ease;
  }
 
  #invitation-overlay button:hover {
-     背景顏色：#218838；
+     background-color: #218838;
  }
 
- 頁尾{
-     背景：#ffffff;
-     文字對齊：中心；
-     填充：10px；
-     位置：相對；
-     寬度：100%；
-     底部：0；
-     邊框頂部：1px實心#ddd;
-     盒子陰影：0 -2px 4px rgba（0，0，0，0.1）；
+ footer {
+     background: #ffffff;
+     text-align: center;
+     padding: 10px;
+     position: relative;
+     width: 100%;
+     bottom: 0;
+     border-top: 1px solid #ddd;
+     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
  }
 
  #music-control {
-     位置：固定；
-     底部：20px；
-     右：20px；
-     顯示：柔性；
-     間隙：10px；
+     position: fixed;
+     bottom: 20px;
+     right: 20px;
+     display: flex;
+     gap: 10px;
  }
 
- #music-control按鈕{
-     背景：無；
-     邊界：無；
-     光標：指標；
-     寬度：40px；
-     高度：40px；
-     背景尺寸：封面；
+ #music-control button {
+     background: none;
+     border: none;
+     cursor: pointer;
+     width: 40px;
+     height: 40px;
+     background-size: cover;
  }
 
  #music-control #play-music {
-     背景影象：url（'images/sound-on.png'）；
+     background-image: url('images/sound-on.png');
  }
 
  #music-control #stop-music {
-     顯示：無；
-     背景影象：url（'images/sound-off.png'）；
- }
+     display: none;
+     background-image: url('images/sound-off.png');
