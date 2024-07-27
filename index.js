@@ -13,8 +13,13 @@ document.addEventListener("DOMContentLoaded", function() {
         const storedMusicUrl = localStorage.getItem('musicUrl');
 
         if (storedPhotoUrl) {
-            document.getElementById("main-photo").src = storedPhotoUrl;
-            document.getElementById("invitation-section").classList.remove("hidden");
+            const mainPhoto = document.getElementById("main-photo");
+            if (mainPhoto) {
+                mainPhoto.src = storedPhotoUrl;
+                document.getElementById("invitation-section").classList.remove("hidden");
+            } else {
+                console.error("未找到 'main-photo' 元素。");
+            }
         }
 
         if (storedMusicUrl) {
@@ -35,21 +40,26 @@ document.addEventListener("DOMContentLoaded", function() {
             reader.onload = function(e) {
                 // 保存照片 URL 并更新 UI
                 localStorage.setItem('photoUrl', e.target.result);
-                document.getElementById("main-photo").src = e.target.result;
-                document.getElementById("invitation-section").classList.remove("hidden");
+                const mainPhoto = document.getElementById("main-photo");
+                if (mainPhoto) {
+                    mainPhoto.src = e.target.result;
+                    document.getElementById("invitation-section").classList.remove("hidden");
 
-                // 播放背景音乐（如果有选择）
-                if (currentMusicUrl) {
-                    backgroundMusic.src = currentMusicUrl;
-                    backgroundMusic.play().catch(error => {
-                        console.error("播放音乐失败:", error);
-                    });
+                    // 播放背景音乐（如果有选择）
+                    if (currentMusicUrl) {
+                        backgroundMusic.src = currentMusicUrl;
+                        backgroundMusic.play().catch(error => {
+                            console.error("播放音乐失败:", error);
+                        });
+                    }
+
+                    // 跳转到 invitation.html
+                    setTimeout(() => {
+                        window.location.href = "invitation.html";
+                    }, 100); // 确保 UI 更新完成后再跳转
+                } else {
+                    console.error("未找到 'main-photo' 元素。");
                 }
-
-                // 跳转到 invitation.html
-                setTimeout(() => {
-                    window.location.href = "invitation.html";
-                }, 100); // 确保 UI 更新完成后再跳转
             };
             reader.readAsDataURL(photoFile);
         } else {
