@@ -47,6 +47,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 window.location.href = "invitation.html";
             };
             reader.readAsDataURL(photoFile);
+        } else {
+            console.error("No photo file selected.");
         }
 
         form.style.display = "none";
@@ -58,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const musicUrl = selectedOption.value;
         currentMusic = musicUrl;
         backgroundMusic.src = musicUrl;
-        localStorage.setItem('musicUrl', musicUrl); // Save to localStorage
+        localStorage.setItem('musicUrl', musicUrl);
 
         // Play selected music
         if (playMusicButton.style.display === "none") {
