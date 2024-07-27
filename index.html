@@ -3,84 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>祥安生命禮儀公司</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>祥安生命有限公司－訃聞公告</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
     <header>
         <img src="image/logo.png" alt="祥安生命有限公司 Logo" class="logo">
     </header>
-
     <main>
-        <section id="form-section">
-            <form id="info-form">
+        <section id="info-form-section">
+            <h2>訃聞資料提交</h2>
+            <form id="info-form" enctype="multipart/form-data">
+                <!-- 表單內容 -->
                 <label for="name">姓名:</label>
                 <input type="text" id="name" name="name" required>
+                <label for="photo">追思照片:</label>
+                <input type="file" id="photo" name="photo" accept="image/*" required>
+                <label for="additional-photos">其他照片（可選不限張數）:</label>
+                <input type="file" id="additional-photos" name="additional-photos[]" accept="image/*" multiple>
+                <label for="paper-obituary">訃聞紙本內容:</label>
+                <input type="file" id="paper-obituary" name="paper-obituary" accept="image/*">
                 <label for="birth-date">出生日期:</label>
                 <input type="date" id="birth-date" name="birth-date" required>
                 <label for="death-date">死亡日期:</label>
                 <input type="date" id="death-date" name="death-date" required>
                 <label for="funeral-space">牌位安置地點:</label>
-                <input type="text" id="funeral-space" name="funeral-space" required>
+                <textarea id="funeral-space" name="funeral-space"></textarea>
                 <label for="funeral-date">出殯日期:</label>
                 <input type="date" id="funeral-date" name="funeral-date" required>
                 <label for="funeral-location">出殯地點:</label>
-                <input type="text" id="funeral-location" name="funeral-location" required>
+                <select id="funeral-location" name="funeral-location" required>
+                    <option value="第二殯儀館">第二殯儀館 禮廳</option>
+                    <option value="板橋殯儀館">板橋殯儀館 禮廳</option>
+                    <option value="其他">其他</option>
+                </select>
+                <input type="text" id="other-funeral-location" name="other-funeral-location" placeholder="若選擇其他，請填寫地點">
                 <label for="family-service-time">家奠禮時間:</label>
                 <input type="time" id="family-service-time" name="family-service-time" required>
                 <label for="public-service-time">公奠禮時間:</label>
                 <input type="time" id="public-service-time" name="public-service-time" required>
                 <label for="life-story">生平介紹:</label>
-                <textarea id="life-story" name="life-story" required></textarea>
-                <label for="photo">上傳照片:</label>
-                <input type="file" id="photo" name="photo" accept="image/*" required>
-                <label for="music-choice">選擇音樂:</label>
+                <textarea id="life-story" name="life-story"></textarea>
+
+                <label for="music-choice">選擇背景音樂:</label>
                 <select id="music-choice" name="music-choice">
-                    <option value="music1.mp3">音樂1</option>
-                    <option value="music2.mp3">音樂2</option>
+                    <option value="audio/父母.mp3">父母</option>
+                    <option value="audio/music2.mp3">音樂2</option>
+                    <option value="audio/music3.mp3">音樂3</option>
+                    <option value="audio/music4.mp3">音樂4</option>
+                    <option value="audio/music5.mp3">音樂5</option>
                 </select>
                 <button type="submit">提交</button>
             </form>
         </section>
+        <!-- 确保此元素存在以便 JavaScript 操作 -->
+        <section id="invitation.html" class="hidden">
+            <img id="main-photo" src="" alt="追思照片">
+            <!-- 其他内容 -->
+        </section>
     </main>
-
     <footer>
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
     </footer>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const form = document.getElementById("info-form");
-
-            form.addEventListener("submit", function(event) {
-                event.preventDefault();
-
-                const photoFile = document.getElementById("photo").files[0];
-                const reader = new FileReader();
-
-                reader.onload = function(e) {
-                    localStorage.setItem('photoUrl', e.target.result);
-
-                    localStorage.setItem('name', document.getElementById('name').value);
-                    localStorage.setItem('birthDate', document.getElementById('birth-date').value);
-                    localStorage.setItem('deathDate', document.getElementById('death-date').value);
-                    localStorage.setItem('funeralSpace', document.getElementById('funeral-space').value);
-                    localStorage.setItem('funeralDate', document.getElementById('funeral-date').value);
-                    localStorage.setItem('funeralLocation', document.getElementById('funeral-location').value);
-                    localStorage.setItem('familyServiceTime', document.getElementById('family-service-time').value);
-                    localStorage.setItem('publicServiceTime', document.getElementById('public-service-time').value);
-                    localStorage.setItem('lifeStory', document.getElementById('life-story').value);
-
-                    const musicChoice = document.getElementById("music-choice");
-                    const selectedMusic = musicChoice.options[musicChoice.selectedIndex].value;
-                    localStorage.setItem('musicUrl', selectedMusic);
-
-                    window.location.href = "invitation.html";
-                };
-
-                reader.readAsDataURL(photoFile);
-            });
-        });
-    </script>
+    <audio id="background-music" preload="auto" loop>
+        <source src="audio/music.mp3" type="audio/mp3">
+        您的瀏覽器不支持音頻元素。
+    </audio>
+    <div id="music-control">
+        <button id="play-music" aria-label="播放音樂" style="background: url('images/sound-on.png');">🔊</button>
+        <button id="stop-music" aria-label="停止音樂" style="display: none; background: url('images/sound-off.png');">🔇</button>
+    </div>
+    <script src="index.js"></script>
 </body>
 </html>
