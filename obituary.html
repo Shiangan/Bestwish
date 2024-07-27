@@ -1,96 +1,67 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const mainPhotoElement = document.getElementById('obituary-photo');
-    const obituaryTextElement = document.getElementById('obituary-text');
-    const carousel = document.querySelector('.carousel');
-    const mapContainer = document.getElementById('map-container');
-    const messagesContainer = document.getElementById('messages-container');
-    const messageForm = document.getElementById('message-form');
-    const flowerOrderLink = document.getElementById('flower-order-link');
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>訃聞公告</title>
+    <link rel="stylesheet" href="obituary.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+</head>
+<body>
+    <header>
+        <img src="image/logo.png" alt="祥安生命有限公司 Logo" class="logo">
+    </header>
 
-    // 从 localStorage 获取数据
-    const photoUrl = localStorage.getItem('photoUrl');
-    const obituaryData = JSON.parse(localStorage.getItem('obituaryData')) || {};
-    const musicUrl = localStorage.getItem('musicUrl') || '';
+    <main>
+        <section id="obituary-info" class="fade-in">
+            <h1>訃聞公告</h1>
+            <div id="obituary-photo-container">
+                <img id="obituary-photo" src="" alt="主要追思照片">
+            </div>
+            <p id="obituary-text">
+                我們摯愛的親人「<span id="name">[姓名]</span>」，生於<span id="birth-date">[出生日期]</span>，逝於<span id="death-date">[死亡日期]</span>，享年<span id="age">[享年]</span>。其牌位安置於<span id="funeral-space">[牌位安置地點]</span>。家奠禮將於<span id="family-service-time">[家奠禮時間]</span>舉行，公奠禮於<span id="public-service-time">[公奠禮時間]</span>舉行，地點為<span id="funeral-location">[出殯地點]</span>。願您在天堂安息，靈魂永垂不朽。
+            </p>
+        </section>
 
-    // 设置主要照片
-    if (photoUrl) {
-        mainPhotoElement.src = photoUrl;
-    }
+        <section id="photo-gallery" class="fade-in">
+            <h2>追思相册</h2>
+            <div class="carousel">
+                <!-- 轮播图项将通过 JavaScript 动态添加 -->
+            </div>
+        </section>
 
-    // 填充訃闻信息
-    if (obituaryData) {
-        document.getElementById('name').textContent = obituaryData.name || '';
-        document.getElementById('birth-date').textContent = obituaryData.birthDate || '';
-        document.getElementById('death-date').textContent = obituaryData.deathDate || '';
-        document.getElementById('age').textContent = obituaryData.age || '';
-        document.getElementById('funeral-space').textContent = obituaryData.funeralSpace || '';
-        document.getElementById('family-service-time').textContent = obituaryData.familyServiceTime || '';
-        document.getElementById('public-service-time').textContent = obituaryData.publicServiceTime || '';
-        document.getElementById('funeral-location').textContent = obituaryData.funeralLocation || '';
-    }
+        <section id="map" class="fade-in">
+            <h2>儀式地圖</h2>
+            <div id="map-container" style="height: 400px;"></div>
+        </section>
 
-    // 处理幻灯片图片
-    const imageUrls = JSON.parse(localStorage.getItem('photoUrls')) || [];
-    imageUrls.forEach(url => {
-        const img = document.createElement('div');
-        img.classList.add('carousel-item');
-        img.innerHTML = `<img src="${url}" alt="追思照片">`;
-        carousel.appendChild(img);
-    });
+        <section id="messages" class="fade-in">
+            <h2>留言區</h2>
+            <div id="messages-container"></div>
+            <form id="message-form">
+                <input type="text" id="message-name" name="message-name" placeholder="您的名字" required>
+                <textarea id="message-content" name="message-content" placeholder="請留下您的追思信息..." required></textarea>
+                <button type="submit">提交留言</button>
+            </form>
+        </section>
 
-    // 初始化 Slick Carousel
-    $(carousel).slick({
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        adaptiveHeight: true
-    });
+        <section id="flower-basket" class="fade-in">
+            <h2>致贈花禮送上祝福</h2>
+            <a href="flower-order.html" id="flower-order-link">訂購花籃請點選我</a>
+        </section>
+    </main>
 
-    // 设置地图
-    if (obituaryData.mapLocation) {
-        const map = new google.maps.Map(mapContainer, {
-            center: { lat: obituaryData.mapLocation.lat, lng: obituaryData.mapLocation.lng },
-            zoom: 15
-        });
-        new google.maps.Marker({
-            position: { lat: obituaryData.mapLocation.lat, lng: obituaryData.mapLocation.lng },
-            map: map
-        });
-    }
+    <footer>
+        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
+    </footer>
 
-    // 处理留言
-    messageForm.addEventListener('submit', function(event) {
-        event.preventDefault();
+    <button id="music-toggle">🔊</button>
+    <audio id="background-music" src="" loop></audio>
 
-        const name = document.getElementById('message-name').value;
-        const content = document.getElementById('message-content').value;
-
-        const messageElement = document.createElement('div');
-        messageElement.classList.add('message');
-        messageElement.innerHTML = `<strong>${name}</strong>: ${content}`;
-        messagesContainer.appendChild(messageElement);
-
-        // 清空表单
-        messageForm.reset();
-    });
-
-    // 音乐控制
-    document.getElementById('music-toggle').addEventListener('click', function() {
-        const backgroundMusic = document.getElementById('background-music');
-        if (backgroundMusic.paused) {
-            backgroundMusic.play();
-            this.textContent = "🔈";
-        } else {
-            backgroundMusic.pause();
-            this.textContent = "🔊";
-        }
-    });
-
-    // 跳转到花篮订购页面
-    if (flowerOrderLink) {
-        flowerOrderLink.addEventListener('click', function() {
-            window.location.href = 'flower-order.html';
-        });
-    }
-});
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
+    <script src="obituary.js"></script>
+</body>
+</html>
