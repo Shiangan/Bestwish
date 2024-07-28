@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const stopMusicButton = document.getElementById("stop-music");
     const backgroundMusic = document.getElementById("background-music");
     const musicChoice = document.getElementById("music-choice");
+    const customMusic = document.getElementById("custom-music");
 
     let currentMusicUrl = '';
 
@@ -13,13 +14,8 @@ document.addEventListener("DOMContentLoaded", function() {
         const storedMusicUrl = localStorage.getItem('musicUrl');
 
         if (storedPhotoUrl) {
-            const mainPhoto = document.getElementById("main-photo");
-            if (mainPhoto) {
-                mainPhoto.src = storedPhotoUrl;
-                document.getElementById("invitation-section").classList.remove("hidden");
-            } else {
-                console.error("未找到 'main-photo' 元素。");
-            }
+            // 不需要在 index.html 显示照片，但可以用于调试
+            console.log("Stored photo URL:", storedPhotoUrl);
         }
 
         if (storedMusicUrl) {
@@ -40,33 +36,33 @@ document.addEventListener("DOMContentLoaded", function() {
             reader.onload = function(e) {
                 // 保存照片 URL 并更新 UI
                 localStorage.setItem('photoUrl', e.target.result);
-                const mainPhoto = document.getElementById("main-photo");
-                if (mainPhoto) {
-                    mainPhoto.src = e.target.result;
-                    document.getElementById("invitation-section").classList.remove("hidden");
 
-                    // 播放背景音乐（如果有选择）
-                    if (currentMusicUrl) {
+                // 获取用户选择的音乐或自定义上传音乐
+                const musicUrl = musicChoice.value;
+                const customMusicFile = customMusic.files[0];
+                if (customMusicFile) {
+                    const customMusicReader = new FileReader();
+                    customMusicReader.onload = function(customMusicEvent) {
+                        currentMusicUrl = customMusicEvent.target.result;
+                        localStorage.setItem('musicUrl', currentMusicUrl);
                         backgroundMusic.src = currentMusicUrl;
-                        backgroundMusic.play().catch(error => {
-                            console.error("播放音乐失败:", error);
-                        });
-                    }
-
-                    // 跳转到 invitation.html
-                    setTimeout(() => {
-                        window.location.href = "invitation.html";
-                    }, 100); // 确保 UI 更新完成后再跳转
-                } else {
-                    console.error("未找到 'main-photo' 元素。");
+                    };
+                    customMusicReader.readAsDataURL(customMusicFile);
+                } else if (musicUrl) {
+                    currentMusicUrl = musicUrl;
+                    localStorage.setItem('musicUrl', musicUrl);
+                    backgroundMusic.src = musicUrl;
                 }
+
+                // 跳转到 invitation.html
+                setTimeout(() => {
+                    window.location.href = "invitation.html";
+                }, 100); // 确保 UI 更新完成后再跳转
             };
             reader.readAsDataURL(photoFile);
         } else {
             console.error("未选择照片文件。");
         }
-
-        form.style.display = "none";
     }
 
     // 处理音乐选择
@@ -77,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function() {
         backgroundMusic.src = musicUrl;
         localStorage.setItem('musicUrl', musicUrl);
 
-        // 如果已经在播放音乐，则播放选中的音乐
+        // 如果音乐正在播放，则更新为选中的音乐
         if (playMusicButton.style.display === "none") {
             backgroundMusic.play().catch(error => {
                 console.error("播放选中音乐失败:", error);
