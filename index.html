@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>祥安生命有限公司－訃聞公告</title>
     <link rel="stylesheet" href="index.css">
+    <script src="index.js" defer></script> <!-- 确保引用了正确的 JavaScript 文件 -->
 </head>
 <body>
     <header>
@@ -46,12 +47,14 @@
                 <textarea id="life-story" name="life-story"></textarea>
                 <label for="music-choice">選擇背景音樂:</label>
                 <select id="music-choice" name="music-choice">
-                    <option value="audio/父母.mp3">父母</option>
+                    <option value="audio/music1.mp3">音樂1</option>
                     <option value="audio/music2.mp3">音樂2</option>
                     <option value="audio/music3.mp3">音樂3</option>
                     <option value="audio/music4.mp3">音樂4</option>
                     <option value="audio/music5.mp3">音樂5</option>
                 </select>
+                <label for="custom-music">或上傳自定義音樂:</label>
+                <input type="file" id="custom-music" name="custom-music" accept="audio/*">
                 <button type="submit">提交</button>
             </form>
         </section>
@@ -59,14 +62,14 @@
     <footer>
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
     </footer>
+
     <audio id="background-music" preload="auto" loop>
-        <source src="audio/music.mp3" type="audio/mp3">
+        <source src="audio/music1.mp3" type="audio/mp3">
         您的瀏覽器不支持音頻元素。
     </audio>
     <div id="music-control">
         <button id="play-music" aria-label="播放音樂" style="background: url('images/sound-on.png');">🔊</button>
         <button id="stop-music" aria-label="停止音樂" style="display: none; background: url('images/sound-off.png');">🔇</button>
     </div>
-    <script src="index.js"></script>
 </body>
 </html>
