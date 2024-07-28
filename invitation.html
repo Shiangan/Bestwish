@@ -13,32 +13,30 @@
     </header>
 
     <main>
-        <section id="invitation-section">
+        <section id="invitation-section" class="hidden">
             <div id="photo-container">
-                <img id="main-photo" src="" alt="主要照片">
+                <img id="main-photo" alt="主要照片">
                 <div id="invitation-overlay">
                     <p>敬邀您</p>
                     <a id="go-to-obituary" href="obituary.html">
-                        <button>点选我进入訃闻</button>
+                        <button>點選我進入訃聞</button>
                     </a>
                 </div>
             </div>
-            <input type="file" id="photo-upload" accept="image/*">
-            <input type="file" id="music-upload" accept="audio/*">
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2024 祥安生命有限公司. 版权所有.</p>
+        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
     </footer>
 
     <audio id="background-music" preload="auto" loop>
-        您的浏览器不支持音频元素。
+        <source src="" type="audio/mp3">
+        您的瀏覽器不支持音頻元素。
     </audio>
-
     <div id="music-control">
-        <button id="play-music" aria-label="播放音乐" style="background: url('images/sound-on.png');">🔊</button>
-        <button id="stop-music" aria-label="停止音乐" style="display: none; background: url('images/sound-off.png');">🔇</button>
+        <button id="play-music" aria-label="播放音樂" style="background: url('images/sound-on.png');">🔊</button>
+        <button id="stop-music" aria-label="停止音樂" style="display: none; background: url('images/sound-off.png');">🔇</button>
     </div>
 </body>
 </html>
