@@ -6,6 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const playMusicButton = document.getElementById('play-music');
     const stopMusicButton = document.getElementById('stop-music');
 
+    // 恢复之前上传的音乐
+    if (localStorage.getItem('backgroundMusicSrc')) {
+        backgroundMusic.src = localStorage.getItem('backgroundMusicSrc');
+        backgroundMusic.play();
+    }
+
     // 处理照片上传
     photoUpload.addEventListener('change', (event) => {
         const file = event.target.files[0];
@@ -23,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         reader.onload = function(e) {
             backgroundMusic.src = e.target.result;
             backgroundMusic.play();
+            localStorage.setItem('backgroundMusicSrc', e.target.result);
         };
         reader.readAsDataURL(file);
     });
