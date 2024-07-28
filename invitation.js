@@ -1,49 +1,45 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const photoUpload = document.getElementById('photo-upload');
-    const mainPhoto = document.getElementById('main-photo');
-    const musicUpload = document.getElementById('music-upload');
-    const backgroundMusic = document.getElementById('background-music');
-    const playMusicButton = document.getElementById('play-music');
-    const stopMusicButton = document.getElementById('stop-music');
+document.addEventListener("DOMContentLoaded", function() {
+    const backgroundMusic = document.getElementById("background-music");
+    const playMusicButton = document.getElementById("play-music");
+    const stopMusicButton = document.getElementById("stop-music");
+    const mainPhoto = document.getElementById("main-photo");
+    const invitationSection = document.getElementById("invitation-section");
 
-    // 恢复之前上传的音乐
-    if (localStorage.getItem('backgroundMusicSrc')) {
-        backgroundMusic.src = localStorage.getItem('backgroundMusicSrc');
-        backgroundMusic.play();
+    function loadStoredSettings() {
+        const storedPhotoUrl = localStorage.getItem('photoUrl');
+        const storedMusicUrl = localStorage.getItem('musicUrl');
+
+        if (storedPhotoUrl) {
+            mainPhoto.src = storedPhotoUrl;
+            invitationSection.classList.remove("hidden");
+        }
+
+        if (storedMusicUrl) {
+            backgroundMusic.src = storedMusicUrl;
+            backgroundMusic.play().catch(error => {
+                console.error("播放背景音乐失败:", error);
+            });
+            playMusicButton.style.display = "none";
+            stopMusicButton.style.display = "inline";
+        }
     }
 
-    // 处理照片上传
-    photoUpload.addEventListener('change', (event) => {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            mainPhoto.src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-    });
+    function playBackgroundMusic() {
+        backgroundMusic.play().catch(error => {
+            console.error("播放背景音乐失败:", error);
+        });
+        playMusicButton.style.display = "none";
+        stopMusicButton.style.display = "inline";
+    }
 
-    // 处理音乐上传
-    musicUpload.addEventListener('change', (event) => {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            backgroundMusic.src = e.target.result;
-            backgroundMusic.play();
-            localStorage.setItem('backgroundMusicSrc', e.target.result);
-        };
-        reader.readAsDataURL(file);
-    });
-
-    // 控制音乐播放
-    playMusicButton.addEventListener('click', () => {
-        backgroundMusic.play();
-        playMusicButton.style.display = 'none';
-        stopMusicButton.style.display = 'inline';
-    });
-
-    stopMusicButton.addEventListener('click', () => {
+    function stopBackgroundMusic() {
         backgroundMusic.pause();
-        stopMusicButton.style.display = 'none';
-        playMusicButton.style.display = 'inline';
-    });
+        stopMusicButton.style.display = "none";
+        playMusicButton.style.display = "inline";
+    }
+
+    playMusicButton.addEventListener("click", playBackgroundMusic);
+    stopMusicButton.addEventListener("click", stopBackgroundMusic);
+
+    loadStoredSettings();
 });
