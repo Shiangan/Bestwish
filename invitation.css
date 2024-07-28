@@ -1,82 +1,45 @@
-/* invitation.css */
+document.addEventListener("DOMContentLoaded", function() {
+    const backgroundMusic = document.getElementById("background-music");
+    const playMusicButton = document.getElementById("play-music");
+    const stopMusicButton = document.getElementById("stop-music");
+    const mainPhoto = document.getElementById("main-photo");
+    const invitationSection = document.getElementById("invitation-section");
 
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    background-color: #fafafa; /* 为页面设置背景颜色以提高视觉效果 */
-}
+    function loadStoredSettings() {
+        const storedPhotoUrl = localStorage.getItem('photoUrl');
+        const storedMusicUrl = localStorage.getItem('musicUrl');
 
-header {
-    background-color: #f8f8f8;
-    padding: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 增加阴影以分隔头部和内容 */
-}
+        if (storedPhotoUrl) {
+            mainPhoto.src = storedPhotoUrl;
+            invitationSection.classList.remove("hidden");
+        }
 
-.logo {
-    width: 150px;
-    height: auto;
-}
+        if (storedMusicUrl) {
+            backgroundMusic.src = storedMusicUrl;
+            backgroundMusic.play().catch(error => {
+                console.error("播放背景音乐失败:", error);
+            });
+            playMusicButton.style.display = "none";
+            stopMusicButton.style.display = "inline";
+        }
+    }
 
-#invitation-content {
-    position: relative;
-    max-width: 1200px; /* 限制最大宽度以保持内容整洁 */
-    margin: 0 auto; /* 居中内容 */
-    padding: 20px;
-}
+    function playBackgroundMusic() {
+        backgroundMusic.play().catch(error => {
+            console.error("播放背景音乐失败:", error);
+        });
+        playMusicButton.style.display = "none";
+        stopMusicButton.style.display = "inline";
+    }
 
-#main-photo {
-    width: 100%;
-    height: auto;
-    border-radius: 8px; /* 为照片添加圆角 */
-}
+    function stopBackgroundMusic() {
+        backgroundMusic.pause();
+        stopMusicButton.style.display = "none";
+        playMusicButton.style.display = "inline";
+    }
 
-#invitation-overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-    font-size: 24px; /* 提高文本大小以增强可读性 */
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.5); /* 半透明背景以提高文本对比度 */
-    border-radius: 8px; /* 为覆盖层添加圆角 */
-}
+    playMusicButton.addEventListener("click", playBackgroundMusic);
+    stopMusicButton.addEventListener("click", stopBackgroundMusic);
 
-footer {
-    background-color: #f8f8f8;
-    padding: 10px;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* 增加阴影以分隔页脚和内容 */
-}
-
-#music-control {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    display: flex;
-    align-items: center;
-    gap: 10px; /* 增加按钮之间的间隔 */
-}
-
-#play-music, #stop-music {
-    background: no-repeat center center;
-    border: none;
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
-    background-size: cover; /* 确保图像适应按钮大小 */
-    transition: opacity 0.3s ease; /* 增加按钮的淡入淡出效果 */
-}
-
-#play-music {
-    background-image: url('images/sound-on.png'); /* 设置播放按钮图像 */
-}
-
-#stop-music {
-    background-image: url('images/sound-off.png'); /* 设置暂停按钮图像 */
-}
+    loadStoredSettings();
+});
