@@ -8,7 +8,8 @@ document.addEventListener("DOMContentLoaded", function() {
     // 加载保存的设置
     function loadStoredSettings() {
         const storedPhotoUrl = localStorage.getItem('photoUrl');
-        const storedMusicUrl = localStorage.getItem('musicUrl');
+        const storedMusicUrl = sessionStorage.getItem('musicUrl');
+        const musicPlaying = sessionStorage.getItem('musicPlaying') === 'true';
 
         // 设置照片
         if (storedPhotoUrl) {
@@ -19,11 +20,19 @@ document.addEventListener("DOMContentLoaded", function() {
         // 设置音乐
         if (storedMusicUrl) {
             backgroundMusic.src = storedMusicUrl;
-            backgroundMusic.play().catch(error => {
-                console.error("播放背景音乐失败:", error);
-            });
-            playMusicButton.style.display = "none";
-            stopMusicButton.style.display = "inline";
+            if (musicPlaying) {
+                playMusicButton.style.display = "none";
+                stopMusicButton.style.display = "inline";
+                backgroundMusic.play().catch(error => {
+                    console.error("播放背景音乐失败:", error);
+                });
+            } else {
+                playMusicButton.style.display = "inline";
+                stopMusicButton.style.display = "none";
+            }
+        } else {
+            // 默认播放音乐
+            playBackgroundMusic();
         }
     }
 
@@ -34,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         playMusicButton.style.display = "none";
         stopMusicButton.style.display = "inline";
+        sessionStorage.setItem('musicPlaying', 'true');
     }
 
     // 停止背景音乐
@@ -41,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
         backgroundMusic.pause();
         stopMusicButton.style.display = "none";
         playMusicButton.style.display = "inline";
+        sessionStorage.setItem('musicPlaying', 'false');
     }
 
     // 绑定按钮事件
@@ -49,4 +60,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // 页面加载时加载保存的设置
     loadStoredSettings();
+
+    // 监听页面卸载时保存音乐 URL
+    window.addEventListener("beforeunload", function() {
+        sessionStorage.setItem('musicUrl', backgroundMusic.src);
+    });
 });
