@@ -1,75 +1,41 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const backgroundMusic = document.getElementById("background-music");
-    const musicToggle = document.getElementById("music-toggle");
+    // 从 localStorage 中获取数据并显示在页面上
+    function loadObituaryData() {
+        const photoUrl = localStorage.getItem('photoUrl');
+        const name = localStorage.getItem('name');
+        const birthDate = localStorage.getItem('birthDate');
+        const deathDate = localStorage.getItem('deathDate');
+        const age = localStorage.getItem('age');
+        const funeralSpace = localStorage.getItem('funeralSpace');
+        const familyServiceTime = localStorage.getItem('familyServiceTime');
+        const publicServiceTime = localStorage.getItem('publicServiceTime');
+        const funeralLocation = localStorage.getItem('funeralLocation');
+        const additionalPhotos = JSON.parse(localStorage.getItem('additionalPhotos'));
+        const musicUrl = localStorage.getItem('musicUrl');
 
-    // 从 localStorage 加载已保存的设置
-    function loadStoredSettings() {
-        const storedPhotoUrl = localStorage.getItem('photoUrl');
-        const storedMusicUrl = localStorage.getItem('musicUrl');
-        const storedName = localStorage.getItem('name');
-        const storedBirthDate = localStorage.getItem('birthDate');
-        const storedDeathDate = localStorage.getItem('deathDate');
-        const storedAge = localStorage.getItem('age');
-        const storedFuneralSpace = localStorage.getItem('funeralSpace');
-        const storedFamilyServiceTime = localStorage.getItem('familyServiceTime');
-        const storedPublicServiceTime = localStorage.getItem('publicServiceTime');
-        const storedFuneralLocation = localStorage.getItem('funeralLocation');
-        const storedPaperObituary = localStorage.getItem('paperObituary');
-
-        if (storedPhotoUrl) {
-            document.getElementById('obituary-photo').src = storedPhotoUrl;
+        if (photoUrl) {
+                        document.getElementById('obituary-photo').src = photoUrl;
         }
 
-        if (storedMusicUrl) {
-            backgroundMusic.src = storedMusicUrl;
-            backgroundMusic.play().catch(error => {
-                console.error("播放背景音乐失败:", error);
+        document.getElementById('name').textContent = name;
+        document.getElementById('birth-date').textContent = birthDate;
+        document.getElementById('death-date').textContent = deathDate;
+        document.getElementById('age').textContent = age;
+        document.getElementById('funeral-space').textContent = funeralSpace;
+        document.getElementById('family-service-time').textContent = familyServiceTime;
+        document.getElementById('public-service-time').textContent = publicServiceTime;
+        document.getElementById('funeral-location').textContent = funeralLocation;
+
+        if (additionalPhotos && additionalPhotos.length > 0) {
+            const carousel = document.querySelector('.carousel');
+            additionalPhotos.forEach(photoUrl => {
+                const img = document.createElement('img');
+                img.src = photoUrl;
+                img.alt = "追思照片";
+                carousel.appendChild(img);
             });
-            musicToggle.textContent = "🔇";
-        }
 
-        if (storedName) document.getElementById('name').textContent = storedName;
-        if (storedBirthDate) document.getElementById('birth-date').textContent = storedBirthDate;
-        if (storedDeathDate) document.getElementById('death-date').textContent = storedDeathDate;
-        if (storedAge) document.getElementById('age').textContent = storedAge;
-        if (storedFuneralSpace) document.getElementById('funeral-space').textContent = storedFuneralSpace;
-        if (storedFamilyServiceTime) document.getElementById('family-service-time').textContent = storedFamilyServiceTime;
-        if (storedPublicServiceTime) document.getElementById('public-service-time').textContent = storedPublicServiceTime;
-        if (storedFuneralLocation) document.getElementById('funeral-location').textContent = storedFuneralLocation;
-
-        if (storedPaperObituary) {
-            const paperObituaryContainer = document.getElementById('paper-obituary-container');
-            const paperObituaryElement = document.createElement('img');
-            paperObituaryElement.src = storedPaperObituary;
-            paperObituaryContainer.appendChild(paperObituaryElement);
-        }
-    }
-
-    // 处理音乐开关
-    musicToggle.addEventListener("click", function() {
-        if (backgroundMusic.paused) {
-            backgroundMusic.play().catch(error => {
-                console.error("播放背景音乐失败:", error);
-            });
-            musicToggle.textContent = "🔇";
-        } else {
-            backgroundMusic.pause();
-            musicToggle.textContent = "🔊";
-        }
-    });
-
-    // 初始化轮播图
-    function initializeCarousel() {
-        const additionalPhotos = JSON.parse(localStorage.getItem('additionalPhotos')) || [];
-        const carousel = document.querySelector('.carousel');
-
-        additionalPhotos.forEach(photoUrl => {
-            const imgElement = document.createElement('img');
-            imgElement.src = photoUrl;
-            carousel.appendChild(imgElement);
-        });
-
-        if (additionalPhotos.length > 0) {
+            // 初始化 Slick Carousel
             $(carousel).slick({
                 dots: true,
                 infinite: true,
@@ -78,126 +44,79 @@ document.addEventListener("DOMContentLoaded", function() {
                 adaptiveHeight: true
             });
         }
+
+        if (musicUrl) {
+            const backgroundMusic = document.getElementById('background-music');
+            backgroundMusic.src = musicUrl;
+
+            const musicToggle = document.getElementById('music-toggle');
+            musicToggle.addEventListener('click', function() {
+                if (backgroundMusic.paused) {
+                    backgroundMusic.play();
+                    musicToggle.textContent = '🔇';
+                } else {
+                    backgroundMusic.pause();
+                    musicToggle.textContent = '🔊';
+                }
+            });
+        }
+
+        // 初始化地图
+        const mapContainer = document.getElementById('map-container');
+        const map = new google.maps.Map(mapContainer, {
+            center: { lat: -34.397, lng: 150.644 },
+            zoom: 8
+        });
+        // 可以根据 funeralLocation 定位地图
     }
 
-    // 处理留言提交
+    // 页面加载时加载訃聞数据
+    loadObituaryData();
+
+    // 留言区处理
     const messageForm = document.getElementById('message-form');
+    const messagesContainer = document.getElementById('messages-container');
+
     messageForm.addEventListener('submit', function(event) {
         event.preventDefault();
 
         const name = document.getElementById('message-name').value;
         const content = document.getElementById('message-content').value;
         const photoFile = document.getElementById('message-photo').files[0];
-        const messagesContainer = document.getElementById('messages-container');
+        const reader = new FileReader();
 
-        const messageElement = document.createElement('div');
-        messageElement.className = 'message';
-        messageElement.innerHTML = `<strong>${name}</strong><p>${content}</p>`;
+        reader.onload = function(e) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+
+            const nameParagraph = document.createElement('p');
+            nameParagraph.classList.add('message-name');
+            nameParagraph.textContent = name;
+
+            const contentParagraph = document.createElement('p');
+            contentParagraph.classList.add('message-content');
+            contentParagraph.textContent = content;
+
+            messageDiv.appendChild(nameParagraph);
+            messageDiv.appendChild(contentParagraph);
+
+            if (photoFile) {
+                const img = document.createElement('img');
+                img.classList.add('message-photo');
+                img.src = e.target.result;
+                messageDiv.appendChild(img);
+            }
+
+            messagesContainer.appendChild(messageDiv);
+
+            // 清空表单
+            messageForm.reset();
+        };
 
         if (photoFile) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const imgElement = document.createElement('img');
-                imgElement.src = e.target.result;
-                messageElement.appendChild(imgElement);
-                messagesContainer.appendChild(messageElement);
-                saveMessage(name, content, e.target.result);
-            };
             reader.readAsDataURL(photoFile);
         } else {
-            messagesContainer.appendChild(messageElement);
-            saveMessage(name, content, null);
-        }
-
-        // 重置表单
-        messageForm.reset();
-    });
-
-    // 保存留言到 localStorage
-    function saveMessage(name, content, photoUrl) {
-        const messages = JSON.parse(localStorage.getItem('messages')) || [];
-        messages.push({ name, content, photoUrl });
-        localStorage.setItem('messages', JSON.stringify(messages));
-
-        // 如果有照片，将其添加到追思照片中
-        if (photoUrl) {
-            const additionalPhotos = JSON.parse(localStorage.getItem('additionalPhotos')) || [];
-            additionalPhotos.push(photoUrl);
-            localStorage.setItem('additionalPhotos', JSON.stringify(additionalPhotos));
-            updateCarousel();
-        }
-    }
-
-    // 更新轮播图
-    function updateCarousel() {
-        const carousel = document.querySelector('.carousel');
-        $(carousel).slick('unslick'); // 卸载 slick
-        carousel.innerHTML = ''; // 清空现有图片
-
-        const additionalPhotos = JSON.parse(localStorage.getItem('additionalPhotos')) || [];
-        additionalPhotos.forEach(photoUrl => {
-            const imgElement = document.createElement('img');
-            imgElement.src = photoUrl;
-            carousel.appendChild(imgElement);
-        });
-
-        if (additionalPhotos.length > 0) {
-            $(carousel).slick({
-                dots: true,
-                infinite: true,
-                speed: 300,
-                slidesToShow: 1,
-                adaptiveHeight: true
-            });
-        }
-    }
-
-    // 加载留言
-    function loadMessages() {
-        const messages = JSON.parse(localStorage.getItem('messages')) || [];
-        const messagesContainer = document.getElementById('messages-container');
-
-        messages.forEach(message => {
-            const messageElement = document.createElement('div');
-            messageElement.className = 'message';
-            messageElement.innerHTML = `<strong>${message.name}</strong><p>${message.content}</p>`;
-            if (message.photoUrl) {
-                const imgElement = document.createElement('img');
-                imgElement.src = message.photoUrl;
-                messageElement.appendChild(imgElement);
-            }
-            messagesContainer.appendChild(messageElement);
-        });
-    }
-
-    // 处理纸本訃聞上传
-    const paperObituaryFileInput = document.getElementById('paper-obituary-file');
-    paperObituaryFileInput.addEventListener('change', function(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const paperObituaryContainer = document.getElementById('paper-obituary-container');
-                paperObituaryContainer.innerHTML = ''; // 清空现有内容
-                if (file.type.includes('image')) {
-                    const imgElement = document.createElement('img');
-                    imgElement.src = e.target.result;
-                    paperObituaryContainer.appendChild(imgElement);
-                } else if (file.type.includes('pdf')) {
-                    const pdfElement = document.createElement('embed');
-                    pdfElement.src = e.target.result;
-                    pdfElement.type = 'application/pdf';
-                    pdfElement.width = '100%';
-                    pdfElement.height = '500px';
-                    paperObituaryContainer.appendChild(pdfElement);
-                }
-                localStorage.setItem('paperObituary', e.target.result);
-            };
-            reader.readAsDataURL(file);
+            reader.onload(); // 没有图片也创建留言
         }
     });
-
-    loadStoredSettings();
-    initializeCarousel();
-    loadMessages();
 });
