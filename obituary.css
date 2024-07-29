@@ -16,8 +16,9 @@ header {
 }
 
 .logo {
-    max-width: 150px;
+    max-width: 120px;
     height: auto;
+    margin: 20px auto;
 }
 
 /* 主要内容区域 */
@@ -26,8 +27,8 @@ main {
     max-width: 900px;
     margin: 0 auto;
     background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
 }
 
 /* 各个部分的样式 */
@@ -40,10 +41,16 @@ main {
 }
 
 #obituary-photo {
-    max-width: 100%;
+    width: 100%;
     height: auto;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+#obituary-photo-container:hover #obituary-photo {
+    opacity: 0.5;
 }
 
 #obituary-text {
@@ -61,7 +68,7 @@ main {
 .carousel img {
     width: 100%;
     height: auto;
-    border-radius: 8px;
+    border-radius: 10px;
 }
 
 /* 地图容器 */
@@ -72,7 +79,7 @@ main {
 #map-container {
     width: 100%;
     height: 400px;
-    border-radius: 8px;
+    border-radius: 10px;
     overflow: hidden;
 }
 
@@ -88,10 +95,10 @@ main {
 .message {
     background-color: #f9f9f9;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 10px;
     padding: 1rem;
     margin-bottom: 1rem;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .message-name {
@@ -106,15 +113,15 @@ main {
 .message-photo {
     max-width: 100%;
     height: auto;
-    border-radius: 8px;
+    border-radius: 10px;
 }
 
 /* 表单样式 */
 #message-form {
     background-color: #f9f9f9;
     padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 #message-form input,
@@ -129,15 +136,16 @@ main {
 #message-form button {
     padding: 0.5rem 1rem;
     font-size: 1rem;
-    background-color: #333;
+    background-color: #007bff;
     color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 #message-form button:hover {
-    background-color: #555;
+    background-color: #0056b3;
 }
 
 /* 花礼区样式 */
@@ -151,13 +159,14 @@ main {
     padding: 0.5rem 1rem;
     font-size: 1.1rem;
     color: #fff;
-    background-color: #333;
+    background-color: #007bff;
     text-decoration: none;
-    border-radius: 4px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
 #flower-order-link:hover {
-    background-color: #555;
+    background-color: #0056b3;
 }
 
 /* 页脚样式 */
@@ -166,4 +175,20 @@ footer {
     color: #fff;
     padding: 1rem;
     text-align: center;
+}
+
+/* 联系信息样式 */
+.contact-info {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.contact-info a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
 }
