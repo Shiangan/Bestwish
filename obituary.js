@@ -12,9 +12,10 @@ document.addEventListener("DOMContentLoaded", function() {
         const funeralLocation = localStorage.getItem('funeralLocation');
         const additionalPhotos = JSON.parse(localStorage.getItem('additionalPhotos'));
         const musicUrl = localStorage.getItem('musicUrl');
+        const musicPlaying = localStorage.getItem('musicPlaying') === 'true';
 
         if (photoUrl) {
-                        document.getElementById('obituary-photo').src = photoUrl;
+            document.getElementById('obituary-photo').src = photoUrl;
         }
 
         document.getElementById('name').textContent = name;
@@ -48,26 +49,44 @@ document.addEventListener("DOMContentLoaded", function() {
         if (musicUrl) {
             const backgroundMusic = document.getElementById('background-music');
             backgroundMusic.src = musicUrl;
+            if (musicPlaying) {
+                backgroundMusic.play().catch(error => {
+                    console.error("播放背景音乐失败:", error);
+                });
+                document.getElementById('music-toggle').textContent = '🔇';
+            } else {
+                backgroundMusic.pause();
+                document.getElementById('music-toggle').textContent = '🔊';
+            }
 
             const musicToggle = document.getElementById('music-toggle');
             musicToggle.addEventListener('click', function() {
                 if (backgroundMusic.paused) {
-                    backgroundMusic.play();
+                    backgroundMusic.play().catch(error => {
+                        console.error("播放背景音乐失败:", error);
+                    });
                     musicToggle.textContent = '🔇';
+                    localStorage.setItem('musicPlaying', 'true');
                 } else {
                     backgroundMusic.pause();
                     musicToggle.textContent = '🔊';
+                    localStorage.setItem('musicPlaying', 'false');
                 }
             });
         }
 
         // 初始化地图
-        const mapContainer = document.getElementById('map-container');
-        const map = new google.maps.Map(mapContainer, {
-            center: { lat: -34.397, lng: 150.644 },
-            zoom: 8
-        });
-        // 可以根据 funeralLocation 定位地图
+        if (funeralLocation) {
+            const mapContainer = document.getElementById('map-container');
+            const mapOptions = {
+                center: { lat: 25.0330, lng: 121.5654 }, // 默认位置（台北）
+                zoom: 15
+            };
+            const map = new google.maps.Map(mapContainer, mapOptions);
+
+            // 根据 funeralLocation 设置地图中心
+            // 可以将 funeralLocation 解析为经纬度来设置地图中心
+        }
     }
 
     // 页面加载时加载訃聞数据
@@ -80,12 +99,11 @@ document.addEventListener("DOMContentLoaded", function() {
     messageForm.addEventListener('submit', function(event) {
         event.preventDefault();
 
-        const name = document.getElementById('message-name').value;
-        const content = document.getElementById('message-content').value;
+        const name = document.getElementById('message-name').value.trim();
+        const content = document.getElementById('message-content').value.trim();
         const photoFile = document.getElementById('message-photo').files[0];
-        const reader = new FileReader();
 
-        reader.onload = function(e) {
+        if (name && content) {
             const messageDiv = document.createElement('div');
             messageDiv.classList.add('message');
 
@@ -101,22 +119,20 @@ document.addEventListener("DOMContentLoaded", function() {
             messageDiv.appendChild(contentParagraph);
 
             if (photoFile) {
-                const img = document.createElement('img');
-                img.classList.add('message-photo');
-                img.src = e.target.result;
-                messageDiv.appendChild(img);
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.classList.add('message-photo');
+                    img.src = e.target.result;
+                    messageDiv.appendChild(img);
+                };
+                reader.readAsDataURL(photoFile);
             }
 
             messagesContainer.appendChild(messageDiv);
-
-            // 清空表单
             messageForm.reset();
-        };
-
-        if (photoFile) {
-            reader.readAsDataURL(photoFile);
         } else {
-            reader.onload(); // 没有图片也创建留言
+            alert("请输入您的名字和留言内容。");
         }
     });
 });
