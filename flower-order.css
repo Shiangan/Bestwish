@@ -158,7 +158,9 @@ main {
 }
 
 .cart img {
-    max-width: 80px;
+    max-width: 80px; /* Ensures the image does not exceed 80px in width */
+    max-height: 80px; /* Ensures the image does not exceed 80px in height */
+    width: auto;
     height: auto;
     border-radius: 6px;
 }
