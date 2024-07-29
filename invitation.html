@@ -24,6 +24,13 @@
                 </div>
             </div>
         </section>
+
+        <section id="service-details">
+            <h2>承办礼仪</h2>
+            <p>祥安生命有限公司</p>
+            <p>24H聯絡電話：<a href="tel:0938179858">0938179858</a></p>
+            <p>Line 聯絡：<a href="https://line.me/ti/p/@your-line-id" target="_blank">點此聯絡</a></p>
+        </section>
     </main>
 
     <footer>
@@ -38,58 +45,5 @@
         <button id="play-music" aria-label="播放音樂" style="background: url('images/sound-on.png');">🔊</button>
         <button id="stop-music" aria-label="停止音樂" style="display: none; background: url('images/sound-off.png');">🔇</button>
     </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const backgroundMusic = document.getElementById("background-music");
-            const playMusicButton = document.getElementById("play-music");
-            const stopMusicButton = document.getElementById("stop-music");
-
-            // 从 localStorage 加载已保存的音乐 URL 和播放状态
-            function loadMusicSettings() {
-                const storedMusicUrl = localStorage.getItem('musicUrl');
-                const musicPlaying = localStorage.getItem('musicPlaying') === 'true';
-
-                if (storedMusicUrl) {
-                    backgroundMusic.src = storedMusicUrl;
-                    if (musicPlaying) {
-                        playMusicButton.style.display = "none";
-                        stopMusicButton.style.display = "inline";
-                        backgroundMusic.play().catch(error => {
-                            console.error("播放音乐失败:", error);
-                        });
-                    } else {
-                        playMusicButton.style.display = "inline";
-                        stopMusicButton.style.display = "none";
-                    }
-                }
-            }
-
-            // 播放背景音乐
-            function playBackgroundMusic() {
-                backgroundMusic.play().catch(error => {
-                    console.error("播放背景音乐失败:", error);
-                });
-                playMusicButton.style.display = "none";
-                stopMusicButton.style.display = "inline";
-                localStorage.setItem('musicPlaying', 'true');
-            }
-
-            // 停止背景音乐
-            function stopBackgroundMusic() {
-                backgroundMusic.pause();
-                stopMusicButton.style.display = "none";
-                playMusicButton.style.display = "inline";
-                localStorage.setItem('musicPlaying', 'false');
-            }
-
-            // 绑定事件监听器
-            playMusicButton.addEventListener("click", playBackgroundMusic);
-            stopMusicButton.addEventListener("click", stopBackgroundMusic);
-
-            // 页面加载时加载保存的音乐设置
-            loadMusicSettings();
-        });
-    </script>
 </body>
 </html>
