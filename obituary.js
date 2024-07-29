@@ -1,162 +1,77 @@
 document.addEventListener("DOMContentLoaded", function() {
-    console.log("DOM fully loaded and parsed");
-
-    // 初始化轮播图
-    if (document.querySelector('.carousel')) {
-        console.log("Initializing carousel");
-        $('.carousel').slick({
-            dots: true,
-            infinite: true,
-            speed: 500,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 3000,
-            arrows: true
-        });
-
-        const additionalPhotos = JSON.parse(localStorage.getItem('additionalPhotoUrls') || '[]');
-        console.log("Additional photos:", additionalPhotos);
-        const carousel = $('.carousel');
-        additionalPhotos.forEach(photo => {
-            carousel.slick('slickAdd', `<div><img src="${photo}" alt="追思照片"></div>`);
-        });
-    }
-
-    // 设置地图
-    function initMap() {
-        const params = getQueryParams();
-        console.log("Map parameters:", params);
-        const funeralSpaceLocation = { lat: parseFloat(params['funeral-space-lat']), lng: parseFloat(params['funeral-space-lng']) };
-        const funeralLocation = { lat: parseFloat(params['funeral-location-lat']), lng: parseFloat(params['funeral-location-lng']) };
-
-        const mapOptions = {
-            zoom: 15,
-            center: funeralSpaceLocation
-        };
-
-        const map = new google.maps.Map(document.getElementById("map-container"), mapOptions);
-
-        new google.maps.Marker({
-            position: funeralSpaceLocation,
-            map: map,
-            title: "牌位安置地點"
-        });
-
-        new google.maps.Marker({
-            position: funeralLocation,
-            map: map,
-            title: "出殯地點"
-        });
-
-        const bounds = new google.maps.LatLngBounds();
-        bounds.extend(funeralSpaceLocation);
-        bounds.extend(funeralLocation);
-        map.fitBounds(bounds);
-    }
-
-    if (document.getElementById("map-container")) {
-        initMap();
-    }
-
-    // 处理留言表单
-    const messageForm = document.getElementById("message-form");
-    const messagesContainer = document.getElementById("messages-container");
-
-    if (messageForm) {
-        messageForm.addEventListener("submit", function(event) {
-            event.preventDefault();
-            
-            const name = document.getElementById("message-name").value;
-            const content = document.getElementById("message-content").value;
-
-            if (name && content) {
-                const messageItem = document.createElement("div");
-                messageItem.classList.add("message-item");
-                messageItem.innerHTML = `<strong>${name}</strong><p>${content}</p>`;
-                messagesContainer.appendChild(messageItem);
-
-                // 清空表单字段
-                messageForm.reset();
-            }
-        });
-    }
-
-    // 音乐控制
-    const musicToggle = document.getElementById("music-toggle");
     const backgroundMusic = document.getElementById("background-music");
+    const musicToggle = document.getElementById("music-toggle");
 
-    if (musicToggle && backgroundMusic) {
-        // 设置初始音乐来源
-        const params = getQueryParams();
-        if (params['music-choice']) {
-            backgroundMusic.src = params['music-choice'];
-            backgroundMusic.loop = true;
-            backgroundMusic.play(); // 使音乐播放
+    // 从 localStorage 加载已保存的设置
+    function loadStoredSettings() {
+        const storedPhotoUrl = localStorage.getItem('photoUrl');
+        const storedMusicUrl = localStorage.getItem('musicUrl');
+        const storedName = localStorage.getItem('name');
+        const storedBirthDate = localStorage.getItem('birthDate');
+        const storedDeathDate = localStorage.getItem('deathDate');
+        const storedAge = localStorage.getItem('age');
+        const storedFuneralSpace = localStorage.getItem('funeralSpace');
+        const storedFamilyServiceTime = localStorage.getItem('familyServiceTime');
+        const storedPublicServiceTime = localStorage.getItem('publicServiceTime');
+        const storedFuneralLocation = localStorage.getItem('funeralLocation');
+
+        if (storedPhotoUrl) {
+            document.getElementById('obituary-photo').src = storedPhotoUrl;
         }
 
-        musicToggle.addEventListener("click", function() {
-            if (backgroundMusic.paused) {
-                backgroundMusic.play();
-                musicToggle.textContent = "🔊";
-            } else {
-                backgroundMusic.pause();
-                musicToggle.textContent = "🔇";
-            }
+        if (storedMusicUrl) {
+            backgroundMusic.src = storedMusicUrl;
+            backgroundMusic.play().catch(error => {
+                console.error("播放背景音乐失败:", error);
+            });
+            musicToggle.textContent = "🔇";
+        }
+
+        if (storedName) document.getElementById('name').textContent = storedName;
+        if (storedBirthDate) document.getElementById('birth-date').textContent = storedBirthDate;
+        if (storedDeathDate) document.getElementById('death-date').textContent = storedDeathDate;
+        if (storedAge) document.getElementById('age').textContent = storedAge;
+        if (storedFuneralSpace) document.getElementById('funeral-space').textContent = storedFuneralSpace;
+        if (storedFamilyServiceTime) document.getElementById('family-service-time').textContent = storedFamilyServiceTime;
+        if (storedPublicServiceTime) document.getElementById('public-service-time').textContent = storedPublicServiceTime;
+        if (storedFuneralLocation) document.getElementById('funeral-location').textContent = storedFuneralLocation;
+    }
+
+    // 处理音乐开关
+    musicToggle.addEventListener("click", function() {
+        if (backgroundMusic.paused) {
+            backgroundMusic.play().catch(error => {
+                console.error("播放背景音乐失败:", error);
+            });
+            musicToggle.textContent = "🔇";
+        } else {
+            backgroundMusic.pause();
+            musicToggle.textContent = "🔊";
+        }
+    });
+
+    // 初始化轮播图
+    function initializeCarousel() {
+        const additionalPhotos = JSON.parse(localStorage.getItem('additionalPhotos')) || [];
+        const carousel = document.querySelector('.carousel');
+
+        additionalPhotos.forEach(photoUrl => {
+            const imgElement = document.createElement('img');
+            imgElement.src = photoUrl;
+            carousel.appendChild(imgElement);
         });
+
+        if (additionalPhotos.length > 0) {
+            $(carousel).slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                adaptiveHeight: true
+            });
+        }
     }
 
-    // 处理花篮订单链接
-    const flowerOrderLink = document.getElementById("flower-order-link");
-
-    if (flowerOrderLink) {
-        flowerOrderLink.addEventListener("click", function() {
-            window.location.href = "flower-order.html";
-        });
-    }
-
-    // 根据查询参数填充页面
-    function getQueryParams() {
-        const params = {};
-        window.location.search.substring(1).split("&").forEach(pair => {
-            const [key, value] = pair.split("=");
-            params[decodeURIComponent(key)] = decodeURIComponent(value);
-        });
-        return params;
-    }
-
-    const params = getQueryParams();
-    console.log("Query parameters:", params);
-
-    if (params.name) {
-        document.getElementById("name").textContent = params.name;
-    }
-
-    if (params.photo) {
-        document.getElementById("obituary-photo").src = params.photo;
-    }
-
-    if (params['birth-date']) {
-        document.getElementById("birth-date").textContent = params['birth-date'];
-    }
-
-    if (params['death-date']) {
-        document.getElementById("death-date").textContent = params['death-date'];
-    }
-
-    if (params['funeral-space']) {
-        document.getElementById("funeral-space").textContent = params['funeral-space'];
-    }
-
-    if (params['family-service-time']) {
-        document.getElementById("family-service-time").textContent = params['family-service-time'];
-    }
-
-    if (params['public-service-time']) {
-        document.getElementById("public-service-time").textContent = params['public-service-time'];
-    }
-
-    if (params['funeral-location']) {
-        document.getElementById("funeral-location").textContent = params['funeral-location'];
-    }
+    loadStoredSettings();
+    initializeCarousel();
 });
