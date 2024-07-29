@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const musicUrl = musicChoice.value;
         const customMusicFile = customMusic.files[0];
+        
         if (customMusicFile) {
             const customMusicReader = new FileReader();
             customMusicReader.onload = function(customMusicEvent) {
@@ -49,19 +50,26 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const additionalPhotos = [];
         const additionalPhotoFiles = document.getElementById("additional-photos").files;
+        let filesLoaded = 0;
+        
         for (let i = 0; i < additionalPhotoFiles.length; i++) {
             const fileReader = new FileReader();
             fileReader.onload = function(event) {
                 additionalPhotos.push(event.target.result);
-                if (additionalPhotos.length === additionalPhotoFiles.length) {
+                filesLoaded++;
+                if (filesLoaded === additionalPhotoFiles.length) {
                     localStorage.setItem('additionalPhotos', JSON.stringify(additionalPhotos));
                 }
             };
             fileReader.readAsDataURL(additionalPhotoFiles[i]);
         }
 
-        setTimeout(() => {
-            window.location.href = "invitation.html";
+        // 确保所有文件读取完毕后再跳转
+        const checkFilesLoaded = setInterval(() => {
+            if (filesLoaded === additionalPhotoFiles.length) {
+                clearInterval(checkFilesLoaded);
+                window.location.href = "invitation.html";
+            }
         }, 100);
     }
 
