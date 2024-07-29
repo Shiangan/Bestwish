@@ -39,20 +39,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (storedPaperObituary) {
             const paperObituaryContainer = document.getElementById('paper-obituary-container');
-            paperObituaryContainer.innerHTML = '';
-            const fileType = storedPaperObituary.split(';')[0].split(':')[1];
-            if (fileType.includes('image')) {
-                const imgElement = document.createElement('img');
-                imgElement.src = storedPaperObituary;
-                paperObituaryContainer.appendChild(imgElement);
-            } else if (fileType.includes('pdf')) {
-                const pdfElement = document.createElement('embed');
-                pdfElement.src = storedPaperObituary;
-                pdfElement.type = 'application/pdf';
-                pdfElement.width = '100%';
-                pdfElement.height = '500px';
-                paperObituaryContainer.appendChild(pdfElement);
-            }
+            const paperObituaryElement = document.createElement('img');
+            paperObituaryElement.src = storedPaperObituary;
+            paperObituaryContainer.appendChild(paperObituaryElement);
         }
     }
 
@@ -98,25 +87,34 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const name = document.getElementById('message-name').value;
         const content = document.getElementById('message-content').value;
-        const photoInput = document.getElementById('message-photo');
-        let photoUrl = '';
+        const photoFile = document.getElementById('message-photo').files[0];
+        const messagesContainer = document.getElementById('messages-container');
 
-        if (photoInput.files[0]) {
+        const messageElement = document.createElement('div');
+        messageElement.className = 'message';
+        messageElement.innerHTML = `<strong>${name}</strong><p>${content}</p>`;
+
+        if (photoFile) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                photoUrl = e.target.result;
-                saveMessage(name, content, photoUrl);
+                const imgElement = document.createElement('img');
+                imgElement.src = e.target.result;
+                messageElement.appendChild(imgElement);
+                messagesContainer.appendChild(messageElement);
+                saveMessage(name, content, e.target.result);
             };
-            reader.readAsDataURL(photoInput.files[0]);
+            reader.readAsDataURL(photoFile);
         } else {
-            saveMessage(name, content);
+            messagesContainer.appendChild(messageElement);
+            saveMessage(name, content, null);
         }
 
+        // 重置表单
         messageForm.reset();
     });
 
-    // 保存留言
-    function saveMessage(name, content, photoUrl = '') {
+    // 保存留言到 localStorage
+    function saveMessage(name, content, photoUrl) {
         const messages = JSON.parse(localStorage.getItem('messages')) || [];
         messages.push({ name, content, photoUrl });
         localStorage.setItem('messages', JSON.stringify(messages));
@@ -128,8 +126,6 @@ document.addEventListener("DOMContentLoaded", function() {
             localStorage.setItem('additionalPhotos', JSON.stringify(additionalPhotos));
             updateCarousel();
         }
-
-        loadMessages();
     }
 
     // 更新轮播图
@@ -160,32 +156,46 @@ document.addEventListener("DOMContentLoaded", function() {
     function loadMessages() {
         const messages = JSON.parse(localStorage.getItem('messages')) || [];
         const messagesContainer = document.getElementById('messages-container');
-        messagesContainer.innerHTML = '';         // 清空现有留言
-        messagesContainer.innerHTML = '';
 
         messages.forEach(message => {
             const messageElement = document.createElement('div');
-            messageElement.classList.add('message');
-
-            const nameElement = document.createElement('h3');
-            nameElement.textContent = message.name;
-
-            const contentElement = document.createElement('p');
-            contentElement.textContent = message.content;
-
-            messageElement.appendChild(nameElement);
-            messageElement.appendChild(contentElement);
-
+            messageElement.className = 'message';
+            messageElement.innerHTML = `<strong>${message.name}</strong><p>${message.content}</p>`;
             if (message.photoUrl) {
-                const photoElement = document.createElement('img');
-                photoElement.src = message.photoUrl;
-                photoElement.classList.add('message-photo');
-                messageElement.appendChild(photoElement);
+                const imgElement = document.createElement('img');
+                imgElement.src = message.photoUrl;
+                messageElement.appendChild(imgElement);
             }
-
             messagesContainer.appendChild(messageElement);
         });
     }
+
+    // 处理纸本訃聞上传
+    const paperObituaryFileInput = document.getElementById('paper-obituary-file');
+    paperObituaryFileInput.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const paperObituaryContainer = document.getElementById('paper-obituary-container');
+                paperObituaryContainer.innerHTML = ''; // 清空现有内容
+                if (file.type.includes('image')) {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = e.target.result;
+                    paperObituaryContainer.appendChild(imgElement);
+                } else if (file.type.includes('pdf')) {
+                    const pdfElement = document.createElement('embed');
+                    pdfElement.src = e.target.result;
+                    pdfElement.type = 'application/pdf';
+                    pdfElement.width = '100%';
+                    pdfElement.height = '500px';
+                    paperObituaryContainer.appendChild(pdfElement);
+                }
+                localStorage.setItem('paperObituary', e.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    });
 
     loadStoredSettings();
     initializeCarousel();
