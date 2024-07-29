@@ -71,5 +71,38 @@
         <button id="play-music" aria-label="播放音樂" style="background: url('images/sound-on.png');">🔊</button>
         <button id="stop-music" aria-label="停止音樂" style="display: none; background: url('images/sound-off.png');">🔇</button>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const music = document.getElementById('background-music');
+            const playButton = document.getElementById('play-music');
+            const stopButton = document.getElementById('stop-music');
+
+            // 确保音频可以自动播放
+            music.addEventListener('canplaythrough', () => {
+                if (localStorage.getItem('musicPlaying') === 'true') {
+                    music.play();
+                    playButton.style.display = 'none';
+                    stopButton.style.display = 'block';
+                }
+            });
+
+            // 播放音乐
+            playButton.addEventListener('click', function() {
+                music.play();
+                localStorage.setItem('musicPlaying', 'true');
+                playButton.style.display = 'none';
+                stopButton.style.display = 'block';
+            });
+
+            // 停止音乐
+            stopButton.addEventListener('click', function() {
+                music.pause();
+                localStorage.setItem('musicPlaying', 'false');
+                playButton.style.display = 'block';
+                stopButton.style.display = 'none';
+            });
+        });
+    </script>
 </body>
 </html>
