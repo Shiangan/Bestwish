@@ -2,22 +2,34 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     background-color: #f4f4f4;
+    margin: 0; /* 去掉默认的边距 */
+    padding: 0; /* 去掉默认的内边距 */
 }
 
 .logo {
-    width: 150px;
-    margin: 20px auto;
+    width: 120px; /* 缩小 Logo 尺寸 */
+    margin: 20px auto; /* 居中显示 */
 }
 
 #photo-container {
     position: relative;
-    width: 300px;
-    margin: 20px auto;
+    width: 90%; /* 自适应宽度 */
+    max-width: 600px; /* 最大宽度限制 */
+    margin: 20px auto; /* 居中显示 */
+    border-radius: 10px; /* 圆角边框 */
+    overflow: hidden; /* 隐藏溢出的部分 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加阴影 */
 }
 
 #main-photo {
     width: 100%;
-    opacity: 0.5; /* 调整照片的淡化程度 */
+    height: auto; /* 保持照片的纵横比 */
+    opacity: 0.7; /* 调整照片的淡化程度 */
+    transition: opacity 0.3s ease; /* 平滑过渡效果 */
+}
+
+#photo-container:hover #main-photo {
+    opacity: 0.5; /* 鼠标悬停时更明显的淡化效果 */
 }
 
 #invitation-overlay {
@@ -33,14 +45,24 @@ body {
     color: white;
     font-size: 24px;
     font-weight: bold;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6); /* 增加透明度以更好地突出文本 */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* 为文本添加阴影 */
 }
 
 button {
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 12px 24px; /* 增加按钮的内边距 */
+    font-size: 18px; /* 调整按钮的字体大小 */
     cursor: pointer;
     margin-top: 10px;
+    border: none;
+    border-radius: 5px; /* 圆角按钮 */
+    background-color: #007bff; /* 按钮背景颜色 */
+    color: white;
+    transition: background-color 0.3s ease; /* 平滑过渡效果 */
+}
+
+button:hover {
+    background-color: #0056b3; /* 鼠标悬停时的颜色变化 */
 }
 
 .hidden {
