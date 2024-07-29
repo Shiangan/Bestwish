@@ -10,29 +10,37 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function loadStoredSettings() {
         const storedMusicUrl = localStorage.getItem('musicUrl');
+        const isMusicPlaying = localStorage.getItem('musicPlaying') === 'true';
 
         if (storedMusicUrl) {
             currentMusicUrl = storedMusicUrl;
             backgroundMusic.src = storedMusicUrl;
-            playMusicButton.style.display = "none";
-            stopMusicButton.style.display = "inline";
+            if (isMusicPlaying) {
+                backgroundMusic.play().catch(error => {
+                    console.error("播放背景音乐失败:", error);
+                });
+                playMusicButton.style.display = "none";
+                stopMusicButton.style.display = "inline";
+            }
         }
     }
 
-    function handleFormSubmit(event) {
+    async function handleFormSubmit(event) {
         event.preventDefault();
 
         const musicUrl = musicChoice.value;
         const customMusicFile = customMusic.files[0];
         
         if (customMusicFile) {
-            const customMusicReader = new FileReader();
-            customMusicReader.onload = function(customMusicEvent) {
-                currentMusicUrl = customMusicEvent.target.result;
-                localStorage.setItem('musicUrl', currentMusicUrl);
-                backgroundMusic.src = currentMusicUrl;
-            };
-            customMusicReader.readAsDataURL(customMusicFile);
+            const customMusicUrl = await new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(customMusicFile);
+            });
+            currentMusicUrl = customMusicUrl;
+            localStorage.setItem('musicUrl', customMusicUrl);
+            backgroundMusic.src = customMusicUrl;
         } else if (musicUrl) {
             currentMusicUrl = musicUrl;
             localStorage.setItem('musicUrl', musicUrl);
@@ -48,29 +56,23 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem('publicServiceTime', document.getElementById('public-service-time').value);
         localStorage.setItem('funeralLocation', document.getElementById('funeral-location').value);
 
-        const additionalPhotos = [];
-        const additionalPhotoFiles = document.getElementById("additional-photos").files;
-        let filesLoaded = 0;
-        
-        for (let i = 0; i < additionalPhotoFiles.length; i++) {
-            const fileReader = new FileReader();
-            fileReader.onload = function(event) {
-                additionalPhotos.push(event.target.result);
-                filesLoaded++;
-                if (filesLoaded === additionalPhotoFiles.length) {
-                    localStorage.setItem('additionalPhotos', JSON.stringify(additionalPhotos));
-                }
-            };
-            fileReader.readAsDataURL(additionalPhotoFiles[i]);
+        const additionalPhotos = Array.from(document.getElementById("additional-photos").files).map(file => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        });
+
+        try {
+            const loadedPhotos = await Promise.all(additionalPhotos);
+            localStorage.setItem('additionalPhotos', JSON.stringify(loadedPhotos));
+        } catch (error) {
+            console.error("加载附加照片失败:", error);
         }
 
-        // 确保所有文件读取完毕后再跳转
-        const checkFilesLoaded = setInterval(() => {
-            if (filesLoaded === additionalPhotoFiles.length) {
-                clearInterval(checkFilesLoaded);
-                window.location.href = "invitation.html";
-            }
-        }, 100);
+        window.location.href = "invitation.html";
     }
 
     function calculateAge(birthDate, deathDate) {
@@ -108,8 +110,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function stopBackgroundMusic() {
         backgroundMusic.pause();
+        localStorage.setItem('musicPlaying', 'false');
+        playMusicButton.style.display = "block";
         stopMusicButton.style.display = "none";
-        playMusicButton.style.display = "inline";
     }
 
     form.addEventListener("submit", handleFormSubmit);
