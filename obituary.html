@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>訃聞公告</title>
-    <link rel="stylesheet" href="obituary.css">
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
 </head>
@@ -31,6 +31,13 @@
             </div>
         </section>
 
+        <section id="paper-obituary" class="fade-in">
+            <h2>紙本訃聞</h2>
+            <label for="paper-obituary-file">上傳紙本訃聞:</label>
+            <input type="file" id="paper-obituary-file" accept="image/*, application/pdf">
+            <div id="paper-obituary-container"></div>
+        </section>
+
         <section id="map" class="fade-in">
             <h2>儀式地圖</h2>
             <div id="map-container" style="height: 400px;"></div>
@@ -42,6 +49,8 @@
             <form id="message-form">
                 <input type="text" id="message-name" name="message-name" placeholder="您的名字" required>
                 <textarea id="message-content" name="message-content" placeholder="請留下您的追思信息..." required></textarea>
+                <label for="message-photo">上傳照片:</label>
+                <input type="file" id="message-photo" name="message-photo" accept="image/*">
                 <button type="submit">提交留言</button>
             </form>
         </section>
