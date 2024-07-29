@@ -5,6 +5,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
+    text-align: center;
 }
 
 /* 页头样式 */
@@ -25,7 +26,7 @@ header {
 main {
     padding: 2rem;
     max-width: 900px;
-    margin: 0 auto;
+    margin: 20px auto;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
@@ -34,6 +35,7 @@ main {
 /* 各个部分的样式 */
 #obituary-info {
     text-align: center;
+    margin-bottom: 2rem;
 }
 
 #obituary-photo-container {
@@ -45,12 +47,6 @@ main {
     height: auto;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
-}
-
-#obituary-photo-container:hover #obituary-photo {
-    opacity: 0.5;
 }
 
 #obituary-text {
@@ -69,6 +65,7 @@ main {
     width: 100%;
     height: auto;
     border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* 地图容器 */
@@ -191,4 +188,28 @@ footer {
 
 .contact-info a:hover {
     text-decoration: underline;
+}
+
+/* 音乐控制按钮 */
+#music-control {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+#play-music, #stop-music {
+    background-size: cover;
+    border: none;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+
+#play-music {
+    background: url('images/sound-on.png') no-repeat center center;
+}
+
+#stop-music {
+    background: url('images/sound-off.png') no-repeat center center;
+    display: none;
 }
