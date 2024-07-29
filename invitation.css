@@ -1,3 +1,4 @@
+/* 基础样式 */
 body {
     font-family: Arial, sans-serif;
     text-align: center;
@@ -6,11 +7,23 @@ body {
     padding: 0; /* 去掉默认的内边距 */
 }
 
+header {
+    background-color: #fff;
+    padding: 10px 0;
+}
+
 .logo {
     width: 120px; /* 缩小 Logo 尺寸 */
     margin: 20px auto; /* 居中显示 */
 }
 
+main {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+}
+
+/* 邀请部分 */
 #photo-container {
     position: relative;
     width: 90%; /* 自适应宽度 */
@@ -65,12 +78,42 @@ button:hover {
     background-color: #0056b3; /* 鼠标悬停时的颜色变化 */
 }
 
-.hidden {
-    display: none;
+/* 服务详情部分 */
+#service-details {
+    margin-top: 20px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+#service-details h2 {
+    margin-bottom: 10px;
+}
+
+#service-details p {
+    margin: 10px 0;
+}
+
+#service-details a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+#service-details a:hover {
+    text-decoration: underline;
+}
+
+/* 音乐控制 */
 #music-control {
     position: fixed;
     bottom: 20px;
     right: 20px;
+}
+
+#music-control button {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
 }
