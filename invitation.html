@@ -1,95 +1,54 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>敬邀您</title>
-    <link rel="stylesheet" href="invitation.css">
-    <script src="invitation.js" defer></script>
-</head>
-<body>
-    <header>
-        <img src="image/logo.png" alt="祥安生命有限公司 Logo" class="logo">
-    </header>
+document.addEventListener("DOMContentLoaded", function() {
+    const backgroundMusic = document.getElementById("background-music");
+    const playMusicButton = document.getElementById("play-music");
+    const stopMusicButton = document.getElementById("stop-music");
+    const mainPhoto = document.getElementById("main-photo");
+    const invitationSection = document.getElementById("invitation-section");
 
-    <main>
-        <section id="invitation-section" class="hidden">
-            <div id="photo-container">
-                <img id="main-photo" alt="主要照片">
-                <div id="invitation-overlay">
-                    <p>敬邀您</p>
-                    <a id="go-to-obituary" href="obituary.html">
-                        <button>點選我進入訃聞</button>
-                    </a>
-                </div>
-            </div>
-        </section>
-    </main>
+    // 从 sessionStorage 加载已保存的音乐 URL 和播放状态
+    function loadMusicSettings() {
+        const storedMusicUrl = sessionStorage.getItem('musicUrl');
+        const musicPlaying = sessionStorage.getItem('musicPlaying') === 'true';
 
-    <footer>
-        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
-    </footer>
-
-    <audio id="background-music" preload="auto" loop>
-        <source src="" type="audio/mp3">
-        您的瀏覽器不支持音頻元素。
-    </audio>
-    <div id="music-control">
-        <button id="play-music" aria-label="播放音樂" style="background: url('images/sound-on.png');">🔊</button>
-        <button id="stop-music" aria-label="停止音樂" style="display: none; background: url('images/sound-off.png');">🔇</button>
-    </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const backgroundMusic = document.getElementById("background-music");
-            const playMusicButton = document.getElementById("play-music");
-            const stopMusicButton = document.getElementById("stop-music");
-
-            // 从 localStorage 加载已保存的音乐 URL 和播放状态
-            function loadMusicSettings() {
-                const storedMusicUrl = localStorage.getItem('musicUrl');
-                const musicPlaying = localStorage.getItem('musicPlaying') === 'true';
-
-                if (storedMusicUrl) {
-                    backgroundMusic.src = storedMusicUrl;
-                    if (musicPlaying) {
-                        playMusicButton.style.display = "none";
-                        stopMusicButton.style.display = "inline";
-                        backgroundMusic.play().catch(error => {
-                            console.error("播放音乐失败:", error);
-                        });
-                    } else {
-                        playMusicButton.style.display = "inline";
-                        stopMusicButton.style.display = "none";
-                    }
-                }
-            }
-
-            // 播放背景音乐
-            function playBackgroundMusic() {
-                backgroundMusic.play().catch(error => {
-                    console.error("播放背景音乐失败:", error);
-                });
+        if (storedMusicUrl) {
+            backgroundMusic.src = storedMusicUrl;
+            if (musicPlaying) {
                 playMusicButton.style.display = "none";
                 stopMusicButton.style.display = "inline";
-                localStorage.setItem('musicPlaying', 'true');
-            }
-
-            // 停止背景音乐
-            function stopBackgroundMusic() {
-                backgroundMusic.pause();
-                stopMusicButton.style.display = "none";
+                backgroundMusic.play().catch(error => {
+                    console.error("播放音乐失败:", error);
+                });
+            } else {
                 playMusicButton.style.display = "inline";
-                localStorage.setItem('musicPlaying', 'false');
+                stopMusicButton.style.display = "none";
             }
+        } else {
+            playBackgroundMusic(); // 默认开始播放音乐
+        }
+    }
 
-            // 绑定事件监听器
-            playMusicButton.addEventListener("click", playBackgroundMusic);
-            stopMusicButton.addEventListener("click", stopBackgroundMusic);
-
-            // 页面加载时加载保存的音乐设置
-            loadMusicSettings();
+    // 播放背景音乐
+    function playBackgroundMusic() {
+        backgroundMusic.play().catch(error => {
+            console.error("播放背景音乐失败:", error);
         });
-    </script>
-</body>
-</html>
+        playMusicButton.style.display = "none";
+        stopMusicButton.style.display = "inline";
+        sessionStorage.setItem('musicPlaying', 'true');
+    }
+
+    // 停止背景音乐
+    function stopBackgroundMusic() {
+        backgroundMusic.pause();
+        stopMusicButton.style.display = "none";
+        playMusicButton.style.display = "inline";
+        sessionStorage.setItem('musicPlaying', 'false');
+    }
+
+    // 绑定按钮事件
+    playMusicButton.addEventListener("click", playBackgroundMusic);
+    stopMusicButton.addEventListener("click", stopBackgroundMusic);
+
+    // 页面加载时加载保存的音乐设置
+    loadMusicSettings();
+});
