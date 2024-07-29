@@ -14,15 +14,15 @@ document.addEventListener("DOMContentLoaded", function() {
         const storedMusicUrl = localStorage.getItem('musicUrl');
 
         if (storedPhotoUrl) {
-            // 不需要在 index.html 显示照片，但可以用于调试
             console.log("Stored photo URL:", storedPhotoUrl);
         }
 
         if (storedMusicUrl) {
             currentMusicUrl = storedMusicUrl;
             backgroundMusic.src = storedMusicUrl;
-            playMusicButton.style.display = "none";
-            stopMusicButton.style.display = "inline";
+            if (localStorage.getItem('musicPlaying') === 'true') {
+                playBackgroundMusic();
+            }
         }
     }
 
@@ -35,10 +35,8 @@ document.addEventListener("DOMContentLoaded", function() {
         if (photoFile) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                // 保存主要照片 URL
-                    localStorage.setItem('photoUrl', e.target.result);
+                localStorage.setItem('photoUrl', e.target.result);
 
-                // 获取用户选择的音乐或自定义上传音乐
                 const musicUrl = musicChoice.value;
                 const customMusicFile = customMusic.files[0];
                 if (customMusicFile) {
@@ -111,9 +109,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // 如果音乐正在播放，则更新为选中的音乐
         if (playMusicButton.style.display === "none") {
-            backgroundMusic.play().catch(error => {
-                console.error("播放选中音乐失败:", error);
-            });
+            playBackgroundMusic();
         }
     }
 
@@ -124,6 +120,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         playMusicButton.style.display = "none";
         stopMusicButton.style.display = "inline";
+        localStorage.setItem('musicPlaying', 'true');
     }
 
     // 停止背景音乐
@@ -131,6 +128,7 @@ document.addEventListener("DOMContentLoaded", function() {
         backgroundMusic.pause();
         stopMusicButton.style.display = "none";
         playMusicButton.style.display = "inline";
+        localStorage.setItem('musicPlaying', 'false');
     }
 
     // 绑定事件监听器
