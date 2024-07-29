@@ -1,213 +1,122 @@
-/* 全局样式 */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f0f0f0;
     color: #333;
-    background: linear-gradient(135deg, #f2f2f2 0%, #ffffff 100%);
 }
 
 header {
-    background: #2c3e50;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
+    background-color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.logo {
-    max-width: 150px;
-    height: auto;
+header .logo {
+    height: 50px;
 }
 
 main {
     padding: 20px;
 }
 
-h1, h2 {
-    color: #2c3e50;
-}
-
-/* 主要内容 */
 #obituary-info {
-    background: #ffffff;
-    border-radius: 8px;
+    background-color: #fff;
     padding: 20px;
     margin-bottom: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-#obituary-info img {
+#obituary-photo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#obituary-photo {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
+}
+
+.carousel {
     margin-bottom: 20px;
-}
-
-#photo-gallery {
-    background: #ffffff;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.carousel img {
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #map {
-    background: #ffffff;
-    border-radius: 8px;
-    padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #messages {
-    background: #ffffff;
-    border-radius: 8px;
-    padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #message-form {
-    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
-#message-form input, #message-form textarea {
-    width: 100%;
+#message-form input,
+#message-form textarea {
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     border-radius: 4px;
 }
 
 #message-form button {
-    background: #2c3e50;
-    color: #fff;
+    padding: 10px;
     border: none;
-    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
     border-radius: 4px;
     cursor: pointer;
 }
 
-#message-form button:hover {
-    background: #34495e;
-}
-
 #flower-basket {
-    background: #ffffff;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    margin-bottom: 20px;
 }
 
-#flower-basket a {
-    background: #2c3e50;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 4px;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-}
-
-#flower-basket a:hover {
-    background: #34495e;
-}
-
-/* 轮播图样式 */
-.slick-slide img {
-    border-radius: 8px;
-}
-
-/* 页脚 */
 footer {
-    background: #2c3e50;
-    color: #fff;
     text-align: center;
     padding: 10px;
+    background-color: #fff;
     position: fixed;
-    bottom: 0;
     width: 100%;
+    bottom: 0;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* 音乐控制 */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
 #music-toggle {
     position: fixed;
-    bottom: 60px;
+    bottom: 70px;
     right: 20px;
-    background: #2c3e50;
-    color: #fff;
+    background-color: #007bff;
+    color: white;
     border: none;
+    padding: 10px;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     cursor: pointer;
 }
 
-#music-toggle:hover {
-    background: #34495e;
+#paper-obituary-container {
+    margin-top: 20px;
 }
 
-/* 花篮订购样式 */
-#flower-basket {
-    background: #fff;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-#flower-order-link {
-    display: inline-block;
-    background: #28a745;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 4px;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-#flower-order-link:hover {
-    background: #218838;
-}
-
-/* 音乐控制按钮样式 */
-#music-toggle {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-#music-toggle:hover {
-    background: #f0f0f0;
-}
-
-/* 页脚样式 */
-footer {
-    background: #fff;
-    padding: 10px 20px;
-    text-align: center;
-    border-top: 1px solid #ddd;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
+#paper-obituary-container img,
+#paper-obituary-container embed {
+    max-width: 100%;
+    height: auto;
 }
