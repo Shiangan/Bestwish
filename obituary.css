@@ -155,3 +155,59 @@ footer {
 #music-toggle:hover {
     background: #34495e;
 }
+
+/* 花篮订购样式 */
+#flower-basket {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+#flower-order-link {
+    display: inline-block;
+    background: #28a745;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#flower-order-link:hover {
+    background: #218838;
+}
+
+/* 音乐控制按钮样式 */
+#music-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#music-toggle:hover {
+    background: #f0f0f0;
+}
+
+/* 页脚样式 */
+footer {
+    background: #fff;
+    padding: 10px 20px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
