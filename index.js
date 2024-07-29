@@ -78,9 +78,9 @@ document.addEventListener("DOMContentLoaded", function() {
                     fileReader.readAsDataURL(additionalPhotoFiles[i]);
                 }
 
-                // 跳转到 obituary.html
+                // 跳转到 invitation.html
                 setTimeout(() => {
-                    window.location.href = "obituary.html";
+                    window.location.href = "invitation.html";
                 }, 100); // 确保 UI 更新完成后再跳转
             };
             reader.readAsDataURL(photoFile);
