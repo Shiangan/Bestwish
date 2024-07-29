@@ -8,8 +8,8 @@ document.addEventListener("DOMContentLoaded", function() {
     // 加载保存的设置
     function loadStoredSettings() {
         const storedPhotoUrl = localStorage.getItem('photoUrl');
-        const storedMusicUrl = sessionStorage.getItem('musicUrl');
-        const musicPlaying = sessionStorage.getItem('musicPlaying') === 'true';
+        const storedMusicUrl = localStorage.getItem('musicUrl');
+        const musicPlaying = localStorage.getItem('musicPlaying') === 'true';
 
         // 设置照片
         if (storedPhotoUrl) {
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         playMusicButton.style.display = "none";
         stopMusicButton.style.display = "inline";
-        sessionStorage.setItem('musicPlaying', 'true');
+        localStorage.setItem('musicPlaying', 'true');
     }
 
     // 停止背景音乐
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
         backgroundMusic.pause();
         stopMusicButton.style.display = "none";
         playMusicButton.style.display = "inline";
-        sessionStorage.setItem('musicPlaying', 'false');
+        localStorage.setItem('musicPlaying', 'false');
     }
 
     // 绑定按钮事件
@@ -63,6 +63,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // 监听页面卸载时保存音乐 URL
     window.addEventListener("beforeunload", function() {
-        sessionStorage.setItem('musicUrl', backgroundMusic.src);
+        localStorage.setItem('musicUrl', backgroundMusic.src);
     });
 });
