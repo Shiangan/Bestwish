@@ -1,38 +1,24 @@
-<?php
-// 获取表单数据
-$senderName = $_POST['sender-name'];
-$recipientName = $_POST['recipient-name'];
-$deceasedName = $_POST['deceased-name'];
-$tributeList = $_POST['tribute-list'];
-$needInvoice = isset($_POST['need-invoice']) ? true : false;
-$invoiceDetails = $_POST['invoice-details'];
+// server.js
+const express = require('express');
+const bodyParser = require('body-parser');
 
-// 连接到数据库（示例）
-$servername = "localhost";
-$username = "your_username";
-$password = "your_password";
-$dbname = "your_database";
+const app = express();
+app.use(bodyParser.json());
 
-// 创建连接
-$conn = new mysqli($servername, $username, $password, $dbname);
+let orders = [];  // 簡單存儲，實際應使用數據庫
 
-// 检查连接
-if ($conn->connect_error) {
-    die("连接失败: " . $conn->connect_error);
-}
+app.post('/api/orders', (req, res) => {
+    const order = req.body;
+    order.id = orders.length + 1;
+    order.created_at = new Date();
+    orders.push(order);
+    res.status(201).send({ message: '訂單已收到' });
+});
 
-// 准备插入订单的SQL语句
-$sql = "INSERT INTO orders (sender_name, recipient_name, deceased_name, tribute_list, need_invoice, invoice_details)
-        VALUES ('$senderName', '$recipientName', '$deceasedName', '$tributeList', '$needInvoice', '$invoiceDetails')";
+app.get('/api/orders', (req, res) => {
+    res.status(200).json(orders);
+});
 
-if ($conn->query($sql) === TRUE) {
-    // 数据库插入成功
-    header('Location: thanks.html'); // 跳转到感谢页面
-    exit;
-} else {
-    // 数据库插入失败
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
-
-$conn->close();
-?>
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
+});
