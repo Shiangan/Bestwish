@@ -20,9 +20,55 @@
     </footer>
 
     <script>
-        function goBackToObituary() {
-            window.location.href = 'obituary.html';
+    async function submitOrder() {
+        const orderData = {
+            name: document.getElementById('name').textContent,
+            orderName: document.getElementById('order-name').textContent,
+            orderNumber: document.getElementById('order-number').textContent,
+            ordererNames: document.getElementById('orderer-names').textContent,
+            invoice: document.getElementById('invoice').textContent,
+            invoiceInfo: {
+                companyName: document.getElementById('company-name').textContent,
+                recipientName: document.getElementById('recipient-name').textContent,
+                recipientAddress: document.getElementById('recipient-address').textContent,
+            },
+            signerNames: Array.from(document.getElementById('signer-names').getElementsByTagName('li')).map(li => li.textContent),
+            cartItems: Array.from(document.getElementById('cartItems').getElementsByTagName('li')).map(li => li.textContent),
+        };
+
+        try {
+            const response = await fetch('/api/orders', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(orderData)
+            });
+
+            if (response.ok) {
+                showThankYouModal();
+                // 5秒後自動重定向到指定頁面
+                setTimeout(() => window.location.href = 'obituary-page-url.html', 5000);
+            } else {
+                alert('提交订单失败，请重试。');
+            }
+        } catch (error) {
+            console.error('提交订单时发生错误:', error);
+            alert('提交订单失败，请重试。');
         }
-    </script>
+    }
+
+    function showThankYouModal() {
+        document.getElementById('thankYouModal').style.display = 'block';
+    }
+
+    function closeThankYouModal() {
+        document.getElementById('thankYouModal').style.display = 'none';
+    }
+
+    function redirectToObituary() {
+        window.location.href = 'obituary-page-url.html';
+    }
+</script>
 </body>
 </html>
