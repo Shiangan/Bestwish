@@ -41,17 +41,22 @@
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            const response = await fetch('/api/admin/login.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username, password })
-            });
+            try {
+                const response = await fetch('/api/admin/login.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
 
-            if (response.ok) {
-                window.location.href = '/orders.html';
-            } else {
+                if (response.ok) {
+                    window.location.href = '/orders.html';
+                } else {
+                    document.getElementById('error-message').style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error:', error);
                 document.getElementById('error-message').style.display = 'block';
             }
         }
