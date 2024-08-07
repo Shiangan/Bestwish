@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>祥安生命有限公司－訃聞公告</title>
+    <title>祥安生命有限公司－訃聞資料提交</title>
     <link rel="stylesheet" href="index.css">
+    <script src="index.js" defer></script>
 </head>
 <body>
     <header>
@@ -14,7 +15,6 @@
         <section id="info-form-section">
             <h2>訃聞資料提交</h2>
             <form id="info-form" enctype="multipart/form-data">
-                <!-- 表單內容 -->
                 <label for="name">姓名:</label>
                 <input type="text" id="name" name="name" required>
 
@@ -69,60 +69,12 @@
                 <label for="custom-music">或上傳自定義音樂:</label>
                 <input type="file" id="custom-music" name="custom-music" accept="audio/*">
 
-                <button type="button" onclick="submitForm()">提交</button>
+                <button type="submit">提交</button>
             </form>
         </section>
     </main>
     <footer>
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
     </footer>
-
-    <audio id="background-music" preload="auto" loop>
-        <source src="audio/music1.mp3" type="audio/mp3">
-        您的瀏覽器不支持音頻元素。
-    </audio>
-    <div id="music-control">
-        <button id="play-music" aria-label="播放音樂" style="background: url('images/sound-on.png');">🔊</button>
-        <button id="stop-music" aria-label="停止音樂" style="display: none; background: url('images/sound-off.png');">🔇</button>
-    </div>
-
-    <script>
-        function submitForm() {
-            const form = document.getElementById('info-form');
-            const formData = new FormData(form);
-
-            // 儲存資料至localStorage
-            formData.forEach((value, key) => {
-                if (value instanceof File) {
-                    const reader = new FileReader();
-                    reader.onload = function(event) {
-                        localStorage.setItem(key, event.target.result);
-                    };
-                    reader.readAsDataURL(value);
-                } else {
-                    localStorage.setItem(key, value);
-                }
-            });
-
-            // 延遲確保檔案讀取完成後跳轉
-            setTimeout(() => {
-                window.location.href = 'obituary.html';
-            }, 1000);
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const funeralLocationSelect = document.getElementById('funeral-location');
-            const otherFuneralLocationInput = document.getElementById('other-funeral-location');
-
-            // 显示/隐藏“其他”地点输入框
-            funeralLocationSelect.addEventListener('change', function() {
-                if (funeralLocationSelect.value === '其他') {
-                    otherFuneralLocationInput.style.display = 'block';
-                } else {
-                    otherFuneralLocationInput.style.display = 'none';
-                }
-            });
-        });
-    </script>
 </body>
 </html>
