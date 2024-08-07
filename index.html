@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>祥安生命有限公司－訃聞公告</title>
     <link rel="stylesheet" href="index.css">
-    <script src="index.js" defer></script>
 </head>
 <body>
     <header>
@@ -18,46 +17,46 @@
                 <!-- 表單內容 -->
                 <label for="name">姓名:</label>
                 <input type="text" id="name" name="name" required>
-                
+
                 <label for="photo">追思照片:</label>
                 <input type="file" id="photo" name="photo" accept="image/*" required>
-                
+
                 <label for="additional-photos">其他照片（可選不限張數）:</label>
                 <input type="file" id="additional-photos" name="additional-photos[]" accept="image/*" multiple>
-                
+
                 <label for="paper-obituary">訃聞紙本內容:</label>
                 <input type="file" id="paper-obituary" name="paper-obituary" accept="image/*">
-                
+
                 <label for="birth-date">出生日期:</label>
                 <input type="date" id="birth-date" name="birth-date" required>
-                
+
                 <label for="death-date">死亡日期:</label>
                 <input type="date" id="death-date" name="death-date" required>
-                
+
                 <label for="funeral-space">牌位安置地點:</label>
                 <textarea id="funeral-space" name="funeral-space"></textarea>
-                
+
                 <label for="funeral-date">出殯日期:</label>
                 <input type="date" id="funeral-date" name="funeral-date" required>
-                
+
                 <label for="funeral-location">出殯地點:</label>
                 <select id="funeral-location" name="funeral-location" required>
                     <option value="第二殯儀館">第二殯儀館 禮廳</option>
                     <option value="板橋殯儀館">板橋殯儀館 禮廳</option>
                     <option value="其他">其他</option>
                 </select>
-                
+
                 <input type="text" id="other-funeral-location" name="other-funeral-location" placeholder="若選擇其他，請填寫地點" style="display: none;">
-                
+
                 <label for="family-service-time">家奠禮時間:</label>
                 <input type="time" id="family-service-time" name="family-service-time" required>
-                
+
                 <label for="public-service-time">公奠禮時間:</label>
                 <input type="time" id="public-service-time" name="public-service-time" required>
-                
+
                 <label for="life-story">生平介紹:</label>
                 <textarea id="life-story" name="life-story"></textarea>
-                
+
                 <label for="music-choice">選擇背景音樂:</label>
                 <select id="music-choice" name="music-choice">
                     <option value="audio/music1.mp3">音樂1</option>
@@ -66,11 +65,11 @@
                     <option value="audio/music4.mp3">音樂4</option>
                     <option value="audio/music5.mp3">音樂5</option>
                 </select>
-                
+
                 <label for="custom-music">或上傳自定義音樂:</label>
                 <input type="file" id="custom-music" name="custom-music" accept="audio/*">
-                
-                <button type="submit">提交</button>
+
+                <button type="button" onclick="submitForm()">提交</button>
             </form>
         </section>
     </main>
@@ -88,35 +87,32 @@
     </div>
 
     <script>
+        function submitForm() {
+            const form = document.getElementById('info-form');
+            const formData = new FormData(form);
+
+            // 儲存資料至localStorage
+            formData.forEach((value, key) => {
+                if (value instanceof File) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        localStorage.setItem(key, event.target.result);
+                    };
+                    reader.readAsDataURL(value);
+                } else {
+                    localStorage.setItem(key, value);
+                }
+            });
+
+            // 延遲確保檔案讀取完成後跳轉
+            setTimeout(() => {
+                window.location.href = 'obituary.html';
+            }, 1000);
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
-            const music = document.getElementById('background-music');
-            const playButton = document.getElementById('play-music');
-            const stopButton = document.getElementById('stop-music');
             const funeralLocationSelect = document.getElementById('funeral-location');
             const otherFuneralLocationInput = document.getElementById('other-funeral-location');
-
-            // 初始化背景音乐播放状态
-            if (localStorage.getItem('musicPlaying') === 'true') {
-                music.play();
-                playButton.style.display = 'none';
-                stopButton.style.display = 'block';
-            }
-
-            // 播放音乐
-            playButton.addEventListener('click', function() {
-                music.play();
-                localStorage.setItem('musicPlaying', 'true');
-                playButton.style.display = 'none';
-                stopButton.style.display = 'block';
-            });
-
-            // 停止音乐
-            stopButton.addEventListener('click', function() {
-                music.pause();
-                localStorage.setItem('musicPlaying', 'false');
-                playButton.style.display = 'block';
-                stopButton.style.display = 'none';
-            });
 
             // 显示/隐藏“其他”地点输入框
             funeralLocationSelect.addEventListener('change', function() {
