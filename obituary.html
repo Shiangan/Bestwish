@@ -3,67 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>訃聞公告</title>
-    <link rel="stylesheet" href="obituary.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <title>訃聞 - 祥安生命有限公司</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #fff;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        header img.logo {
+            max-width: 100px;
+        }
+        main {
+            padding: 20px;
+        }
+        .timeline {
+            list-style: none;
+            padding: 0;
+        }
+        .timeline li {
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 20px;
+        }
+        .timeline li:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 10px;
+            background-color: #007bff;
+            border-radius: 10px;
+        }
+        .timeline li .date {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .timeline li .content {
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .carousel {
+            display: flex;
+            overflow-x: auto;
+        }
+        .carousel img {
+            max-width: 200px;
+            margin-right: 10px;
+        }
+        #comments-section {
+            margin-top: 20px;
+        }
+        #comments-section h3 {
+            margin-bottom: 10px;
+        }
+        #comments-section form {
+            margin-bottom: 20px;
+        }
+        #comments-section form input,
+        #comments-section form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        #comments-section form button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        #comments {
+            list-style: none;
+            padding: 0;
+        }
+        #comments li {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
     <header>
         <img src="image/logo.png" alt="祥安生命有限公司 Logo" class="logo">
     </header>
-
     <main>
-        <section id="obituary-info" class="fade-in">
-            <h1>訃聞公告</h1>
-            <div id="obituary-photo-container">
-                <img id="obituary-photo" src="" alt="主要追思照片">
-            </div>
-            <p id="obituary-text">
-                我們摯愛的親人「<span id="name">[姓名]</span>」，生於<span id="birth-date">[出生日期]</span>，逝於<span id="death-date">[死亡日期]</span>，享年<span id="age">[享年]</span>。其牌位安置於<span id="funeral-space">[牌位安置地點]</span>。家奠禮將於<span id="family-service-time">[家奠禮時間]</span>舉行，公奠禮於<span id="public-service-time">[公奠禮時間]</span>舉行，地點為<span id="funeral-location">[出殯地點]</span>。願您在天堂安息，靈魂永垂不朽。
-            </p>
-        </section>
-
-        <section id="photo-gallery" class="fade-in">
-            <h2>追思相册</h2>
-            <div class="carousel">
-                <!-- 轮播图项将通过 JavaScript 动态添加 -->
-            </div>
-        </section>
-
-        <section id="map" class="fade-in">
-            <h2>儀式地圖</h2>
-            <div id="map-container" style="height: 400px;"></div>
-        </section>
-
-        <section id="messages" class="fade-in">
-            <h2>留言區</h2>
-            <div id="messages-container"></div>
-            <form id="message-form">
-                <input type="text" id="message-name" name="message-name" placeholder="您的名字" required>
-                <textarea id="message-content" name="message-content" placeholder="請留下您的追思信息..." required></textarea>
-                <label for="message-photo">上傳照片:</label>
-                <input type="file" id="message-photo" name="message-photo" accept="image/*">
-                <button type="submit">提交留言</button>
-            </form>
-        </section>
-
-        <section id="flower-basket" class="fade-in">
-            <h2>致贈花禮送上祝福</h2>
-            <a href="flower-order.html" id="flower-order-link">訂購花籃請點選我</a>
+        <section id="invitation-section" class="hidden">
+            <h2>訃聞邀請</h2>
+            <img id="main-photo" src="" alt="追思照片">
+            <ul class="timeline" id="timeline"></ul>
+            <div class="carousel" id="carousel"></div>
+            <section id="comments-section">
+                <h3>留言板</h3>
+                <form id="comment-form">
+                    <input type="text" id="commenter-name" name="commenter-name" placeholder="您的名字" required>
+                    <textarea id="comment-content" name="comment-content" placeholder="您的留言" required></textarea>
+                    <button type="submit">提交</button>
+                </form>
+                <ul id="comments"></ul>
+            </section>
         </section>
     </main>
-
     <footer>
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
     </footer>
 
-    <button id="music-toggle" aria-label="播放音樂">🔊</button>
-    <audio id="background-music" loop></audio>
+    <audio id="background-music" preload="auto" loop>
+        <source src="audio/music1.mp3" type="audio/mp3">
+        您的瀏覽器不支持音頻元素。
+    </audio>
+    <div id="music-control">
+        <button id="play-music" aria-label="播放音樂" style="background: url('images/sound-on.png');">🔊</button>
+        <button id="stop-music" aria-label="停止音樂" style="display: none; background: url('images/sound-off.png');">🔇</button>
+    </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
-    <script src="obituary.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const backgroundMusic = document.getElementById('background-music');
+            const playMusicButton = document.getElementById('play-music');
+            const stopMusicButton = document.getElementById('stop-music');
+            const mainPhoto = document.getElementById('main-photo');
+            const invitationSection = document.getElementById('invitation-section');
+            const timeline = document.getElementById('timeline');
+            const carousel = document.getElementById('carousel');
+
+            // 加载保存的设置
+            function loadStoredSettings() {
+                const storedPhotoUrl = localStorage.getItem('photo');
+                const storedMusicUrl = localStorage.getItem('musicUrl');
+                const musicPlaying = localStorage.getItem('musicPlaying') === 'true';
+
+                // 设置照片
+                if (storedPhotoUrl) {
+                    mainPhoto.src = storedPhotoUrl;
+                    invitationSection.classList.remove("hidden");
+                }
+
+                // 设置音乐
+                if (storedMusicUrl) {
+                    backgroundMusic.src = storedMusicUrl;
+                    if (musicPlaying) {
+                        playMusicButton.style.display = "none";
+                        stopMusicButton.style.display = "inline";
+                        backgroundMusic.play().catch(error => {
+                            console.error("播放背景音乐失败:", error);
+                        });
+                    } else {
+                        playMusicButton.style.display = "inline";
+                        stopMusicButton.style.display = "none";
+                    }
+                } else {
+                    // 默认播放音乐
+                    playBackgroundMusic();
+                }
+
+                // 设置时间轴内容
+                const name = localStorage.getItem('name');
+                const birthDate = localStorage.getItem('birth-date');
+                const deathDate = localStorage.getItem('death-date');
+                const funeralSpace = localStorage.getItem('funeral-space');
+                const funeralDate = localStorage.getItem('funeral-date');
+                const funeralLocation = localStorage.getItem('funeral-location');
+                const otherFuneralLocation = localStorage.getItem('other-funeral-location');
+                const lifeStory = localStorage.getItem('life-story');
+
+                if (name) {
+                    addTimelineEvent('姓名', name);
+                }
+                if (birthDate) {
+                    addTimelineEvent('出生日期', birthDate);
+                }
+                if (deathDate) {
+                    addTimelineEvent('死亡日期', deathDate);
+                }
+                if (funeralSpace) {
+                    addTimelineEvent('牌位安置地點', funeralSpace);
+                }
+                if (funeralDate) {
+                    addTimelineEvent('出殯日期', funeralDate);
+                }
+                if (funeralLocation === '其他' && otherFuneralLocation) {
+                    addTimelineEvent('出殯地點', otherFuneralLocation);
+                } else if (funeralLocation) {
+                    addTimelineEvent('出殯地點', funeralLocation);
+                }
+                if (lifeStory) {
+                    addTimelineEvent('生平介紹', lifeStory);
+                }
+
+                // 设置照片轮播
+                const additionalPhotos = localStorage.getItem('additional-photos');
+                if (additionalPhotos) {
+                    const photoArray = JSON.parse(additionalPhotos);
+                    photoArray.forEach(photo => {
+                        const img = document.createElement('img');
+                        img.src = photo;
+                        carousel.appendChild(img);
+                    });
+                }
+            }
+
+            // 添加时间轴事件
+            function addTimelineEvent(title, content) {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <div class="date">${title}</div>
+                    <div class="content">${content}</div>
+                `;
+                timeline.appendChild(li);
+            }
+
+            // 播放背景音乐
+            function playBackgroundMusic() {
+                backgroundMusic.play().catch(error => {
+                    console.error("播放背景音乐失败:", error);
+                });
+                playMusicButton.style.display = "none";
+                stopMusicButton.style.display = "inline";
+                localStorage.setItem('musicPlaying', 'true');
+            }
+
+            // 停止背景音乐
+            function stopBackgroundMusic() {
+                backgroundMusic.pause();
+                stopMusicButton.style.display = "none";
+                playMusicButton.style.display = "inline";
+                localStorage.setItem('musicPlaying', 'false');
+            }
+
+            // 绑定按钮事件
+            playMusicButton.addEventListener("click", playBackgroundMusic);
+            stopMusicButton.addEventListener("click", stopBackgroundMusic);
+
+            // 页面加载时加载保存的设置
+            loadStoredSettings();
+
+            // 监听页面卸载时保存音乐 URL
+            window.addEventListener("beforeunload", function() {
+                localStorage.setItem('musicUrl', backgroundMusic.src);
+            });
+
+            // 留言板提交事件
+            const commentForm = document.getElementById('comment-form');
+            const comments = document.getElementById('comments');
+
+            commentForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const commenterName = document.getElementById('commenter-name').value;
+                const commentContent = document.getElementById('comment-content').value;
+
+                if (commenterName && commentContent) {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<strong>${commenterName}</strong><p>${commentContent}</p>`;
+                    comments.appendChild(li);
+
+                    // 清除表单
+                    commentForm.reset();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
