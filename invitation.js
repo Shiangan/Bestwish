@@ -1,68 +1,37 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const backgroundMusic = document.getElementById("background-music");
-    const playMusicButton = document.getElementById("play-music");
-    const stopMusicButton = document.getElementById("stop-music");
-    const mainPhoto = document.getElementById("main-photo");
-    const invitationSection = document.getElementById("invitation-section");
+document.addEventListener('DOMContentLoaded', function() {
+    const orders = JSON.parse(localStorage.getItem('orders')) || [];
+    const lastOrder = orders[orders.length - 1];
 
-    // 加载保存的设置
-    function loadStoredSettings() {
-        const storedPhotoUrl = localStorage.getItem('photoUrl');
-        const storedMusicUrl = localStorage.getItem('musicUrl');
-        const musicPlaying = localStorage.getItem('musicPlaying') === 'true';
-
-        // 设置照片
-        if (storedPhotoUrl) {
-            mainPhoto.src = storedPhotoUrl;
-            invitationSection.classList.remove("hidden");
-        }
-
-        // 设置音乐
-        if (storedMusicUrl) {
-            backgroundMusic.src = storedMusicUrl;
-            if (musicPlaying) {
-                playMusicButton.style.display = "none";
-                stopMusicButton.style.display = "inline";
-                backgroundMusic.play().catch(error => {
-                    console.error("播放背景音乐失败:", error);
-                });
-            } else {
-                playMusicButton.style.display = "inline";
-                stopMusicButton.style.display = "none";
-            }
-        } else {
-            // 默认播放音乐
-            playBackgroundMusic();
+    if (lastOrder) {
+        const mainPhoto = document.getElementById('main-photo');
+        const backgroundMusic = document.getElementById('background-music');
+        const invitationSection = document.getElementById('invitation-section');
+        
+        // 顯示主要照片
+        mainPhoto.src = URL.createObjectURL(lastOrder.photo);
+        invitationSection.classList.remove('hidden');
+        
+        // 設置背景音樂
+        if (lastOrder.musicChoice) {
+            backgroundMusic.src = lastOrder.musicChoice;
+        } else if (lastOrder.customMusic) {
+            backgroundMusic.src = URL.createObjectURL(lastOrder.customMusic);
         }
     }
 
-    // 播放背景音乐
-    function playBackgroundMusic() {
-        backgroundMusic.play().catch(error => {
-            console.error("播放背景音乐失败:", error);
-        });
-        playMusicButton.style.display = "none";
-        stopMusicButton.style.display = "inline";
-        localStorage.setItem('musicPlaying', 'true');
-    }
+    // 音樂控制
+    const playButton = document.getElementById('play-music');
+    const stopButton = document.getElementById('stop-music');
+    
+    playButton.addEventListener('click', function() {
+        backgroundMusic.play();
+        playButton.style.display = 'none';
+        stopButton.style.display = 'inline';
+    });
 
-    // 停止背景音乐
-    function stopBackgroundMusic() {
+    stopButton.addEventListener('click', function() {
         backgroundMusic.pause();
-        stopMusicButton.style.display = "none";
-        playMusicButton.style.display = "inline";
-        localStorage.setItem('musicPlaying', 'false');
-    }
-
-    // 绑定按钮事件
-    playMusicButton.addEventListener("click", playBackgroundMusic);
-    stopMusicButton.addEventListener("click", stopBackgroundMusic);
-
-    // 页面加载时加载保存的设置
-    loadStoredSettings();
-
-    // 监听页面卸载时保存音乐 URL
-    window.addEventListener("beforeunload", function() {
-        localStorage.setItem('musicUrl', backgroundMusic.src);
+        playButton.style.display = 'inline';
+        stopButton.style.display = 'none';
     });
 });
