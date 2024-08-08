@@ -35,7 +35,18 @@
             object-fit: cover;
             border-radius: 10px;
         }
-        .warm-text, .obituary-paper-container {
+        .main-photo-container {
+            position: relative;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .main-photo-caption {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #555;
+            font-style: italic;
+        }
+        .obituary-paper-container {
             margin: 20px 0;
             padding: 15px;
             background-color: #fff;
@@ -74,109 +85,93 @@
             border: 1px solid #ddd;
             border-radius: 5px;
         }
+        .carousel {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+        }
         .carousel img {
-            width: 100%;
-            height: auto;
+            max-width: 100%;
             border-radius: 10px;
         }
-        .message {
+        .message-form, .message {
+            margin: 20px 0;
+            padding: 15px;
             background-color: #fff;
             border: 1px solid #ddd;
             border-radius: 5px;
-            padding: 10px;
-            margin-bottom: 10px;
         }
         .message img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 5px;
-            margin-bottom: 10px;
+            max-width: 100px;
+            margin-top: 10px;
         }
-        footer {
-            background-color: #fff;
-            padding: 20px;
-            text-align: center;
-            border-top: 1px solid #ddd;
-        }
-        footer a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        footer a:hover {
-            text-decoration: underline;
-        }
-        #message-form input, #message-form textarea {
-            width: 100%;
+        .donation-button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
             padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        #message-form button {
-            padding: 10px 20px;
+            text-align: center;
             background-color: #007bff;
             color: #fff;
             border: none;
             border-radius: 5px;
-            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
         }
-        #message-form button:hover {
+        .donation-button:hover {
             background-color: #0056b3;
         }
     </style>
 </head>
 <body>
     <header>
-        <img src="logo.png" alt="祥安生命有限公司" class="logo">
-        <h1>訃聞</h1>
+        <img src="image/logo.png" alt="祥安生命有限公司 Logo" class="logo">
     </header>
     <main>
-        <!-- 主照片 -->
-        <img id="main-photo" class="main-photo" alt="主照片">
-
-        <!-- 訃告紙本 -->
-        <div id="obituary-paper-container" class="obituary-paper-container">
-            <h3>訃告紙本</h3>
-            <img id="obituary-paper" class="obituary-paper" alt="訃告紙本">
+        <div class="main-photo-container">
+            <img id="main-photo" class="main-photo" src="" alt="主要照片">
+            <div class="main-photo-caption">
+                我們摯愛的 [亡者姓名]，他/她將永遠在我們心中。
+            </div>
         </div>
 
-        <!-- 死者名字 -->
-        <h2 id="deceased-name"></h2>
-
-        <!-- 溫馨文字 -->
-        <div class="warm-text">
-            <p id="warm-text-content"></p>
+        <div class="obituary-paper-container">
+            <img id="obituary-paper" class="obituary-paper" src="" alt="訃告紙張">
         </div>
 
-        <!-- 時間線 -->
-        <h3>時間線</h3>
-        <ul id="timeline" class="timeline"></ul>
+        <h2>生平事跡</h2>
+        <ul id="timeline" class="timeline">
+            <!-- Timeline items will be dynamically added here -->
+        </ul>
 
-        <!-- 追思照片 -->
-        <h3>追思照片</h3>
-        <div id="carousel" class="carousel"></div>
+        <h2>追思照片</h2>
+        <div id="carousel" class="carousel">
+            <!-- Carousel items will be dynamically added here -->
+        </div>
 
-        <!-- 留言板 -->
-        <h3>留言板</h3>
-        <form id="message-form">
-            <input type="text" id="message-name" placeholder="您的名字" required>
-            <textarea id="message-content" placeholder="您的留言" required></textarea>
-            <input type="file" id="message-photo" accept="image/*">
-            <button type="submit">提交</button>
-        </form>
-        <div id="messages-container"></div>
+        <a href="flower-order.html" class="donation-button">致贈花籃請點選我</a>
 
-        <!-- 致贈花籃 -->
-        <h3>致贈花籃</h3>
-        <a href="flower-order.html" id="flower-donation-link">點選這裡致贈花籃</a>
+        <div id="message-form" class="message-form">
+            <h3>留言板</h3>
+            <form id="message-form">
+                <label for="message-name">姓名:</label>
+                <input type="text" id="message-name" name="name" required>
+                <label for="message-content">留言內容:</label>
+                <textarea id="message-content" name="content" rows="4" required></textarea>
+                <label for="message-photo">附加照片（選擇性）:</label>
+                <input type="file" id="message-photo" name="photo" accept="image/*">
+                <button type="submit">提交留言</button>
+            </form>
+            <div id="messages-container">
+                <!-- Messages will be dynamically added here -->
+            </div>
+        </div>
     </main>
     <footer>
-        承辦禮儀公司：<strong>祥安生命有限公司</strong><br>
-        聯絡人：<strong>陳柏元</strong><br>
-        Line：<a href="https://line.me/ti/p/@example" target="_blank">加入我們</a><br>
-        電話：<a href="tel:+886978583699">+886 978 583 699</a>
+        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
+        <p>聯絡我們: 陳柏元 - <a href="tel:+886978583699">+886 978 583 699</a> | <a href="https://line.me/ti/p/@example" target="_blank">Line 聯繫</a></p>
     </footer>
-    <audio id="background-music" controls hidden>
+    <audio id="background-music" loop>
         <source src="" type="audio/mpeg">
     </audio>
     <button id="play-music">🔊 播放音樂</button>
@@ -194,28 +189,26 @@
             backgroundMusic.src = localStorage.getItem('musicUrl') || 'default-music-url.mp3';
 
             // 加载存储的讣告数据
-            const mainPhotoUrl = localStorage.getItem('main-photo');
+            const mainPhotoUrl = localStorage.getItem('mainPhoto');
             if (mainPhotoUrl) {
                 mainPhoto.src = mainPhotoUrl;
             }
 
-            const obituaryPaperUrl = localStorage.getItem('obituaryPhotoUrl');
+            const obituaryPaperUrl = localStorage.getItem('obituaryPaper');
             if (obituaryPaperUrl) {
                 obituaryPaper.src = obituaryPaperUrl;
             }
 
-            const deceasedNameText = localStorage.getItem('deceased-name');
+            const deceasedNameText = localStorage.getItem('name');
             if (deceasedNameText) {
                 deceasedName.textContent = deceasedNameText;
             }
 
-            const warmTextContent = localStorage.getItem('warm-text');
-            if (warmTextContent) {
-                document.getElementById('warm-text-content').textContent = warmTextContent;
-            }
+            const warmTextContent = "我們摯愛的 " + deceasedNameText + "，他/她將永遠在我們心中。";
+            document.querySelector('.main-photo-caption').textContent = warmTextContent;
 
             // 设置时间线
-            const timelineData = JSON.parse(localStorage.getItem('timeline-data') || '[]');
+            const timelineData = JSON.parse(localStorage.getItem('timelineData') || '[]');
             timelineData.forEach(event => {
                 const li = document.createElement('li');
                 li.innerHTML = `
@@ -226,7 +219,7 @@
             });
 
             // 设置照片轮播
-            const additionalPhotos = JSON.parse(localStorage.getItem('additional-photos') || '[]');
+            const additionalPhotos = JSON.parse(localStorage.getItem('additionalPhotos') || '[]');
             additionalPhotos.forEach(photo => {
                 const img = document.createElement('img');
                 img.src = photo;
@@ -253,10 +246,10 @@
             playMusicButton.addEventListener("click", playBackgroundMusic);
             stopMusicButton.addEventListener("click", stopBackgroundMusic);
 
-                        // 加载存储的音乐播放状态
+            // 加载存储的音乐播放状态
             function loadStoredSettings() {
                 const musicPlaying = localStorage.getItem('musicPlaying');
-                if (musicPlaying === 'true') {
+                if (musicPlaying === 'true')  
                     playBackgroundMusic();
                 } else {
                     stopBackgroundMusic();
