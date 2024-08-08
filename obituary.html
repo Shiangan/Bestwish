@@ -6,7 +6,7 @@
     <title>訃聞 - 祥安生命有限公司</title>
     <style>
         body {
-            font-family: '新細明體', Arial, sans-serif;
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
             background-color: #f5f5f5;
             color: #333;
             margin: 0;
@@ -35,7 +35,6 @@
             object-fit: cover;
             border-radius: 10px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .main-photo-container, .obituary-paper-container {
             position: relative;
@@ -55,21 +54,23 @@
             text-align: center;
         }
         .timeline {
-            position: relative;
             padding: 0;
             margin: 20px 0;
             list-style: none;
-            border-left: 2px solid #007bff;
         }
         .timeline-item {
             position: relative;
             padding: 20px;
             margin-bottom: 20px;
             background-color: #fff;
-            border-radius: 5px;
+            border-radius: 10px;
             border: 1px solid #ddd;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: opacity 0.5s ease-in-out;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .timeline-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
         .timeline-item::before {
             content: '';
@@ -84,7 +85,13 @@
         }
         .timeline-item .date {
             font-weight: bold;
+            font-size: 16px;
             margin-bottom: 10px;
+            color: #007bff;
+        }
+        .timeline-item .event {
+            font-size: 14px;
+            color: #555;
         }
         .carousel {
             display: flex;
@@ -97,7 +104,7 @@
             max-height: 200px;
             margin-right: 10px;
             border-radius: 5px;
-            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            transition: transform 0.3s ease-in-out;
         }
         .carousel img:hover {
             transform: scale(1.05);
@@ -210,112 +217,97 @@
     </main>
     <footer>
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
-        <p>喪葬服務提供者：陳柏元</p>
-        <p><a href="tel:+886978583699">電話聯絡</a> | <a href="https://line.me/R/ti/p/%40yourlineid">Line聯絡</a></p>
+        <p>聯絡我們: 陳柏元 - <a href="tel:+886978583699">+886 978 583 699</a> | <a href="https://line.me/ti/p/@example" target="_blank">Line 聯繫</a></p>
     </footer>
-
-    <!-- 背景音樂控制 -->
-    <div class="music-controls">
-        <button id="play-music">播放音樂 🎵</button>
-        <button id="stop-music">停止音樂 🔇</button>
-    </div>
-
     <audio id="background-music" loop>
-        <source src="music.mp3" type="audio/mpeg">
-        您的瀏覽器不支持播放音樂。
+        <source src="" type="audio/mpeg">
     </audio>
-
+    <div class="music-controls">
+        <button id="play-music">🎵</button>
+        <button id="stop-music">🔇</button>
+    </div>
     <script>
-        // 音樂控制
-        const playMusicButton = document.getElementById('play-music');
-        const stopMusicButton = document.getElementById('stop-music');
-        const backgroundMusic = document.getElementById('background-music');
-
-        playMusicButton.addEventListener('click', () => {
-            backgroundMusic.play();
+        document.getElementById('play-music').addEventListener('click', function() {
+            document.getElementById('background-music').play();
         });
 
-        stopMusicButton.addEventListener('click', () => {
-            backgroundMusic.pause();
+        document.getElementById('stop-music').addEventListener('click', function() {
+            document.getElementById('background-music').pause();
         });
 
-        // 訃聞內容動態填充
-        const mainPhoto = document.getElementById('main-photo');
-        const obituaryPaper = document.getElementById('obituary-paper');
-        const timeline = document.getElementById('timeline');
-        const carousel = document.getElementById('carousel');
-        const messagesContainer = document.getElementById('messages-container');
+        // 動態載入照片和訃聞內容
+        document.addEventListener('DOMContentLoaded', function() {
+            const queryParams = new URLSearchParams(window.location.search);
+            const mainPhoto = queryParams.get('main-photo');
+            const obituaryPaper = queryParams.get('obituary-paper');
+            const mottoText = queryParams.get('motto') || "人生短暫，但愛與記憶永存";
+            const timelineData = JSON.parse(queryParams.get('timeline') || '[]');
+            const carouselPhotos = JSON.parse(queryParams.get('carousel') || '[]');
+            const backgroundMusic = queryParams.get('music');
 
-        // 假設這些數據是由伺服器提供
-        const obituaryData = {
-            mainPhotoSrc: 'main-photo.jpg',
-            obituaryPaperSrc: 'obituary-paper.jpg',
-            timelineEvents: [
-                { date: '1960-01-01', event: '出生' },
-                { date: '1985-05-20', event: '結婚' },
-                { date: '2024-08-01', event: '去世' },
-                { date: '2024-08-08', event: '安葬' }
-            ],
-            carouselPhotos: ['photo1.jpg', 'photo2.jpg', 'photo3.jpg'],
-            messages: [
-                { name: '王小明', content: '永遠懷念您', photo: 'message-photo1.jpg' },
-                { name: '李大華', content: '感謝您的一切', photo: null }
-            ]
-        };
+            if (mainPhoto) {
+                document.getElementById('main-photo').src = mainPhoto;
+            }
 
-        // 填充主要照片和訃聞紙張
-        mainPhoto.src = obituaryData.mainPhotoSrc;
-        obituaryPaper.src = obituaryData.obituaryPaperSrc;
+            if (obituaryPaper) {
+                document.getElementById('obituary-paper').src = obituaryPaper;
+            }
+                document.getElementById('motto').textContent = mottoText;
 
-        // 填充時間軸
-        obituaryData.timelineEvents.forEach(event => {
-            const timelineItem = document.createElement('li');
-            timelineItem.className = 'timeline-item';
-            timelineItem.innerHTML = `
-                <div class="date">${event.date}</div>
-                <div class="event">${event.event}</div>
-            `;
-            timeline.appendChild(timelineItem);
+            if (backgroundMusic) {
+                document.getElementById('background-music').src = backgroundMusic;
+            }
+
+            const timelineContainer = document.getElementById('timeline');
+            timelineData.forEach(function(event) {
+                const li = document.createElement('li');
+                li.className = 'timeline-item';
+                li.innerHTML = `
+                    <div class="date">${event.date}</div>
+                    <div class="event">${event.event}</div>
+                `;
+                timelineContainer.appendChild(li);
+            });
+
+            const carouselContainer = document.getElementById('carousel');
+            carouselPhotos.forEach(function(photo) {
+                const img = document.createElement('img');
+                img.src = photo;
+                carouselContainer.appendChild(img);
+            });
         });
 
-        // 填充追思照片輪播
-        obituaryData.carouselPhotos.forEach(photo => {
-            const imgElement = document.createElement('img');
-            imgElement.src = photo;
-            carousel.appendChild(imgElement);
-        });
-
-        // 填充留言區
-        obituaryData.messages.forEach(message => {
-            const messageElement = document.createElement('div');
-            messageElement.className = 'message';
-            messageElement.innerHTML = `
-                <p><strong>${message.name}</strong>: ${message.content}</p>
-                ${message.photo ? `<img src="${message.photo}" alt="留言照片">` : ''}
-            `;
-            messagesContainer.appendChild(messageElement);
-        });
-
-        // 處理留言表單提交
-        const messageForm = document.getElementById('message-form-element');
-        messageForm.addEventListener('submit', (event) => {
+        // 留言提交表單處理
+        document.getElementById('message-form-element').addEventListener('submit', function(event) {
             event.preventDefault();
 
-            const name = event.target.name.value;
-            const content = event.target.content.value;
-            const photo = event.target.photo.files[0] ? URL.createObjectURL(event.target.photo.files[0]) : null;
+            const name = document.getElementById('message-name').value;
+            const content = document.getElementById('message-content').value;
+            const photoFile = document.getElementById('message-photo').files[0];
 
-            const messageElement = document.createElement('div');
-            messageElement.className = 'message';
-            messageElement.innerHTML = `
-                <p><strong>${name}</strong>: ${content}</p>
-                ${photo ? `<img src="${photo}" alt="留言照片">` : ''}
+            const messageContainer = document.createElement('div');
+            messageContainer.className = 'message';
+
+            const messageContent = `
+                <p><strong>${name}:</strong></p>
+                <p>${content}</p>
             `;
+            messageContainer.innerHTML = messageContent;
 
-            messagesContainer.appendChild(messageElement);
+            if (photoFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    messageContainer.appendChild(img);
+                };
+                reader.readAsDataURL(photoFile);
+            }
 
-            // 清除表單
-            event.target.reset();
+            document.getElementById('messages-container').appendChild(messageContainer);
+
+            // 清空表單
+            document.getElementById('message-form-element').reset();
         });
     </script>
 </body>
