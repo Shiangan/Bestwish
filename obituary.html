@@ -108,38 +108,45 @@
         #comments-section form button:hover {
             background-color: #0056b3;
         }
-        #comments {
-            list-style: none;
-            padding: 0;
-        }
-        #comments li {
-            margin-bottom: 10px;
-            padding: 10px;
-            background-color: #fff;
-            border: 1px solid #ddd;
+        .main-photo {
+            width: 100%;
+            max-width: 600px;
             border-radius: 5px;
+            margin: 20px 0;
         }
-        #donate-flowers-section {
-            text-align: center;
-            margin-top: 20px;
-            background: #fff;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .donate-button {
+        .donation-button {
             display: inline-block;
-            padding: 12px 24px;
-            font-size: 18px;
+            padding: 10px 20px;
+            background-color: #007bff;
             color: #fff;
-            background-color: #28a745;
-            border: none;
-            border-radius: 5px;
             text-decoration: none;
-            transition: background-color 0.3s ease;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 20px;
         }
-        .donate-button:hover {
-            background-color: #218838;
+        .donation-button:hover {
+            background-color: #0056b3;
+        }
+        footer {
+            background-color: #fff;
+            padding: 10px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        footer a {
+            color: #007bff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        footer p {
+            margin: 5px 0;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -148,61 +155,68 @@
         <img src="image/logo.png" alt="祥安生命有限公司 Logo" class="logo">
     </header>
     <main>
-        <section id="invitation-section">
-            <h2>訃聞邀請</h2>
-            <img id="main-photo" src="" alt="追思照片" style="width: 100%; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-            <ul class="timeline" id="timeline"></ul>
-            <div class="carousel" id="carousel"></div>
-            
-            <!-- 致贈花籃部分 -->
-            <section id="donate-flowers-section">
-                <h3>致贈花籃請點選我</h3>
-                <a href="flower-order.html" class="donate-button">點選這裡訂購花籃</a>
-            </section>
-
-            <section id="comments-section">
-                <h3>留言板</h3>
-                <form id="comment-form">
-                    <input type="text" id="commenter-name" name="commenter-name" placeholder="您的名字" required>
-                    <textarea id="comment-content" name="comment-content" placeholder="您的留言" required></textarea>
-                    <button type="submit">提交</button>
-                </form>
-                <ul id="comments"></ul>
-            </section>
+        <h2>訃聞公告</h2>
+        <img id="main-photo" class="main-photo" src="" alt="追思照片">
+        <ul class="timeline" id="timeline"></ul>
+        <div class="carousel" id="carousel"></div>
+        <section id="comments-section">
+            <h3>留言板</h3>
+            <form id="comment-form">
+                <input type="text" id="commenter-name" name="commenter-name" placeholder="您的名字" required>
+                <textarea id="comment-content" name="comment-content" placeholder="您的留言" required></textarea>
+                <button type="submit">提交</button>
+            </form>
+            <ul id="comments"></ul>
+            <a href="flower-order.html" class="donation-button">致贈花籃請點選我</a>
         </section>
     </main>
     <footer>
-        <p>承辦禮儀公司  祥安生命有限公司 禮儀師 陳柏元. </p>
+        <p>承辦禮儀公司：祥安生命有限公司</p>
+        <p>聯絡人：陳柏元</p>
+        <p>
+            Line: <a href="https://line.me/ti/p/your_line_id" target="_blank">加我 Line</a><br>
+            電話: <a href="tel:+886978583699">0978-583-699</a>
+        </p>
     </footer>
-
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener('DOMContentLoaded', function() {
+            const mainPhoto = document.getElementById('main-photo');
             const timeline = document.getElementById('timeline');
             const carousel = document.getElementById('carousel');
-            const playMusicButton = document.getElementById("play-music");
-            const stopMusicButton = document.getElementById("stop-music");
-            const backgroundMusic = document.getElementById("background-music");
+            const playMusicButton = document.getElementById('play-music-button');
+            const stopMusicButton = document.getElementById('stop-music-button');
+            const backgroundMusic = new Audio('path/to/your/music/file.mp3');
 
-            function loadStoredSettings() {
-                const storedMusicUrl = localStorage.getItem('musicUrl');
-                const isMusicPlaying = localStorage.getItem('musicPlaying') === 'true';
+            // 从 localStorage 加载图片和信息
+            function loadStoredData() {
+                const mainPhotoSrc = localStorage.getItem('main-photo');
+                if (mainPhotoSrc) {
+                    mainPhoto.src = mainPhotoSrc;
+                }
 
-                if (storedMusicUrl) {
-                    backgroundMusic.src = storedMusicUrl;
-                    if (isMusicPlaying) {
-                        backgroundMusic.play().catch(error => {
-                            console.error("播放背景音乐失败:", error);
-                        });
-                        playMusicButton.style.display = "none";
-                        stopMusicButton.style.display = "inline";
-                    }
+                const timelineData = localStorage.getItem('timeline-data');
+                if (timelineData) {
+                    const events = JSON.parse(timelineData);
+                    events.forEach(event => {
+                        addTimelineEvent(event.date, event.content);
+                    });
+                }
+
+                const additionalPhotos = localStorage.getItem('additional-photos');
+                if (additionalPhotos) {
+                    const photoArray = JSON.parse(additionalPhotos);
+                    photoArray.forEach(photo => {
+                        const img = document.createElement('img');
+                        img.src = photo;
+                        carousel.appendChild(img);
+                    });
                 }
             }
 
-            function addTimelineEvent(title, content) {
+            function addTimelineEvent(date, content) {
                 const li = document.createElement('li');
                 li.innerHTML = `
-                    <div class="date">${title}</div>
+                    <div class="date">${date}</div>
                     <div class="content">${content}</div>
                 `;
                 timeline.appendChild(li);
@@ -227,7 +241,7 @@
             playMusicButton.addEventListener("click", playBackgroundMusic);
             stopMusicButton.addEventListener("click", stopBackgroundMusic);
 
-            loadStoredSettings();
+            loadStoredData();
 
             window.addEventListener("beforeunload", function() {
                 localStorage.setItem('musicUrl', backgroundMusic.src);
@@ -249,17 +263,6 @@
                     commentForm.reset();
                 }
             });
-
-            // 设置照片轮播
-            const additionalPhotos = localStorage.getItem('additional-photos');
-            if (additionalPhotos) {
-                const photoArray = JSON.parse(additionalPhotos);
-                photoArray.forEach(photo => {
-                    const img = document.createElement('img');
-                    img.src = photo;
-                    carousel.appendChild(img);
-                });
-            }
         });
     </script>
 </body>
