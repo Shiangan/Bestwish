@@ -1,29 +1,24 @@
-你的 CSS 样式已经很不错了，以下是一些细节上的建议和改进：
-
-### 完整的 CSS 样式
-
-```css
 /* 基础样式 */
 body {
     font-family: Arial, sans-serif;
     text-align: center;
     background-color: #f4f4f4;
-    margin: 0; /* 去掉默认的边距 */
-    padding: 0; /* 去掉默认的内边距 */
+    margin: 0;
+    padding: 0;
 }
 
 header {
     background-color: #fff;
-    padding: 10px 0;
+    padding: 1rem 0;
 }
 
 .logo {
-    width: 120px; /* 缩小 Logo 尺寸 */
-    margin: 20px auto; /* 居中显示 */
+    width: 120px;
+    margin: 1rem auto;
 }
 
 main {
-    padding: 20px;
+    padding: 1rem;
     max-width: 800px;
     margin: auto;
 }
@@ -31,23 +26,23 @@ main {
 /* 邀请部分 */
 #photo-container {
     position: relative;
-    width: 90%; /* 自适应宽度 */
-    max-width: 600px; /* 最大宽度限制 */
-    margin: 20px auto; /* 居中显示 */
-    border-radius: 10px; /* 圆角边框 */
-    overflow: hidden; /* 隐藏溢出的部分 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加阴影 */
+    width: 90%;
+    max-width: 600px;
+    margin: 1rem auto;
+    border-radius: 0.625rem; /* 圆角边框 */
+    overflow: hidden;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
 }
 
 #main-photo {
     width: 100%;
-    height: auto; /* 保持照片的纵横比 */
-    opacity: 0.7; /* 调整照片的淡化程度 */
-    transition: opacity 0.3s ease; /* 平滑过渡效果 */
+    height: auto;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
 }
 
 #photo-container:hover #main-photo {
-    opacity: 0.5; /* 鼠标悬停时更明显的淡化效果 */
+    opacity: 0.5;
 }
 
 #invitation-overlay {
@@ -61,43 +56,43 @@ main {
     justify-content: center;
     align-items: center;
     color: white;
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: bold;
-    background-color: rgba(0, 0, 0, 0.6); /* 增加透明度以更好地突出文本 */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* 为文本添加阴影 */
+    background-color: rgba(0, 0, 0, 0.6);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
 
 button {
-    padding: 12px 24px; /* 增加按钮的内边距 */
-    font-size: 18px; /* 调整按钮的字体大小 */
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 0.5rem;
     border: none;
-    border-radius: 5px; /* 圆角按钮 */
-    background-color: #007bff; /* 按钮背景颜色 */
+    border-radius: 0.3125rem;
+    background-color: #007bff;
     color: white;
-    transition: background-color 0.3s ease; /* 平滑过渡效果 */
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #0056b3; /* 鼠标悬停时的颜色变化 */
+    background-color: #0056b3;
 }
 
 /* 服务详情部分 */
 #service-details {
-    margin-top: 20px;
+    margin-top: 1rem;
     background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
 }
 
 #service-details h2 {
-    margin-bottom: 10px;
+    margin-bottom: 0.5rem;
 }
 
 #service-details p {
-    margin: 10px 0;
+    margin: 0.5rem 0;
 }
 
 #service-details a {
@@ -112,8 +107,8 @@ button:hover {
 /* 音乐控制 */
 #music-control {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 1rem;
+    right: 1rem;
 }
 
 #music-control button {
@@ -121,4 +116,9 @@ button:hover {
     border: none;
     font-size: 2rem;
     cursor: pointer;
+    color: #007bff;
+}
+
+#music-control button:hover {
+    color: #0056b3;
 }
