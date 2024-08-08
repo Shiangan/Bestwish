@@ -76,29 +76,44 @@
         }
         .carousel img {
             width: 100%;
-            max-height: 300px;
-            object-fit: cover;
+            height: auto;
             border-radius: 10px;
+        }
+        .message {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .message img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
         }
         footer {
             background-color: #fff;
-            padding: 10px;
+            padding: 20px;
             text-align: center;
             border-top: 1px solid #ddd;
         }
-        .footer-info {
-            margin-top: 10px;
+        footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
         }
         #message-form input, #message-form textarea {
-            display: block;
             width: 100%;
-            margin-bottom: 10px;
             padding: 10px;
+            margin-bottom: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
         #message-form button {
-            padding: 10px;
+            padding: 10px 20px;
             background-color: #007bff;
             color: #fff;
             border: none;
@@ -108,60 +123,52 @@
         #message-form button:hover {
             background-color: #0056b3;
         }
-        #messages-container .message {
-            margin-bottom: 15px;
-        }
-        #messages-container .message img {
-            max-width: 100px;
-            border-radius: 5px;
-        }
-        .donation-button {
-            display: inline-block;
-            padding: 10px 20px;
-            margin-top: 20px;
-            background-color: #007bff;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-            text-align: center;
-        }
-        .donation-button:hover {
-            background-color: #0056b3;
-        }
     </style>
 </head>
 <body>
     <header>
         <img src="logo.png" alt="祥安生命有限公司" class="logo">
+        <h1>訃聞</h1>
     </header>
     <main>
-        <h2 id="deceased-name">逝者姓名</h2>
-        <img id="main-photo" class="main-photo" src="" alt="逝者照片">
+        <!-- 主照片 -->
+        <img id="main-photo" class="main-photo" alt="主照片">
+
+        <!-- 訃告紙本 -->
+        <div id="obituary-paper-container" class="obituary-paper-container">
+            <h3>訃告紙本</h3>
+            <img id="obituary-paper" class="obituary-paper" alt="訃告紙本">
+        </div>
+
+        <!-- 死者名字 -->
+        <h2 id="deceased-name"></h2>
+
+        <!-- 溫馨文字 -->
         <div class="warm-text">
-            <p>敬爱的（逝者姓名）于（逝世日期）安息。</p>
+            <p id="warm-text-content"></p>
         </div>
-        <div class="obituary-paper-container">
-            <h3>纸本讣告</h3>
-            <img id="obituary-paper" class="obituary-paper" src="" alt="纸本讣告">
-        </div>
-        <h3>生平时间轴</h3>
-        <ul id="timeline" class="timeline">
-            <!-- 时间轴内容 -->
-        </ul>
-        <div id="carousel" class="carousel">
-            <!-- 轮播照片 -->
-        </div>
-        <a href="flower-order.html" class="donation-button">致贈花籃請點選我</a>
-        <section class="message-board">
-            <h3>留言板</h3>
-            <form id="message-form">
-                <input type="text" id="message-name" placeholder="您的名字" required>
-                <textarea id="message-content" placeholder="您的留言" required></textarea>
-                <input type="file" id="message-photo" accept="image/*">
-                <button type="submit">提交</button>
-            </form>
-            <div id="messages-container"></div>
-        </section>
+
+        <!-- 時間線 -->
+        <h3>時間線</h3>
+        <ul id="timeline" class="timeline"></ul>
+
+        <!-- 追思照片 -->
+        <h3>追思照片</h3>
+        <div id="carousel" class="carousel"></div>
+
+        <!-- 留言板 -->
+        <h3>留言板</h3>
+        <form id="message-form">
+            <input type="text" id="message-name" placeholder="您的名字" required>
+            <textarea id="message-content" placeholder="您的留言" required></textarea>
+            <input type="file" id="message-photo" accept="image/*">
+            <button type="submit">提交</button>
+        </form>
+        <div id="messages-container"></div>
+
+        <!-- 致贈花籃 -->
+        <h3>致贈花籃</h3>
+        <a href="flower-order.html" id="flower-donation-link">點選這裡致贈花籃</a>
     </main>
     <footer>
         承辦禮儀公司：<strong>祥安生命有限公司</strong><br>
@@ -172,6 +179,8 @@
     <audio id="background-music" controls hidden>
         <source src="" type="audio/mpeg">
     </audio>
+    <button id="play-music">🔊 播放音樂</button>
+    <button id="stop-music" style="display: none;">🔇 停止音樂</button>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const mainPhoto = document.getElementById('main-photo');
@@ -200,9 +209,9 @@
                 deceasedName.textContent = deceasedNameText;
             }
 
-            const dateOfPassingText = localStorage.getItem('date-of-passing');
-            if (dateOfPassingText) {
-                document.getElementById('date-of-passing').textContent = dateOfPassingText;
+            const warmTextContent = localStorage.getItem('warm-text');
+            if (warmTextContent) {
+                document.getElementById('warm-text-content').textContent = warmTextContent;
             }
 
             // 设置时间线
@@ -244,7 +253,7 @@
             playMusicButton.addEventListener("click", playBackgroundMusic);
             stopMusicButton.addEventListener("click", stopBackgroundMusic);
 
-            // 加载存储的音乐播放状态
+                        // 加载存储的音乐播放状态
             function loadStoredSettings() {
                 const musicPlaying = localStorage.getItem('musicPlaying');
                 if (musicPlaying === 'true') {
@@ -282,4 +291,4 @@
         });
     </script>
 </body>
-</html> 
+</html>
