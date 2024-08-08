@@ -35,7 +35,7 @@
             object-fit: cover;
             border-radius: 10px;
         }
-        .main-photo-container {
+        .main-photo-container, .obituary-paper-container {
             position: relative;
             text-align: center;
             margin-bottom: 20px;
@@ -47,11 +47,10 @@
             font-style: italic;
         }
         .obituary-paper-container {
-            margin: 20px 0;
-            padding: 15px;
             background-color: #fff;
             border: 1px solid #ddd;
             border-radius: 5px;
+            padding: 15px;
             text-align: center;
         }
         .timeline {
@@ -60,47 +59,42 @@
             padding: 0;
             margin: 20px 0;
             list-style: none;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #fff;
         }
         .timeline-item {
-            flex: 0 0 auto;
-            padding: 10px;
-            margin: 10px;
-            border: 1px solid #007bff;
+            min-width: 200px;
+            margin-right: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border: 1px solid #ddd;
             border-radius: 5px;
-            width: 200px;
-            background-color: #e9f4ff;
             position: relative;
+            text-align: center;
         }
-        .timeline-item:before {
+        .timeline-item::before {
             content: '';
             position: absolute;
-            left: -10px;
             top: 50%;
-            transform: translateY(-50%);
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
+            left: -10px;
+            width: 8px;
+            height: 8px;
             background-color: #007bff;
+            border-radius: 50%;
+            transform: translateY(-50%);
         }
-        .timeline-item .date {
-            font-weight: bold;
-            color: #007bff;
-        }
-        .timeline-item .content {
-            margin-top: 5px;
+        .carousel {
+            display: flex;
+            overflow-x: auto;
+            padding: 0;
+            margin: 20px 0;
+            list-style: none;
         }
         .carousel img {
-            width: 100%;
-            height: auto;
-            max-width: 150px;
+            max-height: 200px;
+            margin-right: 10px;
             border-radius: 5px;
-            margin: 5px;
         }
         .message-form {
-            margin: 20px 0;
+            margin-bottom: 20px;
         }
         .message-form label {
             display: block;
@@ -109,31 +103,30 @@
         }
         .message-form input, .message-form textarea {
             width: 100%;
-            padding: 10px;
             margin-bottom: 10px;
+            padding: 8px;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
         .message-form button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
             background-color: #007bff;
             color: #fff;
-            font-size: 16px;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
             cursor: pointer;
         }
         .message-form button:hover {
             background-color: #0056b3;
         }
-        .messages-container .message {
-            border: 1px solid #ddd;
+        .message {
             padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
             background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
         }
-        .messages-container .message img {
+        .message img {
             max-width: 100px;
             display: block;
             margin-top: 10px;
@@ -144,35 +137,47 @@
             text-align: center;
             border-top: 1px solid #ddd;
         }
-        footer a {
-            color: #007bff;
-            text-decoration: none;
+        .music-controls {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
         }
-        footer a:hover {
-            text-decoration: underline;
+        .music-controls button {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+        .music-controls button:focus {
+            outline: none;
         }
     </style>
 </head>
 <body>
     <header>
         <img src="logo.png" alt="祥安生命有限公司" class="logo">
+        <h1>祥安生命有限公司</h1>
     </header>
     <main>
         <div class="main-photo-container">
             <img id="main-photo" class="main-photo" src="" alt="主照片">
-            <div class="main-photo-caption">我們摯愛的某某某，將永遠在我們心中。</div>
+            <div class="main-photo-caption">我們摯愛的，將永遠在我們心中。</div>
         </div>
         <div class="obituary-paper-container">
             <img id="obituary-paper" class="obituary-paper" src="" alt="訃聞紙張">
         </div>
-        <ul id="timeline" class="timeline">
-            <!-- Timeline items will be dynamically added here -->
-        </ul>
-        <div id="carousel" class="carousel">
-            <!-- Carousel images will be dynamically added here -->
+        <div>
+            <h2>時間軸</h2>
+            <ul id="timeline" class="timeline"></ul>
         </div>
-        <div class="message-form">
-            <form id="message-form-element">
+        <div>
+            <h2>追思照片</h2>
+            <div id="carousel" class="carousel"></div>
+        </div>
+        <div>
+            <h2>追思留言區</h2>
+            <form id="message-form-element" class="message-form">
                 <label for="message-name">姓名:</label>
                 <input type="text" id="message-name" name="name" required>
                 <label for="message-content">留言內容:</label>
@@ -181,9 +186,9 @@
                 <input type="file" id="message-photo" name="photo" accept="image/*">
                 <button type="submit">提交留言</button>
             </form>
-        </div>
-        <div id="messages-container" class="messages-container">
-            <!-- Messages will be dynamically added here -->
+            <div id="messages-container">
+                <!-- Messages will be dynamically added here -->
+            </div>
         </div>
     </main>
     <footer>
@@ -193,8 +198,10 @@
     <audio id="background-music" loop>
         <source src="" type="audio/mpeg">
     </audio>
-    <button id="play-music">🔊 播放音樂</button>
-    <button id="stop-music">🔇 停止音樂</button>
+    <div class="music-controls">
+        <button id="play-music">🔊 播放音樂</button>
+        <button id="stop-music">🔇 停止音樂</button>
+    </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const mainPhoto = document.getElementById('main-photo');
@@ -225,13 +232,13 @@
             // 设置时间线
             const timelineData = JSON.parse(localStorage.getItem('timelineData') || '[]');
             timelineData.forEach(event => {
-                const item = document.createElement('div');
-                item.className = 'timeline-item';
-                item.innerHTML = `
+                const li = document.createElement('li');
+                li.className = 'timeline-item';
+                li.innerHTML = `
                     <div class="date">${event.date}</div>
                     <div class="content">${event.content}</div>
                 `;
-                timeline.appendChild(item);
+                timeline.appendChild(li);
             });
 
             // 设置追思照片
@@ -250,7 +257,8 @@
             });
 
             stopMusicButton.addEventListener('click', function() {
-                backgroundMusic.pause();                playMusicButton.style.display = 'block';
+                backgroundMusic.pause();
+                playMusicButton.style.display = 'block';
                 stopMusicButton.style.display = 'none';
             });
 
@@ -260,7 +268,7 @@
 
             messageForm.addEventListener('submit', function(event) {
                 event.preventDefault();
-
+                
                 const name = document.getElementById('message-name').value;
                 const content = document.getElementById('message-content').value;
                 const photo = document.getElementById('message-photo').files[0];
@@ -284,7 +292,7 @@
                 }
 
                 messagesContainer.appendChild(messageDiv);
-
+                
                 // 清空表单
                 messageForm.reset();
             });
