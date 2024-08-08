@@ -30,26 +30,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const formData = new FormData(form);
 
-        // 如果有自定義音樂文件，將其轉換為URL
-        if (customMusic.files.length > 0) {
-            const customMusicFile = customMusic.files[0];
-            const customMusicUrl = URL.createObjectURL(customMusicFile);
-            currentMusicUrl = customMusicUrl;
-            localStorage.setItem('musicUrl', customMusicUrl);
-            backgroundMusic.src = customMusicUrl;
+        // 处理主照片
+        const mainPhotoFile = formData.get('photo');
+        if (mainPhotoFile) {
+            const mainPhotoUrl = URL.createObjectURL(mainPhotoFile);
+            localStorage.setItem('mainPhoto', mainPhotoUrl);
         }
 
-        // 保存其他表單數據
-        localStorage.setItem('name', formData.get('name'));
-        localStorage.setItem('birthDate', formData.get('birth-date'));
-        localStorage.setItem('deathDate', formData.get('death-date'));
-        localStorage.setItem('age', calculateAge(formData.get('birth-date'), formData.get('death-date')));
-        localStorage.setItem('funeralSpace', formData.get('funeral-space'));
-        localStorage.setItem('familyServiceTime', formData.get('family-service-time'));
-        localStorage.setItem('publicServiceTime', formData.get('public-service-time'));
-        localStorage.setItem('funeralLocation', formData.get('funeral-location'));
-
-        const additionalPhotos = Array.from(formData.getAll('additional-photos')).map(file => {
+        // 处理附加照片
+        const additionalPhotos = Array.from(formData.getAll('additional-photos[]')).map(file => {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
                 reader.onload = () => resolve(reader.result);
@@ -63,6 +52,25 @@ document.addEventListener("DOMContentLoaded", function() {
             localStorage.setItem('additionalPhotos', JSON.stringify(loadedPhotos));
         } catch (error) {
             console.error("加载附加照片失败:", error);
+        }
+
+        // 保存其他表单数据
+        localStorage.setItem('name', formData.get('name'));
+        localStorage.setItem('birthDate', formData.get('birth-date'));
+        localStorage.setItem('deathDate', formData.get('death-date'));
+        localStorage.setItem('age', calculateAge(formData.get('birth-date'), formData.get('death-date')));
+        localStorage.setItem('funeralSpace', formData.get('funeral-space'));
+        localStorage.setItem('familyServiceTime', formData.get('family-service-time'));
+        localStorage.setItem('publicServiceTime', formData.get('public-service-time'));
+        localStorage.setItem('funeralLocation', formData.get('funeral-location'));
+
+        // 处理音乐
+        if (customMusic.files.length > 0) {
+            const customMusicFile = customMusic.files[0];
+            const customMusicUrl = URL.createObjectURL(customMusicFile);
+            currentMusicUrl = customMusicUrl;
+            localStorage.setItem('musicUrl', customMusicUrl);
+            backgroundMusic.src = customMusicUrl;
         }
 
         console.log('Redirecting to invitation.html');
@@ -103,17 +111,17 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem('musicPlaying', 'true');
     }
 
-    function stopBackgroundMusic() {
+      function stopBackgroundMusic() {
         backgroundMusic.pause();
         localStorage.setItem('musicPlaying', 'false');
-        playMusicButton.style.display = "block";
+        playMusicButton.style.display = "inline";
         stopMusicButton.style.display = "none";
     }
 
-    form.addEventListener("submit", handleFormSubmit);
-    musicChoice.addEventListener("change", handleMusicChoiceChange);
-    playMusicButton.addEventListener("click", playBackgroundMusic);
-    stopMusicButton.addEventListener("click", stopBackgroundMusic);
+    form.addEventListener('submit', handleFormSubmit);
+    musicChoice.addEventListener('change', handleMusicChoiceChange);
+    playMusicButton.addEventListener('click', playBackgroundMusic);
+    stopMusicButton.addEventListener('click', stopBackgroundMusic);
 
     loadStoredSettings();
 });
