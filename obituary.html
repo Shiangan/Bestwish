@@ -58,93 +58,145 @@
             list-style: none;
             padding: 0;
             margin: 20px 0;
+            border-left: 4px solid #007bff;
         }
         .timeline li {
             margin-bottom: 20px;
-            position: relative;
             padding-left: 20px;
+            position: relative;
         }
         .timeline li:before {
             content: '';
             position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 8px;
+            left: -10px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
             background-color: #007bff;
-            border-radius: 4px;
+            border-radius: 50%;
+        }
+        .timeline .date {
+            font-weight: bold;
+            color: #555;
         }
         .carousel {
+            margin-top: 20px;
             display: flex;
+            justify-content: center;
             overflow-x: auto;
-            gap: 10px;
-            margin: 20px 0;
+            scroll-snap-type: x mandatory;
         }
         .carousel img {
-            max-height: 200px;
+            max-width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            scroll-snap-align: center;
+            margin: 0 10px;
+            border-radius: 10px;
+        }
+        .message-board {
+            margin-top: 40px;
+        }
+        .message-board h3 {
+            margin-bottom: 10px;
+        }
+        .message-board form {
+            display: flex;
+            flex-direction: column;
+        }
+        .message-board form label {
+            margin-top: 10px;
+        }
+        .message-board form input[type="text"],
+        .message-board form textarea {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        .message-board form button {
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .message-board .message {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border: 1px solid #ddd;
             border-radius: 5px;
         }
-        #messages-container .message {
-            margin-bottom: 15px;
+        .message-board .message img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
         }
-        #messages-container img {
-            max-width: 100px;
-            display: block;
-            margin-top: 5px;
-        }
-        footer {
-            background-color: #fff;
-            padding: 10px;
+        .donate-flowers {
+            margin-top: 40px;
             text-align: center;
-            border-top: 1px solid #ddd;
         }
-        footer a {
-            color: #007bff;
+        .donate-flowers a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
             text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 5px;
         }
-        footer a:hover {
-            text-decoration: underline;
-        }
-        #play-music, #stop-music {
-            margin: 10px;
+        .donate-flowers p {
+            margin-top: 5px;
+            font-size: 12px;
+            color: #555;
         }
     </style>
 </head>
 <body>
     <header>
-        <img src="path/to/logo.png" alt="祥安生命有限公司" class="logo">
-        <h1>祥安生命有限公司</h1>
+        <img src="logo.png" alt="祥安生命有限公司 Logo" class="logo">
     </header>
     <main>
         <div class="main-photo-container">
-            <img id="main-photo" class="main-photo" src="" alt="主要照片">
-            <div class="main-photo-caption"></div>
+            <img id="main-photo" class="main-photo" alt="主要照片">
+            <div class="main-photo-caption">我們摯愛的 [姓名]，他/她將永遠在我們心中。</div>
         </div>
+
         <div class="obituary-paper-container">
-            <img id="obituary-paper" class="obituary-paper" src="" alt="訃告照片">
+            <img id="obituary-paper" class="obituary-paper" alt="訃告照片">
         </div>
-        <h2>時間軸</h2>
-        <ul id="timeline" class="timeline">
+
+        <ul class="timeline" id="timeline">
             <!-- Timeline events will be dynamically added here -->
         </ul>
-        <h2>追思照片</h2>
-        <div id="carousel" class="carousel">
-            <!-- Photos will be dynamically added here -->
+
+        <div class="carousel" id="carousel">
+            <!-- Carousel images will be dynamically added here -->
         </div>
-        <h3>留言板</h3>
-        <form id="message-form">
-            <label for="message-name">姓名:</label>
-            <input type="text" id="message-name" name="name" required>
-            <label for="message-content">留言內容:</label>
-            <textarea id="message-content" name="content" rows="4" required></textarea>
-            <label for="message-photo">附加照片（選擇性）:</label>
-            <input type="file" id="message-photo" name="photo" accept="image/*">
-            <button type="submit">提交留言</button>
-        </form>
-        <div id="messages-container">
-            <!-- Messages will be dynamically added here -->
+
+        <div class="message-board">
+            <h3>留言板</h3>
+            <form id="message-form">
+                <label for="message-name">姓名:</label>
+                <input type="text" id="message-name" name="name" required>
+                <label for="message-content">留言內容:</label>
+                <textarea id="message-content" name="content" rows="4" required></textarea>
+                <label for="message-photo">附加照片（選擇性）:</label>
+                <input type="file" id="message-photo" name="photo" accept="image/*">
+                <button type="submit">提交留言</button>
+            </form>
+            <div id="messages-container">
+                <!-- Messages will be dynamically added here -->
+            </div>
         </div>
-        <p>致贈花籃請點選我 (會場統一佈置)</p>
+
+        <div class="donate-flowers">
+                   <a href="flower-order.html" class="donation-button">致贈花籃請點選我</a>
+        <div class="donation-note">（會場統一佈置）</div>
+
     </main>
     <footer>
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
@@ -204,54 +256,61 @@
             });
 
             // 设置播放音乐按钮事件
-            playMusicButton.addEventListener('click', function() {
-                backgroundMusic.play();
                 playMusicButton.style.display = 'none';
-                stopMusicButton.style.display = 'inline';
+                stopMusicButton.style.display = 'inline-block';
             });
 
-            // 设置停止音乐按钮事件
             stopMusicButton.addEventListener('click', function() {
                 backgroundMusic.pause();
-                playMusicButton.style.display = 'inline';
+                backgroundMusic.currentTime = 0;
                 stopMusicButton.style.display = 'none';
+                playMusicButton.style.display = 'inline-block';
             });
 
-            // 提交留言表单的处理
-            
+            // 设置留言板提交事件
             const messageForm = document.getElementById('message-form');
             const messagesContainer = document.getElementById('messages-container');
 
-            messageForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                
+            messageForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
                 const name = document.getElementById('message-name').value;
                 const content = document.getElementById('message-content').value;
-                const photo = document.getElementById('message-photo').files[0];
+                const photoInput = document.getElementById('message-photo');
+                let photoUrl = '';
 
+                if (photoInput.files && photoInput.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        photoUrl = e.target.result;
+                        addMessage(name, content, photoUrl);
+                    };
+                    reader.readAsDataURL(photoInput.files[0]);
+                } else {
+                    addMessage(name, content, photoUrl);
+                }
+
+                // 清除表单内容
+                messageForm.reset();
+            });
+
+            function addMessage(name, content, photoUrl) {
                 const messageDiv = document.createElement('div');
                 messageDiv.className = 'message';
+                messageDiv.innerHTML = `
+                    <strong>${name}:</strong>
+                    <p>${content}</p>
+                `;
 
-                const nameP = document.createElement('p');
-                nameP.textContent = `留言者: ${name}`;
-                messageDiv.appendChild(nameP);
-
-                const contentP = document.createElement('p');
-                contentP.textContent = content;
-                messageDiv.appendChild(contentP);
-
-                if (photo) {
-                    const photoImg = document.createElement('img');
-                    photoImg.src = URL.createObjectURL(photo);
-                    photoImg.alt = '留言附加照片';
-                    messageDiv.appendChild(photoImg);
+                if (photoUrl) {
+                    const img = document.createElement('img');
+                    img.src = photoUrl;
+                    img.alt = '留言附加照片';
+                    messageDiv.appendChild(img);
                 }
 
                 messagesContainer.appendChild(messageDiv);
-                
-                // 清空表单
-                messageForm.reset();
-            });
+            }
         });
     </script>
 </body>
