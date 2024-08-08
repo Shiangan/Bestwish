@@ -6,7 +6,7 @@
     <title>訃聞 - 祥安生命有限公司</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
             background-color: #f5f5f5;
             color: #333;
             margin: 0;
@@ -19,18 +19,14 @@
             border-bottom: 1px solid #ddd;
         }
         header img.logo {
-            max-width: 100px;
+            max-width: 120px;
         }
         main {
             padding: 20px;
             max-width: 1000px;
             margin: auto;
         }
-        h1 {
-            color: #007bff;
-            margin: 0;
-        }
-        h2, h3 {
+        h1, h2, h3 {
             color: #007bff;
         }
         .main-photo, .obituary-paper {
@@ -38,11 +34,11 @@
             max-height: 400px;
             object-fit: cover;
             border-radius: 10px;
+            margin-bottom: 20px;
         }
         .main-photo-container, .obituary-paper-container {
             position: relative;
             text-align: center;
-            margin-bottom: 20px;
         }
         .main-photo-caption {
             margin-top: 10px;
@@ -163,6 +159,14 @@
         .music-controls button:focus {
             outline: none;
         }
+        @media (max-width: 768px) {
+            .carousel img {
+                max-height: 150px;
+            }
+            .timeline-item {
+                padding: 15px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -247,12 +251,12 @@
                 li.className = 'timeline-item';
                 li.innerHTML = `
                     <div class="date">${event.date}</div>
-                    <div class="content">${event.content}</div>
+                    <div class="event">${event.description}</div>
                 `;
                 timeline.appendChild(li);
             });
 
-            // 设置追思照片轮播
+            // 设置照片轮播
             const carouselData = JSON.parse(localStorage.getItem('carouselData') || '[]');
             carouselData.forEach(photoUrl => {
                 const img = document.createElement('img');
@@ -261,49 +265,40 @@
                 carousel.appendChild(img);
             });
 
-            // 播放和停止音乐功能
-            playMusicButton.addEventListener('click', () => {
-                backgroundMusic.play();
-            });
-
-            stopMusicButton.addEventListener('click', () => {
-                backgroundMusic.pause();
-            });
-
-            // 留言表单处理
-            document.getElementById('message-form-element').addEventListener('submit', function(e) {
-                e.preventDefault();
+            // 处理留言表单
+            document.getElementById('message-form-element').addEventListener('submit', function(event) {
+                event.preventDefault();
                 const name = document.getElementById('message-name').value;
                 const content = document.getElementById('message-content').value;
-                const photoInput = document.getElementById('message-photo');
-                let photoUrl = '';
+                const photo = document.getElementById('message-photo').files[0];
 
-                if (photoInput.files.length > 0) {
-                    const file = photoInput.files[0];
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        photoUrl = e.target.result;
-                        addMessage(name, content, photoUrl);
-                    };
-                    reader.readAsDataURL(file);
-                } else {
-                    addMessage(name, content);
-                }
-            });
-
-            function addMessage(name, content, photoUrl = '') {
-                const messagesContainer = document.getElementById('messages-container');
                 const messageDiv = document.createElement('div');
                 messageDiv.className = 'message';
                 messageDiv.innerHTML = `
                     <strong>${name}</strong>
                     <p>${content}</p>
-                    ${photoUrl ? `<img src="${photoUrl}" alt="留言照片">` : ''}
                 `;
-                messagesContainer.appendChild(messageDiv);
-                // 重置表单
+
+                if (photo) {
+                    const photoUrl = URL.createObjectURL(photo);
+                    const img = document.createElement('img');
+                    img.src = photoUrl;
+                    img.alt = '附加照片';
+                    messageDiv.appendChild(img);
+                }
+
+                document.getElementById('messages-container').appendChild(messageDiv);
                 document.getElementById('message-form-element').reset();
-            }
+            });
+
+            // 音乐控制
+            playMusicButton.addEventListener('click', function() {
+                backgroundMusic.play();
+            });
+
+            stopMusicButton.addEventListener('click', function() {
+                backgroundMusic.pause();
+            });
         });
     </script>
 </body>
