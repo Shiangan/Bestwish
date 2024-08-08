@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
+    // 变量定义
     const form = document.getElementById("info-form");
     const playMusicButton = document.getElementById("play-music");
     const stopMusicButton = document.getElementById("stop-music");
@@ -8,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let currentMusicUrl = '';
 
+    // 加载存储的设置
     function loadStoredSettings() {
         const storedMusicUrl = localStorage.getItem('musicUrl');
         const isMusicPlaying = localStorage.getItem('musicPlaying') === 'true';
@@ -25,9 +27,9 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+    // 表单提交处理
     async function handleFormSubmit(event) {
         event.preventDefault();
-
         const formData = new FormData(form);
 
         // 处理主照片
@@ -77,6 +79,7 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.href = "invitation.html";
     }
 
+    // 计算年龄
     function calculateAge(birthDate, deathDate) {
         const birth = new Date(birthDate);
         const death = new Date(deathDate);
@@ -88,6 +91,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return age;
     }
 
+    // 处理音乐选择变化
     function handleMusicChoiceChange() {
         const selectedOption = musicChoice.options[musicChoice.selectedIndex];
         const musicUrl = selectedOption.value;
@@ -102,6 +106,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+    // 播放背景音乐
     function playBackgroundMusic() {
         backgroundMusic.play().catch(error => {
             console.error("播放背景音乐失败:", error);
@@ -111,13 +116,15 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem('musicPlaying', 'true');
     }
 
-      function stopBackgroundMusic() {
+    // 停止背景音乐
+    function stopBackgroundMusic() {
         backgroundMusic.pause();
         localStorage.setItem('musicPlaying', 'false');
         playMusicButton.style.display = "inline";
         stopMusicButton.style.display = "none";
     }
 
+    // 事件监听
     form.addEventListener('submit', handleFormSubmit);
     musicChoice.addEventListener('change', handleMusicChoiceChange);
     playMusicButton.addEventListener('click', playBackgroundMusic);
