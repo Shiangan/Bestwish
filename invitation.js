@@ -1,53 +1,48 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const orders = JSON.parse(localStorage.getItem('orders')) || [];
-    const lastOrder = orders[orders.length - 1];
+document.addEventListener("DOMContentLoaded", function() {
+    const mainPhoto = document.getElementById('main-photo');
+    const backgroundMusic = document.getElementById('background-music');
+    const playMusicButton = document.getElementById('play-music');
+    const stopMusicButton = document.getElementById('stop-music');
 
-    if (lastOrder) {
-        const mainPhoto = document.getElementById('main-photo');
-        const backgroundMusic = document.getElementById('background-music');
-        const invitationSection = document.getElementById('invitation-section');
-        
-        // 显示主要照片
-        if (lastOrder.photo) {
-            mainPhoto.src = URL.createObjectURL(lastOrder.photo);
+    function loadStoredSettings() {
+        const storedPhoto = localStorage.getItem('mainPhoto');
+        const storedMusicUrl = localStorage.getItem('musicUrl');
+        const isMusicPlaying = localStorage.getItem('musicPlaying') === 'true';
+
+        if (storedPhoto) {
+            mainPhoto.src = storedPhoto;
         }
-        invitationSection.classList.remove('hidden');
-        
-        // 设置背景音乐
-        if (lastOrder.musicChoice) {
-            // 如果 musicChoice 是 Blob 对象或 File 对象
-            if (lastOrder.musicChoice instanceof Blob || lastOrder.musicChoice instanceof File) {
-                backgroundMusic.src = URL.createObjectURL(lastOrder.musicChoice);
-            } else {
-                // 如果 musicChoice 是 URL 字符串
-                backgroundMusic.src = lastOrder.musicChoice;
-            }
-        } else if (lastOrder.customMusic) {
-            // 如果 customMusic 是 Blob 对象或 File 对象
-            if (lastOrder.customMusic instanceof Blob || lastOrder.customMusic instanceof File) {
-                backgroundMusic.src = URL.createObjectURL(lastOrder.customMusic);
-            } else {
-                // 如果 customMusic 是 URL 字符串
-                backgroundMusic.src = lastOrder.customMusic;
+
+        if (storedMusicUrl) {
+            backgroundMusic.src = storedMusicUrl;
+            if (isMusicPlaying) {
+                backgroundMusic.play().catch(error => {
+                    console.error("播放背景音乐失败:", error);
+                });
+                playMusicButton.style.display = "none";
+                stopMusicButton.style.display = "inline";
             }
         }
     }
 
-    // 音乐控制
-    const playButton = document.getElementById('play-music');
-    const stopButton = document.getElementById('stop-music');
-    
-    playButton.addEventListener('click', function() {
+    function playBackgroundMusic() {
         backgroundMusic.play().catch(error => {
             console.error("播放背景音乐失败:", error);
         });
-        playButton.style.display = 'none';
-        stopButton.style.display = 'inline';
-    });
+        playMusicButton.style.display = "none";
+        stopMusicButton.style.display = "inline";
+        localStorage.setItem('musicPlaying', 'true');
+    }
 
-    stopButton.addEventListener('click', function() {
+    function stopBackgroundMusic() {
         backgroundMusic.pause();
-        playButton.style.display = 'inline';
-        stopButton.style.display = 'none';
-    });
+        localStorage.setItem('musicPlaying', 'false');
+        playMusicButton.style.display = "inline";
+        stopMusicButton.style.display = "none";
+    }
+
+    playMusicButton.addEventListener('click', playBackgroundMusic);
+    stopMusicButton.addEventListener('click', stopBackgroundMusic);
+
+    loadStoredSettings();
 });
