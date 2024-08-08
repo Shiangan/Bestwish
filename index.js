@@ -28,35 +28,31 @@ document.addEventListener("DOMContentLoaded", function() {
     async function handleFormSubmit(event) {
         event.preventDefault();
 
-        const musicUrl = musicChoice.value;
-        const customMusicFile = customMusic.files[0];
-        
-        if (customMusicFile) {
-            const customMusicUrl = await new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = reject;
-                reader.readAsDataURL(customMusicFile);
-            });
+        const formData = new FormData(form);
+
+        // 如果有自定義音樂文件，將其轉換為URL
+        if (customMusic.files.length > 0) {
+            const customMusicFile = customMusic.files[0];
+            const customMusicUrl = URL.createObjectURL(customMusicFile);
             currentMusicUrl = customMusicUrl;
             localStorage.setItem('musicUrl', customMusicUrl);
             backgroundMusic.src = customMusicUrl;
-        } else if (musicUrl) {
-            currentMusicUrl = musicUrl;
-            localStorage.setItem('musicUrl', musicUrl);
-            backgroundMusic.src = musicUrl;
         }
 
-        localStorage.setItem('name', document.getElementById('name').value);
-        localStorage.setItem('birthDate', document.getElementById('birth-date').value);
-        localStorage.setItem('deathDate', document.getElementById('death-date').value);
-        localStorage.setItem('age', calculateAge(document.getElementById('birth-date').value, document.getElementById('death-date').value));
-        localStorage.setItem('funeralSpace', document.getElementById('funeral-space').value);
-        localStorage.setItem('familyServiceTime', document.getElementById('family-service-time').value);
-        localStorage.setItem('publicServiceTime', document.getElementById('public-service-time').value);
-        localStorage.setItem('funeralLocation', document.getElementById('funeral-location').value);
+        // 保存其他表單數據
+        formData.append('musicUrl', currentMusicUrl); // 添加音樂URL到表單數據
+        formData.append('musicChoice', musicChoice.value); // 如果需要音樂選擇，也可以保存
 
-        const additionalPhotos = Array.from(document.getElementById("additional-photos").files).map(file => {
+        localStorage.setItem('name', formData.get('name'));
+        localStorage.setItem('birthDate', formData.get('birth-date'));
+        localStorage.setItem('deathDate', formData.get('death-date'));
+        localStorage.setItem('age', calculateAge(formData.get('birth-date'), formData.get('death-date')));
+        localStorage.setItem('funeralSpace', formData.get('funeral-space'));
+        localStorage.setItem('familyServiceTime', formData.get('family-service-time'));
+        localStorage.setItem('publicServiceTime', formData.get('public-service-time'));
+        localStorage.setItem('funeralLocation', formData.get('funeral-location'));
+
+        const additionalPhotos = Array.from(formData.getAll('additional-photos')).map(file => {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
                 reader.onload = () => resolve(reader.result);
@@ -72,6 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
             console.error("加载附加照片失败:", error);
         }
 
+        console.log('Redirecting to invitation.html');
         window.location.href = "invitation.html";
     }
 
@@ -106,6 +103,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         playMusicButton.style.display = "none";
         stopMusicButton.style.display = "inline";
+        localStorage.setItem('musicPlaying', 'true');
     }
 
     function stopBackgroundMusic() {
