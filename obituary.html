@@ -23,10 +23,16 @@
         }
         main {
             padding: 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+        h2, h3 {
+            color: #007bff;
         }
         .timeline {
             list-style: none;
             padding: 0;
+            margin: 20px 0;
         }
         .timeline li {
             margin-bottom: 20px;
@@ -39,16 +45,17 @@
             left: 0;
             top: 0;
             bottom: 0;
-            width: 10px;
+            width: 8px;
             background-color: #007bff;
-            border-radius: 10px;
+            border-radius: 4px;
         }
         .timeline li .date {
             font-weight: bold;
             margin-bottom: 5px;
+            color: #555;
         }
         .timeline li .content {
-            padding: 10px;
+            padding: 15px;
             background-color: #fff;
             border: 1px solid #ddd;
             border-radius: 5px;
@@ -56,10 +63,16 @@
         .carousel {
             display: flex;
             overflow-x: auto;
+            margin: 20px 0;
+            padding: 10px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         .carousel img {
-            max-width: 200px;
+            max-width: 150px;
             margin-right: 10px;
+            border-radius: 5px;
         }
         #comments-section {
             margin-top: 20px;
@@ -69,19 +82,28 @@
         }
         #comments-section form {
             margin-bottom: 20px;
+            background: #fff;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
         #comments-section form input,
         #comments-section form textarea {
-            width: 100%;
+            width: calc(100% - 22px);
             padding: 10px;
             margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
         #comments-section form button {
             padding: 10px 20px;
             background-color: #007bff;
             color: #fff;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
         }
         #comments-section form button:hover {
             background-color: #0056b3;
@@ -97,6 +119,28 @@
             border: 1px solid #ddd;
             border-radius: 5px;
         }
+        #donate-flowers-section {
+            text-align: center;
+            margin-top: 20px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .donate-button {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .donate-button:hover {
+            background-color: #218838;
+        }
     </style>
 </head>
 <body>
@@ -104,11 +148,18 @@
         <img src="image/logo.png" alt="祥安生命有限公司 Logo" class="logo">
     </header>
     <main>
-        <section id="invitation-section" class="hidden">
+        <section id="invitation-section">
             <h2>訃聞邀請</h2>
-            <img id="main-photo" src="" alt="追思照片">
+            <img id="main-photo" src="" alt="追思照片" style="width: 100%; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
             <ul class="timeline" id="timeline"></ul>
             <div class="carousel" id="carousel"></div>
+            
+            <!-- 致贈花籃部分 -->
+            <section id="donate-flowers-section">
+                <h3>致贈花籃請點選我</h3>
+                <a href="flower-order.html" class="donate-button">點選這裡訂購花籃</a>
+            </section>
+
             <section id="comments-section">
                 <h3>留言板</h3>
                 <form id="comment-form">
@@ -121,34 +172,22 @@
         </section>
     </main>
     <footer>
-        <!-- 音乐控制按钮 -->
-        <div id="music-control">
-            <button id="play-music">🔊</button>
-            <button id="stop-music" style="display:none;">🔇</button>
-        </div>
-        <!-- 背景音乐 -->
-        <audio id="background-music" loop>
-            <source src="" type="audio/mpeg">
-            您的浏览器不支持音频元素。
-        </audio>
+        <p>承辦禮儀公司  祥安生命有限公司 禮儀師 陳柏元. </p>
     </footer>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const form = document.getElementById("info-form");
+            const timeline = document.getElementById('timeline');
+            const carousel = document.getElementById('carousel');
             const playMusicButton = document.getElementById("play-music");
             const stopMusicButton = document.getElementById("stop-music");
             const backgroundMusic = document.getElementById("background-music");
-            const musicChoice = document.getElementById("music-choice");
-            const customMusic = document.getElementById("custom-music");
-
-            let currentMusicUrl = '';
 
             function loadStoredSettings() {
                 const storedMusicUrl = localStorage.getItem('musicUrl');
                 const isMusicPlaying = localStorage.getItem('musicPlaying') === 'true';
 
                 if (storedMusicUrl) {
-                    currentMusicUrl = storedMusicUrl;
                     backgroundMusic.src = storedMusicUrl;
                     if (isMusicPlaying) {
                         backgroundMusic.play().catch(error => {
@@ -160,76 +199,13 @@
                 }
             }
 
-            function handleFormSubmit(event) {
-                event.preventDefault();
-
-                const formData = new FormData(form);
-
-                // 如果有自定義音樂文件，將其轉換為URL
-                if (customMusic.files.length > 0) {
-                    const customMusicFile = customMusic.files[0];
-                    const customMusicUrl = URL.createObjectURL(customMusicFile);
-                    currentMusicUrl = customMusicUrl;
-                    localStorage.setItem('musicUrl', customMusicUrl);
-                    backgroundMusic.src = customMusicUrl;
-                }
-
-                // 保存其他表單數據
-                formData.append('musicUrl', currentMusicUrl); // 添加音樂URL到表單數據
-                formData.append('musicChoice', musicChoice.value); // 如果需要音樂選擇，也可以保存
-
-                localStorage.setItem('name', formData.get('name'));
-                localStorage.setItem('birthDate', formData.get('birth-date'));
-                localStorage.setItem('deathDate', formData.get('death-date'));
-                localStorage.setItem('age', calculateAge(formData.get('birth-date'), formData.get('death-date')));
-                localStorage.setItem('funeralSpace', formData.get('funeral-space'));
-                localStorage.setItem('familyServiceTime', formData.get('family-service-time'));
-                localStorage.setItem('publicServiceTime', formData.get('public-service-time'));
-                localStorage.setItem('funeralLocation', formData.get('funeral-location'));
-
-                const additionalPhotos = Array.from(formData.getAll('additional-photos')).map(file => {
-                    return new Promise((resolve, reject) => {
-                        const reader = new FileReader();
-                        reader.onload = () => resolve(reader.result);
-                        reader.onerror = reject;
-                        reader.readAsDataURL(file);
-                    });
-                });
-
-                Promise.all(additionalPhotos)
-                    .then(loadedPhotos => {
-                        localStorage.setItem('additionalPhotos', JSON.stringify(loadedPhotos));
-                        console.log('Redirecting to invitation.html');
-                        window.location.href = "invitation.html";
-                    })
-                    .catch(error => {
-                        console.error("加载附加照片失败:", error);
-                    });
-            }
-
-            function calculateAge(birthDate, deathDate) {
-                const birth = new Date(birthDate);
-                const death = new Date(deathDate);
-                let age = death.getFullYear() - birth.getFullYear();
-                const monthDifference = death.getMonth() - birth.getMonth();
-                if (monthDifference < 0 || (monthDifference === 0 && death.getDate() < birth.getDate())) {
-                    age--;
-                }
-                return age;
-            }
-
-            function handleMusicChoiceChange() {
-                const selectedOption = musicChoice.options[musicChoice.selectedIndex];
-                const musicUrl = selectedOption.value;
-                currentMusicUrl = musicUrl;
-                backgroundMusic.src = musicUrl;
-                localStorage.setItem('musicUrl', musicUrl);
-
-                if (playMusicButton.style.display === "none") {
-                    backgroundMusic.play().catch(error => {
-                        console.error("播放选中音乐失败:", error);
-                    });
-                }
+            function addTimelineEvent(title, content) {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <div class="date">${title}</div>
+                    <div class="content">${content}</div>
+                `;
+                timeline.appendChild(li);
             }
 
             function playBackgroundMusic() {
@@ -243,27 +219,23 @@
 
             function stopBackgroundMusic() {
                 backgroundMusic.pause();
+                stopMusicButton.style.display = "none";
+                playMusicButton.style.display = "inline";
                 localStorage.setItem('musicPlaying', 'false');
-                playMusicButton.style.display = "block";
-                stopMusicButton.style.displaystopMusicButton.style.display = "none";
             }
 
-            // 绑定音乐按钮事件
             playMusicButton.addEventListener("click", playBackgroundMusic);
             stopMusicButton.addEventListener("click", stopBackgroundMusic);
 
-            // 页面加载时加载保存的设置
             loadStoredSettings();
 
-            // 监听页面卸载时保存音乐 URL
             window.addEventListener("beforeunload", function() {
                 localStorage.setItem('musicUrl', backgroundMusic.src);
             });
 
-            // 留言板提交事件
             const commentForm = document.getElementById('comment-form');
             const comments = document.getElementById('comments');
-
+            
             commentForm.addEventListener('submit', function(event) {
                 event.preventDefault();
                 const commenterName = document.getElementById('commenter-name').value;
@@ -274,14 +246,12 @@
                     li.innerHTML = `<strong>${commenterName}</strong><p>${commentContent}</p>`;
                     comments.appendChild(li);
 
-                    // 清除表单
                     commentForm.reset();
                 }
             });
 
             // 设置照片轮播
-            const carousel = document.getElementById('carousel');
-            const additionalPhotos = localStorage.getItem('additionalPhotos');
+            const additionalPhotos = localStorage.getItem('additional-photos');
             if (additionalPhotos) {
                 const photoArray = JSON.parse(additionalPhotos);
                 photoArray.forEach(photo => {
@@ -290,22 +260,6 @@
                     carousel.appendChild(img);
                 });
             }
-
-            // 添加时间轴事件
-            function addTimelineEvent(title, content) {
-                const timeline = document.getElementById('timeline');
-                const li = document.createElement('li');
-                li.innerHTML = `
-                    <div class="date">${title}</div>
-                    <div class="content">${content}</div>
-                `;
-                timeline.appendChild(li);
-            }
-
-            // 示例：添加一些时间轴事件
-            addTimelineEvent('出生', '1990年1月1日');
-            addTimelineEvent('结婚', '2015年6月15日');
-            addTimelineEvent('去世', '2024年8月8日');
         });
     </script>
 </body>
