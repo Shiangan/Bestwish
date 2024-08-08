@@ -55,99 +55,123 @@
             text-align: center;
         }
         .timeline {
-            list-style: none;
-            padding: 0;
-            margin: 20px 0;
-        }
-        .timeline li {
-            margin-bottom: 20px;
-            position: relative;
-            padding-left: 20px;
-        }
-        .timeline li:before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 8px;
-            background-color: #007bff;
-            border-radius: 4px;
-        }
-        .carousel {
             display: flex;
             overflow-x: auto;
-            gap: 10px;
-        }
-        .carousel img {
-            max-height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-        .message-board {
-            margin-top: 20px;
-        }
-        .message {
-            margin-bottom: 20px;
-            padding: 10px;
+            padding: 0;
+            margin: 20px 0;
+            list-style: none;
             border: 1px solid #ddd;
             border-radius: 5px;
             background-color: #fff;
         }
-        .message img {
-            max-width: 100%;
-            max-height: 200px;
-            object-fit: cover;
+        .timeline-item {
+            flex: 0 0 auto;
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #007bff;
             border-radius: 5px;
+            width: 200px;
+            background-color: #e9f4ff;
+            position: relative;
+        }
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #007bff;
+        }
+        .timeline-item .date {
+            font-weight: bold;
+            color: #007bff;
+        }
+        .timeline-item .content {
+            margin-top: 5px;
+        }
+        .carousel img {
+            width: 100%;
+            height: auto;
+            max-width: 150px;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        .message-form {
+            margin: 20px 0;
+        }
+        .message-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .message-form input, .message-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .message-form button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .message-form button:hover {
+            background-color: #0056b3;
+        }
+        .messages-container .message {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+        .messages-container .message img {
+            max-width: 100px;
+            display: block;
+            margin-top: 10px;
         }
         footer {
             background-color: #fff;
-            padding: 20px;
+            padding: 10px;
             text-align: center;
             border-top: 1px solid #ddd;
         }
-        .donate-button {
-            display: block;
-            margin: 20px 0;
-            padding: 10px;
-            background-color: #007bff;
-            color: #fff;
-            text-align: center;
+        footer a {
+            color: #007bff;
             text-decoration: none;
-            border-radius: 5px;
-            font-size: 16px;
         }
-        .donate-button:hover {
-            background-color: #0056b3;
-        }
-        .donate-button-note {
-            font-size: 14px;
-            color: #555;
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <header>
         <img src="logo.png" alt="祥安生命有限公司" class="logo">
-        <h1>祥安生命有限公司</h1>
     </header>
     <main>
         <div class="main-photo-container">
-            <img id="main-photo" class="main-photo" alt="主照片">
-            <div class="main-photo-caption">我們摯愛的 [姓名]，他/她將永遠在我們心中。</div>
+            <img id="main-photo" class="main-photo" src="" alt="主照片">
+            <div class="main-photo-caption">我們摯愛的某某某，將永遠在我們心中。</div>
         </div>
         <div class="obituary-paper-container">
-            <img id="obituary-paper" class="obituary-paper" alt="訃聞紙張">
+            <img id="obituary-paper" class="obituary-paper" src="" alt="訃聞紙張">
         </div>
         <ul id="timeline" class="timeline">
-            <!-- 时间线数据将动态加载 -->
+            <!-- Timeline items will be dynamically added here -->
         </ul>
         <div id="carousel" class="carousel">
-            <!-- 追思照片轮播将动态加载 -->
+            <!-- Carousel images will be dynamically added here -->
         </div>
-        <a href="flower-order.html" class="donate-button">致贈花籃請點選我</a>
-        <div class="donate-button-note">(統一製作)</div>
-        <div class="message-board">
+        <div class="message-form">
             <form id="message-form-element">
                 <label for="message-name">姓名:</label>
                 <input type="text" id="message-name" name="name" required>
@@ -157,9 +181,9 @@
                 <input type="file" id="message-photo" name="photo" accept="image/*">
                 <button type="submit">提交留言</button>
             </form>
-            <div id="messages-container">
-                <!-- 留言将动态添加 -->
-            </div>
+        </div>
+        <div id="messages-container" class="messages-container">
+            <!-- Messages will be dynamically added here -->
         </div>
     </main>
     <footer>
@@ -180,9 +204,6 @@
             const playMusicButton = document.getElementById('play-music');
             const stopMusicButton = document.getElementById('stop-music');
             const backgroundMusic = document.getElementById('background-music');
-            const messagesContainer = document.getElementById('messages-container');
-            const messageForm = document.getElementById('message-form-element');
-
             backgroundMusic.src = localStorage.getItem('musicUrl') || 'default-music-url.mp3';
 
             // 加载存储的讣告数据
@@ -204,12 +225,13 @@
             // 设置时间线
             const timelineData = JSON.parse(localStorage.getItem('timelineData') || '[]');
             timelineData.forEach(event => {
-                const li = document.createElement('li');
-                li.innerHTML = `
+                const item = document.createElement('div');
+                item.className = 'timeline-item';
+                item.innerHTML = `
                     <div class="date">${event.date}</div>
                     <div class="content">${event.content}</div>
                 `;
-                timeline.appendChild(li);
+                timeline.appendChild(item);
             });
 
             // 设置追思照片
@@ -222,21 +244,23 @@
 
             // 背景音乐控制
             playMusicButton.addEventListener('click', function() {
-                backgroundMusic.play().catch(error => console.error("播放背景音乐失败:", error));
+                backgroundMusic.play();
                 playMusicButton.style.display = 'none';
                 stopMusicButton.style.display = 'block';
             });
 
             stopMusicButton.addEventListener('click', function() {
-                backgroundMusic.pause();
-                playMusicButton.style.display = 'block';
+                backgroundMusic.pause();                playMusicButton.style.display = 'block';
                 stopMusicButton.style.display = 'none';
             });
 
             // 留言板提交功能
+            const messageForm = document.getElementById('message-form-element');
+            const messagesContainer = document.getElementById('messages-container');
+
             messageForm.addEventListener('submit', function(event) {
                 event.preventDefault();
-                
+
                 const name = document.getElementById('message-name').value;
                 const content = document.getElementById('message-content').value;
                 const photo = document.getElementById('message-photo').files[0];
@@ -260,7 +284,7 @@
                 }
 
                 messagesContainer.appendChild(messageDiv);
-                
+
                 // 清空表单
                 messageForm.reset();
             });
