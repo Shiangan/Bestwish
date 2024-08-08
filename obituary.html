@@ -89,10 +89,13 @@
             display: flex;
             overflow-x: auto;
             gap: 10px;
+            padding: 10px 0;
         }
         .carousel img {
             max-width: 100%;
+            height: auto;
             border-radius: 10px;
+            flex-shrink: 0;
         }
         .message-form, .message {
             margin: 20px 0;
@@ -121,18 +124,11 @@
         .donation-button:hover {
             background-color: #0056b3;
         }
-        footer {
-            background-color: #fff;
-            padding: 20px;
+        .donation-note {
+            font-size: 12px;
+            color: #666;
             text-align: center;
-            border-top: 1px solid #ddd;
-        }
-        footer a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        footer a:hover {
-            text-decoration: underline;
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -142,31 +138,45 @@
     </header>
     <main>
         <div class="main-photo-container">
-            <img id="main-photo" class="main-photo" src="" alt="主要照片">
+            <img id="main-photo" class="main-photo" src="path/to/main-photo.jpg" alt="主要照片">
             <div class="main-photo-caption">
                 我們摯愛的 [亡者姓名]，他/她將永遠在我們心中。
             </div>
         </div>
 
         <div class="obituary-paper-container">
-            <img id="obituary-paper" class="obituary-paper" src="" alt="訃告紙張">
+            <img id="obituary-paper" class="obituary-paper" src="path/to/obituary-paper.jpg" alt="訃告紙張">
         </div>
 
         <h2>生平事跡</h2>
         <ul id="timeline" class="timeline">
-            <!-- Timeline items will be dynamically added here -->
+            <li>
+                <div class="date">1920年1月1日</div>
+                <div class="content">出生於台北市</div>
+            </li>
+            <li>
+                <div class="date">1940年6月15日</div>
+                <div class="content">結婚</div>
+            </li>
+            <li>
+                <div class="date">2024年8月1日</div>
+                <div class="content">去世</div>
+            </li>
         </ul>
 
         <h2>追思照片</h2>
         <div id="carousel" class="carousel">
-            <!-- Carousel items will be dynamically added here -->
+            <img src="path/to/photo1.jpg" alt="追思照片1">
+            <img src="path/to/photo2.jpg" alt="追思照片2">
+            <img src="path/to/photo3.jpg" alt="追思照片3">
         </div>
 
         <a href="flower-order.html" class="donation-button">致贈花籃請點選我</a>
+        <div class="donation-note">(會場統一佈置)</div>
 
         <div id="message-form" class="message-form">
             <h3>留言板</h3>
-            <form id="form-message">
+            <form id="message-form">
                 <label for="message-name">姓名:</label>
                 <input type="text" id="message-name" name="name" required>
                 <label for="message-content">留言內容:</label>
@@ -185,7 +195,7 @@
         <p>聯絡我們: 陳柏元 - <a href="tel:+886978583699">+886 978 583 699</a> | <a href="https://line.me/ti/p/@example" target="_blank">Line 聯繫</a></p>
     </footer>
     <audio id="background-music" loop>
-        <source src="" type="audio/mpeg">
+        <source src="path/to/music.mp3" type="audio/mpeg">
     </audio>
     <button id="play-music">🔊 播放音樂</button>
     <button id="stop-music" style="display: none;">🔇 停止音樂</button>
@@ -193,43 +203,13 @@
         document.addEventListener('DOMContentLoaded', function() {
             const mainPhoto = document.getElementById('main-photo');
             const obituaryPaper = document.getElementById('obituary-paper');
+            const deceasedName = document.querySelector('.main-photo-caption');
             const timeline = document.getElementById('timeline');
             const carousel = document.getElementById('carousel');
             const playMusicButton = document.getElementById('play-music');
             const stopMusicButton = document.getElementById('stop-music');
             const backgroundMusic = document.getElementById('background-music');
-
-            // 播放背景音乐
-            function playBackgroundMusic() {
-                backgroundMusic.play().catch(error => {
-                    console.error("播放背景音乐失败:", error);
-                });
-                playMusicButton.style.display = "none";
-                stopMusicButton.style.display = "inline";
-                localStorage.setItem('musicPlaying', 'true');
-            }
-
-            function stopBackgroundMusic() {
-                backgroundMusic.pause();
-                stopMusicButton.style.display = "none";
-                playMusicButton.style.display = "inline";
-                localStorage.setItem('musicPlaying', 'false');
-            }
-
-            playMusicButton.addEventListener("click", playBackgroundMusic);
-            stopMusicButton.addEventListener("click", stopBackgroundMusic);
-
-            // 加载存储的音乐播放状态
-            function loadStoredSettings() {
-                const musicPlaying = localStorage.getItem('musicPlaying');
-                if (musicPlaying === 'true') {
-                    playBackgroundMusic();
-                } else {
-                    stopBackgroundMusic();
-                }
-            }
-
-            loadStoredSettings();
+            backgroundMusic.src = localStorage.getItem('musicUrl') || 'default-music-url.mp3';
 
             // 加载存储的讣告数据
             const mainPhotoUrl = localStorage.getItem('mainPhoto');
@@ -244,7 +224,7 @@
 
             const deceasedNameText = localStorage.getItem('name');
             if (deceasedNameText) {
-                document.querySelector('.main-photo-caption').textContent = `我們摯愛的 ${deceasedNameText}，他/她將永遠在我們心中。`;
+                deceasedName.textContent = "我們摯愛的 " + deceasedNameText + "，他/她將永遠在我們心中。";
             }
 
             // 设置时间线
@@ -259,11 +239,63 @@
             });
 
             // 设置照片轮播
-            const additionalPhotos =function loadStoredSettings() {
-    const musicPlaying = localStorage.getItem('musicPlaying');
-    if (musicPlaying === 'true') {
-        playBackgroundMusic();
-    } else {
-        stopBackgroundMusic();
-    }
-}
+            const additionalPhotos = JSON.parse(localStorage.getItem('additionalPhotos') || '[]');
+                        additionalPhotos.forEach(photoUrl => {
+                const img = document.createElement('img');
+                img.src = photoUrl;
+                img.alt = '追思照片';
+                carousel.appendChild(img);
+            });
+
+            // 设置播放音乐按钮事件
+            playMusicButton.addEventListener('click', function() {
+                backgroundMusic.play();
+                playMusicButton.style.display = 'none';
+                stopMusicButton.style.display = 'inline';
+            });
+
+            // 设置停止音乐按钮事件
+            stopMusicButton.addEventListener('click', function() {
+                backgroundMusic.pause();
+                playMusicButton.style.display = 'inline';
+                stopMusicButton.style.display = 'none';
+            });
+
+            // 提交留言表单的处理
+            const messageForm = document.getElementById('message-form');
+            const messagesContainer = document.getElementById('messages-container');
+
+            messageForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                const name = document.getElementById('message-name').value;
+                const content = document.getElementById('message-content').value;
+                const photo = document.getElementById('message-photo').files[0];
+
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message';
+
+                const nameP = document.createElement('p');
+                nameP.textContent = `留言者: ${name}`;
+                messageDiv.appendChild(nameP);
+
+                const contentP = document.createElement('p');
+                contentP.textContent = content;
+                messageDiv.appendChild(contentP);
+
+                if (photo) {
+                    const photoImg = document.createElement('img');
+                    photoImg.src = URL.createObjectURL(photo);
+                    photoImg.alt = '留言附加照片';
+                    messageDiv.appendChild(photoImg);
+                }
+
+                messagesContainer.appendChild(messageDiv);
+                
+                // 清空表单
+                messageForm.reset();
+            });
+        });
+    </script>
+</body>
+</html>
