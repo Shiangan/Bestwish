@@ -40,9 +40,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         // 保存其他表單數據
-        formData.append('musicUrl', currentMusicUrl); // 添加音樂URL到表單數據
-        formData.append('musicChoice', musicChoice.value); // 如果需要音樂選擇，也可以保存
-
         localStorage.setItem('name', formData.get('name'));
         localStorage.setItem('birthDate', formData.get('birth-date'));
         localStorage.setItem('deathDate', formData.get('death-date'));
