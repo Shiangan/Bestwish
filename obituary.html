@@ -29,6 +29,20 @@
         h2, h3 {
             color: #007bff;
         }
+        .main-photo {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .warm-text {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+        }
         .timeline {
             list-style: none;
             padding: 0;
@@ -108,45 +122,35 @@
         #comments-section form button:hover {
             background-color: #0056b3;
         }
-        .main-photo {
-            width: 100%;
-            max-width: 600px;
-            border-radius: 5px;
-            margin: 20px 0;
-        }
         .donation-button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #007bff;
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #28a745;
             color: #fff;
-            text-decoration: none;
+            border: none;
             border-radius: 5px;
-            font-size: 16px;
-            margin-top: 20px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 18px;
+            text-decoration: none;
         }
         .donation-button:hover {
-            background-color: #0056b3;
+            background-color: #218838;
         }
         footer {
             background-color: #fff;
             padding: 10px;
             text-align: center;
             border-top: 1px solid #ddd;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
         }
         footer a {
             color: #007bff;
             text-decoration: none;
-            margin: 0 10px;
         }
         footer a:hover {
             text-decoration: underline;
-        }
-        footer p {
-            margin: 5px 0;
-            font-size: 14px;
         }
     </style>
 </head>
@@ -155,73 +159,78 @@
         <img src="image/logo.png" alt="祥安生命有限公司 Logo" class="logo">
     </header>
     <main>
-        <h2>訃聞公告</h2>
-        <img id="main-photo" class="main-photo" src="" alt="追思照片">
-        <ul class="timeline" id="timeline"></ul>
-        <div class="carousel" id="carousel"></div>
-        <section id="comments-section">
-            <h3>留言板</h3>
-            <form id="comment-form">
-                <input type="text" id="commenter-name" name="commenter-name" placeholder="您的名字" required>
-                <textarea id="comment-content" name="comment-content" placeholder="您的留言" required></textarea>
-                <button type="submit">提交</button>
-            </form>
-            <ul id="comments"></ul>
+        <section id="invitation-section">
+            <img id="main-photo" src="" alt="主要照片" class="main-photo">
+            <div class="warm-text">
+                我們的摯愛的親人「<span id="deceased-name"></span>」於<span id="date-of-passing"></span>安詳離世。我們將永遠懷念他/她的美好回憶，並在這裡紀念他/她的生命。
+            </div>
+            <ul class="timeline" id="timeline"></ul>
+            <div class="carousel" id="carousel"></div>
             <a href="flower-order.html" class="donation-button">致贈花籃請點選我</a>
+            <section id="comments-section">
+                <h3>留言板</h3>
+                <form id="comment-form">
+                    <input type="text" id="commenter-name" name="commenter-name" placeholder="您的名字" required>
+                    <textarea id="comment-content" name="comment-content" placeholder="您的留言" required></textarea>
+                    <button type="submit">提交</button>
+                </form>
+                <ul id="comments"></ul>
+            </section>
         </section>
     </main>
     <footer>
-        <p>承辦禮儀公司：祥安生命有限公司</p>
-        <p>聯絡人：陳柏元</p>
-        <p>
-            Line: <a href="https://line.me/ti/p/your_line_id" target="_blank">加我 Line</a><br>
-            電話: <a href="tel:+886978583699">0978-583-699</a>
-        </p>
+        承辦禮儀公司：<strong>祥安生命有限公司</strong><br>
+        聯絡人：<strong>陳柏元</strong><br>
+        Line：<a href="https://line.me/ti/p/@example" target="_blank">加入我們</a><br>
+        電話：<a href="tel:+886978583699">+886 978 583 699</a>
     </footer>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const mainPhoto = document.getElementById('main-photo');
+            const deceasedName = document.getElementById('deceased-name');
+            const dateOfPassing = document.getElementById('date-of-passing');
             const timeline = document.getElementById('timeline');
             const carousel = document.getElementById('carousel');
-            const playMusicButton = document.getElementById('play-music-button');
-            const stopMusicButton = document.getElementById('stop-music-button');
-            const backgroundMusic = new Audio('path/to/your/music/file.mp3');
-
-            // 从 localStorage 加载图片和信息
-            function loadStoredData() {
-                const mainPhotoSrc = localStorage.getItem('main-photo');
-                if (mainPhotoSrc) {
-                    mainPhoto.src = mainPhotoSrc;
-                }
-
-                const timelineData = localStorage.getItem('timeline-data');
-                if (timelineData) {
-                    const events = JSON.parse(timelineData);
-                    events.forEach(event => {
-                        addTimelineEvent(event.date, event.content);
-                    });
-                }
-
-                const additionalPhotos = localStorage.getItem('additional-photos');
-                if (additionalPhotos) {
-                    const photoArray = JSON.parse(additionalPhotos);
-                    photoArray.forEach(photo => {
-                        const img = document.createElement('img');
-                        img.src = photo;
-                        carousel.appendChild(img);
-                    });
-                }
+            const playMusicButton = document.getElementById('play-music');
+            const stopMusicButton = document.getElementById('stop-music');
+            const backgroundMusic = new Audio(localStorage.getItem('musicUrl') || 'default-music-url.mp3');
+            
+            // 加载 index 页面提供的内容
+            const mainPhotoUrl = localStorage.getItem('main-photo');
+            if (mainPhotoUrl) {
+                mainPhoto.src = mainPhotoUrl;
             }
 
-            function addTimelineEvent(date, content) {
+            const deceasedNameText = localStorage.getItem('deceased-name');
+            if (deceasedNameText) {
+                deceasedName.textContent = deceasedNameText;
+            }
+
+            const dateOfPassingText = localStorage.getItem('date-of-passing');
+            if (dateOfPassingText) {
+                dateOfPassing.textContent = dateOfPassingText;
+            }
+
+            // 设置时间线
+            const timelineData = JSON.parse(localStorage.getItem('timeline-data') || '[]');
+            timelineData.forEach(event => {
                 const li = document.createElement('li');
                 li.innerHTML = `
-                    <div class="date">${date}</div>
-                    <div class="content">${content}</div>
+                    <div class="date">${event.date}</div>
+                    <div class="content">${event.content}</div>
                 `;
                 timeline.appendChild(li);
-            }
+            });
 
+            // 设置照片轮播
+            const additionalPhotos = JSON.parse(localStorage.getItem('additional-photos') || '[]');
+            additionalPhotos.forEach(photo => {
+                const img = document.createElement('img');
+                img.src = photo;
+                carousel.appendChild(img);
+            });
+
+            // 播放背景音乐
             function playBackgroundMusic() {
                 backgroundMusic.play().catch(error => {
                     console.error("播放背景音乐失败:", error);
@@ -231,6 +240,7 @@
                 localStorage.setItem('musicPlaying', 'true');
             }
 
+                       // 停止背景音乐
             function stopBackgroundMusic() {
                 backgroundMusic.pause();
                 stopMusicButton.style.display = "none";
@@ -241,12 +251,23 @@
             playMusicButton.addEventListener("click", playBackgroundMusic);
             stopMusicButton.addEventListener("click", stopBackgroundMusic);
 
-            loadStoredData();
+            // 加载存储的音乐播放状态
+            function loadStoredSettings() {
+                const musicPlaying = localStorage.getItem('musicPlaying');
+                if (musicPlaying === 'true') {
+                    playBackgroundMusic();
+                } else {
+                    stopBackgroundMusic();
+                }
+            }
+
+            loadStoredSettings();
 
             window.addEventListener("beforeunload", function() {
                 localStorage.setItem('musicUrl', backgroundMusic.src);
             });
 
+            // 设置留言板功能
             const commentForm = document.getElementById('comment-form');
             const comments = document.getElementById('comments');
             
@@ -266,4 +287,4 @@
         });
     </script>
 </body>
-</html>
+</html​>
