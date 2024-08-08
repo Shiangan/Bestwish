@@ -6,7 +6,7 @@
     <title>訃聞 - 祥安生命有限公司</title>
     <style>
         body {
-            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            font-family: '新細明體', Arial, sans-serif;
             background-color: #f5f5f5;
             color: #333;
             margin: 0;
@@ -35,6 +35,7 @@
             object-fit: cover;
             border-radius: 10px;
             margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .main-photo-container, .obituary-paper-container {
             position: relative;
@@ -68,6 +69,7 @@
             border-radius: 5px;
             border: 1px solid #ddd;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: opacity 0.5s ease-in-out;
         }
         .timeline-item::before {
             content: '';
@@ -95,7 +97,7 @@
             max-height: 200px;
             margin-right: 10px;
             border-radius: 5px;
-            transition: transform 0.3s ease-in-out;
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
         }
         .carousel img:hover {
             transform: scale(1.05);
@@ -208,97 +210,112 @@
     </main>
     <footer>
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
-        <p>聯絡我們: 陳柏元 - <a href="tel:+886978583699">+886 978 583 699</a> | <a href="https://line.me/ti/p/@example" target="_blank">Line 聯繫</a></p>
+        <p>喪葬服務提供者：陳柏元</p>
+        <p><a href="tel:+886978583699">電話聯絡</a> | <a href="https://line.me/R/ti/p/%40yourlineid">Line聯絡</a></p>
     </footer>
-    <audio id="background-music" loop>
-        <source src="" type="audio/mpeg">
-    </audio>
+
+    <!-- 背景音樂控制 -->
     <div class="music-controls">
-        <button id="play-music">🔊 播放音樂</button>
-        <button id="stop-music">🔇 停止音樂</button>
+        <button id="play-music">播放音樂 🎵</button>
+        <button id="stop-music">停止音樂 🔇</button>
     </div>
+
+    <audio id="background-music" loop>
+        <source src="music.mp3" type="audio/mpeg">
+        您的瀏覽器不支持播放音樂。
+    </audio>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const mainPhoto = document.getElementById('main-photo');
-            const obituaryPaper = document.getElementById('obituary-paper');
-            const timeline = document.getElementById('timeline');
-            const carousel = document.getElementById('carousel');
-            const playMusicButton = document.getElementById('play-music');
-            const stopMusicButton = document.getElementById('stop-music');
-            const backgroundMusic = document.getElementById('background-music');
-            backgroundMusic.src = localStorage.getItem('musicUrl') || 'default-music-url.mp3';
+        // 音樂控制
+        const playMusicButton = document.getElementById('play-music');
+        const stopMusicButton = document.getElementById('stop-music');
+        const backgroundMusic = document.getElementById('background-music');
 
-            // 加载存储的讣告数据
-            const mainPhotoUrl = localStorage.getItem('mainPhoto');
-            if (mainPhotoUrl) {
-                mainPhoto.src = mainPhotoUrl;
-            }
+        playMusicButton.addEventListener('click', () => {
+            backgroundMusic.play();
+        });
 
-            const obituaryPaperUrl = localStorage.getItem('obituaryPaper');
-            if (obituaryPaperUrl) {
-                obituaryPaper.src = obituaryPaperUrl;
-            }
+        stopMusicButton.addEventListener('click', () => {
+            backgroundMusic.pause();
+        });
 
-            const deceasedNameText = localStorage.getItem('name');
-            if (deceasedNameText) {
-                document.querySelector('.main-photo-caption').textContent = `我們摯愛的 ${deceasedNameText}，他/她將永遠在我們心中。`;
-            }
+        // 訃聞內容動態填充
+        const mainPhoto = document.getElementById('main-photo');
+        const obituaryPaper = document.getElementById('obituary-paper');
+        const timeline = document.getElementById('timeline');
+        const carousel = document.getElementById('carousel');
+        const messagesContainer = document.getElementById('messages-container');
 
-            // 设置时间线
-            const timelineData = JSON.parse(localStorage.getItem('timelineData') || '[]');
-            timelineData.forEach(event => {
-                const li = document.createElement('li');
-                li.className = 'timeline-item';
-                li.innerHTML = `
-                    <div class="date">${event.date}</div>
-                    <div class="event">${event.description}</div>
-                `;
-                timeline.appendChild(li);
-            });
+        // 假設這些數據是由伺服器提供
+        const obituaryData = {
+            mainPhotoSrc: 'main-photo.jpg',
+            obituaryPaperSrc: 'obituary-paper.jpg',
+            timelineEvents: [
+                { date: '1960-01-01', event: '出生' },
+                { date: '1985-05-20', event: '結婚' },
+                { date: '2024-08-01', event: '去世' },
+                { date: '2024-08-08', event: '安葬' }
+            ],
+            carouselPhotos: ['photo1.jpg', 'photo2.jpg', 'photo3.jpg'],
+            messages: [
+                { name: '王小明', content: '永遠懷念您', photo: 'message-photo1.jpg' },
+                { name: '李大華', content: '感謝您的一切', photo: null }
+            ]
+        };
 
-            // 设置照片轮播
-            const carouselData = JSON.parse(localStorage.getItem('carouselData') || '[]');
-            carouselData.forEach(photoUrl => {
-                const img = document.createElement('img');
-                img.src = photoUrl;
-                img.alt = '追思照片';
-                carousel.appendChild(img);
-            });
+        // 填充主要照片和訃聞紙張
+        mainPhoto.src = obituaryData.mainPhotoSrc;
+        obituaryPaper.src = obituaryData.obituaryPaperSrc;
 
-            // 处理留言表单
-            document.getElementById('message-form-element').addEventListener('submit', function(event) {
-                event.preventDefault();
-                const name = document.getElementById('message-name').value;
-                const content = document.getElementById('message-content').value;
-                const photo = document.getElementById('message-photo').files[0];
+        // 填充時間軸
+        obituaryData.timelineEvents.forEach(event => {
+            const timelineItem = document.createElement('li');
+            timelineItem.className = 'timeline-item';
+            timelineItem.innerHTML = `
+                <div class="date">${event.date}</div>
+                <div class="event">${event.event}</div>
+            `;
+            timeline.appendChild(timelineItem);
+        });
 
-                const messageDiv = document.createElement('div');
-                messageDiv.className = 'message';
-                messageDiv.innerHTML = `
-                    <strong>${name}</strong>
-                    <p>${content}</p>
-                `;
+        // 填充追思照片輪播
+        obituaryData.carouselPhotos.forEach(photo => {
+            const imgElement = document.createElement('img');
+            imgElement.src = photo;
+            carousel.appendChild(imgElement);
+        });
 
-                if (photo) {
-                    const photoUrl = URL.createObjectURL(photo);
-                    const img = document.createElement('img');
-                    img.src = photoUrl;
-                    img.alt = '附加照片';
-                    messageDiv.appendChild(img);
-                }
+        // 填充留言區
+        obituaryData.messages.forEach(message => {
+            const messageElement = document.createElement('div');
+            messageElement.className = 'message';
+            messageElement.innerHTML = `
+                <p><strong>${message.name}</strong>: ${message.content}</p>
+                ${message.photo ? `<img src="${message.photo}" alt="留言照片">` : ''}
+            `;
+            messagesContainer.appendChild(messageElement);
+        });
 
-                document.getElementById('messages-container').appendChild(messageDiv);
-                document.getElementById('message-form-element').reset();
-            });
+        // 處理留言表單提交
+        const messageForm = document.getElementById('message-form-element');
+        messageForm.addEventListener('submit', (event) => {
+            event.preventDefault();
 
-            // 音乐控制
-            playMusicButton.addEventListener('click', function() {
-                backgroundMusic.play();
-            });
+            const name = event.target.name.value;
+            const content = event.target.content.value;
+            const photo = event.target.photo.files[0] ? URL.createObjectURL(event.target.photo.files[0]) : null;
 
-            stopMusicButton.addEventListener('click', function() {
-                backgroundMusic.pause();
-            });
+            const messageElement = document.createElement('div');
+            messageElement.className = 'message';
+            messageElement.innerHTML = `
+                <p><strong>${name}</strong>: ${content}</p>
+                ${photo ? `<img src="${photo}" alt="留言照片">` : ''}
+            `;
+
+            messagesContainer.appendChild(messageElement);
+
+            // 清除表單
+            event.target.reset();
         });
     </script>
 </body>
