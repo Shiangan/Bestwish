@@ -121,6 +121,19 @@
         .donation-button:hover {
             background-color: #0056b3;
         }
+        footer {
+            background-color: #fff;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+        }
+        footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -153,7 +166,7 @@
 
         <div id="message-form" class="message-form">
             <h3>留言板</h3>
-            <form id="message-form">
+            <form id="form-message">
                 <label for="message-name">姓名:</label>
                 <input type="text" id="message-name" name="name" required>
                 <label for="message-content">留言內容:</label>
@@ -180,51 +193,11 @@
         document.addEventListener('DOMContentLoaded', function() {
             const mainPhoto = document.getElementById('main-photo');
             const obituaryPaper = document.getElementById('obituary-paper');
-            const deceasedName = document.getElementById('deceased-name');
             const timeline = document.getElementById('timeline');
             const carousel = document.getElementById('carousel');
             const playMusicButton = document.getElementById('play-music');
             const stopMusicButton = document.getElementById('stop-music');
             const backgroundMusic = document.getElementById('background-music');
-            backgroundMusic.src = localStorage.getItem('musicUrl') || 'default-music-url.mp3';
-
-            // 加载存储的讣告数据
-            const mainPhotoUrl = localStorage.getItem('mainPhoto');
-            if (mainPhotoUrl) {
-                mainPhoto.src = mainPhotoUrl;
-            }
-
-            const obituaryPaperUrl = localStorage.getItem('obituaryPaper');
-            if (obituaryPaperUrl) {
-                obituaryPaper.src = obituaryPaperUrl;
-            }
-
-            const deceasedNameText = localStorage.getItem('name');
-            if (deceasedNameText) {
-                deceasedName.textContent = deceasedNameText;
-            }
-
-            const warmTextContent = "我們摯愛的 " + deceasedNameText + "，他/她將永遠在我們心中。";
-            document.querySelector('.main-photo-caption').textContent = warmTextContent;
-
-            // 设置时间线
-            const timelineData = JSON.parse(localStorage.getItem('timelineData') || '[]');
-            timelineData.forEach(event => {
-                const li = document.createElement('li');
-                li.innerHTML = `
-                    <div class="date">${event.date}</div>
-                    <div class="content">${event.content}</div>
-                `;
-                timeline.appendChild(li);
-            });
-
-            // 设置照片轮播
-            const additionalPhotos = JSON.parse(localStorage.getItem('additionalPhotos') || '[]');
-            additionalPhotos.forEach(photo => {
-                const img = document.createElement('img');
-                img.src = photo;
-                carousel.appendChild(img);
-            });
 
             // 播放背景音乐
             function playBackgroundMusic() {
@@ -249,7 +222,7 @@
             // 加载存储的音乐播放状态
             function loadStoredSettings() {
                 const musicPlaying = localStorage.getItem('musicPlaying');
-                if (musicPlaying === 'true')  
+                if (musicPlaying === 'true') {
                     playBackgroundMusic();
                 } else {
                     stopBackgroundMusic();
@@ -258,30 +231,40 @@
 
             loadStoredSettings();
 
-            // 处理留言表单提交
-            document.getElementById('message-form').addEventListener('submit', function(event) {
-                event.preventDefault();
-                const name = document.getElementById('message-name').value;
-                const content = document.getElementById('message-content').value;
-                const photoInput = document.getElementById('message-photo');
-                const photoFile = photoInput.files.length > 0 ? URL.createObjectURL(photoInput.files[0]) : '';
+            // 加载存储的讣告数据
+            const mainPhotoUrl = localStorage.getItem('mainPhoto');
+            if (mainPhotoUrl) {
+                mainPhoto.src = mainPhotoUrl;
+            }
 
-                const messageContainer = document.getElementById('messages-container');
-                const messageDiv = document.createElement('div');
-                messageDiv.classList.add('message');
-                messageDiv.innerHTML = `
-                    <strong>${name}</strong><br>
-                    <p>${content}</p>
-                    ${photoFile ? `<img src="${photoFile}" alt="留言照片">` : ''}
+            const obituaryPaperUrl = localStorage.getItem('obituaryPaper');
+            if (obituaryPaperUrl) {
+                obituaryPaper.src = obituaryPaperUrl;
+            }
+
+            const deceasedNameText = localStorage.getItem('name');
+            if (deceasedNameText) {
+                document.querySelector('.main-photo-caption').textContent = `我們摯愛的 ${deceasedNameText}，他/她將永遠在我們心中。`;
+            }
+
+            // 设置时间线
+            const timelineData = JSON.parse(localStorage.getItem('timelineData') || '[]');
+            timelineData.forEach(event => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <div class="date">${event.date}</div>
+                    <div class="content">${event.content}</div>
                 `;
-                messageContainer.appendChild(messageDiv);
-
-                // 清空表单
-                document.getElementById('message-name').value = '';
-                document.getElementById('message-content').value = '';
-                photoInput.value = '';
+                timeline.appendChild(li);
             });
-        });
-    </script>
-</body>
-</html>
+
+            // 设置照片轮播
+            const additionalPhotos =
+    function loadStoredSettings() {
+    const musicPlaying = localStorage.getItem('musicPlaying');
+    if (musicPlaying === 'true') {
+        playBackgroundMusic();
+    } else {
+        stopBackgroundMusic();
+    }
+}
