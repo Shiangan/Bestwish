@@ -74,162 +74,80 @@
             background-color: #007bff;
             border-radius: 4px;
         }
-        .timeline li .date {
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #555;
-        }
-        .timeline li .content {
-            padding: 15px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
         .carousel {
             display: flex;
             overflow-x: auto;
             gap: 10px;
-            margin-bottom: 20px;
-            padding: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #fff;
         }
         .carousel img {
-            max-width: 100%;
+            max-height: 200px;
+            object-fit: cover;
             border-radius: 10px;
         }
-        .message-form, .message {
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        .message-form label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .message-form input, .message-form textarea {
-            width: calc(100% - 22px);
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        .message-form button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .message-form button:hover {
-            background-color: #0056b3;
-        }
-        .message {
-            margin: 10px 0;
-            padding: 10px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        .message img {
-            max-width: 100px;
-            margin-top: 10px;
-            border-radius: 5px;
-        }
-        .donation-button {
-            display: block;
-            width: 200px;
-            margin: 20px auto;
-            padding: 10px;
-            text-align: center;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            text-decoration: none;
-        }
-        .donation-button:hover {
-            background-color: #0056b3;
-        }
-        .donation-note {
-            text-align: center;
-            font-size: 14px;
-            color: #777;
-            margin-top: 10px;
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #f8f9fa;
-            border-top: 1px solid #ddd;
+        .message-board {
             margin-top: 20px;
         }
-        footer p {
-            margin: 5px 0;
-            color: #555;
+        .message {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
         }
-        footer a {
-            color: #007bff;
-            text-decoration: none;
+        .message img {
+            max-width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
         }
-        footer a:hover {
-            text-decoration: underline;
+        footer {
+            background-color: #fff;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #ddd;
         }
-        #play-music, #stop-music {
+        .donate-button {
             display: block;
-            margin: 20px auto;
+            margin: 20px 0;
             padding: 10px;
             background-color: #007bff;
             color: #fff;
-            border: none;
+            text-align: center;
+            text-decoration: none;
             border-radius: 5px;
             font-size: 16px;
-            cursor: pointer;
         }
-        #stop-music {
-            display: none;
+        .donate-button:hover {
+            background-color: #0056b3;
+        }
+        .donate-button-note {
+            font-size: 14px;
+            color: #555;
         }
     </style>
 </head>
 <body>
     <header>
-        <img src="image/logo.png" alt="祥安生命有限公司 Logo" class="logo">
+        <img src="logo.png" alt="祥安生命有限公司" class="logo">
+        <h1>祥安生命有限公司</h1>
     </header>
     <main>
         <div class="main-photo-container">
-            <img id="main-photo" class="main-photo" src="" alt="主要照片">
-            <div class="main-photo-caption">
-                我們摯愛的 [亡者姓名]，他/她將永遠在我們心中。
-            </div>
+            <img id="main-photo" class="main-photo" alt="主照片">
+            <div class="main-photo-caption">我們摯愛的 [姓名]，他/她將永遠在我們心中。</div>
         </div>
-
         <div class="obituary-paper-container">
-            <img id="obituary-paper" class="obituary-paper" src="" alt="訃告紙張">
+            <img id="obituary-paper" class="obituary-paper" alt="訃聞紙張">
         </div>
-
-        <h2>生平事跡</h2>
         <ul id="timeline" class="timeline">
-            <!-- Timeline items will be dynamically added here -->
+            <!-- 时间线数据将动态加载 -->
         </ul>
-
-        <h2>追思照片</h2>
         <div id="carousel" class="carousel">
-            <!-- Carousel items will be dynamically added here -->
+            <!-- 追思照片轮播将动态加载 -->
         </div>
-
-        <a href="flower-order.html" class="donation-button">致贈花籃請點選我</a>
-        <div class="donation-note">（會場統一佈置）</div>
-
-        <div id="message-form" class="message-form">
-            <h3>留言板</h3>
+        <a href="flower-order.html" class="donate-button">致贈花籃請點選我</a>
+        <div class="donate-button-note">(統一製作)</div>
+        <div class="message-board">
             <form id="message-form-element">
                 <label for="message-name">姓名:</label>
                 <input type="text" id="message-name" name="name" required>
@@ -240,7 +158,7 @@
                 <button type="submit">提交留言</button>
             </form>
             <div id="messages-container">
-                <!-- Messages will be dynamically added here -->
+                <!-- 留言将动态添加 -->
             </div>
         </div>
     </main>
@@ -262,6 +180,9 @@
             const playMusicButton = document.getElementById('play-music');
             const stopMusicButton = document.getElementById('stop-music');
             const backgroundMusic = document.getElementById('background-music');
+            const messagesContainer = document.getElementById('messages-container');
+            const messageForm = document.getElementById('message-form-element');
+
             backgroundMusic.src = localStorage.getItem('musicUrl') || 'default-music-url.mp3';
 
             // 加载存储的讣告数据
@@ -299,9 +220,9 @@
                 carousel.appendChild(img);
             });
 
-            // 背景音樂控制
+            // 背景音乐控制
             playMusicButton.addEventListener('click', function() {
-                backgroundMusic.play();
+                backgroundMusic.play().catch(error => console.error("播放背景音乐失败:", error));
                 playMusicButton.style.display = 'none';
                 stopMusicButton.style.display = 'block';
             });
@@ -313,9 +234,6 @@
             });
 
             // 留言板提交功能
-            const messageForm = document.getElementById('message-form-element');
-            const messagesContainer = document.getElementById('messages-container');
-
             messageForm.addEventListener('submit', function(event) {
                 event.preventDefault();
                 
