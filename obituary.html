@@ -83,6 +83,9 @@
             border: none;
             cursor: pointer;
         }
+        #comments-section form button:hover {
+            background-color: #0056b3;
+        }
         #comments {
             list-style: none;
             padding: 0;
@@ -118,115 +121,117 @@
         </section>
     </main>
     <footer>
-        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
+        <!-- 音乐控制按钮 -->
+        <div id="music-control">
+            <button id="play-music">🔊</button>
+            <button id="stop-music" style="display:none;">🔇</button>
+        </div>
+        <!-- 背景音乐 -->
+        <audio id="background-music" loop>
+            <source src="" type="audio/mpeg">
+            您的浏览器不支持音频元素。
+        </audio>
     </footer>
-
-    <audio id="background-music" preload="auto" loop>
-        <source src="audio/music1.mp3" type="audio/mp3">
-        您的瀏覽器不支持音頻元素。
-    </audio>
-    <div id="music-control">
-        <button id="play-music" aria-label="播放音樂" style="background: url('images/sound-on.png');">🔊</button>
-        <button id="stop-music" aria-label="停止音樂" style="display: none; background: url('images/sound-off.png');">🔇</button>
-    </div>
-
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const backgroundMusic = document.getElementById('background-music');
-            const playMusicButton = document.getElementById('play-music');
-            const stopMusicButton = document.getElementById('stop-music');
-            const mainPhoto = document.getElementById('main-photo');
-            const invitationSection = document.getElementById('invitation-section');
-            const timeline = document.getElementById('timeline');
-            const carousel = document.getElementById('carousel');
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.getElementById("info-form");
+            const playMusicButton = document.getElementById("play-music");
+            const stopMusicButton = document.getElementById("stop-music");
+            const backgroundMusic = document.getElementById("background-music");
+            const musicChoice = document.getElementById("music-choice");
+            const customMusic = document.getElementById("custom-music");
 
-            // 加载保存的设置
+            let currentMusicUrl = '';
+
             function loadStoredSettings() {
-                const storedPhotoUrl = localStorage.getItem('photo');
                 const storedMusicUrl = localStorage.getItem('musicUrl');
-                const musicPlaying = localStorage.getItem('musicPlaying') === 'true';
+                const isMusicPlaying = localStorage.getItem('musicPlaying') === 'true';
 
-                // 设置照片
-                if (storedPhotoUrl) {
-                    mainPhoto.src = storedPhotoUrl;
-                    invitationSection.classList.remove("hidden");
-                }
-
-                // 设置音乐
                 if (storedMusicUrl) {
+                    currentMusicUrl = storedMusicUrl;
                     backgroundMusic.src = storedMusicUrl;
-                    if (musicPlaying) {
-                        playMusicButton.style.display = "none";
-                        stopMusicButton.style.display = "inline";
+                    if (isMusicPlaying) {
                         backgroundMusic.play().catch(error => {
                             console.error("播放背景音乐失败:", error);
                         });
-                    } else {
-                        playMusicButton.style.display = "inline";
-                        stopMusicButton.style.display = "none";
+                        playMusicButton.style.display = "none";
+                        stopMusicButton.style.display = "inline";
                     }
-                } else {
-                    // 默认播放音乐
-                    playBackgroundMusic();
+                }
+            }
+
+            function handleFormSubmit(event) {
+                event.preventDefault();
+
+                const formData = new FormData(form);
+
+                // 如果有自定義音樂文件，將其轉換為URL
+                if (customMusic.files.length > 0) {
+                    const customMusicFile = customMusic.files[0];
+                    const customMusicUrl = URL.createObjectURL(customMusicFile);
+                    currentMusicUrl = customMusicUrl;
+                    localStorage.setItem('musicUrl', customMusicUrl);
+                    backgroundMusic.src = customMusicUrl;
                 }
 
-                // 设置时间轴内容
-                const name = localStorage.getItem('name');
-                const birthDate = localStorage.getItem('birth-date');
-                const deathDate = localStorage.getItem('death-date');
-                const funeralSpace = localStorage.getItem('funeral-space');
-                const funeralDate = localStorage.getItem('funeral-date');
-                const funeralLocation = localStorage.getItem('funeral-location');
-                const otherFuneralLocation = localStorage.getItem('other-funeral-location');
-                const lifeStory = localStorage.getItem('life-story');
+                // 保存其他表單數據
+                formData.append('musicUrl', currentMusicUrl); // 添加音樂URL到表單數據
+                formData.append('musicChoice', musicChoice.value); // 如果需要音樂選擇，也可以保存
 
-                if (name) {
-                    addTimelineEvent('姓名', name);
-                }
-                if (birthDate) {
-                    addTimelineEvent('出生日期', birthDate);
-                }
-                if (deathDate) {
-                    addTimelineEvent('死亡日期', deathDate);
-                }
-                if (funeralSpace) {
-                    addTimelineEvent('牌位安置地點', funeralSpace);
-                }
-                if (funeralDate) {
-                    addTimelineEvent('出殯日期', funeralDate);
-                }
-                if (funeralLocation === '其他' && otherFuneralLocation) {
-                    addTimelineEvent('出殯地點', otherFuneralLocation);
-                } else if (funeralLocation) {
-                    addTimelineEvent('出殯地點', funeralLocation);
-                }
-                if (lifeStory) {
-                    addTimelineEvent('生平介紹', lifeStory);
-                }
+                localStorage.setItem('name', formData.get('name'));
+                localStorage.setItem('birthDate', formData.get('birth-date'));
+                localStorage.setItem('deathDate', formData.get('death-date'));
+                localStorage.setItem('age', calculateAge(formData.get('birth-date'), formData.get('death-date')));
+                localStorage.setItem('funeralSpace', formData.get('funeral-space'));
+                localStorage.setItem('familyServiceTime', formData.get('family-service-time'));
+                localStorage.setItem('publicServiceTime', formData.get('public-service-time'));
+                localStorage.setItem('funeralLocation', formData.get('funeral-location'));
 
-                // 设置照片轮播
-                const additionalPhotos = localStorage.getItem('additional-photos');
-                if (additionalPhotos) {
-                    const photoArray = JSON.parse(additionalPhotos);
-                    photoArray.forEach(photo => {
-                        const img = document.createElement('img');
-                        img.src = photo;
-                        carousel.appendChild(img);
+                const additionalPhotos = Array.from(formData.getAll('additional-photos')).map(file => {
+                    return new Promise((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.onload = () => resolve(reader.result);
+                        reader.onerror = reject;
+                        reader.readAsDataURL(file);
+                    });
+                });
+
+                Promise.all(additionalPhotos)
+                    .then(loadedPhotos => {
+                        localStorage.setItem('additionalPhotos', JSON.stringify(loadedPhotos));
+                        console.log('Redirecting to invitation.html');
+                        window.location.href = "invitation.html";
+                    })
+                    .catch(error => {
+                        console.error("加载附加照片失败:", error);
+                    });
+            }
+
+            function calculateAge(birthDate, deathDate) {
+                const birth = new Date(birthDate);
+                const death = new Date(deathDate);
+                let age = death.getFullYear() - birth.getFullYear();
+                const monthDifference = death.getMonth() - birth.getMonth();
+                if (monthDifference < 0 || (monthDifference === 0 && death.getDate() < birth.getDate())) {
+                    age--;
+                }
+                return age;
+            }
+
+            function handleMusicChoiceChange() {
+                const selectedOption = musicChoice.options[musicChoice.selectedIndex];
+                const musicUrl = selectedOption.value;
+                currentMusicUrl = musicUrl;
+                backgroundMusic.src = musicUrl;
+                localStorage.setItem('musicUrl', musicUrl);
+
+                if (playMusicButton.style.display === "none") {
+                    backgroundMusic.play().catch(error => {
+                        console.error("播放选中音乐失败:", error);
                     });
                 }
             }
 
-            // 添加时间轴事件
-            function addTimelineEvent(title, content) {
-                const li = document.createElement('li');
-                li.innerHTML = `
-                    <div class="date">${title}</div>
-                    <div class="content">${content}</div>
-                `;
-                timeline.appendChild(li);
-            }
-
-            // 播放背景音乐
             function playBackgroundMusic() {
                 backgroundMusic.play().catch(error => {
                     console.error("播放背景音乐失败:", error);
@@ -236,15 +241,14 @@
                 localStorage.setItem('musicPlaying', 'true');
             }
 
-            // 停止背景音乐
             function stopBackgroundMusic() {
                 backgroundMusic.pause();
-                stopMusicButton.style.display = "none";
-                playMusicButton.style.display = "inline";
                 localStorage.setItem('musicPlaying', 'false');
+                playMusicButton.style.display = "block";
+                stopMusicButton.style.displaystopMusicButton.style.display = "none";
             }
 
-            // 绑定按钮事件
+            // 绑定音乐按钮事件
             playMusicButton.addEventListener("click", playBackgroundMusic);
             stopMusicButton.addEventListener("click", stopBackgroundMusic);
 
@@ -274,6 +278,34 @@
                     commentForm.reset();
                 }
             });
+
+            // 设置照片轮播
+            const carousel = document.getElementById('carousel');
+            const additionalPhotos = localStorage.getItem('additionalPhotos');
+            if (additionalPhotos) {
+                const photoArray = JSON.parse(additionalPhotos);
+                photoArray.forEach(photo => {
+                    const img = document.createElement('img');
+                    img.src = photo;
+                    carousel.appendChild(img);
+                });
+            }
+
+            // 添加时间轴事件
+            function addTimelineEvent(title, content) {
+                const timeline = document.getElementById('timeline');
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <div class="date">${title}</div>
+                    <div class="content">${content}</div>
+                `;
+                timeline.appendChild(li);
+            }
+
+            // 示例：添加一些时间轴事件
+            addTimelineEvent('出生', '1990年1月1日');
+            addTimelineEvent('结婚', '2015年6月15日');
+            addTimelineEvent('去世', '2024年8月8日');
         });
     </script>
 </body>
