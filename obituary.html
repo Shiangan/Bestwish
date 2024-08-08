@@ -74,121 +74,77 @@
             background-color: #007bff;
             border-radius: 4px;
         }
-        .timeline li .date {
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #555;
-        }
-        .timeline li .content {
-            padding: 15px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
         .carousel {
             display: flex;
             overflow-x: auto;
             gap: 10px;
-            padding: 10px 0;
+            margin: 20px 0;
         }
         .carousel img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-            flex-shrink: 0;
-        }
-        .message-form, .message {
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #fff;
-            border: 1px solid #ddd;
+            max-height: 200px;
             border-radius: 5px;
         }
-        .message img {
-            max-width: 100px;
-            margin-top: 10px;
+        #messages-container .message {
+            margin-bottom: 15px;
         }
-        .donation-button {
+        #messages-container img {
+            max-width: 100px;
             display: block;
-            width: 200px;
-            margin: 20px auto;
+            margin-top: 5px;
+        }
+        footer {
+            background-color: #fff;
             padding: 10px;
             text-align: center;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
+            border-top: 1px solid #ddd;
+        }
+        footer a {
+            color: #007bff;
             text-decoration: none;
         }
-        .donation-button:hover {
-            background-color: #0056b3;
+        footer a:hover {
+            text-decoration: underline;
         }
-        .donation-note {
-            font-size: 12px;
-            color: #666;
-            text-align: center;
-            margin-top: 5px;
+        #play-music, #stop-music {
+            margin: 10px;
         }
     </style>
 </head>
 <body>
     <header>
-        <img src="image/logo.png" alt="祥安生命有限公司 Logo" class="logo">
+        <img src="path/to/logo.png" alt="祥安生命有限公司" class="logo">
+        <h1>祥安生命有限公司</h1>
     </header>
     <main>
         <div class="main-photo-container">
-            <img id="main-photo" class="main-photo" src="path/to/main-photo.jpg" alt="主要照片">
-            <div class="main-photo-caption">
-                我們摯愛的 [亡者姓名]，他/她將永遠在我們心中。
-            </div>
+            <img id="main-photo" class="main-photo" src="" alt="主要照片">
+            <div class="main-photo-caption"></div>
         </div>
-
         <div class="obituary-paper-container">
-            <img id="obituary-paper" class="obituary-paper" src="path/to/obituary-paper.jpg" alt="訃告紙張">
+            <img id="obituary-paper" class="obituary-paper" src="" alt="訃告照片">
         </div>
-
-        <h2>生平事跡</h2>
+        <h2>時間軸</h2>
         <ul id="timeline" class="timeline">
-            <li>
-                <div class="date">1920年1月1日</div>
-                <div class="content">出生於台北市</div>
-            </li>
-            <li>
-                <div class="date">1940年6月15日</div>
-                <div class="content">結婚</div>
-            </li>
-            <li>
-                <div class="date">2024年8月1日</div>
-                <div class="content">去世</div>
-            </li>
+            <!-- Timeline events will be dynamically added here -->
         </ul>
-
         <h2>追思照片</h2>
         <div id="carousel" class="carousel">
-            <img src="path/to/photo1.jpg" alt="追思照片1">
-            <img src="path/to/photo2.jpg" alt="追思照片2">
-            <img src="path/to/photo3.jpg" alt="追思照片3">
+            <!-- Photos will be dynamically added here -->
         </div>
-
-        <a href="flower-order.html" class="donation-button">致贈花籃請點選我</a>
-        <div class="donation-note">(會場統一佈置)</div>
-
-        <div id="message-form" class="message-form">
-            <h3>留言板</h3>
-            <form id="message-form">
-                <label for="message-name">姓名:</label>
-                <input type="text" id="message-name" name="name" required>
-                <label for="message-content">留言內容:</label>
-                <textarea id="message-content" name="content" rows="4" required></textarea>
-                <label for="message-photo">附加照片（選擇性）:</label>
-                <input type="file" id="message-photo" name="photo" accept="image/*">
-                <button type="submit">提交留言</button>
-            </form>
-            <div id="messages-container">
-                <!-- Messages will be dynamically added here -->
-            </div>
+        <h3>留言板</h3>
+        <form id="message-form">
+            <label for="message-name">姓名:</label>
+            <input type="text" id="message-name" name="name" required>
+            <label for="message-content">留言內容:</label>
+            <textarea id="message-content" name="content" rows="4" required></textarea>
+            <label for="message-photo">附加照片（選擇性）:</label>
+            <input type="file" id="message-photo" name="photo" accept="image/*">
+            <button type="submit">提交留言</button>
+        </form>
+        <div id="messages-container">
+            <!-- Messages will be dynamically added here -->
         </div>
+        <p>致贈花籃請點選我 (會場統一佈置)</p>
     </main>
     <footer>
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
@@ -240,7 +196,7 @@
 
             // 设置照片轮播
             const additionalPhotos = JSON.parse(localStorage.getItem('additionalPhotos') || '[]');
-                        additionalPhotos.forEach(photoUrl => {
+            additionalPhotos.forEach(photoUrl => {
                 const img = document.createElement('img');
                 img.src = photoUrl;
                 img.alt = '追思照片';
@@ -262,6 +218,7 @@
             });
 
             // 提交留言表单的处理
+            
             const messageForm = document.getElementById('message-form');
             const messagesContainer = document.getElementById('messages-container');
 
