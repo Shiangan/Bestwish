@@ -172,6 +172,15 @@ footer {
     text-align: center;
 }
 
+footer a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
 .modal {
     display: none;
     position: fixed;
@@ -187,7 +196,6 @@ footer {
 .modal-content {
     margin: auto;
     display: block;
-    max-width: 80%;
     max-height: 80%;
     border-radius: 10px;
 }
