@@ -95,7 +95,8 @@ document.addEventListener("DOMContentLoaded", function() {
     // 处理音乐选择变化
     function handleMusicChoiceChange() {
         const selectedOption = musicChoice.options[musicChoice.selectedIndex];
-        const musicUrl = selectedOption.value；currentMusicUrl = musicUrl;
+        const musicUrl = selectedOption.value;
+        currentMusicUrl = musicUrl;
         backgroundMusic.src = musicUrl;
         localStorage.setItem('musicUrl', musicUrl);
 
@@ -133,4 +134,3 @@ document.addEventListener("DOMContentLoaded", function() {
     // 加载存储的设置
     loadStoredSettings();
 });
-       
