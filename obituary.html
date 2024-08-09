@@ -220,22 +220,24 @@
         <p>聯絡我們: 陳柏元 - <a href="tel:+886978583699">+886 978 583 699</a> | <a href="https://line.me/ti/p/@example" target="_blank">Line 聯繫</a></p>
     </footer>
     <audio id="background-music" loop>
-        <source src="" type="audio/mpeg">
+        <source src="your-audio-file.mp3" type="audio/mpeg">
     </audio>
     <div class="music-controls">
-        <button id="play-music">🎵</button>
-        <button id="stop-music">🔇</button>
+        <button id="toggle-music">🔊</button>
     </div>
     <script>
-        document.getElementById('play-music').addEventListener('click', function() {
-            document.getElementById('background-music').play();
+        document.getElementById('toggle-music').addEventListener('click', function() {
+            const music = document.getElementById('background-music');
+            const musicButton = document.getElementById('toggle-music');
+            if (music.paused) {
+                music.play();
+                musicButton.textContent = '🔇';
+            } else {
+                music.pause();
+                musicButton.textContent = '🔊';
+            }
         });
 
-        document.getElementById('stop-music').addEventListener('click', function() {
-            document.getElementById('background-music').pause();
-        });
-
-        // 動態載入照片和訃聞內容
         document.addEventListener('DOMContentLoaded', function() {
             const queryParams = new URLSearchParams(window.location.search);
             const mainPhoto = queryParams.get('main-photo');
@@ -255,82 +257,56 @@
             if (backgroundMusic) {
                 document.getElementById('background-music').src = backgroundMusic;
             }
-          // 動態載入時間軸資料
+
+            // 動態載入時間軸資料
             const timelineContainer = document.getElementById('timeline');
             timelineData.forEach(item => {
                 const timelineItem = document.createElement('li');
                 timelineItem.classList.add('timeline-item');
-
-                const dateElement = document.createElement('div');
-                dateElement.classList.add('date');
-                dateElement.textContent = item.date;
-                timelineItem.appendChild(dateElement);
-
-                const eventElement = document.createElement('div');
-                eventElement.classList.add('event');
-                eventElement.textContent = item.event;
-                timelineItem.appendChild(eventElement);
-
+                timelineItem.innerHTML = `
+                    <div class="date">${item.date}</div>
+                    <div class="event">${item.event}</div>
+                `;
                 timelineContainer.appendChild(timelineItem);
             });
 
-            // 動態載入輪播照片
+            // 動態載入照片輪播資料
             const carouselContainer = document.getElementById('carousel');
-            carouselPhotos.forEach(photoUrl => {
-                const imgElement = document.createElement('img');
-                imgElement.src = photoUrl;
-                imgElement.alt = '追思照片';
-                carouselContainer.appendChild(imgElement);
+            carouselPhotos.forEach(photo => {
+                const img = document.createElement('img');
+                img.src = photo;
+                img.alt = '追思照片';
+                carouselContainer.appendChild(img);
             });
 
-            // 留言表單提交
-            const messageForm = document.getElementById('message-form-element');
-            const messagesContainer = document.getElementById('messages-container');
-
-            messageForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-
+            // 提交留言表單
+            document.getElementById('message-form-element').addEventListener('submit', function(e) {
+                e.preventDefault();
                 const name = document.getElementById('message-name').value;
                 const content = document.getElementById('message-content').value;
-                const photoInput = document.getElementById('message-photo');
-                const photoFile = photoInput.files[0];
-                let photoUrl = '';
+                const photoFile = document.getElementById('message-photo').files[0];
+
+                const messageContainer = document.getElementById('messages-container');
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+                messageDiv.innerHTML = `
+                    <p><strong>${name}</strong></p>
+                    <p>${content}</p>
+                `;
 
                 if (photoFile) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        photoUrl = e.target.result;
-                        addMessage(name, content, photoUrl);
-                    };
-                    reader.readAsDataURL(photoFile);
-                } else {
-                    addMessage(name, content, '');
+                    const photoUrl = URL.createObjectURL(photoFile);
+                    const img = document.createElement('img');
+                    img.src = photoUrl;
+                    img.alt = '附加照片';
+                    messageDiv.appendChild(img);
                 }
 
-                messageForm.reset();
+                messageContainer.appendChild(messageDiv);
+
+                // 清空表單
+                document.getElementById('message-form-element').reset();
             });
-
-            function addMessage(name, content, photoUrl) {
-                const messageElement = document.createElement('div');
-                messageElement.classList.add('message');
-
-                const nameElement = document.createElement('strong');
-                nameElement.textContent = name + ': ';
-                messageElement.appendChild(nameElement);
-
-                const contentElement = document.createElement('p');
-                contentElement.textContent = content;
-                messageElement.appendChild(contentElement);
-
-                if (photoUrl) {
-                    const photoElement = document.createElement('img');
-                    photoElement.src = photoUrl;
-                    photoElement.alt = '附加照片';
-                    messageElement.appendChild(photoElement);
-                }
-
-                messagesContainer.appendChild(messageElement);
-            }
         });
     </script>
 </body>
