@@ -175,6 +175,24 @@ button[type="submit"]:hover {
     background-color: #9e7d9e;
 }
 
+#donate-button {
+    background-color: #f39c12;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+}
+
+#donate-button:hover {
+    background-color: #e67e22;
+}
+
 footer {
     background-color: #fff;
     text-align: center;
