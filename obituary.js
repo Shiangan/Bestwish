@@ -1,79 +1,82 @@
 document.addEventListener("DOMContentLoaded", function() {
     const mainPhoto = document.getElementById("main-photo");
-    const additionalPhotos = document.querySelectorAll(".carousel img");
-    const lightbox = document.getElementById("lightbox");
+    const paperObituary = document.getElementById("paper-obituary");
+    const photoCarousel = document.querySelector(".photo-carousel");
+    const commentsSection = document.getElementById("comments");
     const commentForm = document.getElementById("comment-form");
-    const commentList = document.getElementById("comment-list");
 
-    // Lightbox functionality
-    function openLightbox(imageUrl) {
-        lightbox.style.display = "flex";
-        lightbox.innerHTML = `<img src="${imageUrl}" alt="Enlarged Image">`;
-    }
+    // Example photo URLs (replace with dynamic content)
+    const additionalPhotos = [
+        "path/to/photo1.jpg",
+        "path/to/photo2.jpg",
+        "path/to/photo3.jpg"
+    ];
 
-    function closeLightbox() {
-        lightbox.style.display = "none";
-    }
-
-    lightbox.addEventListener("click", closeLightbox);
-
-    mainPhoto.addEventListener("click", function() {
-        openLightbox(mainPhoto.src);
+    // Load photo carousel
+    additionalPhotos.forEach(photoUrl => {
+        const img = document.createElement("img");
+        img.src = photoUrl;
+        img.alt = "追憶照片";
+        img.addEventListener("click", () => openPhoto(photoUrl));
+        photoCarousel.appendChild(img);
     });
 
-    additionalPhotos.forEach(photo => {
-        photo.addEventListener("click", function() {
-            openLightbox(photo.src);
-        });
-    });
-
-    // Comment functionality with local storage
-    function saveComment(content) {
-        const comments = JSON.parse(localStorage.getItem('comments')) || [];
-        comments.push({ content });
-        localStorage.setItem('comments', JSON.stringify(comments));
-        displayComments();
+    // Enlarge photos on click
+    function openPhoto(photoUrl) {
+        const overlay = document.createElement("div");
+        overlay.classList.add("overlay");
+        overlay.innerHTML = `<img src="${photoUrl}" class="enlarged-photo">`;
+        overlay.addEventListener("click", () => overlay.remove());
+        document.body.appendChild(overlay);
     }
 
-    function deleteComment(index) {
-        const comments = JSON.parse(localStorage.getItem('comments')) || [];
-        comments.splice(index, 1);
-        localStorage.setItem('comments', JSON.stringify(comments));
-        displayComments();
-    }
+    // Enlarge obituary paper
+    paperObituary.addEventListener("click", () => openPhoto(paperObituary.src));
 
-    function displayComments() {
-        commentList.innerHTML = '';
-        const comments = JSON.parse(localStorage.getItem('comments')) ||        [];
-        comments.forEach((comment, index) => {
-            const commentItem = document.createElement('li');
-            commentItem.textContent = comment.content;
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = '刪除';
-            deleteButton.addEventListener('click', function() {
-                deleteComment(index);
-            });
-            commentItem.appendChild(deleteButton);
-            commentList.appendChild(commentItem);
-        });
-    }
-
-    commentForm.addEventListener('submit', function(event) {
+    // Handle comment submission
+    commentForm.addEventListener("submit", function(event) {
         event.preventDefault();
-        const commentContent = commentForm.elements['comment-content'].value.trim();
-        if (commentContent) {
-            saveComment(commentContent);
+        const name = document.getElementById("name").value.trim();
+        const message = document.getElementById("message").value.trim();
+
+        if (name && message) {
+            addComment(name, message);
             commentForm.reset();
         }
     });
 
-    displayComments();
+    // Add comment to the list
+    function addComment(name, message) {
+        const commentDiv = document.createElement("div");
+        commentDiv.classList.add("comment");
+        commentDiv.innerHTML = `
+            <p><strong>${name}</strong></p>
+            <p>${message}</p>
+            <button class="edit-btn">編輯</button>
+            <button class="delete-btn">刪除</button>
+        `;
+        commentsSection.appendChild(commentDiv);
 
-    // Timeline interaction
-    const timelineItems = document.querySelectorAll('.timeline-item');
-    timelineItems.forEach(item => {
-        item.addEventListener('click', function() {
-            item.classList.toggle('expanded');
-        });
-    });
+        // Add edit and delete functionality
+        const editButton = commentDiv.querySelector(".edit-btn");
+        const deleteButton = commentDiv.querySelector(".delete-btn");
+
+        editButton.addEventListener("click", () => editComment(commentDiv, name, message));
+        deleteButton.addEventListener("click", () => deleteComment(commentDiv));
+    }
+
+    // Edit comment functionality
+    function editComment(commentDiv, name, message) {
+        const newMessage = prompt("編輯您的留言:", message);
+        if (newMessage !== null && newMessage.trim() !== "") {
+            commentDiv.querySelector("p:nth-child(2)").textContent = newMessage;
+        }
+    }
+
+    // Delete comment functionality
+    function deleteComment(commentDiv) {
+        if (confirm("確定要刪除此留言嗎?")) {
+            commentsSection.removeChild(commentDiv);
+        }
+    }
 });
