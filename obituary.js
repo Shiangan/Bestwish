@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const storedPhotos = JSON.parse(localStorage.getItem('additionalPhotos')) || [];
         const mainPhotoUrl = localStorage.getItem('mainPhoto') || '';
         const paperObituaryUrl = localStorage.getItem('paperObituary') || '';
-        const comments = JSON.parse(localStorage.getItem('comments    )) || [];
+        const comments = JSON.parse(localStorage.getItem('comments')) || [];
         
         // 設置主要照片
         document.getElementById('main-photo').src = mainPhotoUrl;
