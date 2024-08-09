@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function renderCarousel() {
         photoCarousel.innerHTML = photos.map(photoUrl => `
-            <img src="${photoUrl}" alt="Photo">
+            <img src="${photoUrl}" alt="Photo" onerror="this.style.display='none';">
         `).join('');
         updateCarousel(); // 初始化輪播
     }
