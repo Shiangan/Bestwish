@@ -1,82 +1,152 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const mainPhoto = document.getElementById("main-photo");
-    const paperObituary = document.getElementById("paper-obituary");
-    const photoCarousel = document.querySelector(".photo-carousel");
-    const commentsSection = document.getElementById("comments");
+    const backgroundMusic = document.getElementById("background-music");
+    const playMusicButton = document.getElementById("play-music");
+    const stopMusicButton = document.getElementById("stop-music");
+    const photoCarousel = document.getElementById("carousel-images");
+    const prevButton = document.getElementById("prev-button");
+    const nextButton = document.getElementById("next-button");
+    const commentsContainer = document.getElementById("comments-container");
     const commentForm = document.getElementById("comment-form");
+    const donateButton = document.getElementById("donate-button");
 
-    // Example photo URLs (replace with dynamic content)
-    const additionalPhotos = [
-        "path/to/photo1.jpg",
-        "path/to/photo2.jpg",
-        "path/to/photo3.jpg"
-    ];
+    let currentIndex = 0;
+    let photos = [];
+    let musicUrl = localStorage.getItem('musicUrl') || '';
 
-    // Load photo carousel
-    additionalPhotos.forEach(photoUrl => {
-        const img = document.createElement("img");
-        img.src = photoUrl;
-        img.alt = "追憶照片";
-        img.addEventListener("click", () => openPhoto(photoUrl));
-        photoCarousel.appendChild(img);
-    });
-
-    // Enlarge photos on click
-    function openPhoto(photoUrl) {
-        const overlay = document.createElement("div");
-        overlay.classList.add("overlay");
-        overlay.innerHTML = `<img src="${photoUrl}" class="enlarged-photo">`;
-        overlay.addEventListener("click", () => overlay.remove());
-        document.body.appendChild(overlay);
+    // 加載音樂設置
+    function loadMusicSettings() {
+        if (musicUrl) {
+            backgroundMusic.src = musicUrl;
+            if (localStorage.getItem('musicPlaying') === 'true') {
+                backgroundMusic.play().catch(console.error);
+                playMusicButton.style.display = "none";
+                stopMusicButton.style.display = "inline";
+            }
+        }
     }
 
-    // Enlarge obituary paper
-    paperObituary.addEventListener("click", () => openPhoto(paperObituary.src));
+    // 加載內容
+    function loadContent() {
+        const storedPhotos = JSON.parse(localStorage.getItem('additionalPhotos')) || [];
+        const mainPhotoUrl = localStorage.getItem('mainPhoto') || '';
+        const paperObituaryUrl = localStorage.getItem('paperObituary') || '';
+        const comments = JSON.parse(localStorage.getItem('comments    )) || [];
+        
+        // 設置主要照片
+        document.getElementById('main-photo').src = mainPhotoUrl;
+        
+        // 設置訃告紙本
+        document.getElementById('paper-obituary').src = paperObituaryUrl;
 
-    // Handle comment submission
-    commentForm.addEventListener("submit", function(event) {
+        // 設置輪播照片
+        photos = storedPhotos;
+        updateCarousel();
+        
+        // 設置留言
+        commentsContainer.innerHTML = comments.map(comment => `
+            <div class="comment">
+                <p><strong>${comment.name}:</strong> ${comment.message}</p>
+                <button class="edit-btn" onclick="editComment('${comment.id}')">編輯</button>
+                <button class="delete-btn" onclick="deleteComment('${comment.id}')">刪除</button>
+            </div>
+        `).join('');
+    }
+
+    // 更新輪播照片
+    function updateCarousel() {
+        const carouselImages = document.getElementById('carousel-images');
+        carouselImages.innerHTML = photos.map(photo => `
+            <img src="${photo.url}" alt="Photo">
+        `).join('');
+        updateCarouselControls();
+    }
+
+    // 更新輪播控制按鈕
+    function updateCarouselControls() {
+        if (photos.length > 0) {
+            document.getElementById('photo-carousel').style.display = 'block';
+            showPhoto(currentIndex);
+        } else {
+            document.getElementById('photo-carousel').style.display = 'none';
+        }
+    }
+
+    // 顯示指定的照片
+    function showPhoto(index) {
+        const carouselImages = document.getElementById('carousel-images');
+        const width = carouselImages.offsetWidth;
+        carouselImages.style.transform = `translateX(${-index * width}px)`;
+    }
+
+    // 上一張照片
+    prevButton.addEventListener('click', () => {
+        if (photos.length > 0) {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : photos.length - 1;
+            showPhoto(currentIndex);
+        }
+    });
+
+    // 下一張照片
+    nextButton.addEventListener('click', () => {
+        if (photos.length > 0) {
+            currentIndex = (currentIndex < photos.length - 1) ? currentIndex + 1 : 0;
+            showPhoto(currentIndex);
+        }
+    });
+
+    // 音樂播放
+    playMusicButton.addEventListener('click', () => {
+        backgroundMusic.play().then(() => {
+            localStorage.setItem('musicPlaying', 'true');
+            playMusicButton.style.display = "none";
+            stopMusicButton.style.display = "inline";
+        }).catch(console.error);
+    });
+
+    // 音樂停止
+    stopMusicButton.addEventListener('click', () => {
+        backgroundMusic.pause();
+        localStorage.setItem('musicPlaying', 'false');
+        playMusicButton.style.display = "inline";
+        stopMusicButton.style.display = "none";
+    });
+
+    // 提交留言
+    commentForm.addEventListener('submit', (event) => {
         event.preventDefault();
-        const name = document.getElementById("name").value.trim();
-        const message = document.getElementById("message").value.trim();
-
-        if (name && message) {
-            addComment(name, message);
-            commentForm.reset();
-        }
+        const name = document.getElementById('comment-name').value;
+        const message = document.getElementById('comment-message').value;
+        const newComment = {
+            id: Date.now().toString(),
+            name,
+            message
+        };
+        const comments = JSON.parse(localStorage.getItem('comments')) || [];
+        comments.push(newComment);
+        localStorage.setItem('comments', JSON.stringify(comments));
+        commentForm.reset();
+        loadContent();
     });
 
-    // Add comment to the list
-    function addComment(name, message) {
-        const commentDiv = document.createElement("div");
-        commentDiv.classList.add("comment");
-        commentDiv.innerHTML = `
-            <p><strong>${name}</strong></p>
-            <p>${message}</p>
-            <button class="edit-btn">編輯</button>
-            <button class="delete-btn">刪除</button>
-        `;
-        commentsSection.appendChild(commentDiv);
+    // 編輯留言
+    window.editComment = function(id) {
+        // 編輯留言的邏輯
+    };
 
-        // Add edit and delete functionality
-        const editButton = commentDiv.querySelector(".edit-btn");
-        const deleteButton = commentDiv.querySelector(".delete-btn");
+    // 刪除留言
+    window.deleteComment = function(id) {
+        let comments = JSON.parse(localStorage.getItem('comments')) || [];
+        comments = comments.filter(comment => comment.id !== id);
+        localStorage.setItem('comments', JSON.stringify(comments));
+        loadContent();
+    };
 
-        editButton.addEventListener("click", () => editComment(commentDiv, name, message));
-        deleteButton.addEventListener("click", () => deleteComment(commentDiv));
-    }
+    // 致贈花籃按鈕事件
+    donateButton.addEventListener('click', () => {
+        window.location.href = 'flower-order.html';
+    });
 
-    // Edit comment functionality
-    function editComment(commentDiv, name, message) {
-        const newMessage = prompt("編輯您的留言:", message);
-        if (newMessage !== null && newMessage.trim() !== "") {
-            commentDiv.querySelector("p:nth-child(2)").textContent = newMessage;
-        }
-    }
-
-    // Delete comment functionality
-    function deleteComment(commentDiv) {
-        if (confirm("確定要刪除此留言嗎?")) {
-            commentsSection.removeChild(commentDiv);
-        }
-    }
+    // 載入音樂設置和內容
+    loadMusicSettings();
+    loadContent();
 });
