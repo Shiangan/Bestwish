@@ -3,64 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>祥安生命有限公司－訃聞展示</title>
+    <title>祥安生命有限公司－訃聞</title>
     <link rel="stylesheet" href="obituary.css">
-    <script src="obituary.js" defer></script>
 </head>
 <body>
     <header>
         <img src="image/logo.png" alt="祥安生命有限公司 Logo" class="logo">
     </header>
     <main>
-        <section id="obituary-section">
-            <h2>訃聞展示</h2>
-
-            <!-- 主照片 -->
-            <img id="main-photo" src="" alt="主照片" style="width: 100%; max-width: 600px; height: auto;">
-
-            <!-- 訃聞紙本內容 -->
-            <img id="paper-obituary" src="" alt="訃聞紙本內容" style="width: 100%; max-width: 600px; height: auto;">
-
-            <!-- 时间轴 -->
-            <h3>生平时间轴</h3>
-            <ul id="timeline">
-                <!-- 时间轴项目将被动态添加 -->
-            </ul>
-
-            <!-- 照片轮播 -->
-            <h3>追思照片</h3>
-            <div id="carousel" style="display: flex; overflow-x: scroll;">
-                <!-- 追思照片将被动态添加 -->
+        <section id="main-photo-section">
+            <img id="main-photo" src="" alt="主要照片">
+        </section>
+        <section id="photo-carousel">
+            <!-- 其他照片輪播 -->
+            <div id="carousel">
+                <!-- Carousel items will be inserted here by JavaScript -->
             </div>
-
-            <!-- 发表评论 -->
-            <section id="comments-section">
-                <h3>留言板</h3>
-                <div id="messages-container">
-                    <!-- 留言将被动态添加 -->
-                </div>
-                <form id="message-form-element">
-                    <label for="message-name">姓名:</label>
-                    <input type="text" id="message-name" name="name" required>
-
-                    <label for="message-content">留言内容:</label>
-                    <textarea id="message-content" name="content" required></textarea>
-
-                    <label for="message-photo">附加照片（可选）:</label>
-                    <input type="file" id="message-photo" name="photo" accept="image/*">
-
-                    <button type="submit">提交留言</button>
-                </form>
-            </section>
+        </section>
+        <section id="obituary-paper">
+            <img id="paper-obituary" src="" alt="訃聞紙本">
+        </section>
+        <section id="timeline">
+            <!-- 生平時間軸 -->
+            <!-- Timeline items will be inserted here by JavaScript -->
+        </section>
+        <section id="comments-section">
+            <h2>追思留言</h2>
+            <div id="comments-container">
+                <!-- 留言顯示區域 -->
+            </div>
+            <form id="message-form-element">
+                <label for="message-name">姓名:</label>
+                <input type="text" id="message-name" name="message-name" required>
+                <label for="message-content">留言內容:</label>
+                <textarea id="message-content" name="message-content" required></textarea>
+                <label for="message-photo">附加照片:</label>
+                <input type="file" id="message-photo" name="message-photo" accept="image/*">
+                <button type="submit">提交留言</button>
+            </form>
         </section>
     </main>
     <footer>
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
-        <p>聯繫電話: +886978583699</p>
-        <p>Line: <a href="https://line.me/ti/p/@yourlineid">連結</a></p>
     </footer>
     <audio id="background-music" loop></audio>
-    <button id="play-music" style="display: inline;">🔊</button>
+    <button id="play-music">🔊</button>
     <button id="stop-music" style="display: none;">🔇</button>
+    <script src="obituary.js" defer></script>
 </body>
 </html>
