@@ -48,11 +48,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // 音乐播放设置
-    backgroundMusic.src = 'audio/background-music.mp3'; // 确保路径正确
-    backgroundMusic.loop = true; // 循环播放
-    backgroundMusic.play().catch(error => {
-        console.error('自动播放音乐失败:', error);
-    });
+    function playBackgroundMusic() {
+        const isMusicPlaying = sessionStorage.getItem('isMusicPlaying') === 'true';
+        if (isMusicPlaying) {
+            backgroundMusic.play().catch(error => console.error('自动播放音乐失败:', error));
+        } else {
+            backgroundMusic.pause();
+        }
+    }
+
+    playBackgroundMusic();
 
     // 处理留言提交
     const commentForm = document.getElementById('comment-form');
@@ -66,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const commentsContainer = document.getElementById('comments-container');
             const comment = document.createElement('div');
             comment.className = 'comment';
-            comment.innerHTML = `<strong>${name}</strong><p>${message}</p>`;
+            comment.innerHTML = `<strong>${name}</strong><p>${message}</p><button class="edit-btn">编辑</button><button class="delete-btn">删除</button>`;
             commentsContainer.appendChild(comment);
 
             // 清空表单
@@ -98,6 +103,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
             modal.appendChild(modalContent);
             document.body.appendChild(modal);
+        }
+    });
+
+    // 处理留言的编辑和删除
+    document.getElementById('comments-container').addEventListener('click', (event) => {
+        if (event.target.classList.contains('edit-btn')) {
+            const commentDiv = event.target.parentElement;
+            const p = commentDiv.querySelector('p');
+            const newMessage = prompt('编辑留言内容:', p.textContent);
+            if (newMessage !== null) {
+                p.textContent = newMessage;
+            }
+        } else if (event.target.classList.contains('delete-btn')) {
+            if (confirm('确认删除此留言吗？')) {
+                event.target.parentElement.remove();
+            }
         }
     });
 
