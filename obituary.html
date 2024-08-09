@@ -1,54 +1,77 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>祥安生命有限公司－訃聞</title>
-    <link rel="stylesheet" href="obituary.css">
+    <title>訃告</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
+
 <body>
     <header>
-        <img src="image/logo.png" alt="祥安生命有限公司 Logo" class="logo">
+        <h1>追思頁面</h1>
     </header>
+
     <main>
         <section id="main-photo-section">
-            <img id="main-photo" src="" alt="主要照片">
+            <img id="main-photo" src="image/main-photo.jpg" alt="主要照片">
         </section>
-        <section id="photo-carousel">
-            <!-- 其他照片輪播 -->
-            <div id="carousel">
-                <!-- Carousel items will be inserted here by JavaScript -->
+
+        <section id="carousel-section">
+            <div id="photo-carousel">
+                <img src="image/photo1.jpg" alt="其他照片1">
+                <img src="image/photo2.jpg" alt="其他照片2">
+                <img src="image/photo3.jpg" alt="其他照片3">
             </div>
         </section>
-        <section id="obituary-paper">
-            <img id="paper-obituary" src="" alt="訃聞紙本">
+
+        <section id="obituary-paper-section">
+            <img id="obituary-paper" src="image/obituary-paper.jpg" alt="訃告紙本">
         </section>
-        <section id="timeline">
-            <!-- 生平時間軸 -->
-            <!-- Timeline items will be inserted here by JavaScript -->
+
+        <section id="timeline-section">
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>出生</h3>
+                    <p>1950年1月1日</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>結婚</h3>
+                    <p>1975年5月10日</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>生子</h3>
+                    <p>1978年7月20日</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>去世</h3>
+                    <p>2023年8月7日</p>
+                </div>
+            </div>
         </section>
+
         <section id="comments-section">
             <h2>追思留言</h2>
             <div id="comments-container">
-                <!-- 留言顯示區域 -->
+                <div class="comment">
+                    <p>這是一個範例留言。</p>
+                    <button class="edit-button">編輯</button>
+                    <button class="delete-button">刪除</button>
+                </div>
             </div>
-            <form id="message-form-element">
-                <label for="message-name">姓名:</label>
-                <input type="text" id="message-name" name="message-name" required>
-                <label for="message-content">留言內容:</label>
-                <textarea id="message-content" name="message-content" required></textarea>
-                <label for="message-photo">附加照片:</label>
-                <input type="file" id="message-photo" name="message-photo" accept="image/*">
+            <form id="comment-form">
+                <label for="comment-content">留言內容:</label>
+                <textarea id="comment-content" required></textarea>
                 <button type="submit">提交留言</button>
             </form>
         </section>
     </main>
+
     <footer>
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
     </footer>
-    <audio id="background-music" loop></audio>
-    <button id="play-music">🔊</button>
-    <button id="stop-music" style="display: none;">🔇</button>
-    <script src="obituary.js" defer></script>
 </body>
+
 </html>
