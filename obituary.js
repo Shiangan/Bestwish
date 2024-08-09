@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function() {
     let photos = [];
     let musicUrl = localStorage.getItem('musicUrl') || '';
 
-    // 加載音樂設置
     function loadMusicSettings() {
         if (musicUrl) {
             backgroundMusic.src = musicUrl;
@@ -22,10 +21,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 playMusicButton.style.display = "none";
                 stopMusicButton.style.display = "inline";
             }
+        } else {
+            backgroundMusic.src = ''; // 如果沒有音樂URL，確保音樂源為空
         }
     }
 
-    // 加載內容
     function loadContent() {
         const storedPhotos = JSON.parse(localStorage.getItem('additionalPhotos')) || [];
         const mainPhotoUrl = localStorage.getItem('mainPhoto') || '';
@@ -34,96 +34,104 @@ document.addEventListener("DOMContentLoaded", function() {
         
         // 設置主要照片
         document.getElementById('main-photo').src = mainPhotoUrl;
-        
-        // 設置訃告紙本
+
+            // 設置訃告紙本照片
         document.getElementById('paper-obituary').src = paperObituaryUrl;
 
         // 設置輪播照片
         photos = storedPhotos;
-        updateCarousel();
-        
-        // 設置留言
-        commentsContainer.innerHTML = comments.map(comment => `
-            <div class="comment" data-id="${comment.id}">
-                     <p><strong>${comment.name}:</strong> ${comment.message}</p>
-                ${comment.isOwner ? `
-                    <button class="edit-btn">編輯</button>
-                    <button class="delete-btn">刪除</button>
-                ` : ''}
+        renderCarousel();
+
+        // 設置留言區
+        renderComments(comments);
+
+        // 音樂設置
+        loadMusicSettings();
+    }
+
+    function renderCarousel() {
+        photoCarousel.innerHTML = photos.map(photoUrl => `
+            <img src="${photoUrl}" alt="Photo">
+        `).join('');
+    }
+
+    function renderComments(comments) {
+        commentsContainer.innerHTML = comments.map((comment, index) => `
+            <div class="comment">
+                <strong>${comment.name}</strong>
+                <p>${comment.message}</p>
+                <button class="edit-btn" onclick="editComment(${index})">編輯</button>
+                <button class="delete-btn" onclick="deleteComment(${index})">刪除</button>
             </div>
         `).join('');
+    }
 
-        // 編輯和刪除按鈕事件
-        commentsContainer.addEventListener('click', function(event) {
-            if (event.target.classList.contains('edit-btn')) {
-                const commentDiv = event.target.closest('.comment');
-                const commentId = commentDiv.dataset.id;
-                const comment = comments.find(c => c.id === commentId);
-                const newMessage = prompt('編輯留言:', comment.message);
-                if (newMessage !== null) {
-                    comment.message = newMessage;
-                    localStorage.setItem('comments', JSON.stringify(comments));
-                    loadContent();
-                }
-            } else if (event.target.classList.contains('delete-btn')) {
-                const commentDiv = event.target.closest('.comment');
-                const commentId = commentDiv.dataset.id;
-                const index = comments.findIndex(c => c.id === commentId);
-                comments.splice(index, 1);
-                localStorage.setItem('comments', JSON.stringify(comments));
-                loadContent();
-            }
-        });
-
-        // 提交留言
-        commentForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const name = document.getElementById('comment-name').value;
-            const message = document.getElementById('comment-message').value;
-            const newComment = {
-                id: Date.now().toString(),
-                name: name,
-                message: message,
-                isOwner: true // 這裡應根據實際情況設置用戶是否為留言者
+    function editComment(index) {
+        const comment = JSON.parse(localStorage.getItem('comments'))[index];
+        document.getElementById('comment-name').value = comment.name;
+        document.getElementById('comment-message').value = comment.message;
+        commentForm.onsubmit = (e) => {
+            e.preventDefault();
+            const updatedComments = JSON.parse(localStorage.getItem('comments'));
+            updatedComments[index] = {
+                name: document.getElementById('comment-name').value,
+                message: document.getElementById('comment-message').value
             };
-            comments.push(newComment);
-            localStorage.setItem('comments', JSON.stringify(comments));
-            loadContent();
-        });
+            localStorage.setItem('comments', JSON.stringify(updatedComments));
+            renderComments(updatedComments);
+        };
+    }
 
-        // 音樂播放控制
-        playMusicButton.addEventListener('click', function() {
+    function deleteComment(index) {
+        const updatedComments = JSON.parse(localStorage.getItem('comments')).filter((_, i) => i !== index);
+        localStorage.setItem('comments', JSON.stringify(updatedComments));
+        renderComments(updatedComments);
+    }
+
+    commentForm.onsubmit = (e) => {
+        e.preventDefault();
+        const name = document.getElementById('comment-name').value;
+        const message = document.getElementById('comment-message').value;
+        const comments = JSON.parse(localStorage.getItem('comments')) || [];
+        comments.push({ name, message });
+        localStorage.setItem('comments', JSON.stringify(comments));
+        renderComments(comments);
+    };
+
+    prevButton.addEventListener('click', () => {
+        if (photos.length > 0) {
+            currentIndex = (currentIndex - 1 + photos.length) % photos.length;
+            renderCarousel();
+        }
+    });
+
+    nextButton.addEventListener('click', () => {
+        if (photos.length > 0) {
+            currentIndex = (currentIndex + 1) % photos.length;
+            renderCarousel();
+        }
+    });
+
+    donateButton.addEventListener('click', () => {
+        window.location.href = 'https://line.me/ti/p/LINEID'; // 替換為您的 Line 連結
+    });
+
+    function handleMusicPlayback() {
+        playMusicButton.addEventListener('click', () => {
             backgroundMusic.play().catch(console.error);
+            localStorage.setItem('musicPlaying', 'true');
             playMusicButton.style.display = "none";
             stopMusicButton.style.display = "inline";
-            localStorage.setItem('musicPlaying', 'true');
         });
 
-        stopMusicButton.addEventListener('click', function() {
+        stopMusicButton.addEventListener('click', () => {
             backgroundMusic.pause();
+            localStorage.setItem('musicPlaying', 'false');
             playMusicButton.style.display = "inline";
             stopMusicButton.style.display = "none";
-            localStorage.setItem('musicPlaying', 'false');
-        });
-
-        // 輪播控制
-        prevButton.addEventListener('click', function() {
-            currentIndex = (currentIndex - 1 + photos.length) % photos.length;
-            updateCarousel();
-        });
-
-        nextButton.addEventListener('click', function() {
-            currentIndex = (currentIndex + 1) % photos.length;
-            updateCarousel();
         });
     }
 
-    function updateCarousel() {
-        photoCarousel.innerHTML = photos.map((photo, index) => `
-            <img src="${photo}" style="display: ${index === currentIndex ? 'block' : 'none'};">
-        `).join('');
-    }
-
-    loadMusicSettings();
+    handleMusicPlayback();
     loadContent();
 });
