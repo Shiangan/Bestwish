@@ -1,8 +1,3 @@
-为了创建一个具有高互动性、优雅和温馨的`Obituary`页面，可以整合以下完整版本的建议，包括HTML、CSS和JavaScript代码示例。这个页面将包括动态轮播图、模态框图片查看、背景音乐控制、评论互动和花篮样式选择等功能。
-
-### 完整版 HTML
-
-```html
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -91,11 +86,7 @@
     <script src="obituary.js"></script>
 </body>
 </html>
-```
 
-### 完整版 CSS
-
-```css
 /* obituary.css */
 body {
     font-family: 'Arial', sans-serif;
@@ -300,11 +291,7 @@ footer {
     font-weight: bold;
     cursor: pointer;
 }
-```
 
-### 完整版 JavaScript
-
-```javascript
 // obituary.js
 document.addEventListener("DOMContentLoaded", function() {
     const carouselImages = document.getElementById('carousel-images');
@@ -325,11 +312,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let currentIndex = 0;
     const images = []; // 从服务器或其他地方加载的图片 URL 列表
 
-    为了创建一个具有高互动性、优雅和温馨的`Obituary`页面，可以整合以下完整版本的建议，包括HTML、CSS和JavaScript代码示例。这个页面将包括动态轮播图、模态框图片查看、背景音乐控制、评论互动和花篮样式选择等功能。
 
-### 完整版 HTML
-
-```html
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -418,11 +401,8 @@ document.addEventListener("DOMContentLoaded", function() {
     <script src="obituary.js"></script>
 </body>
 </html>
-```
 
-### 完整版 CSS
 
-```css
 /* obituary.css */
 body {
     font-family: 'Arial', sans-serif;
@@ -474,9 +454,9 @@ main {
     margin-bottom: 20px;
 }
 
-#carousel-images {
-    overflow: hidden;
-    border-radius: 10px;
+.carousel-image {
+    width: 100%;
+    height: auto;
 }
 
 .carousel-button {
@@ -641,12 +621,96 @@ document.addEventListener("DOMContentLoaded", function() {
     const backgroundMusic = document.getElementById('background-music');
     const playMusicButton = document.createElement('button');
     const stopMusicButton = document.createElement('button');
-    let currentMusicUrl = '';
 
     // 轮播图功能
     let currentIndex = 0;
-    const images = []; // 从服务器或其他地方加载的图片 URL 列表
+    const images = JSON.parse(localStorage.getItem('carouselImages')) || []; // 从 localStorage 获取图片 URL 列表
+
+    images.forEach(url => {
+        const img = document.createElement('img');
+        img.src = url;
+        img.className = 'carousel-image'; // 确保在 CSS 中定义此样式
+        img.addEventListener('click', () => {
+            modalImage.src = url;
+            imageModal.style.display = 'block';
+        });
+        carouselImages.appendChild(img);
+    });
 
     function showImage(index) {
-        const img = document.createElement('img');
-        img.src = images
+        const imgs = carouselImages.getElementsByClassName('carousel-image');
+        if (imgs.length > 0) {
+            Array.from(imgs).forEach((img, i) => img.style.display = i === index ? 'block' : 'none');
+        }
+    }
+
+    document.getElementById('prev-button').addEventListener('click', function() {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        showImage(currentIndex);
+    });
+
+    document.getElementById('next-button').addEventListener('click', function() {
+        currentIndex = (currentIndex + 1) % images.length;
+        showImage(currentIndex);
+    });
+
+    showImage(currentIndex);
+
+    // 关闭模态框
+    closeModal.addEventListener('click', function() {
+        imageModal.style.display = 'none';
+    });
+
+    // 设置主照片和纸质讣闻
+    const mainPhotoUrl = localStorage.getItem('mainPhoto');
+    if (mainPhotoUrl) {
+        mainPhoto.src = mainPhotoUrl;
+    }
+
+    const paperObituaryUrl = localStorage.getItem('paperObituary');
+    if (paperObituaryUrl) {
+        paperObituary.src = paperObituaryUrl;
+    }
+
+    // 评论功能（需进一步实现）
+
+    // 致赠花篮功能
+    donateButton.addEventListener('click', function() {
+        flowerBasket.style.display = flowerBasket.style.display === 'none' ? 'block' : 'none';
+    });
+
+    // 背景音乐功能
+    function loadStoredSettings() {
+        const storedMusicUrl = localStorage.getItem('musicUrl');
+        if (storedMusicUrl) {
+            backgroundMusic.src = storedMusicUrl;
+        }
+        const isMusicPlaying = localStorage.getItem('musicPlaying') === 'true';
+        if (isMusicPlaying) {
+            backgroundMusic.play().catch(error => {
+                console.error("播放背景音乐失败:", error);
+            });
+        }
+    }
+
+    function playBackgroundMusic() {
+        backgroundMusic.play().catch(error => {
+            console.error("播放背景音乐失败:", error);
+        });
+        localStorage.setItem('musicPlaying', 'true');
+    }
+
+    function stopBackgroundMusic() {
+        backgroundMusic.pause();
+        localStorage.setItem('musicPlaying', 'false');
+    }
+
+    // 示例按钮
+    playMusicButton.textContent = '播放音乐';
+    stopMusicButton.textContent = '停止音乐';
+    playMusicButton.addEventListener('click', playBackgroundMusic);
+    stopMusicButton.addEventListener('click', stopBackgroundMusic);
+
+    // 加载存储的设置
+    loadStoredSettings();
+});
