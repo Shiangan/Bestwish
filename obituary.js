@@ -1,18 +1,36 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 轮播照片的 JavaScript
-    const carouselImages = document.getElementById('carousel-images');
-    const prevButton = document.getElementById('prev-button');
-    const nextButton = document.getElementById('next-button');
-    const slides = document.querySelectorAll('.carousel-slide');
-    let currentSlide = 0;
+    document.addEventListener('DOMContentLoaded', function() {
+    // 从 localStorage 获取图片 URL
+    const mainPhotoUrl = localStorage.getItem('mainPhotoUrl');
+    const additionalPhotoUrls = JSON.parse(localStorage.getItem('additionalPhotoUrls')) || [];
 
-    function showSlide(index) {
-        const totalSlides = slides.length;
-        if (index >= totalSlides) currentSlide = 0;
-        if (index < 0) currentSlide = totalSlides - 1;
-        carouselImages.style.transform = `translateX(-${currentSlide * 100}%)`;
+    // 显示主照片
+    if (mainPhotoUrl) {
+        document.getElementById('main-photo').src = mainPhotoUrl;
     }
 
+    // 显示轮播图
+    const carouselContainer = document.querySelector('.carousel');
+    additionalPhotoUrls.forEach(url => {
+        const div = document.createElement('div');
+        const img = document.createElement('img');
+        img.src = url;
+        img.alt = '追思照片';
+        img.style.maxWidth = '100%';
+        img.style.height = 'auto';
+        div.appendChild(img);
+        carouselContainer.appendChild(div);
+    });
+
+    // 初始化轮播图
+    $('.carousel').slick({
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+    });
+});
     function nextSlide() {
         showSlide(currentSlide + 1);
     }
