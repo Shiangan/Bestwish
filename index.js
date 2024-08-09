@@ -66,6 +66,7 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem('familyServiceTime', formData.get('family-service-time'));
         localStorage.setItem('publicServiceTime', formData.get('public-service-time'));
         localStorage.setItem('funeralLocation', formData.get('funeral-location'));
+        localStorage.setItem('photos', JSON.stringify(photos));
 
         // 处理音乐
         if (customMusic.files.length > 0) {
