@@ -6,7 +6,7 @@
     <title>訃聞 - 祥安生命有限公司</title>
     <style>
         body {
-            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            font-family: Arial, sans-serif;
             background-color: #f5f5f5;
             color: #333;
             margin: 0;
@@ -156,14 +156,14 @@
         .music-controls {
             display: flex;
             justify-content: center;
-            margin: 20px 0;
+            margin: 10px 0;
         }
         .music-controls button {
             background: none;
             border: none;
-            font-size: 24px;
+            font-size: 20px;
             cursor: pointer;
-            margin: 0 10px;
+            margin: 0 8px;
         }
         .music-controls button:focus {
             outline: none;
@@ -196,11 +196,11 @@
             <ul id="timeline" class="timeline"></ul>
         </div>
         <div>
-            <h2>追思照片</h2>
+            <h3>追思照片</h3>
             <div id="carousel" class="carousel"></div>
         </div>
         <div>
-            <h2>追思留言區</h2>
+            <h4>追思留言區</h4>
             <form id="message-form-element" class="message-form">
                 <label for="message-name">姓名:</label>
                 <input type="text" id="message-name" name="name" required>
@@ -240,7 +240,6 @@
             const queryParams = new URLSearchParams(window.location.search);
             const mainPhoto = queryParams.get('main-photo');
             const obituaryPaper = queryParams.get('obituary-paper');
-            const mottoText = queryParams.get('motto') || "人生短暫，但愛與記憶永存";
             const timelineData = JSON.parse(queryParams.get('timeline') || '[]');
             const carouselPhotos = JSON.parse(queryParams.get('carousel') || '[]');
             const backgroundMusic = queryParams.get('music');
@@ -252,62 +251,86 @@
             if (obituaryPaper) {
                 document.getElementById('obituary-paper').src = obituaryPaper;
             }
-                document.getElementById('motto').textContent = mottoText;
 
             if (backgroundMusic) {
                 document.getElementById('background-music').src = backgroundMusic;
             }
-
+          // 動態載入時間軸資料
             const timelineContainer = document.getElementById('timeline');
-            timelineData.forEach(function(event) {
-                const li = document.createElement('li');
-                li.className = 'timeline-item';
-                li.innerHTML = `
-                    <div class="date">${event.date}</div>
-                    <div class="event">${event.event}</div>
-                `;
-                timelineContainer.appendChild(li);
+            timelineData.forEach(item => {
+                const timelineItem = document.createElement('li');
+                timelineItem.classList.add('timeline-item');
+
+                const dateElement = document.createElement('div');
+                dateElement.classList.add('date');
+                dateElement.textContent = item.date;
+                timelineItem.appendChild(dateElement);
+
+                const eventElement = document.createElement('div');
+                eventElement.classList.add('event');
+                eventElement.textContent = item.event;
+                timelineItem.appendChild(eventElement);
+
+                timelineContainer.appendChild(timelineItem);
             });
 
+            // 動態載入輪播照片
             const carouselContainer = document.getElementById('carousel');
-            carouselPhotos.forEach(function(photo) {
-                const img = document.createElement('img');
-                img.src = photo;
-                carouselContainer.appendChild(img);
+            carouselPhotos.forEach(photoUrl => {
+                const imgElement = document.createElement('img');
+                imgElement.src = photoUrl;
+                imgElement.alt = '追思照片';
+                carouselContainer.appendChild(imgElement);
             });
-        });
 
-        // 留言提交表單處理
-        document.getElementById('message-form-element').addEventListener('submit', function(event) {
-            event.preventDefault();
+            // 留言表單提交
+            const messageForm = document.getElementById('message-form-element');
+            const messagesContainer = document.getElementById('messages-container');
 
-            const name = document.getElementById('message-name').value;
-            const content = document.getElementById('message-content').value;
-            const photoFile = document.getElementById('message-photo').files[0];
+            messageForm.addEventListener('submit', function(event) {
+                event.preventDefault();
 
-            const messageContainer = document.createElement('div');
-            messageContainer.className = 'message';
+                const name = document.getElementById('message-name').value;
+                const content = document.getElementById('message-content').value;
+                const photoInput = document.getElementById('message-photo');
+                const photoFile = photoInput.files[0];
+                let photoUrl = '';
 
-            const messageContent = `
-                <p><strong>${name}:</strong></p>
-                <p>${content}</p>
-            `;
-            messageContainer.innerHTML = messageContent;
+                if (photoFile) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        photoUrl = e.target.result;
+                        addMessage(name, content, photoUrl);
+                    };
+                    reader.readAsDataURL(photoFile);
+                } else {
+                    addMessage(name, content, '');
+                }
 
-            if (photoFile) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    messageContainer.appendChild(img);
-                };
-                reader.readAsDataURL(photoFile);
+                messageForm.reset();
+            });
+
+            function addMessage(name, content, photoUrl) {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message');
+
+                const nameElement = document.createElement('strong');
+                nameElement.textContent = name + ': ';
+                messageElement.appendChild(nameElement);
+
+                const contentElement = document.createElement('p');
+                contentElement.textContent = content;
+                messageElement.appendChild(contentElement);
+
+                if (photoUrl) {
+                    const photoElement = document.createElement('img');
+                    photoElement.src = photoUrl;
+                    photoElement.alt = '附加照片';
+                    messageElement.appendChild(photoElement);
+                }
+
+                messagesContainer.appendChild(messageElement);
             }
-
-            document.getElementById('messages-container').appendChild(messageContainer);
-
-            // 清空表單
-            document.getElementById('message-form-element').reset();
         });
     </script>
 </body>
