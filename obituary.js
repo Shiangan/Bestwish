@@ -1,141 +1,117 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const backgroundMusic = document.getElementById("background-music");
-    const playMusicButton = document.getElementById("play-music");
-    const stopMusicButton = document.getElementById("stop-music");
-    const photoCarousel = document.getElementById("carousel-images");
-    const prevButton = document.getElementById("prev-button");
-    const nextButton = document.getElementById("next-button");
-    const commentsContainer = document.getElementById("comments-container");
-    const commentForm = document.getElementById("comment-form");
-    const donateButton = document.getElementById("donate-button");
+document.addEventListener('DOMContentLoaded', () => {
+    // 背景音乐控制
+    const music = document.getElementById('background-music');
+    const playMusicButton = document.getElementById('play-music');
+    const stopMusicButton = document.getElementById('stop-music');
+    
+    // 播放背景音乐
+    function playBackgroundMusic() {
+        music.play().catch(error => console.error("播放背景音乐失败:", error));
+        playMusicButton.style.display = "none";
+        stopMusicButton.style.display = "inline";
+        localStorage.setItem('musicPlaying', 'true');
+    }
 
+    // 停止背景音乐
+    function stopBackgroundMusic() {
+        music.pause();
+        localStorage.setItem('musicPlaying', 'false');
+        playMusicButton.style.display = "inline";
+        stopMusicButton.style.display = "none";
+    }
+
+    playMusicButton.addEventListener('click', playBackgroundMusic);
+    stopMusicButton.addEventListener('click', stopBackgroundMusic);
+
+    // 自动播放背景音乐
+    if (localStorage.getItem('musicPlaying') === 'true') {
+        playBackgroundMusic();
+    } else {
+        stopBackgroundMusic();
+    }
+
+    // 照片轮播功能
+    const images = document.querySelectorAll('#carousel-images img');
     let currentIndex = 0;
-    let photos = JSON.parse(localStorage.getItem('additionalPhotos')) || [];
-    let musicUrl = localStorage.getItem('musicUrl') || '';
 
-    function loadMusicSettings() {
-        if (musicUrl) {
-            backgroundMusic.src = musicUrl;
-            if (localStorage.getItem('musicPlaying') === 'true') {
-                backgroundMusic.play().catch(console.error);
-                playMusicButton.style.display = "none";
-                stopMusicButton.style.display = "inline";
+    function showImage(index) {
+        images.forEach((img, i) => {
+            img.style.opacity = i === index ? '1' : '0';
+        });
+    }
+
+    document.getElementById('next-button').addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % images.length;
+        showImage(currentIndex);
+    });
+
+    document.getElementById('prev-button').addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        showImage(currentIndex);
+    });
+
+    showImage(currentIndex);
+
+    // 留言功能
+    const commentForm = document.getElementById('comment-form');
+    const commentsContainer = document.getElementById('comments-container');
+
+    commentForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const name = document.getElementById('comment-name').value.trim();
+        const message = document.getElementById('comment-message').value.trim();
+
+        if (name && message) {
+            const comment = document.createElement('div');
+            comment.classList.add('comment-item');
+            comment.innerHTML = `
+                <strong>${name}</strong>
+                <p>${message}</p>
+            `;
+            commentsContainer.appendChild(comment);
+
+            commentForm.reset();
+        }
+    });
+
+    // 加载存储的设置
+    function loadStoredSettings() {
+        const storedPhotoUrl = localStorage.getItem('mainPhoto');
+        const storedAdditionalPhotos = JSON.parse(localStorage.getItem('additionalPhotos')) || [];
+        const storedMusicUrl = localStorage.getItem('musicUrl');
+        const isMusicPlaying = localStorage.getItem('musicPlaying') === 'true';
+
+        if (storedPhotoUrl) {
+            document.getElementById('main-photo').src = storedPhotoUrl;
+        }
+
+        if (storedAdditionalPhotos.length > 0) {
+            const carouselImages = document.getElementById('carousel-images');
+            storedAdditionalPhotos.forEach(photoUrl => {
+                const img = document.createElement('img');
+                img.src = photoUrl;
+                carouselImages.appendChild(img);
+            });
+        }
+
+        if (storedMusicUrl) {
+            music.src = storedMusicUrl;
+            if (isMusicPlaying) {
+                playBackgroundMusic();
+            } else {
+                stopBackgroundMusic();
             }
-        } else {
-            backgroundMusic.src = ''; // 如果沒有音樂URL，確保音樂源為空
         }
     }
 
-    function loadContent() {
-        const mainPhotoUrl = localStorage.getItem('mainPhoto') || '';
-        const paperObituaryUrl = localStorage.getItem('paperObituary') || '';
-        const comments = JSON.parse(localStorage.getItem('comments')) || [];
-        
-        // 設置主要照片
-        document.getElementById('main-photo').src = mainPhotoUrl;
+    loadStoredSettings();
 
-        // 設置訃告紙本照片
-        document.getElementById('paper-obituary').src = paperObituaryUrl;
-
-        // 設置輪播照片
-        renderCarousel();
-
-        // 設置留言區
-        renderComments(comments);
-
-        // 音樂設置
-        loadMusicSettings();
+    // 温馨名言设置
+    function setMotto() {
+        const motto = "珍惜每一刻，怀念每一个微笑";
+        document.querySelector('.motto').textContent = motto;
     }
 
-    function renderCarousel() {
-        photoCarousel.innerHTML = photos.map(photoUrl => `
-            <img src="${photoUrl}" alt="Photo" onerror="this.style.display='none';">
-        `).join('');
-        updateCarousel(); // 初始化輪播
-    }
-
-    function updateCarousel() {
-        const offset = -currentIndex * 100;
-        photoCarousel.style.transform = `translateX(${offset}%)`;
-    }
-
-    function renderComments(comments) {
-        commentsContainer.innerHTML = comments.map((comment, index) => `
-            <div class="comment">
-                <strong>${comment.name}</strong>
-                <p>${comment.message}</p>
-                <button class="edit-btn" onclick="editComment(${index})">編輯</button>
-                <button class="delete-btn" onclick="deleteComment(${index})">刪除</button>
-            </div>
-        `).join('');
-    }
-
-    function editComment(index) {
-        const comment = JSON.parse(localStorage.getItem('comments'))[index];
-        document.getElementById('comment-name').value = comment.name;
-        document.getElementById('comment-message').value = comment.message;
-        commentForm.onsubmit = (e) => {
-            e.preventDefault();
-            const updatedComments = JSON.parse(localStorage.getItem('comments'));
-            updatedComments[index] = {
-                name: document.getElementById('comment-name').value,
-                message: document.getElementById('comment-message').value
-            };
-            localStorage.setItem('comments', JSON.stringify(updatedComments));
-            renderComments(updatedComments);
-        };
-    }
-
-    function deleteComment(index) {
-        const updatedComments = JSON.parse(localStorage.getItem('comments')).filter((_, i) => i !== index);
-        localStorage.setItem('comments', JSON.stringify(updatedComments));
-        renderComments(updatedComments);
-    }
-
-    commentForm.onsubmit = (e) => {
-        e.preventDefault();
-        const name = document.getElementById('comment-name').value;
-        const message = document.getElementById('comment-message').value;
-        const comments = JSON.parse(localStorage.getItem('comments')) || [];
-        comments.push({ name, message });
-        localStorage.setItem('comments', JSON.stringify(comments));
-        renderComments(comments);
-    };
-
-    prevButton.addEventListener('click', () => {
-        if (photos.length > 0) {
-            currentIndex = (currentIndex - 1 + photos.length) % photos.length;
-            updateCarousel();
-        }
-    });
-
-    nextButton.addEventListener('click', () => {
-        if (photos.length > 0) {
-            currentIndex = (currentIndex + 1) % photos.length;
-            updateCarousel();
-        }
-    });
-
-    donateButton.addEventListener('click', () => {
-        window.location.href = 'https://line.me/ti/p/LINEID'; // 替換為您的 Line 連結
-    });
-
-    function handleMusicPlayback() {
-        playMusicButton.addEventListener('click', () => {
-            backgroundMusic.play().catch(console.error);
-            localStorage.setItem('musicPlaying', 'true');
-            playMusicButton.style.display = "none";
-            stopMusicButton.style.display = "inline";
-        });
-
-        stopMusicButton.addEventListener('click', () => {
-            backgroundMusic.pause();
-            localStorage.setItem('musicPlaying', 'false');
-            playMusicButton.style.display = "inline";
-            stopMusicButton.style.display = "none";
-        });
-    }
-
-    handleMusicPlayback();
-    loadContent();
+    setMotto();
 });
