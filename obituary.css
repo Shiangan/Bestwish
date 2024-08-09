@@ -1,29 +1,29 @@
+/* 整体布局 */
 body {
     font-family: 'Arial', sans-serif;
-    color: #333;
-    background-color: #f5f5f5;
     margin: 0;
     padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
 }
 
 header {
-    background: #fff;
-    padding: 10px 20px;
-    border-bottom: 1px solid #ddd;
+    background-color: #4a4a4a;
+    padding: 20px;
+    text-align: center;
 }
 
-.logo {
-    width: 150px;
+header .logo {
+    max-width: 150px;
+    height: auto;
 }
 
+/* 主要内容区域 */
 main {
     padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    background: #fff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
+/* 主要照片 */
 #main-photo-container {
     text-align: center;
     margin-bottom: 20px;
@@ -33,37 +33,56 @@ main {
     max-width: 100%;
     height: auto;
     border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* 名言 */
 .motto {
     font-size: 1.5em;
+    font-weight: bold;
     text-align: center;
+    margin: 20px 0;
     color: #555;
-    margin-bottom: 20px;
 }
 
+/* 轮播照片 */
 #photo-carousel {
     position: relative;
-    text-align: center;
-    margin-bottom: 20px;
+    overflow: hidden;
+    max-width: 100%;
+    margin: 0 auto;
 }
 
 #carousel-images {
-    overflow: hidden;
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-slide {
+    flex: 0 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: auto;
     border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .carousel-button {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     color: #fff;
     border: none;
     padding: 10px;
     cursor: pointer;
     border-radius: 50%;
     font-size: 1.5em;
+    z-index: 10;
 }
 
 #prev-button {
@@ -74,23 +93,52 @@ main {
     right: 10px;
 }
 
+/* 讣告 */
 #paper-obituary-container {
     text-align: center;
-    margin-bottom: 20px;
+    margin: 20px 0;
 }
 
 #paper-obituary {
     max-width: 100%;
     height: auto;
     border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* 时间轴 */
 #timeline {
-    margin-bottom: 20px;
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.timeline-event {
+    margin-bottom: 15px;
+    border-left: 4px solid #007bff;
+    padding-left: 15px;
+}
+
+.timeline-event h3 {
+    margin: 0;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.timeline-event p {
+    margin: 5px 0;
+    color: #666;
+}
+
+/* 留言区 */
 #comments-section {
-    margin-bottom: 20px;
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 #comment-form {
@@ -99,40 +147,42 @@ main {
 
 #comment-form label {
     display: block;
-    margin: 10px 0 5px;
+    margin-bottom: 5px;
+    font-weight: bold;
 }
 
-#comment-form input, #comment-form textarea {
+#comment-form input, 
+#comment-form textarea {
     width: 100%;
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ddd;
+    margin-bottom: 10px;
 }
 
 #comment-form button {
-    background-color: #007BFF;
+    background-color: #007bff;
     color: #fff;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 1em;
+}
+
+#comment-form button:hover {
+    background-color: #0056b3;
 }
 
 #comments-container {
-    margin-top: 20px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
 }
 
-.comment {
-    background: #fff;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.1);
-    margin-bottom: 10px;
-}
-
+/* 花篮 */
 #donate-flower {
     text-align: center;
-    margin-bottom: 20px;
+    margin: 20px 0;
 }
 
 #donate-button {
@@ -142,38 +192,55 @@ main {
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 1em;
 }
 
+#donate-button:hover {
+    background-color: #218838;
+}
+
+/* 花篮样式 */
 #flower-basket {
-    display: none;
-    margin-top: 20px;
-    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
 }
 
 .basket-style {
-    display: inline-block;
-    margin: 10px;
     text-align: center;
+    flex: 1 1 calc(33.333% - 40px);
+    box-sizing: border-box;
+    margin: 0 10px;
 }
 
 .basket-style img {
-    max-width: 150px;
+    max-width: 100%;
+    height: auto;
     border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .basket-style p {
-    margin-top: 5px;
+    font-size: 1em;
+    color: #666;
 }
 
+/* 页脚 */
 footer {
-    background: #fff;
-    padding: 10px 20px;
-    border-top: 1px solid #ddd;
+    background-color: #4a4a4a;
+    padding: 10px;
     text-align: center;
+    color: #fff;
+    border-top: 1px solid #333;
+}
+
+footer p {
+    margin: 5px 0;
 }
 
 footer a {
-    color: #007BFF;
+    color: #fff;
     text-decoration: none;
 }
 
@@ -181,31 +248,27 @@ footer a:hover {
     text-decoration: underline;
 }
 
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.8);
+/* 音乐控制 */
+#music-controls {
+    text-align: center;
+    margin: 20px 0;
 }
 
-.modal-content {
-    margin: auto;
-    display: block;
-    max-height: 80%;
-    border-radius: 10px;
-}
-
-.close {
-    position: absolute;
-    top: 15px;
-    right: 35px;
+#play-music-button, #stop-music-button {
+    background-color: #007bff;
     color: #fff;
-    font-size: 40px;
-    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
+    font-size: 1em;
+    margin: 0 5px;
+}
+
+#play-music-button:hover, #stop-music-button:hover {
+    background-color: #0056b3;
+}
+
+#stop-music-button {
+    display: none;
 }
