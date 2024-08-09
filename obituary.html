@@ -3,277 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>訃聞 - 祥安生命有限公司</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #fff;
-            padding: 20px;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
-        }
-        header img.logo {
-            max-width: 120px;
-        }
-        main {
-            padding: 20px;
-            max-width: 1000px;
-            margin: auto;
-        }
-        h1, h2, h3 {
-            color: #007bff;
-        }
-        .main-photo, .obituary-paper {
-            width: 100%;
-            max-height: 400px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-        .main-photo-container, .obituary-paper-container {
-            position: relative;
-            text-align: center;
-        }
-        .main-photo-caption {
-            margin-top: 10px;
-            font-size: 18px;
-            color: #555;
-            font-style: italic;
-        }
-        .obituary-paper-container {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 15px;
-            text-align: center;
-        }
-        .timeline {
-            padding: 0;
-            margin: 20px 0;
-            list-style: none;
-        }
-        .timeline-item {
-            position: relative;
-            padding: 20px;
-            margin-bottom: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            border: 1px solid #ddd;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .timeline-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-        .carousel img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            margin-bottom: 10px;
-        }
-        .message-form {
-            margin-bottom: 20px;
-        }
-        .message-form label {
-            display: block;
-            margin-top: 10px;
-        }
-        .message-form input, .message-form textarea {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-        }
-        .message-form button {
-            margin-top: 10px;
-            padding: 10px 15px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .message-form button:hover {
-            background-color: #0056b3;
-        }
-        .message img {
-            max-width: 100px;
-            border-radius: 5px;
-            margin-top: 10px;
-        }
-        footer {
-            background-color: #fff;
-            padding: 20px;
-            text-align: center;
-            border-top: 1px solid #ddd;
-        }
-        .music-controls {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #fff;
-            border-radius: 5px;
-            padding: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-    </style>
+    <title>祥安生命有限公司－訃聞展示</title>
+    <link rel="stylesheet" href="obituary.css">
+    <script src="obituary.js" defer></script>
 </head>
 <body>
     <header>
-        <img src="logo.png" alt="祥安生命有限公司" class="logo">
-        <h1>祥安生命有限公司</h1>
+        <img src="image/logo.png" alt="祥安生命有限公司 Logo" class="logo">
     </header>
     <main>
-        <div class="main-photo-container">
-            <img id="main-photo" class="main-photo" src="" alt="主圖">
-        </div>
-        <div class="obituary-paper-container">
-            <img id="obituary-paper" class="obituary-paper" src="" alt="訃聞紙">
-        </div>
-        <h2>時間軸</h2>
-        <ul id="timeline" class="timeline"></ul>
-        <h3>追思照片</h3>
-        <div id="carousel" class="carousel"></div>
-        <h4>追思留言區</h4>
-        <form id="message-form-element" class="message-form">
-            <label for="message-name">姓名:</label>
-            <input type="text" id="message-name" name="name" required>
-            <label for="message-content">留言內容:</label>
-            <textarea id="message-content" name="content" rows="4" required></textarea>
-            <label for="message-photo">附加照片（選擇性）:</label>
-            <input type="file" id="message-photo" name="photo" accept="image/*">
-            <button type="submit">提交留言</button>
-        </form>
-        <div id="messages-container">
-            <!-- Messages will be dynamically added here -->
-        </div>
+        <section id="obituary-section">
+            <h2>訃聞展示</h2>
+
+            <!-- 主照片 -->
+            <img id="main-photo" src="" alt="主照片" style="width: 100%; max-width: 600px; height: auto;">
+
+            <!-- 訃聞紙本內容 -->
+            <img id="paper-obituary" src="" alt="訃聞紙本內容" style="width: 100%; max-width: 600px; height: auto;">
+
+            <!-- 时间轴 -->
+            <h3>生平时间轴</h3>
+            <ul id="timeline">
+                <!-- 时间轴项目将被动态添加 -->
+            </ul>
+
+            <!-- 照片轮播 -->
+            <h3>追思照片</h3>
+            <div id="carousel" style="display: flex; overflow-x: scroll;">
+                <!-- 追思照片将被动态添加 -->
+            </div>
+
+            <!-- 发表评论 -->
+            <section id="comments-section">
+                <h3>留言板</h3>
+                <div id="messages-container">
+                    <!-- 留言将被动态添加 -->
+                </div>
+                <form id="message-form-element">
+                    <label for="message-name">姓名:</label>
+                    <input type="text" id="message-name" name="name" required>
+
+                    <label for="message-content">留言内容:</label>
+                    <textarea id="message-content" name="content" required></textarea>
+
+                    <label for="message-photo">附加照片（可选）:</label>
+                    <input type="file" id="message-photo" name="photo" accept="image/*">
+
+                    <button type="submit">提交留言</button>
+                </form>
+            </section>
+        </section>
     </main>
     <footer>
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
-        <p>聯絡我們: 陳柏元 - <a href="tel:+886978583699">+886 978 583 699</a> | <a href="https://line.me/ti/p/@example" target="_blank">Line 聯繫</a></p>
+        <p>聯繫電話: +886978583699</p>
+        <p>Line: <a href="https://line.me/ti/p/@yourlineid">連結</a></p>
     </footer>
-    <audio id="background-music" loop>
-        <source id="music-source" src="" type="audio/mpeg">
-    </audio>
-    <div class="music-controls">
-        <button id="toggle-music">🔊</button>
-    </div>
-    <script>
-        document.getElementById('toggle-music').addEventListener('click', function() {
-            const music = document.getElementById('background-music');
-            const musicButton = document.getElementById('toggle-music');
-            if (music.paused) {
-                music.play();
-                musicButton.textContent = '🔇';
-            } else {
-                music.pause();
-                musicButton.textContent = '🔊';
-            }
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const queryParams = new URLSearchParams(window.location.search);
-            const mainPhotoUrl = queryParams.get('main-photo');
-            const obituaryPaperUrl = queryParams.get('obituary-paper');
-            const timelineData = JSON.parse(queryParams.get('timeline') || '[]');
-            const carouselPhotos = JSON.parse(queryParams.get('carousel') || '[]');
-            const musicUrl = queryParams.get('music');
-
-            if (mainPhotoUrl) {
-                document.getElementById('main-photo').src = mainPhotoUrl;
-            }
-
-            if (obituaryPaperUrl) {
-                document.getElementById('obituary-paper').src = obituaryPaperUrl;
-            }
-
-            if (musicUrl) {
-                document.getElementById('music-source').src = musicUrl;
-                document.getElementById('background-music').load();
-                document.getElementById('background-music').play();
-            }
-
-            // 動態載入時間軸資料
-            const timelineContainer = document.getElementById('timeline');
-            timelineData.forEach(item => {
-                const timelineItem = document.createElement('li');
-                timelineItem.classList.add('timeline-item');
-                timelineItem.innerHTML = `
-                    <div class="date">${item.date}</div>
-                    <div class="event">${item.event}</div>
-                `;
-                timelineContainer.appendChild(timelineItem);
-            });
-
-            // 動態載入照片輪播資料
-            const carouselContainer = document.getElementById('carousel');
-            carouselPhotos.forEach(photo => {
-                const img = document.createElement('img');
-                img.src = photo;
-                img.alt = '追思照片';
-                carouselContainer.appendChild(img);
-            });
-
-            // 表單提交處理
-            document.getElementById('message-form-element').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const name = document.getElementById('message-name').value;
-                const content = document.getElementById('message-content').value;
-
-                if (!name || !content) {
-                    alert('請填寫所有必填字段');
-                    return;
-                }
-
-                const formData = new FormData();
-                formData.append('name', name);
-                formData.append('content', content);
-                const photoFile = document.getElementById('message-photo').files[0];
-                if (photoFile) {
-                    formData.append('photo', photoFile);
-                }
-
-                fetch('/api/messages', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // 顯示成功消息
-                    console.log('留言提交成功', data);
-                    document.getElementById('message-form-element').reset();
-                    // 更新留言顯示
-                    const messageContainer = document.getElementById('messages-container');
-                    const messageDiv = document.createElement('div');
-                    messageDiv.classList.add('message');
-                    messageDiv.innerHTML = `
-                        <p><strong>${name}</strong></p>
-                        <p>${content}</p>
-                    `;
-
-                    if (photoFile) {
-                        const photoUrl = URL.createObjectURL(photoFile);
-                        const img = document.createElement('img');
-                        img.src = photoUrl;
-                        img.alt = '附加照片';
-                        messageDiv.appendChild(img);
-                    }
-
-                    messageContainer.appendChild(messageDiv);
-                })
-                .catch(error => {
-                    console.error('提交留言時出錯', error);
-                });
-            });
-        });
-    </script>
+    <audio id="background-music" loop></audio>
+    <button id="play-music" style="display: inline;">🔊</button>
+    <button id="stop-music" style="display: none;">🔇</button>
 </body>
 </html>
