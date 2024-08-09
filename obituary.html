@@ -3,53 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>電子訃告</title>
+    <title>追思紀念 - 祥安生命有限公司</title>
     <link rel="stylesheet" href="obituary.css">
+    <script src="obituary.js" defer></script>
 </head>
 <body>
-
     <header>
-        <h1>訃告</h1>
+        <img src="image/logo.png" alt="祥安生命有限公司 Logo" class="logo">
     </header>
-
     <main>
-        <section id="photo-section">
-            <img id="main-photo" src="main-photo.jpg" alt="Main Photo">
-            <div class="carousel">
-                <img src="photo1.jpg" alt="Photo 1">
-                <img src="photo2.jpg" alt="Photo 2">
-                <img src="photo3.jpg" alt="Photo 3">
-                <img src="photo4.jpg" alt="Photo 4">
+        <section class="main-photo-section">
+            <img id="main-photo" src="path/to/main/photo.jpg" alt="主照片">
+            <p class="motto">「永遠的思念，永恆的愛。」</p>
+        </section>
+
+        <section class="photo-carousel-section">
+            <h2>追憶時光</h2>
+            <div class="photo-carousel">
+                <!-- Photo carousel items will be dynamically inserted here -->
             </div>
         </section>
 
-        <section id="timeline-section">
-            <h2>生平時間軸</h2>
+        <section class="paper-obituary-section">
+            <h2>訃聞紙本</h2>
+            <img id="paper-obituary" src="path/to/paper/obituary.jpg" alt="訃聞紙本">
+        </section>
+
+        <section class="timeline-section">
+            <h2>人生軌跡</h2>
             <div class="timeline">
-                <div class="timeline-item" data-year="1931">出生</div>
-                <div class="timeline-item" data-year="2024">逝世</div>
-                <div class="timeline-item" data-year="2024.08.07">設立牌位</div>
-                <div class="timeline-item" data-year="2024.09.05">告別奠禮</div>
+                <div class="timeline-item">
+                    <span class="timeline-date">出生: 1980年5月1日</span>
+                    <p>出生於台北市。</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-date">結婚: 2005年6月18日</span>
+                    <p>與愛人共結連理。</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-date">生子: 2010年3月2日</span>
+                    <p>喜迎兒女。</p>
+                </div>
+                <!-- Add more timeline items here -->
             </div>
         </section>
 
-        <section id="comment-section">
+        <section class="comments-section">
             <h2>追思留言</h2>
+            <div id="comments">
+                <!-- Comments will be dynamically inserted here -->
+            </div>
             <form id="comment-form">
-                <textarea name="comment-content" placeholder="留下您的留言..." required></textarea>
+                <label for="name">您的姓名:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="message">留言內容:</label>
+                <textarea id="message" name="message" required></textarea>
                 <button type="submit">提交留言</button>
             </form>
-            <ul id="comment-list"></ul>
         </section>
     </main>
-
     <footer>
-        <p>承辦禮儀：祥安生命有限公司 陳柏元.</p>
-        <p>聯絡方式：<a href="tel:+886938179858">0938179858</a></p>
-        <p><a href="https://line.me/ti/p/1234567890" target="_blank">點擊聯絡我們</a></p>
+        <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
     </footer>
-
-    <div id="lightbox"></div>
-    <script src="obituary.js"></script>
 </body>
 </html>
