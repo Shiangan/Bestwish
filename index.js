@@ -91,29 +91,6 @@ document.addEventListener("DOMContentLoaded", function() {
         return age;
     }
 
-    document.getElementById('photo-upload-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const formData = new FormData(this);
-
-    fetch('/upload', { // 上传照片到后端
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert('照片上传成功！');
-            // 可以添加代码来显示上传的照片或者刷新照片列表
-        } else {
-            alert('照片上传失败，请重试。');
-        }
-    })
-    .catch(error => {
-        console.error('上传失败：', error);
-        alert('照片上传失败，请重试。');
-    });
-
     // 处理音乐选择变化
     function handleMusicChoiceChange() {
         const selectedOption = musicChoice.options[musicChoice.selectedIndex];
