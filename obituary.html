@@ -3,67 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>追思紀念 - 祥安生命有限公司</title>
+    <title>追思紀念-陳既隆先生 訃告</title>
     <link rel="stylesheet" href="obituary.css">
-    <script src="obituary.js" defer></script>
 </head>
 <body>
     <header>
         <img src="image/logo.png" alt="祥安生命有限公司 Logo" class="logo">
     </header>
     <main>
-        <section class="main-photo-section">
-            <img id="main-photo" src="path/to/main/photo.jpg" alt="主照片">
-            <p class="motto">「永遠的思念，永恆的愛。」</p>
-        </section>
-
-        <section class="photo-carousel-section">
-            <h2>追憶時光</h2>
-            <div class="photo-carousel">
-                <!-- Photo carousel items will be dynamically inserted here -->
+        <section id="obituary-section">
+            <!-- 主要照片 -->
+            <div id="main-photo-container">
+                <img id="main-photo" src="" alt="Main Photo">
+                    <p>class="motto">「永遠的思念，永恆的愛。」</p>
             </div>
-        </section>
 
-        <section class="paper-obituary-section">
-            <h2>訃聞紙本</h2>
-            <img id="paper-obituary" src="path/to/paper/obituary.jpg" alt="訃聞紙本">
-        </section>
-
-        <section class="timeline-section">
-            <h2>人生軌跡</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <span class="timeline-date">出生: 1980年5月1日</span>
-                    <p>出生於台北市。</p>
+            <!-- 照片輪播 -->
+            <div id="photo-carousel">
+                <button id="prev-button" class="carousel-button">&lt;</button>
+                <div id="carousel-images">
+                    <!-- 輪播照片將會在這裡插入 -->
                 </div>
-                <div class="timeline-item">
-                    <span class="timeline-date">結婚: 2005年6月18日</span>
-                    <p>與愛人共結連理。</p>
-                </div>
-                <div class="timeline-item">
-                    <span class="timeline-date">生子: 2010年3月2日</span>
-                    <p>喜迎兒女。</p>
-                </div>
-                <!-- Add more timeline items here -->
+                <button id="next-button" class="carousel-button">&gt;</button>
             </div>
-        </section>
 
-        <section class="comments-section">
-            <h2>追思留言</h2>
-            <div id="comments">
-                <!-- Comments will be dynamically inserted here -->
+            <!-- 訃告紙本 -->
+            <div id="paper-obituary-container">
+                <img id="paper-obituary" src="" alt="Obituary Paper">
             </div>
-            <form id="comment-form">
-                <label for="name">您的姓名:</label>
-                <input type="text" id="name" name="name" required>
-                <label for="message">留言內容:</label>
-                <textarea id="message" name="message" required></textarea>
-                <button type="submit">提交留言</button>
-            </form>
+
+            <!-- 生平時間軸 -->
+            <div id="timeline">
+                <!-- 時間軸項目將會在這裡插入 -->
+            </div>
+
+            <!-- 追思留言 -->
+            <section id="comments-section">
+                <h2>追思留言</h2>
+                <form id="comment-form">
+                    <label for="comment-name">姓名:</label>
+                    <input type="text" id="comment-name" required>
+                    <label for="comment-message">留言內容:</label>
+                    <textarea id="comment-message" required></textarea>
+                    <button type="submit">提交留言</button>
+                </form>
+                <div id="comments-container">
+                    <!-- 留言將會在這裡插入 -->
+                </div>
+            </section>
+
+            <!-- 致贈花籃按鈕 -->
+            <section id="donate-flower">
+                <button id="donate-button">致贈花籃請點選我</button>
+            </section>
         </section>
     </main>
     <footer>
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
     </footer>
+    <audio id="background-music" loop></audio>
+    <button id="play-music" style="display: inline;">🔊</button>
+    <button id="stop-music" style="display: none;">🔇</button>
+    <script src="obituary.js" defer></script>
 </body>
 </html>
