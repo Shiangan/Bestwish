@@ -1,198 +1,161 @@
 body {
-    background-color: #f0ede6;
     font-family: 'Noto Serif TC', serif;
-    color: #595959;
-    line-height: 1.6;
+    background-color: #f9f7f3;
+    color: #333;
     margin: 0;
     padding: 0;
+    line-height: 1.6;
 }
 
 header {
-    background-color: #ffe8d6;
-    padding: 20px;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: #f4e7dc;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 2.5rem;
-    color: #6b705c;
+.logo {
+    width: 150px;
 }
 
 main {
     padding: 20px;
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
 }
 
-#photo-section {
+h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #6b4e71;
     text-align: center;
-    margin-bottom: 40px;
 }
 
-#main-photo {
+.main-photo-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.main-photo-section img {
+    max-width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.motto {
+    font-style: italic;
+    color: #6b4e71;
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+.photo-carousel-section {
+    margin-bottom: 30px;
+}
+
+.photo-carousel {
+    display: flex;
+    overflow-x: auto;
+    padding: 10px 0;
+}
+
+.photo-carousel img {
+    max-width: 150px;
+    margin-right: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.photo-carousel img:hover {
+    transform: scale(1.05);
+}
+
+.paper-obituary-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.paper-obituary-section img {
     max-width: 100%;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.carousel {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.carousel img {
-    max-width: 100px;
     cursor: pointer;
-    transition: transform 0.3s ease;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.carousel img:hover {
-    transform: scale(1.1);
-}
-
-#lightbox {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-#lightbox img {
-    max-width: 90%;
-    max-height: 90%;
-    border: 5px solid #fff;
-    border-radius: 10px;
-}
-
-#timeline-section {
-    margin-bottom: 40px;
-}
-
-#timeline-section h2 {
-    font-size: 2rem;
-    color: #6b705c;
-    margin-bottom: 20px;
+.timeline-section {
+    margin-bottom: 30px;
 }
 
 .timeline {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+    border-left: 3px solid #6b4e71;
+    padding-left: 20px;
 }
 
 .timeline-item {
-    background-color: #fff;
-    border-radius: 5px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.timeline-item::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background-color: #6b4e71;
+    border-radius: 50%;
+    position: absolute;
+    left: -19px;
+    top: 5px;
+}
+
+.timeline-date {
+    font-weight: bold;
+    color: #6b4e71;
+    margin-bottom: 5px;
+}
+
+.comments-section {
+    background-color: #f4e7dc;
     padding: 20px;
-    width: 80%;
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.timeline-item:hover {
-    background-color: #ffefc1;
-}
-
-.timeline-item.expanded {
-    background-color: #ffe8d6;
-    height: auto;
-}
-
-#comment-section {
-    background-color: #fff;
     border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
 }
 
-#comment-section h2 {
-    font-size: 2rem;
-    color: #6b705c;
+#comments {
     margin-bottom: 20px;
 }
 
-#comment-form textarea {
-    width: 100%;
-    height: 100px;
+.comment {
+    background-color: #fff;
     padding: 10px;
-    border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#comment-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#comment-form input,
+#comment-form textarea {
     font-family: 'Noto Serif TC', serif;
-    font-size: 1rem;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 #comment-form button {
-    background-color: #6b705c;
+    background-color: #6b4e71;
     color: #fff;
+    padding: 10px;
     border: none;
-    padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-size: 1rem;
+    transition: background-color 0.3s;
 }
 
 #comment-form button:hover {
-    background-color: #8d99ae;
-}
-
-#comment-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-#comment-list li {
-    margin-bottom: 10px;
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-    font-size: 1rem;
-}
-
-#comment-list button {
-    margin-left: 10px;
-    background-color: #ff6f61;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 0.8rem;
-}
-
-footer {
-    background-color: #ffe8d6;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
-}
-
-footer p {
-    margin: 5px 0;
-    color: #6b705c;
-}
-
-footer a {
-    color: #ff6f61;
-    text-decoration: none;
-}
-
-footer a:hover {
-    text-decoration: underline;
+    background-color: #5a3c5a;
 }
