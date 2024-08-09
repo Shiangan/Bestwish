@@ -7,6 +7,7 @@ body {
     color: #333;
 }
 
+/* 頁眉 */
 header {
     background-color: #4a4a4a;
     padding: 10px;
@@ -41,6 +42,7 @@ main {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* 名言 */
 .motto {
     font-size: 18px;
     color: #555;
@@ -58,9 +60,11 @@ main {
 #carousel-images {
     display: flex;
     transition: transform 0.5s ease-in-out;
+    width: 100%;
 }
 
 #carousel-images img {
+    flex-shrink: 0;
     max-width: 100%;
     height: auto;
     border-radius: 8px;
@@ -238,8 +242,19 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
 }
 
 footer p {
     margin: 0;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer a:hover {
+    text-decoration: underline;
 }
