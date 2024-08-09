@@ -1,109 +1,96 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
+    // 获取元素
+    const mainPhoto = document.getElementById('main-photo');
     const carouselImages = document.getElementById('carousel-images');
     const prevButton = document.getElementById('prev-button');
     const nextButton = document.getElementById('next-button');
-    const flowerBasket = document.getElementById('flower-basket');
-    const donateButton = document.getElementById('donate-button');
     const backgroundMusic = document.getElementById('background-music');
+    const playMusicButton = document.getElementById('play-music-button');
+    const stopMusicButton = document.getElementById('stop-music-button');
 
+    // 设置主要照片
+    function setMainPhoto(photoUrl) {
+        mainPhoto.src = photoUrl;
+    }
+
+    // 设置轮播照片
+    function setCarouselPhotos(photoUrls) {
+        carouselImages.innerHTML = photoUrls.map(url => `
+            <div class="carousel-slide">
+                <img src="${url}" alt="轮播照片">
+            </div>
+        `).join('');
+        updateCarousel();
+    }
+
+    // 轮播控制
     let currentIndex = 0;
-    let images = JSON.parse(localStorage.getItem('additionalPhotos')) || [];
+    const slidesToShow = 3; // 一次显示多少张照片
 
-    function showImage(index) {
-        carouselImages.innerHTML = '';
-        if (images.length > 0) {
-            const img = document.createElement('img');
-            img.src = images[index];
-            img.alt = `Image ${index + 1}`;
-            img.style.width = '100%';
-            img.style.borderRadius = '10px';
-            carouselImages.appendChild(img);
+    function updateCarousel() {
+        const slides = document.querySelectorAll('.carousel-slide');
+        const totalSlides = slides.length;
+        const slideWidth = slides[0].offsetWidth;
+        const containerWidth = slideWidth * slidesToShow;
+        
+        carouselImages.style.width = `${slideWidth * totalSlides}px`;
+        carouselImages.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+
+        // 设置按钮可见性
+        prevButton.style.display = currentIndex === 0 ? 'none' : 'block';
+        nextButton.style.display = currentIndex >= totalSlides - slidesToShow ? 'none' : 'block';
+    }
+
+    function showNext() {
+        const totalSlides = document.querySelectorAll('.carousel-slide').length;
+        if (currentIndex < totalSlides - slidesToShow) {
+            currentIndex++;
+            updateCarousel();
         }
     }
 
-    function updateCarousel(index) {
-        if (index < 0) index = images.length - 1;
-        if (index >= images.length) index = 0;
-        currentIndex = index;
-        showImage(currentIndex);
+    function showPrev() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        }
     }
 
-    prevButton.addEventListener('click', () => updateCarousel(currentIndex - 1));
-    nextButton.addEventListener('click', () => updateCarousel(currentIndex + 1));
+    // 事件监听
+    prevButton.addEventListener('click', showPrev);
+    nextButton.addEventListener('click', showNext);
 
-    donateButton.addEventListener('click', () => {
-        flowerBasket.style.display = flowerBasket.style.display === 'none' ? 'block' : 'none';
-    });
-
+    // 音乐控制
     function playBackgroundMusic() {
-        const isMusicPlaying = localStorage.getItem('musicPlaying') === 'true';
-        if (isMusicPlaying) {
-            backgroundMusic.src = localStorage.getItem('musicUrl') || '';
-            backgroundMusic.play().catch(error => console.error('播放背景音乐失败:', error));
-        } else {
-            backgroundMusic.pause();
-        }
+        backgroundMusic.play().catch(error => console.error("播放背景音乐失败:", error));
+        playMusicButton.style.display = "none";
+        stopMusicButton.style.display = "inline";
     }
 
-    playBackgroundMusic();
+    function stopBackgroundMusic() {
+        backgroundMusic.pause();
+        playMusicButton.style.display = "inline";
+        stopMusicButton.style.display = "none";
+    }
 
-    const commentForm = document.getElementById('comment-form');
-    commentForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-        const name = document.getElementById('comment-name').value.trim();
-        const message = document.getElementById('comment-message').value.trim();
+    playMusicButton.addEventListener('click', playBackgroundMusic);
+    stopMusicButton.addEventListener('click', stopBackgroundMusic);
 
-        if (name && message) {
-            const commentsContainer = document.getElementById('comments-container');
-            const comment = document.createElement('div');
-            comment.className = 'comment';
-            comment.innerHTML = `<strong>${name}</strong><p>${message}</p><button class="edit-btn">编辑</button><button class="delete-btn">删除</button>`;
-            commentsContainer.appendChild(comment);
+    // 初始化
+    function initialize() {
+        // 设置主要照片
+        setMainPhoto('path/to/your/main-photo.jpg');
 
-            commentForm.reset();
-        } else {
-            alert('姓名和留言内容不能为空');
-        }
-    });
+        // 设置轮播照片
+        setCarouselPhotos([
+            'path/to/photo1.jpg',
+            'path/to/photo2.jpg',
+            'path/to/photo3.jpg',
+            'path/to/photo4.jpg',
+            'path/to/photo5.jpg'
+            // 添加更多照片
+        ]);
+    }
 
-    document.getElementById('comments-container').addEventListener('click', (event) => {
-        if (event.target.classList.contains('edit-btn')) {
-            const commentDiv = event.target.parentElement;
-            const p = commentDiv.querySelector('p');
-            const newMessage = prompt('编辑留言内容:', p.textContent);
-            if (newMessage !== null) {
-                p.textContent = newMessage;
-            }
-        } else if (event.target.classList.contains('delete-btn')) {
-            if (confirm('确认删除此留言吗？')) {
-                event.target.parentElement.remove();
-            }
-        }
-    });
-
-    carouselImages.addEventListener('click', (event) => {
-        if (event.target.tagName === 'IMG') {
-            const modal = document.createElement('div');
-            modal.className = 'modal';
-
-            const modalContent = document.createElement('div');
-            modalContent.className = 'modal-content';
-
-            const img = document.createElement('img');
-            img.src = event.target.src;
-            img.alt = '大图';
-            modalContent.appendChild(img);
-
-            const close = document.createElement('span');
-            close.className = 'close';
-            close.innerHTML = '&times;';
-            close.addEventListener('click', () => modal.remove());
-            modalContent.appendChild(close);
-
-            modal.appendChild(modalContent);
-            document.body.appendChild(modal);
-        }
-    });
-
-    loadStoredSettings();
+    initialize();
 });
