@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>讣闻公告</title>
+    <title>訃聞公告</title>
     <link rel="stylesheet" href="obituary.css">
 </head>
 <body>
@@ -12,92 +12,71 @@
     </header>
 
     <main>
-        <!-- 主要照片 -->
         <div id="main-photo-container">
-            <img id="main-photo" src="path/to/main-photo.jpg" alt="Main Photo">
+            <img id="main-photo" src="" alt="Main Photo">
         </div>
 
-        <!-- 温馨名言 -->
-        <div class="motto">
-            <p>“生命的结束不是消失，而是化作星辰，永远闪耀。”</p>
-        </div>
+        <div class="motto">此處顯示溫馨名言</div>
 
-        <!-- 照片轮播 -->
         <div id="photo-carousel">
             <div id="carousel-images">
-                <img src="path/to/photo1.jpg" alt="Photo 1">
-                <img src="path/to/photo2.jpg" alt="Photo 2">
-                <!-- 更多照片 -->
+                <!-- 由 index 提供的照片將動態插入 -->
             </div>
             <button id="prev-button" class="carousel-button">&#10094;</button>
             <button id="next-button" class="carousel-button">&#10095;</button>
         </div>
 
-        <!-- 讣闻纸张 -->
         <div id="paper-obituary-container">
-            <img id="paper-obituary" src="path/to/paper-obituary.jpg" alt="Paper Obituary">
+            <img id="paper-obituary" src="" alt="Paper Obituary">
         </div>
 
-        <!-- 时间轴 -->
         <div id="timeline">
-            <div class="timeline-item">
-                <span class="date">2000年1月1日</span>
-                <p>出生于某地</p>
-            </div>
-            <div class="timeline-item">
-                <span class="date">2024年8月9日</span>
-                <p>离世，享年24岁</p>
-            </div>
-            <!-- 更多事件 -->
+            <!-- 生平時間軸 -->
         </div>
 
-        <!-- 留言区 -->
         <div id="comments-section">
-            <h2>追思留言区</h2>
+            <h2>追思留言區</h2>
             <form id="comment-form">
                 <label for="comment-name">姓名</label>
                 <input type="text" id="comment-name" required>
-                <label for="comment-message">留言内容</label>
+                <label for="comment-message">留言內容</label>
                 <textarea id="comment-message" rows="4" required></textarea>
                 <button type="submit">提交留言</button>
             </form>
             <div id="comments-container">
-                <!-- 留言内容将动态插入 -->
+                <!-- 留言區內容將動態插入 -->
             </div>
         </div>
 
-        <!-- 致赠花篮 -->
         <div id="donate-flower">
-            <button id="donate-button">致赠花篮请点击我</button>
+            <button id="donate-button">致贈花籃請點選我</button>
         </div>
 
-        <!-- 花篮样式 -->
         <div id="flower-basket">
             <div class="basket-style">
                 <img src="basket1.jpg" alt="Flower Basket 1">
-                <p>花篮样式 1 - NT$XXX</p>
+                <p>花籃樣式 1 - NT$XXX</p>
             </div>
             <div class="basket-style">
                 <img src="basket2.jpg" alt="Flower Basket 2">
-                <p>花篮样式 2 - NT$XXX</p>
+                <p>花籃樣式 2 - NT$XXX</p>
             </div>
-            <!-- 其他花篮样式 -->
+            <!-- 其他花籃樣式 -->
         </div>
     </main>
 
     <footer>
-        <p>承办礼仪公司：祥安生命有限公司</p>
+        <p>承辦禮儀公司：祥安生命有限公司</p>
         <p>
-            联系我们：
+            聯絡我們：
             <a href="https://line.me/ti/p/LINEID" target="_blank">LINE</a> |
-            <a href="tel:+886978583699">电话：0978-583-699</a>
+            <a href="tel:+886978583699">電話：0978-583-699</a>
         </p>
     </footer>
 
     <audio id="background-music" loop>
-        <source src="path/to/music.mp3" type="audio/mpeg">
+        <source src="" type="audio/mpeg">
     </audio>
-
     <script src="obituary.js"></script>
 </body>
 </html>
