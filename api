@@ -1,14 +1,67 @@
-const orders = [];
+const express = require('express');
+const multer = require('multer');
+const mongoose = require('mongoose');
+const app = express();
 
-export default (req, res) => {
-    if (req.method === 'POST') {
-        const order = req.body;
-        orders.push(order);
-        res.status(200).json({ message: '訂單已接收' });
-    } else if (req.method === 'GET') {
-        res.status(200).json(orders);
-    } else {
-        res.setHeader('Allow', ['GET', 'POST']);
-        res.status(405).end(`Method ${req.method} Not Allowed`);
+// 使用 multer 來處理檔案上傳
+const upload = multer({ dest: 'uploads/' });
+
+// 設置 MongoDB 連接
+mongoose.connect('mongodb://localhost:27017/obituary', { useNewUrlParser: true, useUnifiedTopology: true });
+
+// 設置訃聞模型
+const Obituary = mongoose.model('Obituary', new mongoose.Schema({
+    mainPhoto: String,
+    obituaryPaper: String,
+    timeline: [{ date: String, event: String }],
+    carouselPhotos: [String],
+    messages: [{ name: String, content: String, photo: String }]
+}));
+
+// 創建訃聞
+app.post('/api/obituaries', upload.single('photo'), async (req, res) => {
+    try {
+        const { mainPhoto, obituaryPaper, timeline, carouselPhotos } = req.body;
+        const obituary = new Obituary({
+            mainPhoto,
+            obituaryPaper,
+            timeline: JSON.parse(timeline),
+            carouselPhotos: JSON.parse(carouselPhotos),
+            messages: []
+        });
+        await obituary.save();
+        res.status(201).send(obituary);
+    } catch (error) {
+        res.status(500).send({ message: '創建訃聞失敗', error });
     }
-};
+});
+
+// 獲取訃聞
+app.get('/api/obituaries/:id', async (req, res) => {
+    try {
+        const obituary = await Obituary.findById(req.params.id);
+        if (!obituary) return res.status(404).send({ message: '未找到訃聞' });
+        res.status(200).send(obituary);
+    } catch (error) {
+        res.status(500).send({ message: '獲取訃聞失敗', error });
+    }
+});
+
+// 提交留言
+app.post('/api/messages', upload.single('photo'), async (req, res) => {
+    try {
+        const { name, content } = req.body;
+        const photo = req.file ? req.file.path : '';
+        const obituary = await Obituary.findById(req.body.obituaryId);
+        if (!obituary) return res.status(404).send({ message: '未找到訃聞' });
+        
+        obituary.messages.push({ name, content, photo });
+        await obituary.save();
+        
+        res.status(201).send({ message: '留言已提交' });
+    } catch (error) {
+        res.status(500).send({ message: '提交留言失敗', error });
+    }
+});
+
+app.listen(3000, () => console.log('Server is running on port 3000'));
