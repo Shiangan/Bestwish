@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let photos = [];
     let musicUrl = localStorage.getItem('musicUrl') || '';
 
+    // 加載音樂設置
     function loadMusicSettings() {
         if (musicUrl) {
             backgroundMusic.src = musicUrl;
@@ -24,18 +25,24 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+    // 加載內容
     function loadContent() {
         const storedPhotos = JSON.parse(localStorage.getItem('additionalPhotos')) || [];
         const mainPhotoUrl = localStorage.getItem('mainPhoto') || '';
         const paperObituaryUrl = localStorage.getItem('paperObituary') || '';
         const comments = JSON.parse(localStorage.getItem('comments')) || [];
         
+        // 設置主要照片
         document.getElementById('main-photo').src = mainPhotoUrl;
+        
+        // 設置訃告紙本
         document.getElementById('paper-obituary').src = paperObituaryUrl;
 
+        // 設置輪播照片
         photos = storedPhotos;
         updateCarousel();
         
+        // 設置留言
         commentsContainer.innerHTML = comments.map(comment => `
             <div class="comment">
                 <p><strong>${comment.name}:</strong> ${comment.message}</p>
@@ -45,6 +52,7 @@ document.addEventListener("DOMContentLoaded", function() {
         `).join('');
     }
 
+    // 更新輪播照片
     function updateCarousel() {
         const carouselImages = document.getElementById('carousel-images');
         carouselImages.innerHTML = photos.map(photo => `
@@ -53,15 +61,18 @@ document.addEventListener("DOMContentLoaded", function() {
         updateCarouselControls();
     }
 
+    // 更新輪播控制按鈕
     function updateCarouselControls() {
         if (photos.length > 0) {
             document.getElementById('photo-carousel').style.display = 'block';
             showPhoto(currentIndex);
-        } else {
+        }
+        else { 
             document.getElementById('photo-carousel').style.display = 'none';
         }
+    }
 
-        // 顯示指定的照片
+    // 顯示指定的照片
     function showPhoto(index) {
         const carouselImages = document.getElementById('carousel-images');
         const width = carouselImages.offsetWidth;
@@ -120,7 +131,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // 編輯留言
     window.editComment = function(id) {
-        // 編輯留言的邏輯（可根據需求實現）
+        // 編輯留言的邏輯
+        const comments = JSON.parse(localStorage.getItem('comments')) || [];
+        const comment = comments.find(c => c.id === id);
+        if (comment) {
+            document.getElementById('comment-name').value = comment.name;
+            document.getElementById('comment-message').value = comment.message;
+            deleteComment(id); // 刪除留言以便重新提交
+        }
     };
 
     // 刪除留言
@@ -140,3 +158,4 @@ document.addEventListener("DOMContentLoaded", function() {
     loadMusicSettings();
     loadContent();
 });
+           
