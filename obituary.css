@@ -1,36 +1,35 @@
-/* obituary.css */
+/* 頁面背景 */
 body {
-    font-family: 'Noto Sans TC', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f5f5f5;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
 }
 
+/* 標題和內容 */
 header {
     background-color: #fff;
-    padding: 20px;
+    padding: 10px 20px;
     text-align: center;
+    border-bottom: 1px solid #ddd;
 }
 
 .logo {
     max-width: 150px;
+    height: auto;
+}
+
+main {
+    padding: 20px;
 }
 
 #obituary-section {
-    max-width: 1000px;
-    margin: 20px auto;
-    padding: 20px;
     background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
 }
 
-#motto {
-    font-style: italic;
-    color: #777;
-    text-align: center;
-}
-
+/* 主要照片 */
 #main-photo-container {
     text-align: center;
     margin-bottom: 20px;
@@ -38,50 +37,51 @@ header {
 
 #main-photo {
     max-width: 100%;
-    height: auto;
-    border-radius: 8px;
+    border-radius: 10px;
 }
 
+.motto {
+    font-size: 18px;
+    color: #666;
+    margin-top: 10px;
+}
+
+/* 照片輪播 */
 #photo-carousel {
-    position: relative;
-    max-width: 100%;
-    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 20px;
 }
 
 #carousel-images {
     display: flex;
-    transition: transform 0.5s ease;
+    overflow: hidden;
+    width: 100%;
+    border-radius: 10px;
 }
 
 #carousel-images img {
     max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    flex: 0 0 auto;
+    border-radius: 10px;
+    margin-right: 10px;
 }
 
 .carousel-button {
-    background-color: #fff;
+    background-color: #ddd;
     border: none;
     padding: 10px;
-    cursor: pointer;
-    font-size: 20px;
     border-radius: 50%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+    color: #333;
 }
 
-#prev-button {
-    left: 10px;
+.carousel-button:hover {
+    background-color: #bbb;
 }
 
-#next-button {
-    right: 10px;
-}
-
+/* 訃告紙本 */
 #paper-obituary-container {
     text-align: center;
     margin-bottom: 20px;
@@ -89,68 +89,133 @@ header {
 
 #paper-obituary {
     max-width: 100%;
-    height: auto;
-    border-radius: 8px;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
+#paper-obituary:hover {
+    opacity: 0.8;
+}
+
+/* 生平時間軸 */
 #timeline {
     margin-bottom: 20px;
 }
 
-#timeline .timeline-item {
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
+.timeline-item {
+    margin-bottom: 20px;
 }
 
+.timeline-item p {
+    margin: 5px 0;
+}
+
+/* 留言區 */
 #comments-section {
-    margin-bottom: 20px;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+#comments-section h2 {
+    margin-bottom: 10px;
 }
 
 #comment-form {
     margin-bottom: 20px;
 }
 
-#comment-name, #comment-message {
+#comment-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#comment-form input,
+#comment-form textarea {
     width: 100%;
+    padding: 10px;
     margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
-textarea {
-    min-height: 100px;
+#comment-form button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-#comments-container {
-    border-top: 1px solid #ddd;
+#comment-form button:hover {
+    background-color: #45a049;
 }
 
 .comment {
+    background-color: #fff;
+    border-radius: 5px;
     padding: 10px;
-    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
 }
 
-.comment .edit-btn, .comment .delete-btn {
-    margin: 5px;
+.comment p {
+    margin-bottom: 5px;
+}
+
+.edit-btn,
+.delete-btn {
+    background-color: #f1f1f1;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
     cursor: pointer;
+    font-size: 14px;
 }
 
+.edit-btn:hover {
+    background-color: #ddd;
+}
+
+.delete-btn:hover {
+    background-color: #f44336;
+    color: white;
+}
+
+/* 致贈花籃按鈕 */
 #donate-flower {
     text-align: center;
+    margin-top: 20px;
 }
 
 #donate-button {
-    background-color: #ff6f61;
-    color: #fff;
+    background-color: #ff9800;
+    color: white;
     border: none;
     padding: 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-footer {
-    background-color: #fff;
+#donate-button:hover {
+    background-color: #f57c00;
+}
+
+/* 音樂控制按鈕 */
+audio {
+    display: none;
+}
+
+button {
+    background-color: #eee;
+    border: none;
     padding: 10px;
-    text-align: center;
-    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #ddd;
 }
