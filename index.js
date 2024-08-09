@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // 变量定义
     const form = document.getElementById("info-form");
     const playMusicButton = document.getElementById("play-music");
     const stopMusicButton = document.getElementById("stop-music");
@@ -27,9 +26,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // 表单提交处理
+    // 处理表单提交
     async function handleFormSubmit(event) {
         event.preventDefault();
+        console.log('表单提交处理函数被调用');
+
         const formData = new FormData(form);
 
         // 处理主照片
@@ -94,8 +95,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // 处理音乐选择变化
     function handleMusicChoiceChange() {
         const selectedOption = musicChoice.options[musicChoice.selectedIndex];
-        const musicUrl = selectedOption.value;
-        currentMusicUrl = musicUrl;
+        const musicUrl = selectedOption.value；currentMusicUrl = musicUrl;
         backgroundMusic.src = musicUrl;
         localStorage.setItem('musicUrl', musicUrl);
 
@@ -130,5 +130,7 @@ document.addEventListener("DOMContentLoaded", function() {
     playMusicButton.addEventListener('click', playBackgroundMusic);
     stopMusicButton.addEventListener('click', stopBackgroundMusic);
 
+    // 加载存储的设置
     loadStoredSettings();
 });
+       
