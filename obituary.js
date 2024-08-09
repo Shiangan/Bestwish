@@ -1,117 +1,114 @@
+// obituary.js
+
+// Carousel functionality
 document.addEventListener('DOMContentLoaded', () => {
-    // 背景音乐控制
-    const music = document.getElementById('background-music');
-    const playMusicButton = document.getElementById('play-music');
-    const stopMusicButton = document.getElementById('stop-music');
-    
-    // 播放背景音乐
-    function playBackgroundMusic() {
-        music.play().catch(error => console.error("播放背景音乐失败:", error));
-        playMusicButton.style.display = "none";
-        stopMusicButton.style.display = "inline";
-        localStorage.setItem('musicPlaying', 'true');
-    }
-
-    // 停止背景音乐
-    function stopBackgroundMusic() {
-        music.pause();
-        localStorage.setItem('musicPlaying', 'false');
-        playMusicButton.style.display = "inline";
-        stopMusicButton.style.display = "none";
-    }
-
-    playMusicButton.addEventListener('click', playBackgroundMusic);
-    stopMusicButton.addEventListener('click', stopBackgroundMusic);
-
-    // 自动播放背景音乐
-    if (localStorage.getItem('musicPlaying') === 'true') {
-        playBackgroundMusic();
-    } else {
-        stopBackgroundMusic();
-    }
-
-    // 照片轮播功能
     const images = document.querySelectorAll('#carousel-images img');
+    const prevButton = document.getElementById('prev-button');
+    const nextButton = document.getElementById('next-button');
     let currentIndex = 0;
 
-    function showImage(index) {
-        images.forEach((img, i) => {
-            img.style.opacity = i === index ? '1' : '0';
+    function updateCarousel() {
+        images.forEach((img, index) => {
+            img.style.transform = `translateX(-${currentIndex * 100}%)`;
         });
     }
 
-    document.getElementById('next-button').addEventListener('click', () => {
-        currentIndex = (currentIndex + 1) % images.length;
-        showImage(currentIndex);
+    prevButton.addEventListener('click', () => {
+        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+        updateCarousel();
     });
 
-    document.getElementById('prev-button').addEventListener('click', () => {
-        currentIndex = (currentIndex - 1 + images.length) % images.length;
-        showImage(currentIndex);
+    nextButton.addEventListener('click', () => {
+        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+        updateCarousel();
     });
 
-    showImage(currentIndex);
+    updateCarousel(); // Initialize carousel
+});
 
-    // 留言功能
-    const commentForm = document.getElementById('comment-form');
-    const commentsContainer = document.getElementById('comments-container');
+// Background music
+const audio = document.getElementById('background-music');
+audio.src = 'music/background.mp3'; // Replace with actual music file path
+audio.play();
 
-    commentForm.addEventListener('submit', (event) => {
-        event.preventDefault();
+// Comment form handling
+const commentForm = document.getElementById('comment-form');
+const commentsContainer = document.getElementById('comments-container');
 
-        const name = document.getElementById('comment-name').value.trim();
-        const message = document.getElementById('comment-message').value.trim();
+commentForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const name = document.getElementById('comment-name').value;
+    const message = document.getElementById('comment-message').value;
 
-        if (name && message) {
-            const comment = document.createElement('div');
-            comment.classList.add('comment-item');
-            comment.innerHTML = `
-                <strong>${name}</strong>
-                <p>${message}</p>
-            `;
-            commentsContainer.appendChild(comment);
+    // Create new comment element
+    const comment = document.createElement('div');
+    comment.className = 'comment';
+    comment.innerHTML = `
+        <strong>${name}</strong>
+        <p>${message}</p>
+        <button class="edit-button">編輯</button>
+        <button class="delete-button">刪除</button>
+    `;
+    
+    // Add comment to container
+    commentsContainer.appendChild(comment);
+    
+    // Clear form fields
+    commentForm.reset();
+});
 
-            commentForm.reset();
-        }
-    });
-
-    // 加载存储的设置
-    function loadStoredSettings() {
-        const storedPhotoUrl = localStorage.getItem('mainPhoto');
-        const storedAdditionalPhotos = JSON.parse(localStorage.getItem('additionalPhotos')) || [];
-        const storedMusicUrl = localStorage.getItem('musicUrl');
-        const isMusicPlaying = localStorage.getItem('musicPlaying') === 'true';
-
-        if (storedPhotoUrl) {
-            document.getElementById('main-photo').src = storedPhotoUrl;
-        }
-
-        if (storedAdditionalPhotos.length > 0) {
-            const carouselImages = document.getElementById('carousel-images');
-            storedAdditionalPhotos.forEach(photoUrl => {
-                const img = document.createElement('img');
-                img.src = photoUrl;
-                carouselImages.appendChild(img);
-            });
-        }
-
-        if (storedMusicUrl) {
-            music.src = storedMusicUrl;
-            if (isMusicPlaying) {
-                playBackgroundMusic();
-            } else {
-                stopBackgroundMusic();
-            }
-        }
+// Edit and delete comment functionality
+commentsContainer.addEventListener('click', (e) => {
+    if (e.target.classList.contains('edit-button')) {
+        const comment = e.target.parentElement;
+        const name = comment.querySelector('strong').innerText;
+        const message = comment.querySelector('p').innerText;
+        
+        document.getElementById('comment-name').value = name;
+        document.getElementById('comment-message').value = message;
+        
+        commentsContainer.removeChild(comment);
+    } else if (e.target.classList.contains('delete-button')) {
+        const comment = e.target.parentElement;
+        commentsContainer.removeChild(comment);
     }
+});
 
-    loadStoredSettings();
+// Function to update main photo and other dynamic content from index
+function updateMainPhoto(photoUrl) {
+    document.getElementById('main-photo').src = photoUrl;
+}
 
-    // 温馨名言设置
-    function setMotto() {
-        const motto = "珍惜每一刻，怀念每一个微笑";
-        document.querySelector('.motto').textContent = motto;
-    }
+function updateObituaryContent(obituaryData) {
+    document.getElementById('paper-obituary').src = obituaryData.paperPhotoUrl;
+    document.getElementById('timeline').innerHTML = obituaryData.timelineHtml;
+    document.getElementById('comments-container').innerHTML = obituaryData.commentsHtml;
+    document.getElementById('donate-button').addEventListener('click', () => {
+        window.location.href = 'https://line.me/ti/p/LINEID'; // Replace with actual LINE link
+    });
+}
 
-    setMotto();
+// Example of how to use the update functions
+updateMainPhoto('images/deceased-main.jpg');
+updateObituaryContent({
+    paperPhotoUrl: 'images/obituary-paper.jpg',
+    timelineHtml: `
+        <div class="timeline-item">
+            <div class="date">1980年1月1日</div>
+            <p>出生於台北市</p>
+        </div>
+        <div class="timeline-item">
+            <div class="date">2024年8月1日</div>
+            <p>安息於台北市</p>
+        </div>
+    `,
+    commentsHtml: `
+        <div class="comment">
+            <strong>張三</strong>
+            <p>感謝您為我們的親人提供這份美好的回憶。</p>
+            <button class="edit-button">編輯</button>
+            <button class="delete-button">刪除</button>
+        </div>
+    `
 });
