@@ -1,16 +1,14 @@
 /* obituary.css */
-
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
+    font-family: 'Noto Sans TC', sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f5f5f5;
 }
 
 header {
     background-color: #fff;
-    padding: 10px;
+    padding: 20px;
     text-align: center;
 }
 
@@ -19,34 +17,35 @@ header {
 }
 
 #obituary-section {
+    max-width: 1000px;
+    margin: 20px auto;
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 #motto {
     font-style: italic;
-    color: #666;
+    color: #777;
+    text-align: center;
 }
 
 #main-photo-container {
     text-align: center;
+    margin-bottom: 20px;
 }
 
 #main-photo {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
-    margin-bottom: 10px;
 }
 
 #photo-carousel {
-    display: flex;
-    align-items: center;
     position: relative;
-    overflow: hidden;
     max-width: 100%;
+    overflow: hidden;
     margin-bottom: 20px;
 }
 
@@ -59,27 +58,28 @@ header {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
-    margin-right: 10px;
+    flex: 0 0 auto;
 }
 
 .carousel-button {
-    background-color: #f4f4f4;
+    background-color: #fff;
     border: none;
     padding: 10px;
     cursor: pointer;
     font-size: 20px;
     border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
 }
 
 #prev-button {
-    left: 0;
+    left: 10px;
 }
 
 #next-button {
-    right: 0;
+    right: 10px;
 }
 
 #paper-obituary-container {
@@ -97,6 +97,11 @@ header {
     margin-bottom: 20px;
 }
 
+#timeline .timeline-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
 #comments-section {
     margin-bottom: 20px;
 }
@@ -105,47 +110,27 @@ header {
     margin-bottom: 20px;
 }
 
-#comment-form label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-#comment-form input, #comment-form textarea {
+#comment-name, #comment-message {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    margin-bottom: 10px;
 }
 
-#comment-form button {
-    background-color: #5cb85c;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 4px;
-    cursor: pointer;
+textarea {
+    min-height: 100px;
 }
 
 #comments-container {
-    max-width: 100%;
+    border-top: 1px solid #ddd;
 }
 
 .comment {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
     padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 4px;
+    border-bottom: 1px solid #ddd;
 }
 
-.comment button {
-    background-color: #d9534f;
-    color: white;
-    border: none;
-    padding: 5px;
-    border-radius: 4px;
+.comment .edit-btn, .comment .delete-btn {
+    margin: 5px;
     cursor: pointer;
-    margin-right: 5px;
 }
 
 #donate-flower {
@@ -153,10 +138,19 @@ header {
 }
 
 #donate-button {
-    background-color: #0275d8;
-    color: white;
+    background-color: #ff6f61;
+    color: #fff;
     border: none;
     padding: 10px 20px;
-    border-radius: 4px;
     cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+footer {
+    background-color: #fff;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
 }
