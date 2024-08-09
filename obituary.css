@@ -1,17 +1,19 @@
 /* obituary.css */
 
-/* 样式设置 */
+/* 基础样式设置 */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
+    color: #333;
 }
 
 header {
     background-color: #333;
-    padding: 10px;
+    padding: 15px;
     text-align: center;
+    color: #fff;
 }
 
 header .logo {
@@ -29,8 +31,10 @@ main {
     color: #555;
 }
 
+/* 主要照片 */
 #main-photo-container {
     text-align: center;
+    margin-bottom: 20px;
 }
 
 #main-photo {
@@ -38,9 +42,11 @@ main {
     height: auto;
 }
 
+/* 轮播照片 */
 #photo-carousel {
     position: relative;
     overflow: hidden;
+    width: 100%;
 }
 
 #carousel-images {
@@ -49,15 +55,20 @@ main {
 }
 
 .carousel-slide {
-    min-width: 33.33%;
+    flex: 0 0 33.33%;
     box-sizing: border-box;
     padding: 5px;
 }
 
 .carousel-slide img {
     width: 100%;
-    border-radius: 10px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.carousel-slide img:hover {
+    transform: scale(1.05);
 }
 
 .carousel-button {
@@ -65,10 +76,12 @@ main {
     top: 50%;
     transform: translateY(-50%);
     background-color: rgba(0, 0, 0, 0.5);
-    color: white;
+    color: #fff;
     border: none;
     padding: 10px;
     cursor: pointer;
+    border-radius: 50%;
+    z-index: 10;
 }
 
 #prev-button {
@@ -79,6 +92,7 @@ main {
     right: 10px;
 }
 
+/* 讣告照片 */
 #paper-obituary-container {
     text-align: center;
     margin: 20px 0;
@@ -90,11 +104,13 @@ main {
     cursor: pointer;
 }
 
+/* 时间轴 */
 #timeline {
     background: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
 
 .timeline-event {
@@ -102,12 +118,17 @@ main {
     padding: 10px 0;
 }
 
+.timeline-event:last-child {
+    border-bottom: none;
+}
+
+/* 留言区 */
 #comments-section {
     background: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 20px 0;
+    margin-bottom: 20px;
 }
 
 #comment-form {
@@ -119,7 +140,8 @@ main {
     margin: 5px 0;
 }
 
-#comment-form input, #comment-form textarea {
+#comment-form input,
+#comment-form textarea {
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ddd;
@@ -132,30 +154,35 @@ main {
 }
 
 #flower-basket {
-    display: flex;
+    display: none;
     flex-wrap: wrap;
     gap: 15px;
 }
 
 .basket-style {
-    flex: 1 1 200px;
+    flex: 1 1 22%;
     background: #fff;
     padding: 10px;
-       border-radius: 8px;
+    border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
+    cursor: pointer;
 }
 
 .basket-style img {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
-    cursor: pointer;
 }
 
+.basket-style p {
+    margin: 10px 0 0;
+}
+
+/* 页脚 */
 footer {
     background-color: #333;
-    color: white;
+    color: #fff;
     text-align: center;
     padding: 10px;
     position: relative;
@@ -163,7 +190,7 @@ footer {
     width: 100%;
 }
 
-/* 模态窗口的样式 */
+/* 模态窗口样式 */
 .modal {
     display: none;
     position: fixed;
