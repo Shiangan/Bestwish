@@ -3,17 +3,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const carouselImages = document.getElementById('carousel-images');
     const prevButton = document.getElementById('prev-button');
     const nextButton = document.getElementById('next-button');
-    const slides = Array.from(document.querySelectorAll('.carousel-slide'));
+    const slides = document.querySelectorAll('.carousel-slide');
     let currentSlide = 0;
-    const slideCount = slides.length;
-    const slideWidth = slides[0].offsetWidth;
-    let autoPlayInterval;
 
     function showSlide(index) {
-        if (index >= slideCount) index = 0;
-        if (index < 0) index = slideCount - 1;
-        carouselImages.style.transform = `translateX(-${index * slideWidth}px)`;
-        currentSlide = index;
+        const totalSlides = slides.length;
+        if (index >= totalSlides) currentSlide = 0;
+        if (index < 0) currentSlide = totalSlides - 1;
+        carouselImages.style.transform = `translateX(-${currentSlide * 100}%)`;
     }
 
     function nextSlide() {
@@ -24,40 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
         showSlide(currentSlide - 1);
     }
 
-    function startAutoPlay() {
-        autoPlayInterval = setInterval(nextSlide, 5000);
-    }
+    prevButton.addEventListener('click', prevSlide);
+    nextButton.addEventListener('click', nextSlide);
 
-    function stopAutoPlay() {
-        clearInterval(autoPlayInterval);
-    }
-
-    function initializeCarousel() {
-        showSlide(currentSlide);
-        startAutoPlay();
-    }
-
-    prevButton.addEventListener('click', () => {
-        stopAutoPlay();
-        prevSlide();
-        startAutoPlay();
-    });
-
-    nextButton.addEventListener('click', () => {
-        stopAutoPlay();
-        nextSlide();
-        startAutoPlay();
-    });
-
-    initializeCarousel();
-
-    window.addEventListener('resize', () => {
-        // 在窗口大小变化时调整轮播图片的宽度
-        const newSlideWidth = slides[0].offsetWidth;
-        carouselImages.style.transition = 'none'; // 临时禁用过渡效果
-        showSlide(currentSlide);
-        carouselImages.style.transition = 'transform 0.5s ease'; // 恢复过渡效果
-    });
+    setInterval(nextSlide, 5000); // 每5秒切换一次
 
     // 添加照片点击放大的功能
     const modal = document.getElementById('modal');
@@ -87,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 主要照片和轮播照片的设置
     const mainPhoto = document.getElementById('main-photo');
-    const mainPhotoSrc = localStorage.getItem('mainPhotoSrc'); // Example: Load from localStorage
+    const mainPhotoSrc = localStorage.getItem('mainPhotoSrc');
     if (mainPhotoSrc) {
         mainPhoto.src = mainPhotoSrc;
     }
@@ -110,17 +77,28 @@ document.addEventListener('DOMContentLoaded', () => {
         backgroundMusic.play().catch(error => console.error("播放背景音乐失败:", error));
     }
 
+    // 播放背景音乐
     document.getElementById('play-music-button').addEventListener('click', () => {
         backgroundMusic.play().catch(error => console.error("播放背景音乐失败:", error));
         localStorage.setItem('musicPlaying', 'true');
     });
 
+    // 停止背景音乐
     document.getElementById('stop-music-button').addEventListener('click', () => {
         backgroundMusic.pause();
         localStorage.setItem('musicPlaying', 'false');
     });
 
+    // 读取存储的音乐播放状态
     if (localStorage.getItem('musicPlaying') === 'true') {
         backgroundMusic.play().catch(error => console.error("播放背景音乐失败:", error));
     }
+
+    // 处理花篮按钮点击事件
+    const donateButton = document.getElementById('donate-button');
+    const flowerBasket = document.getElementById('flower-basket');
+
+    donateButton.addEventListener('click', () => {
+        flowerBasket.style.display = flowerBasket.style.display === 'none' ? 'flex' : 'none';
+    });
 });
