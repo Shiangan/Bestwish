@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const donateButton = document.getElementById("donate-button");
 
     let currentIndex = 0;
-    let photos = [];
+    let photos = JSON.parse(localStorage.getItem('additionalPhotos')) || [];
     let musicUrl = localStorage.getItem('musicUrl') || '';
 
     function loadMusicSettings() {
@@ -27,7 +27,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function loadContent() {
-        const storedPhotos = JSON.parse(localStorage.getItem('additionalPhotos')) || [];
         const mainPhotoUrl = localStorage.getItem('mainPhoto') || '';
         const paperObituaryUrl = localStorage.getItem('paperObituary') || '';
         const comments = JSON.parse(localStorage.getItem('comments')) || [];
@@ -35,11 +34,10 @@ document.addEventListener("DOMContentLoaded", function() {
         // 設置主要照片
         document.getElementById('main-photo').src = mainPhotoUrl;
 
-            // 設置訃告紙本照片
+        // 設置訃告紙本照片
         document.getElementById('paper-obituary').src = paperObituaryUrl;
 
         // 設置輪播照片
-        photos = storedPhotos;
         renderCarousel();
 
         // 設置留言區
@@ -53,6 +51,12 @@ document.addEventListener("DOMContentLoaded", function() {
         photoCarousel.innerHTML = photos.map(photoUrl => `
             <img src="${photoUrl}" alt="Photo">
         `).join('');
+        updateCarousel(); // 初始化輪播
+    }
+
+    function updateCarousel() {
+        const offset = -currentIndex * 100;
+        photoCarousel.style.transform = `translateX(${offset}%)`;
     }
 
     function renderComments(comments) {
@@ -101,14 +105,14 @@ document.addEventListener("DOMContentLoaded", function() {
     prevButton.addEventListener('click', () => {
         if (photos.length > 0) {
             currentIndex = (currentIndex - 1 + photos.length) % photos.length;
-            renderCarousel();
+            updateCarousel();
         }
     });
 
     nextButton.addEventListener('click', () => {
         if (photos.length > 0) {
             currentIndex = (currentIndex + 1) % photos.length;
-            renderCarousel();
+            updateCarousel();
         }
     });
 
