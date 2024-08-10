@@ -1,15 +1,15 @@
+/* 全局設定 */
 body {
     font-family: 'Arial', sans-serif;
     color: #333;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
-    position: relative;
 }
 
 header {
     background-color: #fff;
-    padding: 10px 20px;
+    padding: 20px;
     text-align: center;
     border-bottom: 1px solid #ddd;
 }
@@ -23,6 +23,7 @@ main {
     padding: 20px;
 }
 
+/* 主要照片區 */
 .main-photo-section img {
     width: 100%;
     max-height: 400px;
@@ -31,6 +32,17 @@ main {
     margin: 0 auto;
 }
 
+/* Motto區 */
+.motto {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    color: #555;
+    margin: 20px 0;
+    animation: fadeIn 2s ease-in-out;
+}
+
+/* 滑動效果 */
 .carousel-section {
     margin: 20px 0;
 }
@@ -46,10 +58,16 @@ main {
     padding: 10px;
     cursor: pointer;
     margin: 5px;
+    border-radius: 4px;
 }
 
 .carousel-button:hover {
     background-color: #0056b3;
+}
+
+/* 訃告正本區 */
+.paper-obituary-section {
+    margin: 20px 0;
 }
 
 .paper-obituary-section img {
@@ -60,10 +78,44 @@ main {
     margin: 0 auto;
 }
 
+/* 時間軸 */
 #timeline {
     margin: 20px 0;
 }
 
+.VivaTimeline dl {
+    margin: 0;
+    padding: 0;
+}
+
+.VivaTimeline dt {
+    font-size: 16px;
+    color: #007BFF;
+    margin-bottom: 5px;
+}
+
+.VivaTimeline dd {
+    position: relative;
+    padding-left: 40px;
+    margin: 10px 0;
+}
+
+.VivaTimeline .circ {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 10px;
+    height: 10px;
+    background-color: #007BFF;
+    border-radius: 50%;
+}
+
+.VivaTimeline .time {
+    font-weight: bold;
+    color: #007BFF;
+}
+
+/* 留言區 */
 #comments-section {
     margin: 20px 0;
 }
@@ -79,6 +131,7 @@ main {
     margin-bottom: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    font-size: 16px;
 }
 
 #comment-form button {
@@ -88,6 +141,7 @@ main {
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 4px;
+    font-size: 16px;
 }
 
 #comment-form button:hover {
@@ -99,6 +153,11 @@ main {
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 4px;
+    font-size: 16px;
+}
+
+.comment strong {
+    font-weight: bold;
 }
 
 .comment button {
@@ -115,78 +174,44 @@ main {
     background-color: #0056b3;
 }
 
-/* 確保載入自定義字體 */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
-
-.motto {
-    font-family: 'Playfair Display', serif; /* 使用設計感的字體 */
-    text-align: center;
-    padding: 40px 20px;
-    background: rgba(255, 255, 255, 0.8); /* 淡化的背景 */
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* 增加陰影效果 */
-    margin: 20px auto;
-    width: 80%; /* 使區域寬度適中 */
-    max-width: 800px; /* 最大寬度 */
-    position: relative;
-    overflow: hidden;
-}
-
-/* 文字效果 */
-.motto h1 {
-    font-size: 36px; /* 調整字體大小 */
-    color: #333; /* 深色文字 */
-    margin: 0;
-    padding: 0;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1); /* 添加文字陰影 */
-    line-height: 1.2;
-}
-
-/* 漸變背景動畫 */
-.motto::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(255, 206, 213, 0.6), rgba(255, 245, 238, 0.6));
-    z-index: -1;
-    opacity: 0.6;
-    transition: opacity 0.6s ease-in-out;
-}
-
-.motto:hover::before {
-    opacity: 0.9; /* 提高懸停時的背景不透明度 */
-}
-
-/* 添加響應式樣式 */
-@media (max-width: 768px) {
-    .motto h1 {
-        font-size: 28px; /* 在小螢幕上調整字體大小 */
-    }
-}
-
+/* 花籃展示 */
 #donate-flower {
     margin: 20px 0;
 }
 
-.flower-basket-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+#donate-flower h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007BFF;
+}
+
+#donate-flower p {
+    font-size: 16px;
+    color: #333;
+}
+
+#flower-basket-gallery {
+    display: none; /* 初始隱藏，點擊顯示 */
+    margin-top: 20px;
 }
 
 .flower-basket-item {
     text-align: center;
-    width: calc(25% - 10px); /* Adjust the width of each flower basket item */
+    width: calc(25% - 10px);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease-in-out;
 }
 
-.flower-basket-gallery img {
+.flower-basket-item img {
     width: 100%;
     height: auto;
     border: 1px solid #ddd;
     border-radius: 4px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.flower-basket-item:hover img {
+    transform: scale(1.05);
 }
 
 .price {
@@ -195,73 +220,39 @@ main {
     color: #007BFF;
 }
 
-/* Timeline */
-.timeline-event {
-    border-left: 2px solid #007BFF;
-    padding-left: 20px;
-    margin: 10px 0;
-    position: relative;
-}
-
-.timeline-event h3 {
-    margin: 0;
+#donate-flower a {
     color: #007BFF;
-    font-weight: bold; /* Bold header */
-}
-
-.timeline-event p {
-    margin: 5px 0;
-}
-
-/* Title and Button */
-h2 {
-    border-bottom: 2px solid #007BFF;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-    color: #007BFF;
-    font-weight: bold; /* Bold header */
-    font-size: 24px; /* Larger font size */
-}
-
-.btn {
-    background-color: #007BFF;
-    color: #fff;
-    padding: 10px 20px;
     text-decoration: none;
-    border-radius: 4px;
-    display: inline-block;
+    font-weight: bold;
 }
 
-.btn:hover {
-    background-color: #0056b3;
+#donate-flower a:hover {
+    text-decoration: underline;
 }
 
-/* Font Style for Better Appearance */
-body {
-    font-family: 'Roboto', sans-serif; /* Change font to Roboto */
+/* 字體加粗 */
+h2, .comment strong {
+    font-weight: bold;
 }
 
-h2 {
-    font-family: 'Roboto', sans-serif;
+/* 動畫效果 */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
-.comment {
-    font-family: 'Roboto', sans-serif;
+footer {
+    background-color: #fff;
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #ddd;
 }
 
-/* Fade effect for the entire webpage */
-body::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.8);
-    z-index: -1;
+footer a {
+    color: #007BFF;
+    text-decoration: none;
 }
 
-/* Add smooth scroll animation for timeline */
-html {
-    scroll-behavior: smooth;
+footer a:hover {
+    text-decoration: underline;
 }
