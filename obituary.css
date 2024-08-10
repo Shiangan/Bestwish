@@ -115,6 +115,58 @@ main {
     background-color: #0056b3;
 }
 
+/* 確保載入自定義字體 */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+.motto {
+    font-family: 'Playfair Display', serif; /* 使用設計感的字體 */
+    text-align: center;
+    padding: 40px 20px;
+    background: rgba(255, 255, 255, 0.8); /* 淡化的背景 */
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* 增加陰影效果 */
+    margin: 20px auto;
+    width: 80%; /* 使區域寬度適中 */
+    max-width: 800px; /* 最大寬度 */
+    position: relative;
+    overflow: hidden;
+}
+
+/* 文字效果 */
+.motto h1 {
+    font-size: 36px; /* 調整字體大小 */
+    color: #333; /* 深色文字 */
+    margin: 0;
+    padding: 0;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1); /* 添加文字陰影 */
+    line-height: 1.2;
+}
+
+/* 漸變背景動畫 */
+.motto::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 206, 213, 0.6), rgba(255, 245, 238, 0.6));
+    z-index: -1;
+    opacity: 0.6;
+    transition: opacity 0.6s ease-in-out;
+}
+
+.motto:hover::before {
+    opacity: 0.9; /* 提高懸停時的背景不透明度 */
+}
+
+/* 添加響應式樣式 */
+@media (max-width: 768px) {
+    .motto h1 {
+        font-size: 28px; /* 在小螢幕上調整字體大小 */
+    }
+}
+
 #donate-flower {
     margin: 20px 0;
 }
