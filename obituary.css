@@ -1,38 +1,50 @@
-body {
-    font-family: 'Lora', serif;
-    color: #333;
-    background-color: #F8F8F8;
+/* 重設默認樣式 */
+* {
     margin: 0;
     padding: 0;
-    line-height: 1.6;
+    box-sizing: border-box;
 }
 
+/* 背景與字體樣式 */
+body {
+    font-family: 'Lora', serif;
+    color: #2C2C2C;
+    background-color: #FAF9F7;
+    margin: 0;
+    padding: 0;
+    line-height: 1.8;
+}
+
+/* 頁眉設計 */
 header {
     text-align: center;
     background-color: #FFF;
     padding: 20px 0;
-    border-bottom: 1px solid #E0E0E0;
+    border-bottom: 1px solid #EDEDED;
 }
 
 header .logo {
-    max-width: 80px;
+    max-width: 60px; /* 縮小Logo */
     margin-bottom: 15px;
 }
 
 header p {
     font-size: 24px;
-    color: #333;
+    color: #2C2C2C;
     margin: 0;
 }
 
+/* 主要內容設計 */
 main {
     padding: 20px;
     max-width: 800px;
-    margin: 0 auto;
+    margin: 20px auto;
     background-color: #FFF;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
 }
 
+/* 圖片區塊設計 */
 .main-photo-section {
     text-align: center;
     margin-bottom: 20px;
@@ -40,57 +52,71 @@ main {
 
 .main-photo-section img {
     width: 100%;
-    max-width: 300px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 350px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.main-photo-section img:hover {
+    transform: scale(1.05);
 }
 
 .main-photo-section p {
     font-family: 'Merriweather', serif;
     font-size: 18px;
-    color: #555;
+    color: #5A5A5A;
     margin-top: 15px;
     padding: 0 10px;
-    line-height: 1.8;
     text-align: justify;
 }
 
+/* 標語區塊 */
 .motto {
     text-align: center;
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 22px;
-    color: #666;
-    margin: 30px 0;
+    color: #6A6A6A;
+    margin: 40px 0;
+    font-style: italic;
 }
 
+/* 訃聞區塊設計 */
 .paper-obituary-section {
     text-align: center;
     margin-bottom: 20px;
 }
 
 .paper-obituary-section h2 {
-    font-size: 20px;
+    font-size: 24px;
     font-family: 'Lora', serif;
-    color: #444;
+    color: #2C2C2C;
     margin-bottom: 15px;
 }
 
 .paper-obituary-section img {
     width: 100%;
     max-width: 600px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
+.paper-obituary-section img:hover {
+    transform: scale(1.05);
+}
+
+/* 時間軸設計 */
 #timeline {
-    margin-top: 40px;
+    margin-top: 50px;
 }
 
 #timeline h2 {
     text-align: center;
     font-family: 'Lora', serif;
-    font-size: 24px;
-    color: #444;
+    font-size: 26px;
+    color: #2C2C2C;
     margin-bottom: 20px;
 }
 
@@ -98,7 +124,7 @@ main {
     display: flex;
     flex-direction: column;
     position: relative;
-    padding-left: 20px;
+    padding-left: 30px;
 }
 
 .VivaTimeline dt,
@@ -106,34 +132,35 @@ main {
     position: relative;
     margin: 0;
     padding: 0;
-    margin-left: 40px;
-    padding-bottom: 20px;
+    margin-left: 50px;
+    padding-bottom: 25px;
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 18px;
+    transition: color 0.3s ease;
 }
 
 .VivaTimeline dt {
     font-weight: bold;
-    color: #444;
+    color: #2C2C2C;
 }
 
 .VivaTimeline dd .circ {
     position: absolute;
-    left: -40px;
-    top: 10px;
-    width: 12px;
-    height: 12px;
-    background-color: #444;
+    left: -50px;
+    top: 12px;
+    width: 14px;
+    height: 14px;
+    background-color: #2C2C2C;
     border-radius: 50%;
 }
 
 .VivaTimeline dd .time {
     position: absolute;
-    left: -60px;
+    left: -75px;
     top: 0;
     font-size: 16px;
     font-weight: bold;
-    color: #444;
+    color: #2C2C2C;
 }
 
 .VivaTimeline .events {
@@ -142,29 +169,35 @@ main {
 
 .VivaTimeline .events-header {
     font-size: 18px;
-    color: #333;
+    color: #2C2C2C;
     font-weight: bold;
     margin-bottom: 5px;
 }
 
 .VivaTimeline .events-body {
     font-size: 16px;
-    color: #555;
+    color: #5A5A5A;
     line-height: 1.6;
 }
 
+.VivaTimeline dt:hover,
+.VivaTimeline dd:hover {
+    color: #8B4513;
+}
+
+/* 留言區塊設計 */
 #comments-section {
-    margin-top: 40px;
+    margin-top: 50px;
     padding: 20px;
-    background-color: #F9F9F9;
-    border-radius: 8px;
+    background-color: #F8F8F8;
+    border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 #comments-section h2 {
     font-family: 'Lora', serif;
-    font-size: 22px;
-    color: #444;
+    font-size: 24px;
+    color: #2C2C2C;
     text-align: center;
     margin-bottom: 20px;
 }
@@ -178,7 +211,7 @@ main {
 #comment-form label {
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 16px;
-    color: #555;
+    color: #5A5A5A;
     margin-bottom: 5px;
 }
 
@@ -186,22 +219,35 @@ main {
 #comment-form textarea {
     padding: 10px;
     font-size: 16px;
-    border: 1px solid #CCC;
-    border-radius: 4px;
+    border: 1px solid #DDD;
+    border-radius: 5px;
     margin-bottom: 10px;
     font-family: 'Source Sans Pro', sans-serif;
+    background-color: #FFF;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#comment-form input:focus,
+#comment-form textarea:focus {
+    border-color: #8B4513;
+    outline: none;
 }
 
 #comment-form button {
     padding: 10px 20px;
     font-size: 16px;
     font-family: 'Source Sans Pro', sans-serif;
-    background-color: #444;
+    background-color: #8B4513;
     color: #FFF;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
     align-self: flex-end;
+    transition: background-color 0.3s ease;
+}
+
+#comment-form button:hover {
+    background-color: #A0522D;
 }
 
 #comments-container {
@@ -213,42 +259,43 @@ main {
     padding: 10px;
     background-color: #FFF;
     border: 1px solid #EEE;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 #comments-container .comment .comment-name {
     font-weight: bold;
-    color: #333;
+    color: #2C2C2C;
 }
 
 #comments-container .comment .comment-message {
     font-size: 16px;
-    color: #555;
+    color: #5A5A5A;
     margin-top: 5px;
     line-height: 1.6;
 }
 
+/* 花籃捐贈區設計 */
 #donate-flower {
-    margin-top: 40px;
+    margin-top: 50px;
     padding: 20px;
-    background-color: #F9F9F9;
-    border-radius: 8px;
+    background-color: #F8F8F8;
+    border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     text-align: center;
 }
 
 #donate-flower h2 {
     font-family: 'Lora', serif;
-    font-size: 22px;
-    color: #444;
+    font-size: 24px;
+    color: #2C2C2C;
     margin-bottom: 20px;
 }
 
 #donate-flower p {
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 16px;
-    color: #555;
+    color: #5A5A5A;
     line-height: 1.6;
     margin-bottom: 20px;
 }
@@ -258,46 +305,59 @@ main {
     padding: 10px 20px;
     font-size: 16px;
     font-family: 'Source Sans Pro', sans-serif;
-    background-color: #444;
+    background-color: #8B4513;
     color: #FFF;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
     text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+#show-flower-baskets:hover {
+    background-color: #A0522D;
 }
 
 #flower-basket-gallery {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 20px;
+    margin-top:20px;
 }
 
 .flower-basket-item {
     margin: 10px;
     text-align: center;
+    transition: transform 0.3s ease;
 }
 
 .flower-basket-item img {
     width: 150px;
     height: auto;
-    border-radius: 8px;
+    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.flower-basket-item img:hover {
+    transform: scale(1.1);
 }
 
 .flower-basket-item .price {
     margin-top: 5px;
     font-family: 'Lora', serif;
     font-size: 18px;
-    color: #444;
+    color: #2C2C2C;
 }
 
+/* 頁腳設計 */
 footer {
     text-align: center;
     padding: 20px;
     background-color: #FFF;
-    border-top: 1px solid #E0E0E0;
-    margin-top: 40px;
+    border-top: 1px solid #EDEDED;
+    margin-top: 50px;
 }
 
 footer p {
@@ -308,7 +368,70 @@ footer p {
 }
 
 footer a {
-    color: #444;
+    color: #8B4513;
     text-decoration: none;
     font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #A0522D;
+}
+
+/* Lightbox2 自訂邊框顏色 */
+.lb-data .lb-close, .lb-data .lb-caption {
+    color: #2C2C2C;
+}
+
+/* 設置互動性質感 */
+a {
+    color: #8B4513;
+    transition: color 0.3s ease;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #A0522D;
+    text-decoration: underline;
+}
+
+button {
+    font-family: 'Source Sans Pro', sans-serif;
+    background-color: #8B4513;
+    color: #FFF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #A0522D;
+}
+
+/* 圖片彈出效果設置 */
+img[data-lightbox] {
+    cursor: zoom-in;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+img[data-lightbox]:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* 表單元素設置 */
+input[type="text"], input[type="email"], textarea {
+    padding: 10px;
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    width: 100%;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
+    border-color: #8B4513;
+    outline: none;
 }
