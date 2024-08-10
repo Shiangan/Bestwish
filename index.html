@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>祥安生命有限公司－訃聞資料提交</title>
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
     <script src="index.js" defer></script>
 </head>
 <body>
@@ -15,6 +17,7 @@
         <section id="info-form-section">
             <h2>訃聞資料提交</h2>
             <form id="info-form" enctype="multipart/form-data">
+                <!-- 表单内容 -->
                 <label for="name">姓名:</label>
                 <input type="text" id="name" name="name" required>
 
@@ -72,6 +75,17 @@
                 <button type="submit">提交</button>
             </form>
         </section>
+        
+        <!-- 示例轮播图区域 -->
+        <section id="photo-carousel-section">
+            <h2>追思照片</h2>
+            <div class="carousel">
+                <div><img src="image/photo1.jpg" alt="照片1"></div>
+                <div><img src="image/photo2.jpg" alt="照片2"></div>
+                <div><img src="image/photo3.jpg" alt="照片3"></div>
+                <!-- 更多照片 -->
+            </div>
+        </section>
     </main>
     <footer>
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
@@ -87,5 +101,36 @@
     </audio>
     <button id="play-music">🔊</button>
     <button id="stop-music" style="display: none;">🔇</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 初始化 Slick Carousel
+            $('.carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 500,
+                slidesToShow: 1,
+                slidesToScroll: 1
+            });
+
+            // 音乐播放控制
+            const playMusicButton = document.getElementById('play-music');
+            const stopMusicButton = document.getElementById('stop-music');
+            const backgroundMusic = document.getElementById('background-music');
+
+            playMusicButton.addEventListener('click', () => {
+                backgroundMusic.play().catch(error => console.error("播放背景音乐失败", error));
+                playMusicButton.style.display = 'none';
+                stopMusicButton.style.display = 'inline';
+            });
+
+            stopMusicButton.addEventListener('click', () => {
+                backgroundMusic.pause();
+                playMusicButton.style.display = 'inline';
+                stopMusicButton.style.display = 'none';
+            });
+        });
+    </script>
 </body>
 </html>
