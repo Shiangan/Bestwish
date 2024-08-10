@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
         cssEase: 'linear'
     });
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js" defer></script>
+
     // 花籃展示切換
     document.getElementById('flower-gallery-toggle').addEventListener('click', function(e) {
         e.preventDefault();
