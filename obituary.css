@@ -1,10 +1,9 @@
-/* 通用樣式 */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* 更美观的字体 */
     color: #333;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: rgba(244, 244, 244, 0.8); /* 半透明背景 */
 }
 
 header {
@@ -23,14 +22,6 @@ main {
     padding: 20px;
 }
 
-h2 {
-    border-bottom: 2px solid #007BFF;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-    color: #007BFF;
-}
-
-/* 主照片部分 */
 .main-photo-section img {
     width: 100%;
     max-height: 400px;
@@ -39,7 +30,6 @@ h2 {
     margin: 0 auto;
 }
 
-/* 輪播區域 */
 .carousel-section {
     margin: 20px 0;
 }
@@ -55,14 +45,12 @@ h2 {
     padding: 10px;
     cursor: pointer;
     margin: 5px;
-    border-radius: 4px;
 }
 
 .carousel-button:hover {
     background-color: #0056b3;
 }
 
-/* 訃聞紙本區域 */
 .paper-obituary-section img {
     width: 100%;
     max-height: 400px;
@@ -71,24 +59,10 @@ h2 {
     margin: 0 auto;
 }
 
-/* 時間軸樣式 */
-.timeline-event {
-    border-left: 2px solid #007BFF;
-    padding-left: 20px;
-    margin: 10px 0;
-    position: relative;
+#timeline {
+    margin: 20px 0;
 }
 
-.timeline-event h3 {
-    margin: 0;
-    color: #007BFF;
-}
-
-.timeline-event p {
-    margin: 5px 0;
-}
-
-/* 留言區域 */
 #comments-section {
     margin: 20px 0;
 }
@@ -140,7 +114,6 @@ h2 {
     background-color: #0056b3;
 }
 
-/* 致贈花籃區域 */
 #donate-flower {
     margin: 20px 0;
 }
@@ -149,11 +122,21 @@ h2 {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    opacity: 0; /* 隐藏默认 */
+    transition: opacity 0.5s ease-in-out; /* 平滑的显示/隐藏动画 */
+}
+
+.flower-basket-gallery.hidden {
+    opacity: 0;
+}
+
+.flower-basket-gallery.show {
+    opacity: 1;
 }
 
 .flower-basket-item {
     text-align: center;
-    width: calc(25% - 10px); /* 調整每個花籃的寬度 */
+    width: calc(25% - 10px); /* 调整每个花篮的宽度 */
 }
 
 .flower-basket-gallery img {
@@ -169,62 +152,47 @@ h2 {
     color: #007BFF;
 }
 
-/* 音樂控制樣式 */
-.music-controls {
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-}
-
-.music-controls label {
-    margin-right: 10px;
-}
-
-.music-controls input[type="range"] {
-    flex: 1;
-}
-
-.music-controls button {
-    background-color: #007BFF;
-    border: none;
-    color: #fff;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 4px;
-    margin-left: 10px;
-}
-
-.music-controls button:hover {
-    background-color: #0056b3;
-}
-
-/* 放大鏡效果 */
-img {
+/* 时间轴 */
+.timeline-event {
+    border-left: 2px solid #007BFF;
+    padding-left: 20px;
+    margin: 10px 0;
     position: relative;
 }
 
-img.zoom {
-    cursor: zoom-in;
-}
-
-img.zoom:hover {
-    transform: scale(1.2);
-    z-index: 100;
-}
-
-/* 底部樣式 */
-footer {
-    background-color: #fff;
-    padding: 10px 20px;
-    text-align: center;
-    border-top: 1px solid #ddd;
-}
-
-footer a {
+.timeline-event h3 {
+    margin: 0;
     color: #007BFF;
-    text-decoration: none;
+    font-weight: bold; /* 加粗 */
 }
 
-footer a:hover {
-    text-decoration: underline;
+.timeline-event p {
+    margin: 5px 0;
+}
+
+/* 字体加粗的标题 */
+h2 {
+    border-bottom: 2px solid #007BFF;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    color: #007BFF;
+    font-weight: bold; /* 加粗 */
+}
+
+.btn {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* 显示留言区 */
+.hidden {
+    display: none;
 }
