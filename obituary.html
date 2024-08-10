@@ -16,27 +16,17 @@
     </header>
     <main>
         <section class="main-photo-section">
-            <img id="main-photo" src="image/IMG_7563.jpeg" alt="追思照片">
+            <img id="main-photo" src="IMG_7563.jpeg" alt="追思照片">
             <p id="life-story">生平介紹內容...</p>
         </section>
 
         <div class="motto">永遠懷念，我們摯愛的親人</div>
 
-        <section class="carousel-section">
-            <h2>追思照片</h2>
-            <div id="photo-carousel" class="carousel">
-                <div><img src="image/photo1.jpg" alt="追思照片1"></div>
-                <div><img src="image/photo2.jpg" alt="追思照片2"></div>
-                <div><img src="image/photo3.jpg" alt="追思照片3"></div>
-                <!-- Add more images as needed -->
-            </div>
-            <button id="prev-button" class="carousel-button">&#10094;</button>
-            <button id="next-button" class="carousel-button">&#10095;</button>
-        </section>
+        
 
         <section class="paper-obituary-section">
             <h2>訃聞紙本</h2>
-            <img id="paper-obituary" src="image/IMG_7669.jpeg" alt="訃聞紙本">
+            <img id="paper-obituary" src="IMG_7669.jpeg" alt="訃聞紙本">
         </section>
 
         <section id="timeline">
@@ -89,9 +79,10 @@
 
         <section id="donate-flower">
             <h2>致贈花籃</h2>
-            <p>若您希望致贈花籃，請點擊以下連結：</p>
-            <a href="https://line.me/ti/p/你的LineID" target="_blank" class="btn">致贈花籃</a>
-            <div class="flower-basket-gallery">
+            <p>若您希望致贈花籃，請點擊以下按鈕：</p>
+            <button id="show-flower-basket" class="btn">顯示花籃樣式及金額</button>
+            
+            <div id="flower-basket-gallery" class="flower-basket-gallery hidden">
                 <div class="flower-basket-item">
                     <img src="image/花籃A.JPG" alt="花籃A">
                     <p class="price">NT$2,500</p>
@@ -135,5 +126,23 @@
             <a href="tel:+886978583699">聯絡電話: +886 978 583 699</a>
         </p>
     </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const showBasketButton = document.getElementById('show-flower-basket');
+            const flowerBasketGallery = document.getElementById('flower-basket-gallery');
+
+            showBasketButton.addEventListener('click', function() {
+                // Toggle the hidden class on the flower basket gallery
+                flowerBasketGallery.classList.toggle('hidden');
+
+                // Update the button text
+                if (flowerBasketGallery.classList.contains('hidden')) {
+                    showBasketButton.textContent = '顯示花籃樣式及金額';
+                } else {
+                    showBasketButton.textContent = '隱藏花籃樣式及金額';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
