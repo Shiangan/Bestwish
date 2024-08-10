@@ -16,17 +16,27 @@
     </header>
     <main>
         <section class="main-photo-section">
-            <img id="main-photo" src="IMG_7563.jpeg" alt="追思照片">
+            <img id="main-photo" src="image/IMG_7563.jpeg" alt="追思照片">
             <p id="life-story">生平介紹內容...</p>
         </section>
 
         <div class="motto">永遠懷念，我們摯愛的親人</div>
 
-        
+        <section class="carousel-section">
+            <h2>追思照片</h2>
+            <div id="photo-carousel" class="carousel">
+                <div><img src="image/photo1.jpg" alt="追思照片1"></div>
+                <div><img src="image/photo2.jpg" alt="追思照片2"></div>
+                <div><img src="image/photo3.jpg" alt="追思照片3"></div>
+                <!-- Add more images as needed -->
+            </div>
+            <button id="prev-button" class="carousel-button">&#10094;</button>
+            <button id="next-button" class="carousel-button">&#10095;</button>
+        </section>
 
         <section class="paper-obituary-section">
             <h2>訃聞紙本</h2>
-            <img id="paper-obituary" src="IMG_7669.jpeg" alt="訃聞紙本">
+            <img id="paper-obituary" src="image/IMG_7669.jpeg" alt="訃聞紙本">
         </section>
 
         <section id="timeline">
@@ -38,7 +48,7 @@
                         <div class="circ"></div>
                         <div class="time">07:30</div>
                         <div class="events">
-                            <div class="events-header">陳既隆先生 安詳離世</div>
+                            <div class="events-header"><strong>陳既隆先生 安詳離世</strong></div>
                             <div class="events-body">
                                 <div class="row">
                                     <p>於鼎峰會館設立牌位 ［鼎峰會館2F VIP 清靜廳］</p>
@@ -51,7 +61,7 @@
                         <div class="circ"></div>
                         <div class="time">08：00</div>
                         <div class="events">
-                            <div class="events-header">告別奠禮</div>
+                            <div class="events-header"><strong>告別奠禮</strong></div>
                             <div class="events-body">
                                 <div class="row">
                                     <p>於第二殯儀館 景行樓1F 「至忠二廳」舉行奠禮儀式</p>
@@ -79,43 +89,12 @@
 
         <section id="donate-flower">
             <h2>致贈花籃</h2>
-            <p>若您希望致贈花籃，請點擊以下按鈕：</p>
-            <button id="show-flower-basket" class="btn">顯示花籃樣式及金額</button>
-            
-            <div id="flower-basket-gallery" class="flower-basket-gallery hidden">
-                <div class="flower-basket-item">
-                    <img src="image/花籃A.JPG" alt="花籃A">
-                    <p class="price">NT$2,500</p>
-                </div>
-                <div class="flower-basket-item">
-                    <img src="image/花籃B.JPG" alt="花籃B">
-                    <p class="price">NT$3,000</p>
-                </div>
-                <div class="flower-basket-item">
-                    <img src="image/花籃C.JPG" alt="花籃C">
-                    <p class="price">NT$3,500</p>
-                </div>
-                <div class="flower-basket-item">
-                    <img src="image/花籃D.JPG" alt="花籃D">
-                    <p class="price">NT$4,000</p>
-                </div>
-                <div class="flower-basket-item">
-                    <img src="image/花籃E.JPG" alt="花籃E">
-                    <p class="price">NT$5,000</p>
-                </div>
-                <div class="flower-basket-item">
-                    <img src="image/花籃F.JPG" alt="花籃F">
-                    <p class="price">NT$5,500</p>
-                </div>
-                <div class="flower-basket-item">
-                    <img src="image/花籃G.JPG" alt="花籃G">
-                    <p class="price">NT$6,000</p>
-                </div>
-                <div class="flower-basket-item">
-                    <img src="image/花籃H.JPG" alt="花籃H">
-                    <p class="price">NT$6,500</p>
-                </div>
+            <p>若您希望致贈花籃，請點擊以下連結：</p>
+            <a href="javascript:void(0);" id="show-flower-baskets" class="btn">致贈花籃</a>
+            <div id="flower-basket-gallery">
+                <!-- 花籃樣式和金額會在點擊後動態顯示 -->
             </div>
+            <p><a href="image/line.png" target="_blank">送上一份最深切的祝福</a></p>
         </section>
     </main>
     <footer>
@@ -126,23 +105,5 @@
             <a href="tel:+886978583699">聯絡電話: +886 978 583 699</a>
         </p>
     </footer>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const showBasketButton = document.getElementById('show-flower-basket');
-            const flowerBasketGallery = document.getElementById('flower-basket-gallery');
-
-            showBasketButton.addEventListener('click', function() {
-                // Toggle the hidden class on the flower basket gallery
-                flowerBasketGallery.classList.toggle('hidden');
-
-                // Update the button text
-                if (flowerBasketGallery.classList.contains('hidden')) {
-                    showBasketButton.textContent = '顯示花籃樣式及金額';
-                } else {
-                    showBasketButton.textContent = '隱藏花籃樣式及金額';
-                }
-            });
-        });
-    </script>
 </body>
 </html>
