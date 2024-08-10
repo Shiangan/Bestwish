@@ -16,8 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const stopMusicButton = document.createElement('button');
     stopMusicButton.textContent = '停止音樂';
     document.body.appendChild(stopMusicButton);
-
-    let currentSlide = 0;
+    stopMusicButton.style.display = 'none'; // Start with stop button hidden
 
     function loadStoredData() {
         const mainPhotoUrl = localStorage.getItem('mainPhoto');
@@ -87,9 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 commentForm.reset();
             }
         });
-
-        loadStoredData();
-    });
+    }
 
     loadStoredData();
 });
