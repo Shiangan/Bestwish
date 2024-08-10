@@ -30,12 +30,16 @@ header {
 }
 
 /* 主要照片區 */
+.main-photo-section {
+    max-width: 800px;
+    margin: 20px auto;
+    text-align: center;
+}
+
 .main-photo-section img {
     width: 100%;
     max-height: 400px;
     object-fit: cover;
-    display: block;
-    margin: 0 auto;
 }
 
 /* Motto區 */
@@ -45,13 +49,13 @@ header {
     text-align: center;
     color: #555;
     margin: 20px auto;
-    width: fit-content;
-    animation: fadeIn 2s ease-in-out;
+    max-width: 800px;
 }
 
 /* 滑動效果 */
 .carousel-section {
-    margin: 20px 0;
+    max-width: 800px;
+    margin: 20px auto;
 }
 
 .carousel {
@@ -74,6 +78,7 @@ header {
 
 /* 訃告正本區 */
 .paper-obituary-section {
+    max-width: 800px;
     margin: 20px auto;
     text-align: center;
 }
@@ -82,23 +87,12 @@ header {
     width: 100%;
     max-height: 400px;
     object-fit: cover;
-    display: block;
-    margin: 0 auto;
-}
-
-#paper-obituary {
-    font-family: 'Std W5', serif;
-    font-size: 18px;
-    line-height: 1.6;
-    margin: 20px auto;
-    width: fit-content;
-    text-align: center;
 }
 
 /* 時間軸 */
 #timeline {
+    max-width: 800px;
     margin: 20px auto;
-    width: fit-content;
 }
 
 .VivaTimeline dl {
@@ -135,8 +129,8 @@ header {
 
 /* 留言區 */
 #comments-section {
+    max-width: 800px;
     margin: 20px auto;
-    width: fit-content;
 }
 
 #comment-form {
@@ -197,8 +191,8 @@ header {
 
 /* 花籃展示 */
 #donate-flower {
+    max-width: 800px;
     margin: 20px auto;
-    width: fit-content;
 }
 
 #donate-flower h2 {
