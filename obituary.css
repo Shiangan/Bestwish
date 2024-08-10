@@ -1,69 +1,79 @@
 /* 全局設定 */
 body {
-    font-family: 'Merriweather', serif;
+    font-family: 'Noto Sans TC', sans-serif;
     color: #333;
     margin: 0;
     padding: 0;
-    background-color: #ffffff; /* 全白背景 */
+    background-color: #f4f4f4; /* 使用淡灰色背景 */
 }
 
+/* 標頭 */
 header {
-    background-color: #f4f4f4; /* 淺灰色 */
-    color: #333;
+    background-color: #ffffff; /* 使用白色背景 */
     padding: 20px;
     text-align: center;
-    border-bottom: 2px solid #e0e0e0; /* 淺灰色邊框 */
+    border-bottom: 1px solid #dddddd; /* 淡灰色邊框 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 增加陰影效果 */
 }
 
 .logo {
-    max-width: 200px;
+    max-width: 180px;
     height: auto;
 }
 
-main {
-    padding: 20px;
+header h1 {
+    font-size: 28px;
+    margin: 15px 0;
+    color: #333333; /* 深灰色文字 */
 }
 
 /* 主要照片區 */
-.main-photo-section img {
+.main-photo-section {
+    text-align: center;
+    margin: 20px auto;
+    padding: 10px;
+}
+
+#main-photo {
     width: 100%;
-    max-height: 400px;
+    max-height: 450px;
     object-fit: cover;
-    display: block;
-    margin: 0 auto;
-    border-radius: 8px; /* 圓角邊框 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 微妙的陰影效果 */
+    border-radius: 8px; /* 圓角 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 增加陰影效果 */
 }
 
 /* Motto區 */
 .motto {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 26px;
+    font-weight: 600;
     text-align: center;
-    color: #555; /* 柔和的深灰色 */
-    margin: 20px 0;
+    color: #333333; /* 深灰色文字 */
+    margin: 30px 0;
     animation: fadeIn 2s ease-in-out;
-    font-family: 'Playfair Display', serif; /* 高級字體 */
 }
 
 /* 訃告正本區 */
 .paper-obituary-section {
-    margin: 20px 0;
+    margin: 30px auto;
+    text-align: center;
 }
 
-.paper-obituary-section img {
+#paper-obituary {
     width: 100%;
-    max-height: 400px;
+    max-height: 450px;
     object-fit: cover;
-    display: block;
-    margin: 0 auto;
-    border-radius: 8px; /* 圓角邊框 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 微妙的陰影效果 */
+    border-radius: 8px; /* 圓角 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 增加陰影效果 */
 }
 
 /* 時間軸 */
 #timeline {
-    margin: 20px 0;
+    margin: 30px auto;
+    padding: 20px;
+    max-width: 800px;
+    background-color: #ffffff; /* 使用白色背景 */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 增加陰影效果 */
 }
 
 .VivaTimeline dl {
@@ -72,88 +82,97 @@ main {
 }
 
 .VivaTimeline dt {
-    font-size: 16px;
-    color: #555; /* 柔和的深灰色 */
-    margin-bottom: 5px;
+    font-size: 18px;
+    color: #444444; /* 深灰色文字 */
+    margin-bottom: 10px;
 }
 
 .VivaTimeline dd {
     position: relative;
     padding-left: 40px;
-    margin: 10px 0;
+    margin: 15px 0;
 }
 
 .VivaTimeline .circ {
     position: absolute;
-    left: 0;
+    left: 10px;
     top: 0;
-    width: 12px;
-    height: 12px;
-    background-color: #888; /* 淺灰色 */
+    width: 10px;
+    height: 10px;
+    background-color: #444444; /* 深灰色圓點 */
     border-radius: 50%;
+    box-shadow: 0 0 0 4px #ffffff; /* 增加圓環效果 */
 }
 
 .VivaTimeline .time {
     font-weight: bold;
-    color: #555; /* 柔和的深灰色 */
+    color: #444444; /* 深灰色文字 */
 }
 
 /* 留言區 */
 #comments-section {
-    margin: 20px 0;
+    margin: 30px auto;
+    padding: 20px;
+    max-width: 800px;
+    background-color: #ffffff; /* 使用白色背景 */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 增加陰影效果 */
 }
 
 #comment-form {
     margin-bottom: 20px;
 }
 
+#comment-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
 #comment-form input,
 #comment-form textarea {
-    width: 100%;
-    padding: 12px;
+    width: calc(100% - 20px);
+    padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    border: 1px solid #dddddd; /* 淡灰色邊框 */
+    border-radius: 4px;
     font-size: 16px;
-    font-family: 'Lora', serif; /* 高級字體 */
+    background-color: #ffffff; /* 使用白色背景 */
 }
 
 #comment-form button {
-    background-color: #f0f0f0; /* 淺灰色 */
+    background-color: #555555; /* 中灰色按鈕 */
     border: none;
-    color: #333;
-    padding: 12px 20px;
+    color: #ffffff;
+    padding: 10px 20px;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 4px;
     font-size: 16px;
     transition: background-color 0.3s ease;
 }
 
 #comment-form button:hover {
-    background-color: #e0e0e0; /* 更深的淺灰色 */
+    background-color: #333333; /* 深灰色按鈕 */
 }
 
 .comment {
-    border: 1px solid #ddd;
-    padding: 12px;
+    border: 1px solid #dddddd; /* 淡灰色邊框 */
+    padding: 10px;
     margin-bottom: 10px;
-    border-radius: 8px;
+    border-radius: 4px;
+    background-color: #ffffff; /* 使用白色背景 */
     font-size: 16px;
-    font-family: 'Lora', serif; /* 高級字體 */
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 微妙的陰影效果 */
 }
 
 .comment strong {
     font-weight: bold;
-    color: #333;
 }
 
 .comment button {
-    background-color: #f0f0f0; /* 淺灰色 */
+    background-color: #555555; /* 中灰色按鈕 */
     border: none;
-    color: #333;
-    padding: 6px;
+    color: #ffffff;
+    padding: 5px;
     cursor: pointer;
     border-radius: 4px;
     margin-right: 5px;
@@ -161,57 +180,67 @@ main {
 }
 
 .comment button:hover {
-    background-color: #e0e0e0; /* 更深的淺灰色 */
+    background-color: #333333; /* 深灰色按鈕 */
 }
 
 /* 花籃展示 */
 #donate-flower {
-    margin: 20px 0;
+    margin: 30px auto;
+    padding: 20px;
+    max-width: 800px;
+    background-color: #ffffff; /* 使用白色背景 */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 增加陰影效果 */
+    text-align: center;
 }
 
 #donate-flower h2 {
-    font-size: 24px;
-    font-weight: bold;
-    color: #555; /* 柔和的深灰色 */
+    font-size: 26px;
+    font-weight: 600;
+    color: #444444; /* 深灰色文字 */
+    margin-bottom: 20px;
 }
 
 #donate-flower p {
     font-size: 16px;
-    color: #333;
+    color: #333333; /* 深灰色文字 */
 }
 
 #flower-basket-gallery {
-    display: none; /* 初始隱藏，點擊顯示 */
-    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
 }
 
 .flower-basket-item {
     text-align: center;
-    width: calc(25% - 10px);
+    width: calc(25% - 20px);
     margin-bottom: 20px;
-    transition: transform 0.3s ease-in-out;
-    border-radius: 8px; /* 圓角邊框 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 微妙的陰影效果 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .flower-basket-item img {
     width: 100%;
     height: auto;
-    border-radius: 8px; /* 圓角邊框 */
+    border: 1px solid #dddddd; /* 淡灰色邊框 */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 增加陰影效果 */
 }
 
-.flower-basket-item:hover img {
+.flower-basket-item:hover {
     transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* 增加陰影效果 */
 }
 
 .price {
-    margin-top: 5px;
-    font-size: 16px;
-    color: #333;
+    margin-top: 10px;
+    font-size: 18px;
+    color: #444444; /* 深灰色文字 */
 }
 
 #donate-flower a {
-    color: #333;
+    color: #555555; /* 中灰色 */
     text-decoration: none;
     font-weight: bold;
 }
@@ -226,16 +255,22 @@ main {
     to { opacity: 1; }
 }
 
+/* 頁尾 */
 footer {
-    background-color: #f4f4f4; /* 淺灰色 */
-    color: #333;
+    background-color: #ffffff; /* 使用白色背景 */
     padding: 20px;
     text-align: center;
-    border-top: 2px solid #e0e0e0; /* 淺灰色邊框 */
+    border-top: 1px solid #dddddd; /* 淡灰色邊框 */
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1); /* 增加陰影效果 */
+}
+
+footer p {
+    font-size: 16px;
+    color: #333333; /* 深灰色文字 */
 }
 
 footer a {
-    color: #333;
+    color: #555555; /* 中灰色 */
     text-decoration: none;
 }
 
