@@ -1,5 +1,4 @@
-/* obituary.css */
-
+/* 通用樣式 */
 body {
     font-family: 'Arial', sans-serif;
     color: #333;
@@ -24,6 +23,14 @@ main {
     padding: 20px;
 }
 
+h2 {
+    border-bottom: 2px solid #007BFF;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    color: #007BFF;
+}
+
+/* 主照片部分 */
 .main-photo-section img {
     width: 100%;
     max-height: 400px;
@@ -32,6 +39,7 @@ main {
     margin: 0 auto;
 }
 
+/* 輪播區域 */
 .carousel-section {
     margin: 20px 0;
 }
@@ -47,12 +55,14 @@ main {
     padding: 10px;
     cursor: pointer;
     margin: 5px;
+    border-radius: 4px;
 }
 
 .carousel-button:hover {
     background-color: #0056b3;
 }
 
+/* 訃聞紙本區域 */
 .paper-obituary-section img {
     width: 100%;
     max-height: 400px;
@@ -61,10 +71,24 @@ main {
     margin: 0 auto;
 }
 
-#timeline {
-    margin: 20px 0;
+/* 時間軸樣式 */
+.timeline-event {
+    border-left: 2px solid #007BFF;
+    padding-left: 20px;
+    margin: 10px 0;
+    position: relative;
 }
 
+.timeline-event h3 {
+    margin: 0;
+    color: #007BFF;
+}
+
+.timeline-event p {
+    margin: 5px 0;
+}
+
+/* 留言區域 */
 #comments-section {
     margin: 20px 0;
 }
@@ -116,11 +140,11 @@ main {
     background-color: #0056b3;
 }
 
+/* 致贈花籃區域 */
 #donate-flower {
     margin: 20px 0;
 }
 
-/* 花籃畫廊 */
 .flower-basket-gallery {
     display: flex;
     flex-wrap: wrap;
@@ -143,64 +167,6 @@ main {
     margin-top: 5px;
     font-size: 16px;
     color: #007BFF;
-}
-
-/* 時間軸 */
-.timeline-event {
-    border-left: 2px solid #007BFF;
-    padding-left: 20px;
-    margin: 10px 0;
-    position: relative;
-}
-
-.timeline-event h3 {
-    margin: 0;
-    color: #007BFF;
-}
-
-.timeline-event p {
-    margin: 5px 0;
-}
-footer {
-    background-color: #fff;
-    padding: 10px 20px;
-    text-align: center;
-    border-top: 1px solid #ddd;
-}
-
-footer a {
-    color: #007BFF;
-    text-decoration: none;
-}
-
-footer a:hover {
-    text-decoration: underline;
-}
-
-/* 放大鏡效果 */
-img {
-    position: relative;
-}
-
-img:hover::after {
-    content: '🔍';
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    font-size: 24px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 50%;
-    padding: 5px;
-    cursor: pointer;
-}
-
-img.zoom {
-    cursor: zoom-in;
-}
-
-img.zoom:hover {
-    transform: scale(1.2);
-    z-index: 100;
 }
 
 /* 音樂控制樣式 */
@@ -232,40 +198,33 @@ img.zoom:hover {
     background-color: #0056b3;
 }
 
-/* 註釋時間軸 */
-.timeline-event {
-    border-left: 2px solid #007BFF;
-    padding-left: 20px;
-    margin: 10px 0;
+/* 放大鏡效果 */
+img {
     position: relative;
 }
 
-.timeline-event h3 {
-    margin: 0;
-    color: #007BFF;
+img.zoom {
+    cursor: zoom-in;
 }
 
-.timeline-event p {
-    margin: 5px 0;
+img.zoom:hover {
+    transform: scale(1.2);
+    z-index: 100;
 }
 
-/* 標題和按鈕 */
-h2 {
-    border-bottom: 2px solid #007BFF;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-    color: #007BFF;
-}
-
-.btn {
-    background-color: #007BFF;
-    color: #fff;
+/* 底部樣式 */
+footer {
+    background-color: #fff;
     padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 4px;
-    display: inline-block;
+    text-align: center;
+    border-top: 1px solid #ddd;
 }
 
-.btn:hover {
-    background-color: #0056b3;
+footer a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
 }
