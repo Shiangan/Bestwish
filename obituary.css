@@ -7,6 +7,16 @@ body {
     background-color: #f4f4f4;
 }
 
+/* 字體設置 */
+@font-face {
+    font-family: 'Std W5';
+    src: url('fonts/std-w5.woff2') format('woff2'),
+         url('fonts/std-w5.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Header 設定 */
 header {
     background-color: #fff;
     padding: 20px;
@@ -17,10 +27,6 @@ header {
 .logo {
     max-width: 200px;
     height: auto;
-}
-
-main {
-    padding: 20px;
 }
 
 /* 主要照片區 */
@@ -76,6 +82,13 @@ main {
     object-fit: cover;
     display: block;
     margin: 0 auto;
+}
+
+#paper-obituary {
+    font-family: 'Std W5', serif; /* 使用Std W5字體 */
+    font-size: 18px; /* 根據需要調整字體大小 */
+    line-height: 1.6;
+    margin: 20px 0;
 }
 
 /* 時間軸 */
