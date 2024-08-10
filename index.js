@@ -53,6 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem('publicServiceTime', formData.get('public-service-time'));
         localStorage.setItem('funeralLocation', formData.get('funeral-location'));
 
+        // Handle custom music upload
         if (customMusic.files.length > 0) {
             const customMusicFile = customMusic.files[0];
             const customMusicUrl = URL.createObjectURL(customMusicFile);
@@ -61,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function() {
             backgroundMusic.src = customMusicUrl;
         }
 
-        // 跳转到 invitation.html 页面
+        // Redirect to invitation.html
         console.log("准备跳转到 invitation.html");
         window.location.href = "invitation.html";
     }
