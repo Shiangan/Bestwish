@@ -9,33 +9,30 @@
 <body>
     <header>
         <img src="image/logo.png" alt="Logo" class="logo">
-    </header
-        
+    </header>
+
     <main>
         <section class="main-photo-section">
             <img id="main-photo" alt="追思照片">
             <p id="life-story"></p>
         </section>
 
-
         <div class="motto">永遠懷念，我們摯愛的親人</div>
 
-       <section class="carousel-section">
+        <section class="carousel-section">
             <h2>追思照片</h2>
             <div id="photo-carousel" class="carousel"></div>
+            <button id="prev-button" class="carousel-button">&#10094;</button>
+            <button id="next-button" class="carousel-button">&#10095;</button>
         </section>
-                    <!-- 由 index 提供的照片將動態插入 -->
-                </div>
-                <button id="next-button" class="carousel-button">&#10095;</button>
-            </div>
-        </div>
 
-           <section class="paper-obituary-section"
+        <section class="paper-obituary-section">
             <h2>訃聞紙本</h2>
             <img id="paper-obituary" alt="訃聞紙本">
         </section>
 
-        <div id="timeline">
+        <section id="timeline">
+            <h2>追思時間軸</h2>
             <div class="timeline-event">
                 <h3>20.05.02 陳既隆 先生 於福建省出生</h3>
                 <p>經歷戰亂時期的年代，爾後於台灣定居</p>
@@ -46,61 +43,59 @@
                 <p>113.08.25 四五七法會</p>
             </div>
             <!-- 添加更多事件 -->
-        </div>
+        </section>
 
-        <div id="comments-section">
+        <section id="comments-section">
             <h2>追思留言區</h2>
             <form id="comment-form">
-                <label for="comment-name">姓名</label>
+                <label for="comment-name">姓名:</label>
                 <input type="text" id="comment-name" required>
-                <label for="comment-message">留言內容</label>
+                <label for="comment-message">留言內容:</label>
                 <textarea id="comment-message" rows="4" required></textarea>
                 <button type="submit">提交留言</button>
             </form>
             <div id="comments-container">
                 <!-- 留言区内容将动态插入 -->
             </div>
-        </div>
+        </section>
 
-        <div id="donate-flower">
+        <section id="donate-flower">
             <button id="donate-button">致贈花籃請點選我</button>
-        </div>
-
-        <div id="flower-basket">
-            <div class="basket-style">
-                <img src="image/花籃A.JPG" alt="花籃A款（1對）">
-                <p>花籃樣式 A - NT$2500</p>
+            <div id="flower-basket" style="display: none;">
+                <div class="basket-style">
+                    <img src="image/花籃A.JPG" alt="花籃A款（1對）">
+                    <p>花籃樣式 A - NT$2500</p>
+                </div>
+                <div class="basket-style">
+                    <img src="image/花籃B.JPG" alt="花籃B款（1對）">
+                    <p>花籃樣式 B - NT$3000</p>
+                </div>
+                <div class="basket-style">
+                    <img src="image/花籃C.JPG" alt="花籃C款（1對）">
+                    <p>花籃樣式 C - NT$3500</p>
+                </div>
+                <div class="basket-style">
+                    <img src="image/花籃D.JPG" alt="花籃D款（1對）">
+                    <p>花籃樣式 D - NT$4000</p>
+                </div>
+                <div class="basket-style">
+                    <img src="image/花籃E.JPG" alt="花籃E款（1對）">
+                    <p>花籃樣式 E - NT$5000</p>
+                </div>
+                <div class="basket-style">
+                    <img src="image/花籃F.JPG" alt="花籃F款（1對）">
+                    <p>花籃樣式 F - NT$5500</p>
+                </div>
+                <div class="basket-style">
+                    <img src="image/花籃G.JPG" alt="花籃G款（1對）">
+                    <p>花籃樣式 G - NT$6000</p>
+                </div>
+                <div class="basket-style">
+                    <img src="image/花籃H.JPG" alt="花籃H款（1對）">
+                    <p>花籃樣式 H - NT$6500</p>
+                </div>
             </div>
-            <div class="basket-style">
-                <img src="image/花籃B.JPG" alt="花籃B款（1對）">
-                <p>花籃樣式 B - NT$3000</p>
-            </div>
-            <div class="basket-style">
-                <img src="image/花籃C.JPG" alt="花籃C款（1對）">
-                <p>花籃樣式 C - NT$3500</p>
-            </div>
-            <div class="basket-style">
-                <img src="image/花籃D.JPG" alt="花籃D款（1對）">
-                <p>花籃樣式 D - NT$4000</p>
-            </div>
-            <div class="basket-style">
-                <img src="image/花籃E.JPG" alt="花籃E款（1對）">
-                <p>花籃樣式 E - NT$5000</p>
-            </div>
-            <div class="basket-style">
-                <img src="image/花籃F.JPG" alt="花籃F款（1對）">
-                <p>花籃樣式 F - NT$5500</p>
-            </div>
-            <div class="basket-style">
-                <img src="image/花籃G.JPG" alt="花籃G款（1對）">
-                <p>花籃樣式 G - NT$6000</p>
-            </div>
-            <div class="basket-style">
-                <img src="image/花籃H.JPG" alt="花籃H款（1對）">
-                <p>花籃樣式 H - NT$6500</p>
-            </div>
-            <!-- 其他花籃樣式 -->
-        </div>
+        </section>
     </main>
 
     <footer>
