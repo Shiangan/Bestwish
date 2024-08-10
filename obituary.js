@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // 花籃展示切換
-    document.getElementById('flower-gallery-toggle').addEventListener('click', function(e) {
+    document.getElementById('show-flower-baskets').addEventListener('click', function(e) {
         e.preventDefault();
         const gallery = document.getElementById('flower-basket-gallery');
         gallery.style.display = gallery.style.display === 'block' ? 'none' : 'block';
@@ -21,16 +21,24 @@ document.addEventListener('DOMContentLoaded', function() {
     // 提交留言
     document.getElementById('comment-form').addEventListener('submit', function(e) {
         e.preventDefault();
-        const name = document.getElementById('name').value;
-        const message = document.getElementById('message').value;
+
+        const name = document.getElementById('comment-name').value;
+        const message = document.getElementById('comment-message').value;
         const commentsContainer = document.getElementById('comments-container');
 
+        // 創建新留言的元素
         const commentDiv = document.createElement('div');
         commentDiv.classList.add('comment');
         commentDiv.innerHTML = `
             <strong>${name}：</strong>
             <p>${message}</p>
         `;
+
+        // 添加到留言容器
         commentsContainer.appendChild(commentDiv);
+
+        // 清空表單
+        document.getElementById('comment-name').value = '';
+        document.getElementById('comment-message').value = '';
     });
 });
