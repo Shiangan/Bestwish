@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // 初始化 Slick Carousel
+    // 初始化光滑旋轉木馬
     $('.carousel').slick({
         dots: true,
         infinite: true,
@@ -10,13 +10,12 @@ document.addEventListener('DOMContentLoaded', function() {
         cssEase: 'linear'
     });
 
-
     // 花籃展示切換
     document.getElementById('flower-gallery-toggle').addEventListener('click', function(e) {
         e.preventDefault();
         const gallery = document.getElementById('flower-basket-gallery');
         gallery.style.display = gallery.style.display === 'block' ? 'none' : 'block';
-        this.textContent = gallery.style.display === 'block' ? '隱藏花籃' : '查看花籃';
+        this.textContent = gallery.style.display === 'block' ? '隱藏花籃' : '檢視花籃';
     });
 
     // 提交留言
@@ -33,5 +32,5 @@ document.addEventListener('DOMContentLoaded', function() {
             <p>${message}</p>
         `;
         commentsContainer.appendChild(commentDiv);
-
- 
+    });
+});
