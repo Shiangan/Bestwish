@@ -120,25 +120,47 @@ main {
     margin: 20px 0;
 }
 
-#flower-basket {
-    display: none;
-    margin-top: 10px;
-}
-
+/* 花籃畫廊 */
 .flower-basket-gallery {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
 }
 
+.flower-basket-item {
+    text-align: center;
+    width: calc(25% - 10px); /* 調整每個花籃的寬度 */
+}
+
 .flower-basket-gallery img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
+    width: 100%;
+    height: auto;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
 
+.price {
+    margin-top: 5px;
+    font-size: 16px;
+    color: #007BFF;
+}
+
+/* 時間軸 */
+.timeline-event {
+    border-left: 2px solid #007BFF;
+    padding-left: 20px;
+    margin: 10px 0;
+    position: relative;
+}
+
+.timeline-event h3 {
+    margin: 0;
+    color: #007BFF;
+}
+
+.timeline-event p {
+    margin: 5px 0;
+}
 footer {
     background-color: #fff;
     padding: 10px 20px;
