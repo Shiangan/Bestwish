@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const additionalPhotoUrls = JSON.parse(localStorage.getItem('additionalPhotos')) || [];
         const paperObituaryUrl = localStorage.getItem('paperObituary');
         const musicUrl = localStorage.getItem('musicUrl');
-        
+
         if (mainPhotoUrl) mainPhoto.src = mainPhotoUrl;
         if (lifeStoryText) lifeStory.textContent = lifeStoryText;
         if (paperObituaryUrl) paperObituary.src = paperObituaryUrl;
@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             photoCarousel.appendChild(div);
         });
 
+        // Initialize carousel
         $('.carousel').slick({
             dots: true,
             infinite: true,
@@ -49,9 +50,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (musicUrl) {
             backgroundMusic.src = musicUrl;
-            backgroundMusic.play().catch(error => console.error("播放背景音乐失败        });
+            backgroundMusic.play().catch(error => console.error("播放背景音乐失败", error));
+        }
 
-        // 音乐播放按钮事件
+        // Music control buttons
         playMusicButton.addEventListener('click', () => {
             backgroundMusic.play().catch(error => console.error("播放背景音乐失败", error));
             playMusicButton.style.display = 'none';
@@ -64,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
             stopMusicButton.style.display = 'none';
         });
 
-        // 轮播按钮事件
+        // Carousel buttons
         document.getElementById('prev-button').addEventListener('click', () => {
             if (currentSlide > 0) {
                 currentSlide--;
@@ -85,12 +87,12 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // 显示/隐藏花篮
+        // Show/Hide flower baskets
         donateButton.addEventListener('click', () => {
             flowerBasket.style.display = flowerBasket.style.display === 'none' ? 'block' : 'none';
         });
 
-        // 评论表单提交事件
+        // Comment form submission
         commentForm.addEventListener('submit', (event) => {
             event.preventDefault();
             const name = document.getElementById('comment-name').value;
@@ -107,4 +109,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
         loadStoredData();
     });
-                                                                
