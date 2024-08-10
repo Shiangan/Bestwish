@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const commentForm = document.getElementById('comment-form');
     const commentsContainer = document.getElementById('comments-container');
     const backgroundMusic = document.getElementById('background-music');
+
+    // Music control buttons
     const playMusicButton = document.createElement('button');
     playMusicButton.textContent = '播放音樂';
     document.body.appendChild(playMusicButton);
@@ -66,27 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
             stopMusicButton.style.display = 'none';
         });
 
-        // Carousel buttons
-        document.getElementById('prev-button').addEventListener('click', () => {
-            if (currentSlide > 0) {
-                currentSlide--;
-                updateCarousel();
-            }
-        });
-
-        document.getElementById('next-button').addEventListener('click', () => {
-            if (currentSlide < photoCarousel.children.length - 1) {
-                currentSlide++;
-                updateCarousel();
-            }
-        });
-
-        function updateCarousel() {
-            Array.from(photoCarousel.children).forEach((slide, index) => {
-                slide.style.display = (index === currentSlide) ? 'block' : 'none';
-            });
-        }
-
         // Show/Hide flower baskets
         donateButton.addEventListener('click', () => {
             flowerBasket.style.display = flowerBasket.style.display === 'none' ? 'block' : 'none';
@@ -109,3 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         loadStoredData();
     });
+
+    loadStoredData();
+});
