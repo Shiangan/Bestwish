@@ -1,59 +1,56 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize photo carousel
+    document.addEventListener('DOMContentLoaded', function() {
+    // Initialize carousel
     $('#photo-carousel').slick({
         slidesToShow: 1,
         slidesToScroll: 1,
         arrows: false,
-        autoplay: true,
-        autoplaySpeed: 3000,
         dots: true
     });
 
-    // Initialize comments storage
-    const commentsContainer = document.getElementById('comments-container');
-    const commentForm = document.getElementById('comment-form');
-    const nameInput = document.getElementById('comment-name');
-    const messageInput = document.getElementById('comment-message');
+    // Carousel controls
+    document.getElementById('prev-button').addEventListener('click', function() {
+        $('#photo-carousel').slick('slickPrev');
+    });
+    document.getElementById('next-button').addEventListener('click', function() {
+        $('#photo-carousel').slick('slickNext');
+    });
 
-    // Load comments from localStorage
-    const loadComments = () => {
-        const comments = JSON.parse(localStorage.getItem('comments')) || [];
-        commentsContainer.innerHTML = comments.map(comment => `
-            <div class="comment">
-                <strong>${comment.name}</strong>
-                <p>${comment.message}</p>
-            </div>
-        `).join('');
-    };
-
-    loadComments();
-
-    // Handle form submission
-    commentForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        const name = nameInput.value.trim();
-        const message = messageInput.value.trim();
-
-        if (name && message) {
-            // Save new comment
-            const comments = JSON.parse(localStorage.getItem('comments')) || [];
-            comments.push({ name, message });
-            localStorage.setItem('comments', JSON.stringify(comments));
-
-            // Append new comment
-            commentsContainer.innerHTML = `
-                ${comments.map(comment => `
-                    <div class="comment">
-                        <strong>${comment.name}</strong>
-                        <p>${comment.message}</p>
-                    </div>
-                `).join('')}
-            `;
-            
-            // Clear the form nameInput.value = '';
-            messageInput.value = '';
-        }
+    // Handle comment form submission
+    document.getElementById('comment-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const nameInput = document.getElementById('comment-name');
+        const messageInput = document.getElementById('comment-message');
+        const commentsContainer = document.getElementById('comments-container');
+        
+        // Create new comment
+        const commentElement = document.createElement('div');
+        commentElement.className = 'comment';
+        commentElement.innerHTML = `
+            <strong>${nameInput.value}</strong>
+            <p>${messageInput.value}</p>
+            <button class="edit-btn">編輯</button>
+            <button class="delete-btn">刪除</button>
+        `;
+        
+        // Append new comment
+        commentsContainer.appendChild(commentElement);
+        
+        // Clear form fields
+        nameInput.value = '';
+        messageInput.value = '';
+        
+        // Add edit and delete functionality
+        commentElement.querySelector('.edit-btn').addEventListener('click', function() {
+            const newMessage = prompt('請輸入新的留言內容:', messageInput.value);
+            if (newMessage !== null) {
+                messageInput.value = newMessage;
+                commentElement.querySelector('p').textContent = newMessage;
+            }
+        });
+        
+        commentElement.querySelector('.delete-btn').addEventListener('click', function() {
+            commentsContainer.removeChild(commentElement);
+        });
     });
 
     // Handle flower basket display
@@ -95,21 +92,5 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             `;
         }
-    });
-
-    // Intersection Observer for animation on scroll
-    const elementsToShow = document.querySelectorAll('#timeline, #comments-section, #donate-flower');
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.1 });
-
-    elementsToShow.forEach(el => {
-        observer.observe(el);
     });
 });
