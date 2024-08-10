@@ -8,11 +8,11 @@ body {
 }
 
 header {
-    background-color: #003366; /* 深藍色 */
-    color: #ffffff;
+    background-color: #f4f4f4; /* 淺灰色 */
+    color: #333;
     padding: 20px;
     text-align: center;
-    border-bottom: 2px solid #004080; /* 更深的藍色邊框 */
+    border-bottom: 2px solid #e0e0e0; /* 淺灰色邊框 */
 }
 
 .logo {
@@ -40,7 +40,7 @@ main {
     font-size: 24px;
     font-weight: bold;
     text-align: center;
-    color: #003366; /* 深藍色 */
+    color: #555; /* 柔和的深灰色 */
     margin: 20px 0;
     animation: fadeIn 2s ease-in-out;
     font-family: 'Playfair Display', serif; /* 高級字體 */
@@ -73,7 +73,7 @@ main {
 
 .VivaTimeline dt {
     font-size: 16px;
-    color: #003366; /* 深藍色 */
+    color: #555; /* 柔和的深灰色 */
     margin-bottom: 5px;
 }
 
@@ -89,13 +89,13 @@ main {
     top: 0;
     width: 12px;
     height: 12px;
-    background-color: #003366; /* 深藍色 */
+    background-color: #888; /* 淺灰色 */
     border-radius: 50%;
 }
 
 .VivaTimeline .time {
     font-weight: bold;
-    color: #003366; /* 深藍色 */
+    color: #555; /* 柔和的深灰色 */
 }
 
 /* 留言區 */
@@ -119,9 +119,9 @@ main {
 }
 
 #comment-form button {
-    background-color: #004080; /* 深藍色 */
+    background-color: #f0f0f0; /* 淺灰色 */
     border: none;
-    color: #ffffff;
+    color: #333;
     padding: 12px 20px;
     cursor: pointer;
     border-radius: 8px;
@@ -130,7 +130,7 @@ main {
 }
 
 #comment-form button:hover {
-    background-color: #00274d; /* 更深的藍色 */
+    background-color: #e0e0e0; /* 更深的淺灰色 */
 }
 
 .comment {
@@ -146,13 +146,13 @@ main {
 
 .comment strong {
     font-weight: bold;
-    color: #003366; /* 深藍色 */
+    color: #333;
 }
 
 .comment button {
-    background-color: #004080; /* 深藍色 */
+    background-color: #f0f0f0; /* 淺灰色 */
     border: none;
-    color: #ffffff;
+    color: #333;
     padding: 6px;
     cursor: pointer;
     border-radius: 4px;
@@ -161,7 +161,7 @@ main {
 }
 
 .comment button:hover {
-    background-color: #00274d; /* 更深的藍色 */
+    background-color: #e0e0e0; /* 更深的淺灰色 */
 }
 
 /* 花籃展示 */
@@ -172,7 +172,7 @@ main {
 #donate-flower h2 {
     font-size: 24px;
     font-weight: bold;
-    color: #003366; /* 深藍色 */
+    color: #555; /* 柔和的深灰色 */
 }
 
 #donate-flower p {
@@ -207,11 +207,11 @@ main {
 .price {
     margin-top: 5px;
     font-size: 16px;
-    color: #003366; /* 深藍色 */
+    color: #333;
 }
 
 #donate-flower a {
-    color: #003366; /* 深藍色 */
+    color: #333;
     text-decoration: none;
     font-weight: bold;
 }
@@ -227,15 +227,15 @@ main {
 }
 
 footer {
-    background-color: #003366; /* 深藍色 */
-    color: #ffffff;
+    background-color: #f4f4f4; /* 淺灰色 */
+    color: #333;
     padding: 20px;
     text-align: center;
-    border-top: 2px solid #004080; /* 更深的藍色邊框 */
+    border-top: 2px solid #e0e0e0; /* 淺灰色邊框 */
 }
 
 footer a {
-    color: #ffffff;
+    color: #333;
     text-decoration: none;
 }
 
