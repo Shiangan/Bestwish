@@ -1,86 +1,88 @@
+/* General Styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f7f7f7;
+    background-color: #f9f5f1;
+    color: #333;
 }
 
 header {
-    background-color: #5b3a29;
-    padding: 10px;
+    background-color: #e3d9c6;
+    padding: 15px;
     text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-header .logo {
-    max-width: 150px;
+.logo {
+    max-width: 200px;
+    height: auto;
 }
 
 main {
     padding: 20px;
+    max-width: 1200px;
+    margin: auto;
 }
 
-.motto {
+/* Main Photo Section */
+.main-photo-section {
     text-align: center;
-    font-size: 1.5em;
-    margin: 20px 0;
-    color: #8a5b3c;
-}
-
-#main-photo-container {
-    text-align: center;
-    margin: 20px 0;
+    margin-bottom: 20px;
 }
 
 #main-photo {
+    max-width: 90%;
+    height: auto;
+    border-radius: 10px;
+    border: 2px solid #d3b8ae;
+}
+
+#life-story {
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #6b4f4f;
+}
+
+/* Motto Section */
+.motto {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #8a6d5b;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Carousel Section */
+.carousel-section {
+    margin: 20px 0;
+}
+
+.carousel {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.carousel img {
     max-width: 100%;
     height: auto;
-    border: 5px solid #d4bca5;
     border-radius: 10px;
-}
-
-#photo-carousel {
-    position: relative;
-    overflow: hidden;
-}
-
-#carousel-wrapper {
-    display: flex;
-    align-items: center;
-}
-
-#carousel-images {
-    display: flex;
-    transition: transform 0.5s ease;
-    width: 100%;
-}
-
-.carousel-slide {
-    min-width: 33.33%;
-    box-sizing: border-box;
-    padding: 5px;
-}
-
-.carousel-slide img {
-    width: 100%;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-.carousel-slide img:hover {
-    transform: scale(1.05);
 }
 
 .carousel-button {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
+    background-color: rgba(255, 255, 255, 0.7);
     border: none;
     padding: 10px;
     cursor: pointer;
-    z-index: 100;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 #prev-button {
@@ -91,94 +93,45 @@ main {
     right: 10px;
 }
 
-#paper-obituary-container {
+/* Paper Obituary Section */
+.paper-obituary-section {
     text-align: center;
-    margin: 20px 0;
+    margin-top: 20px;
 }
 
 #paper-obituary {
     max-width: 100%;
     height: auto;
-    cursor: pointer;
-    border: 5px solid #d4bca5;
+    border: 2px solid #d3b8ae;
     border-radius: 10px;
 }
 
+/* Timeline Section */
 #timeline {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: relative;
-    margin: 20px 0;
+    margin-top: 20px;
 }
 
 .timeline-event {
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
-    position: relative;
-}
-
-.timeline-event:nth-child(even) {
-    background-color: #f9f9f9;
-    padding-left: 60px;
-}
-
-.timeline-event:nth-child(odd) {
-    background-color: #fff;   padding-right: 60px;
-}
-
-.timeline-event::before {
-    content: '';
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background-color: #5b3a29;
-    border-radius: 50%;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.timeline-event:nth-child(even)::before {
-    left: -15px;
-}
-
-.timeline-event:nth-child(odd)::before {
-    right: -15px;
-    left: auto;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #e3d9c6;
+    margin-bottom: 15px;
 }
 
 .timeline-event h3 {
-    font-size: 1.2em;
-    color: #8a5b3c;
-    margin: 0 0 5px;
-    transition: color 0.3s ease;
+    margin: 0;
+    color: #8a6d5b;
 }
 
 .timeline-event p {
-    margin: 0;
-    font-size: 1em;
-    color: #333;
-    transition: color 0.3s ease;
+    margin: 5px 0;
+    color: #6b4f4f;
 }
 
-.timeline-event:hover h3,
-.timeline-event:hover p {
-    color: #5b3a29;
-}
-
+/* Comments Section */
 #comments-section {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 20px 0;
-}
-
-#comments-section h2 {
-    text-align: center;
-    color: #8a5b3c;
+    margin-top: 20px;
 }
 
 #comment-form {
@@ -188,102 +141,98 @@ main {
 }
 
 #comment-form label {
-    margin: 5px 0;
-    color: #5b3a29;
+    margin-bottom: 5px;
     font-weight: bold;
 }
 
-#comment-form input,
+#comment-form input, 
 #comment-form textarea {
     padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #d3b8ae;
     margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1em;
 }
 
 #comment-form button {
-    padding: 10px;
-    background-color: #5b3a29;
-    color: white;
+    background-color: #8a6d5b;
+    color: #fff;
     border: none;
-    border-radius: 4px;
+    padding: 10px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 1em;
 }
 
 #comment-form button:hover {
-    background-color: #8a5b3c;
+    background-color: #7a5e4a;
 }
 
 #comments-container {
-    margin-top: 20px;
-    border-top: 1px solid #ddd;
-    padding-top: 10px;
+    margin-top: 10px;
 }
 
+.comment {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #d3b8ae;
+    margin-bottom: 10px;
+}
+
+.comment p {
+    margin: 5px 0;
+}
+
+/* Donate Flower Section */
 #donate-flower {
     text-align: center;
-    margin: 20px 0;
+    margin-top: 20px;
 }
 
 #donate-button {
-    padding: 10px 20px;
-    background-color: #5b3a29;
-    color: white;
+    background-color: #8a6d5b;
+    color: #fff;
     border: none;
-    border-radius: 4px;
+    padding: 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 1.2em;
 }
 
 #donate-button:hover {
-    background-color: #8a5b3c;
+    background-color: #7a5e4a;
 }
 
 #flower-basket {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    justify-content: center;
+    display: none;
+    text-align: center;
+    margin-top: 20px;
 }
 
 .basket-style {
-    flex: 1 1 200px;
-    background: #fff;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.basket-style:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    margin: 10px;
+    border: 1px solid #d3b8ae;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .basket-style img {
     max-width: 100%;
     height: auto;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-bottom: 10px;
 }
 
 .basket-style p {
-    color: #5b3a29;
-    font-size: 1em;
+    padding: 10px;
+    color: #6b4f4f;
 }
 
+/* Footer */
 footer {
-    background-color: #5b3a29;
-    color: white;
+    background-color: #e3d9c6;
+    padding: 15px;
     text-align: center;
-    padding: 10px;
-    position: relative;
-    bottom: 0;
-    width: 100%;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
 }
 
 footer p {
@@ -291,60 +240,16 @@ footer p {
 }
 
 footer a {
-    color: white;
+    color: #8a6d5b;
     text-decoration: none;
-    margin: 0 5px;
+}
+
+footer a:hover {
+    text-decoration: underline;
 }
 
 footer img {
+    width: 20px;
+    height: auto;
     vertical-align: middle;
-    max-width: 24px;
-    max-height: 24px;
-    margin-left: 5px;
-}
-
-/* 模态窗口的样式 */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.8);
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    max-width: 90%;
-    max-height: 80%;
-    margin: auto;
-    display: block;
-    border-radius: 10px;
-}
-
-#caption {
-    text-align: center;
-    color: #fff;
-    padding: 10px;
-}
-
-.close {
-    color: #fff;
-    position: absolute;
-    top: 10px;
-    right: 25px;
-    font-size: 35px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.close:hover,
-.close:focus {
-    color: #ccc;
-    text-decoration: none;
-    cursor: pointer;
 }
