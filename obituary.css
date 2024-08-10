@@ -1,57 +1,41 @@
-/* General Styles */
+/* Global Styles */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
     margin: 0;
     padding: 0;
-    background-color: #f9f5f1;
-    color: #333;
 }
 
+/* Header */
 header {
-    background-color: #e3d9c6;
-    padding: 15px;
+    background-color: #fff;
+    padding: 20px;
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-bottom: 2px solid #ddd;
 }
 
 .logo {
-    max-width: 200px;
-    height: auto;
-}
-
-main {
-    padding: 20px;
-    max-width: 1200px;
-    margin: auto;
+    max-width: 150px;
 }
 
 /* Main Photo Section */
 .main-photo-section {
     text-align: center;
-    margin-bottom: 20px;
+    margin: 20px 0;
 }
 
-#main-photo {
-    max-width: 90%;
-    height: auto;
-    border-radius: 10px;
-    border: 2px solid #d3b8ae;
+.main-photo-section img {
+    max-width: 100%;
+    border-radius: 8px;
 }
 
-#life-story {
-    margin-top: 10px;
-    font-size: 1.2em;
-    color: #6b4f4f;
-}
-
-/* Motto Section */
+/* Motto */
 .motto {
     text-align: center;
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #8a6d5b;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    font-size: 1.2em;
+    color: #555;
+    margin: 20px 0;
 }
 
 /* Carousel Section */
@@ -60,196 +44,106 @@ main {
 }
 
 .carousel {
-    position: relative;
     display: flex;
     overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }
 
 .carousel img {
     max-width: 100%;
-    height: auto;
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
 .carousel-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: #007bff;
+    color: white;
     border: none;
-    padding: 10px;
+    border-radius: 8px;
+    padding: 10px 20px;
     cursor: pointer;
-    border-radius: 50%;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    margin: 5px;
 }
 
-#prev-button {
-    left: 10px;
-}
-
-#next-button {
-    right: 10px;
+.carousel-button:hover {
+    background-color: #0056b3;
 }
 
 /* Paper Obituary Section */
 .paper-obituary-section {
     text-align: center;
-    margin-top: 20px;
+    margin: 20px 0;
 }
 
-#paper-obituary {
+.paper-obituary-section img {
     max-width: 100%;
-    height: auto;
-    border: 2px solid #d3b8ae;
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
-/* Timeline Section */
+/* Timeline */
 #timeline {
-    margin-top: 20px;
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #ddd;
 }
 
 .timeline-event {
-    background-color: #fff;
-    padding: 15px;
-    border-radius: 10px;
-    border: 1px solid #e3d9c6;
-    margin-bottom: 15px;
-}
-
-.timeline-event h3 {
-    margin: 0;
-    color: #8a6d5b;
-}
-
-.timeline-event p {
-    margin: 5px 0;
-    color: #6b4f4f;
+    margin-bottom: 10px;
 }
 
 /* Comments Section */
 #comments-section {
-    margin-top: 20px;
+    margin: 20px 0;
 }
 
-#comment-form {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-}
-
-#comment-form label {
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-#comment-form input, 
-#comment-form textarea {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #d3b8ae;
+#comments-container .comment {
     margin-bottom: 10px;
-}
-
-#comment-form button {
-    background-color: #8a6d5b;
-    color: #fff;
-    border: none;
     padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#comment-form button:hover {
-    background-color: #7a5e4a;
-}
-
-#comments-container {
-    margin-top: 10px;
-}
-
-.comment {
     background-color: #fff;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #d3b8ae;
-    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
 }
 
-.comment p {
-    margin: 5px 0;
-}
-
-/* Donate Flower Section */
-#donate-flower {
-    text-align: center;
-    margin-top: 20px;
-}
-
-#donate-button {
-    background-color: #8a6d5b;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#donate-button:hover {
-    background-color: #7a5e4a;
-}
-
+/* Flower Basket Section */
 #flower-basket {
     display: none;
-    text-align: center;
-    margin-top: 20px;
+    margin: 20px 0;
 }
 
 .basket-style {
-    display: inline-block;
     margin: 10px;
-    border: 1px solid #d3b8ae;
-    border-radius: 10px;
-    overflow: hidden;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 .basket-style img {
     max-width: 100%;
-    height: auto;
-}
-
-.basket-style p {
-    padding: 10px;
-    color: #6b4f4f;
+    border-radius: 8px;
 }
 
 /* Footer */
 footer {
-    background-color: #e3d9c6;
-    padding: 15px;
+    background-color: #fff;
+    padding: 20px;
     text-align: center;
-    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+    border-top: 2px solid #ddd;
 }
 
 footer p {
     margin: 5px 0;
 }
 
-footer a {
-    color: #8a6d5b;
-    text-decoration: none;
+/* Music Buttons */
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 5px;
 }
 
-footer a:hover {
-    text-decoration: underline;
-}
-
-footer img {
-    width: 20px;
-    height: auto;
-    vertical-align: middle;
+button:hover {
+    background-color: #0056b3;
 }
