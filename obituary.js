@@ -34,8 +34,4 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         commentsContainer.appendChild(commentDiv);
 
-        // 清空表單
-        document.getElementById('name').value = '';
-        document.getElementById('message').value = '';
-    });
-});
+ 
