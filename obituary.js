@@ -13,11 +13,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Load and display main photo and life story
-    document.getElementById('main-photo').src = 'image/main-photo.jpg'; // Placeholder path
-    document.getElementById('life-story').textContent = '這是生平介紹的內容。';
+    const mainPhoto = document.getElementById('main-photo');
+    const lifeStory = document.getElementById('life-story');
+    const paperObituary = document.getElementById('paper-obituary');
 
-    // Load and display paper obituary
-    document.getElementById('paper-obituary').src = 'image/paper-obituary.jpg'; // Placeholder path
+    if (mainPhoto) {
+        mainPhoto.src = localStorage.getItem('mainPhoto') || 'image/main-photo.jpg'; // Use stored URL or placeholder
+    }
+    if (lifeStory) {
+        lifeStory.textContent = localStorage.getItem('lifeStory') || '這是生平介紹的內容。'; // Use stored content or placeholder
+    }
+    if (paperObituary) {
+        paperObituary.src = localStorage.getItem('paperObituary') || 'image/paper-obituary.jpg'; // Use stored URL or placeholder
+    }
 
     // Handle comment form submission
     const commentForm = document.getElementById('comment-form');
@@ -28,39 +36,44 @@ document.addEventListener('DOMContentLoaded', function() {
         const name = document.getElementById('comment-name').value;
         const message = document.getElementById('comment-message').value;
 
-        const commentElement = document.createElement('div');
-        commentElement.classList.add('comment');
-        commentElement.innerHTML = `
-            <strong>${name}</strong> <span>${new Date().toLocaleString()}</span>
-            <p>${message}</p>
-            <button class="edit-comment">編輯</button>
-            <button class="delete-comment">刪除</button>
-        `;
-        commentsContainer.appendChild(commentElement);
+        if (name && message) {
+            const commentDiv = document.createElement('div');
+            commentDiv.classList.add('comment');
+            commentDiv.innerHTML = `
+                <strong>${name}</strong> <span>${new Date().toLocaleString()}</span>
+                <p>${message}</p>
+                <button class="edit-button">編輯</button>
+                <button class="delete-button">刪除</button>
+            `;
+            commentsContainer.appendChild(commentDiv);
 
-        // Clear form
-        commentForm.reset();
-    });
+            // Add edit and delete functionality
+            commentDiv.querySelector('.edit-button').addEventListener('click', function() {
+                const newMessage = prompt('編輯留言內容:', message);
+                if (newMessage !== null) {
+                    message = newMessage;
+                    commentDiv.querySelector('p').textContent = message;
+                }
+            });
 
-    commentsContainer.addEventListener('click', function(event) {
-        if (event.target.classList.contains('edit-comment')) {
-            const commentElement = event.target.closest('.comment');
-            const p = commentElement.querySelector('p');
-            const newMessage = prompt('編輯留言內容:', p.textContent);
-            if (newMessage) {
-                p.textContent = newMessage;
-            }
-        } else if (event.target.classList.contains('delete-comment')) {
-            const commentElement = event.target.closest('.comment');
-            commentsContainer.removeChild(commentElement);
+            commentDiv.querySelector('.delete-button').addEventListener('click', function() {
+                if (confirm('確定要刪除這條留言嗎？')) {
+                    commentsContainer.removeChild(commentDiv);
+                }
+            });
+
+            // Clear form
+            commentForm.reset();
         }
     });
 
-    // Handle flower donation button click
+    // Handle flower basket button click
     const donateButton = document.getElementById('donate-button');
     const flowerBasket = document.getElementById('flower-basket');
 
     donateButton.addEventListener('click', function() {
-        flowerBasket.style.display = flowerBasket.style.display === 'none' ? 'block' : 'none';
+        if (flowerBasket) {
+            flowerBasket.style.display = (flowerBasket.style.display === 'none' || flowerBasket.style.display === '') ? 'block' : 'none';
+        }
     });
 });
