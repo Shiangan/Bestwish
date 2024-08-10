@@ -44,7 +44,8 @@ header {
     font-weight: bold;
     text-align: center;
     color: #555;
-    margin: 20px 0;
+    margin: 20px auto;
+    width: fit-content;
     animation: fadeIn 2s ease-in-out;
 }
 
@@ -73,7 +74,8 @@ header {
 
 /* 訃告正本區 */
 .paper-obituary-section {
-    margin: 20px 0;
+    margin: 20px auto;
+    text-align: center;
 }
 
 .paper-obituary-section img {
@@ -85,15 +87,18 @@ header {
 }
 
 #paper-obituary {
-    font-family: 'Std W5', serif; /* 使用Std W5字體 */
-    font-size: 18px; /* 根據需要調整字體大小 */
+    font-family: 'Std W5', serif;
+    font-size: 18px;
     line-height: 1.6;
-    margin: 20px 0;
+    margin: 20px auto;
+    width: fit-content;
+    text-align: center;
 }
 
 /* 時間軸 */
 #timeline {
-    margin: 20px 0;
+    margin: 20px auto;
+    width: fit-content;
 }
 
 .VivaTimeline dl {
@@ -130,16 +135,19 @@ header {
 
 /* 留言區 */
 #comments-section {
-    margin: 20px 0;
+    margin: 20px auto;
+    width: fit-content;
 }
 
 #comment-form {
     margin-bottom: 20px;
+    text-align: center;
 }
 
 #comment-form input,
 #comment-form textarea {
     width: 100%;
+    max-width: 400px;
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ddd;
@@ -189,7 +197,8 @@ header {
 
 /* 花籃展示 */
 #donate-flower {
-    margin: 20px 0;
+    margin: 20px auto;
+    width: fit-content;
 }
 
 #donate-flower h2 {
