@@ -1,64 +1,66 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // 初始化幻燈片輪播
-    $('#photo-carousel').slick({
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        dots: true,
-        arrows: false // 透過自定義按鈕控制
-    });
+    // Initialize the photo carousel for obituary
+    const carousel = document.querySelector('.carousel');
+    if (carousel) {
+        $(carousel).slick({
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: true
+        });
+    }
 
-    // 控制自定義輪播按鈕
-    $('#prev-button').on('click', function() {
-        $('#photo-carousel').slick('slickPrev');
-    });
+    // Load and display main photo and life story
+    document.getElementById('main-photo').src = 'image/main-photo.jpg'; // Placeholder path
+    document.getElementById('life-story').textContent = '這是生平介紹的內容。';
 
-    $('#next-button').on('click', function() {
-        $('#photo-carousel').slick('slickNext');
-    });
+    // Load and display paper obituary
+    document.getElementById('paper-obituary').src = 'image/paper-obituary.jpg'; // Placeholder path
 
-    // 設置主要追思照片和訃聞紙本
-    document.getElementById('main-photo').src = 'image/main-photo.jpg';
-    document.getElementById('paper-obituary').src = 'image/paper-obituary.jpg';
-
-    // 控制花籃顯示
-    document.getElementById('donate-button').addEventListener('click', function() {
-        const flowerBasket = document.getElementById('flower-basket');
-        flowerBasket.style.display = flowerBasket.style.display === 'none' ? 'backgroundMusic.pause();
-        playButton.style.display = 'block';
-        stopButton.style.display = 'none';
-    });
-
-    // 留言區處理
+    // Handle comment form submission
     const commentForm = document.getElementById('comment-form');
     const commentsContainer = document.getElementById('comments-container');
-    commentForm.addEventListener('submit', function(e) {
-        e.preventDefault();
+
+    commentForm.addEventListener('submit', function(event) {
+        event.preventDefault();
         const name = document.getElementById('comment-name').value;
         const message = document.getElementById('comment-message').value;
-        const commentDiv = document.createElement('div');
-        commentDiv.classList.add('comment');
-        commentDiv.innerHTML = `
-            <p><strong>${name}</strong>: ${message}</p>
-            <button class="edit-button">編輯</button>
-            <button class="delete-button">刪除</button>
+
+        const commentElement = document.createElement('div');
+        commentElement.classList.add('comment');
+        commentElement.innerHTML = `
+            <strong>${name}</strong> <span>${new Date().toLocaleString()}</span>
+            <p>${message}</p>
+            <button class="edit-comment">編輯</button>
+            <button class="delete-comment">刪除</button>
         `;
-        commentsContainer.appendChild(commentDiv);
+        commentsContainer.appendChild(commentElement);
 
-        // 清空表單
+        // Clear form
         commentForm.reset();
+    });
 
-        // 編輯和刪除功能
-        commentDiv.querySelector('.edit-button').addEventListener('click', function() {
-            const newMessage = prompt('編輯留言:', message);
-            if (newMessage !== null) {
-                commentDiv.querySelector('p').innerHTML = `<strong>${name}</strong>: ${newMessage}`;
+    commentsContainer.addEventListener('click', function(event) {
+        if (event.target.classList.contains('edit-comment')) {
+            const commentElement = event.target.closest('.comment');
+            const p = commentElement.querySelector('p');
+            const newMessage = prompt('編輯留言內容:', p.textContent);
+            if (newMessage) {
+                p.textContent = newMessage;
             }
-        });
+        } else if (event.target.classList.contains('delete-comment')) {
+            const commentElement = event.target.closest('.comment');
+            commentsContainer.removeChild(commentElement);
+        }
+    });
 
-        commentDiv.querySelector('.delete-button').addEventListener('click', function() {
-            commentsContainer.removeChild(commentDiv);
-        });
+    // Handle flower donation button click
+    const donateButton = document.getElementById('donate-button');
+    const flowerBasket = document.getElementById('flower-basket');
+
+    donateButton.addEventListener('click', function() {
+        flowerBasket.style.display = flowerBasket.style.display === 'none' ? 'block' : 'none';
     });
 });
