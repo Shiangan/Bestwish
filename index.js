@@ -101,16 +101,13 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem('musicUrl', musicUrl);
 
         if (playMusicButton.style.display === "none") {
-            backgroundMusic.play        
-        if (playMusicButton.style.display === "none") {
-                backgroundMusic.play().catch(error => {
-                    console.error("播放背景音乐失败:", error);
-                });
-            }
+            backgroundMusic.play().catch(error => {
+                console.error("播放背景音乐失败:", error);
+            });
         }
     }
 
-    // 播放音樂
+    // 播放音乐
     playMusicButton.addEventListener("click", function() {
         backgroundMusic.play().catch(error => {
             console.error("播放背景音乐失败:", error);
@@ -120,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem('musicPlaying', 'true');
     });
 
-    // 停止音樂
+    // 停止音乐
     stopMusicButton.addEventListener("click", function() {
         backgroundMusic.pause();
         playMusicButton.style.display = "inline";
@@ -130,6 +127,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // 监听音乐选择变化
     musicChoice.addEventListener("change", handleMusicChoiceChange);
+
+    // 初始化 Slick Carousel
+    $('.carousel').slick({
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+    });
 
     // 初始化
     loadStoredSettings();
