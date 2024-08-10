@@ -11,24 +11,25 @@
     <script src="obituary.js" defer></script>
 </head>
 <body>
+    <audio autoplay loop>
+        <source src="background-music.mp3" type="audio/mpeg">
+        您的瀏覽器不支援音頻播放。
+    </audio>
     <header>
-        <p>陳既隆先生 訃告</p>
         <img src="image/logo.png" alt="Logo" class="logo">
+        <h1>陳既隆先生 訃告</h1>
     </header>
     <main>
         <section class="main-photo-section">
-            <img id="main-photo" src="IMG_7703.jpeg" alt="追思照片">
-            <p id="life-story">我們敬愛的親人，陳既隆先生，於113年08月02日，安詳離世。
-                牌位設立於 ［鼎峰會館 VIP 2F 清靜室],設奠於 113年09月05日 舉行告別追思會。
-                感謝親友們的致意與陪伴，給予我們的父親，最深的祝福，
-                銘記在心，衷心感謝</p>
+            <img id="main-photo" src="image/IMG_7703.jpeg" alt="追思照片">
+            <p id="life-story">我們敬愛的親人，陳既隆先生，於113年08月02日，安詳離世。牌位設立於 ［鼎峰會館 VIP 2F 清靜室],設奠於 113年09月05日 舉行告別追思會。感謝親友們的致意與陪伴，給予我們的父親，最深的祝福，銘記在心，衷心感謝。</p>
         </section>
 
         <div class="motto">永遠懷念，我們摯愛的親人</div>
 
         <section class="paper-obituary-section">
             <h2>訃告正本</h2>
-            <img id="paper-obituary" src="IMG_7669.jpeg" alt="訃聞紙本">
+            <img id="paper-obituary" src="image/IMG_7669.jpeg" alt="訃聞紙本">
         </section>
 
         <section id="timeline">
@@ -42,9 +43,7 @@
                         <div class="events">
                             <div class="events-header"><strong>陳既隆先生 安詳離世</strong></div>
                             <div class="events-body">
-                                <div class="row">
-                                    <p>於鼎峰會館設立牌位 ［鼎峰會館2F VIP 清靜廳］</p>
-                                </div>
+                                <p>於鼎峰會館設立牌位 ［鼎峰會館2F VIP 清靜廳］</p>
                             </div>
                         </div>
                     </dd>
@@ -55,9 +54,7 @@
                         <div class="events">
                             <div class="events-header"><strong>告別奠禮</strong></div>
                             <div class="events-body">
-                                <div class="row">
-                                    <p>於第二殯儀館 景行樓1F 「至忠二廳」舉行奠禮儀式</p>
-                                </div>
+                                <p>於第二殯儀館 景行樓1F 「至忠二廳」舉行奠禮儀式</p>
                             </div>
                         </div>
                     </dd>
@@ -69,13 +66,13 @@
             <h2>追思留言區</h2>
             <form id="comment-form">
                 <label for="comment-name">姓名:</label>
-                <input type="text" id="comment-name" required>
+                <input type="text" id="comment-name" placeholder="您的名字" required>
                 <label for="comment-message">留言內容:</label>
-                <textarea id="comment-message" rows="4" required></textarea>
+                <textarea id="comment-message" rows="4" placeholder="您的留言" required></textarea>
                 <button type="submit">提交留言</button>
             </form>
             <div id="comments-container">
-                <!-- 留言区内容将动态插入 -->
+                <!-- 留言區內容將動態插入 -->
             </div>
         </section>
 
@@ -83,7 +80,7 @@
             <h2>致贈花籃</h2>
             <p>若您希望致贈花籃，請點擊以下連結：</p>
             <a href="javascript:void(0);" id="show-flower-baskets" class="btn">致贈花籃</a>
-            <div id="flower-basket-gallery" style="display: none;">
+            <div id="flower-basket-gallery">
                 <div class="flower-basket-item">
                     <img src="image/花籃A.JPG" alt="花籃A">
                     <p class="price">NT$2,500</p>
@@ -126,7 +123,7 @@
         <p>
             承辦禮儀公司：祥安生命有限公司<br>
             <a href="https://line.me/ti/p/你的LineID" target="_blank">Line 聯絡我們</a><br>
-            <a href="tel:+886978583699">聯絡電話: +886 978 583 699</a>
+            <a href="tel:+886978583699">聯絡電話: +886 938 179 858</a>
         </p>
     </footer>
 </body>
