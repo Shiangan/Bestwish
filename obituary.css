@@ -4,15 +4,15 @@ body {
     color: #333;
     margin: 0;
     padding: 0;
-    background-color: #f0f0f0; /* 淡灰色背景 */
+    background-color: #ffffff; /* 全白背景 */
 }
 
 header {
-    background-color: #00274d; /* 深藍色 */
+    background-color: #003366; /* 深藍色 */
     color: #ffffff;
     padding: 20px;
     text-align: center;
-    border-bottom: 2px solid #004080; /* 深藍色邊框 */
+    border-bottom: 2px solid #004080; /* 更深的藍色邊框 */
 }
 
 .logo {
@@ -32,7 +32,7 @@ main {
     display: block;
     margin: 0 auto;
     border-radius: 8px; /* 圓角邊框 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 陰影效果 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 微妙的陰影效果 */
 }
 
 /* Motto區 */
@@ -40,7 +40,7 @@ main {
     font-size: 24px;
     font-weight: bold;
     text-align: center;
-    color: #00274d; /* 深藍色 */
+    color: #003366; /* 深藍色 */
     margin: 20px 0;
     animation: fadeIn 2s ease-in-out;
     font-family: 'Playfair Display', serif; /* 高級字體 */
@@ -58,7 +58,7 @@ main {
     display: block;
     margin: 0 auto;
     border-radius: 8px; /* 圓角邊框 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 陰影效果 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 微妙的陰影效果 */
 }
 
 /* 時間軸 */
@@ -146,7 +146,7 @@ main {
 
 .comment strong {
     font-weight: bold;
-    color: #00274d; /* 深藍色 */
+    color: #003366; /* 深藍色 */
 }
 
 .comment button {
@@ -191,7 +191,7 @@ main {
     margin-bottom: 20px;
     transition: transform 0.3s ease-in-out;
     border-radius: 8px; /* 圓角邊框 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 陰影效果 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 微妙的陰影效果 */
 }
 
 .flower-basket-item img {
@@ -227,11 +227,11 @@ main {
 }
 
 footer {
-    background-color: #00274d; /* 深藍色 */
+    background-color: #003366; /* 深藍色 */
     color: #ffffff;
     padding: 20px;
     text-align: center;
-    border-top: 2px solid #004080; /* 深藍色邊框 */
+    border-top: 2px solid #004080; /* 更深的藍色邊框 */
 }
 
 footer a {
