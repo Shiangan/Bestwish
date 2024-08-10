@@ -1,6 +1,6 @@
 /* 全局設定 */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Roboto', sans-serif; /* 使用高質感字體 */
     color: #333;
     margin: 0;
     padding: 0;
@@ -22,6 +22,7 @@ header {
     padding: 20px;
     text-align: center;
     border-bottom: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加輕微陰影 */
 }
 
 .logo {
@@ -40,6 +41,8 @@ header {
     width: 100%;
     max-height: 400px;
     object-fit: cover;
+    border-radius: 8px; /* 圓角邊框 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加輕微陰影 */
 }
 
 /* Motto區 */
@@ -50,6 +53,7 @@ header {
     color: #555;
     margin: 20px auto;
     max-width: 800px;
+    animation: fadeIn 2s ease-in-out; /* 漸顯效果 */
 }
 
 /* 滑動效果 */
@@ -70,6 +74,7 @@ header {
     cursor: pointer;
     margin: 5px;
     border-radius: 4px;
+    transition: background-color 0.3s; /* 平滑過渡 */
 }
 
 .carousel-button:hover {
@@ -87,6 +92,8 @@ header {
     width: 100%;
     max-height: 400px;
     object-fit: cover;
+    border-radius: 8px; /* 圓角邊框 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加輕微陰影 */
 }
 
 /* 時間軸 */
@@ -157,6 +164,7 @@ header {
     cursor: pointer;
     border-radius: 4px;
     font-size: 16px;
+    transition: background-color 0.3s; /* 平滑過渡 */
 }
 
 #comment-form button:hover {
@@ -169,6 +177,7 @@ header {
     margin-bottom: 10px;
     border-radius: 4px;
     font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 添加輕微陰影 */
 }
 
 .comment strong {
@@ -183,6 +192,7 @@ header {
     cursor: pointer;
     border-radius: 4px;
     margin-right: 5px;
+    transition: background-color 0.3s; /* 平滑過渡 */
 }
 
 .comment button:hover {
@@ -215,15 +225,15 @@ header {
     text-align: center;
     width: calc(25% - 10px);
     margin-bottom: 20px;
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out; /* 平滑過渡 */
 }
 
 .flower-basket-item img {
     width: 100%;
     height: auto;
     border: 1px solid #ddd;
-    border-radius: 4px;
-    transition: transform 0.3s ease-in-out;
+    border-radius: 8px; /* 圓角邊框 */
+    transition: transform 0.3s ease-in-out; /* 平滑過渡 */
 }
 
 .flower-basket-item:hover img {
