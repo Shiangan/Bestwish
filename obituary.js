@@ -1,79 +1,115 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize the photo carousel for obituary
-    const carousel = document.querySelector('.carousel');
-    if (carousel) {
-        $(carousel).slick({
-            dots: true,
-            infinite: true,
-            speed: 500,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            arrows: true
-        });
-    }
+    // Initialize photo carousel
+    $('#photo-carousel').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        dots: true
+    });
 
-    // Load and display main photo and life story
-    const mainPhoto = document.getElementById('main-photo');
-    const lifeStory = document.getElementById('life-story');
-    const paperObituary = document.getElementById('paper-obituary');
-
-    if (mainPhoto) {
-        mainPhoto.src = localStorage.getItem('mainPhoto') || 'image/main-photo.jpg'; // Use stored URL or placeholder
-    }
-    if (lifeStory) {
-        lifeStory.textContent = localStorage.getItem('lifeStory') || '這是生平介紹的內容。'; // Use stored content or placeholder
-    }
-    if (paperObituary) {
-        paperObituary.src = localStorage.getItem('paperObituary') || 'image/paper-obituary.jpg'; // Use stored URL or placeholder
-    }
-
-    // Handle comment form submission
-    const commentForm = document.getElementById('comment-form');
+    // Initialize comments storage
     const commentsContainer = document.getElementById('comments-container');
+    const commentForm = document.getElementById('comment-form');
+    const nameInput = document.getElementById('comment-name');
+    const messageInput = document.getElementById('comment-message');
 
-    commentForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        const name = document.getElementById('comment-name').value;
-        const message = document.getElementById('comment-message').value;
+    // Load comments from localStorage
+    const loadComments = () => {
+        const comments = JSON.parse(localStorage.getItem('comments')) || [];
+        commentsContainer.innerHTML = comments.map(comment => `
+            <div class="comment">
+                <strong>${comment.name}</strong>
+                <p>${comment.message}</p>
+            </div>
+        `).join('');
+    };
+
+    loadComments();
+
+    // Handle form submission
+    commentForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const name = nameInput.value.trim();
+        const message = messageInput.value.trim();
 
         if (name && message) {
-            const commentDiv = document.createElement('div');
-            commentDiv.classList.add('comment');
-            commentDiv.innerHTML = `
-                <strong>${name}</strong> <span>${new Date().toLocaleString()}</span>
-                <p>${message}</p>
-                <button class="edit-button">編輯</button>
-                <button class="delete-button">刪除</button>
+            // Save new comment
+            const comments = JSON.parse(localStorage.getItem('comments')) || [];
+            comments.push({ name, message });
+            localStorage.setItem('comments', JSON.stringify(comments));
+
+            // Append new comment
+            commentsContainer.innerHTML = `
+                ${comments.map(comment => `
+                    <div class="comment">
+                        <strong>${comment.name}</strong>
+                        <p>${comment.message}</p>
+                    </div>
+                `).join('')}
             `;
-            commentsContainer.appendChild(commentDiv);
-
-            // Add edit and delete functionality
-            commentDiv.querySelector('.edit-button').addEventListener('click', function() {
-                const newMessage = prompt('編輯留言內容:', message);
-                if (newMessage !== null) {
-                    message = newMessage;
-                    commentDiv.querySelector('p').textContent = message;
-                }
-            });
-
-            commentDiv.querySelector('.delete-button').addEventListener('click', function() {
-                if (confirm('確定要刪除這條留言嗎？')) {
-                    commentsContainer.removeChild(commentDiv);
-                }
-            });
-
-            // Clear form
-            commentForm.reset();
+            
+            // Clear the form nameInput.value = '';
+            messageInput.value = '';
         }
     });
 
-    // Handle flower basket button click
-    const donateButton = document.getElementById('donate-button');
-    const flowerBasket = document.getElementById('flower-basket');
-
-    donateButton.addEventListener('click', function() {
-        if (flowerBasket) {
-            flowerBasket.style.display = (flowerBasket.style.display === 'none' || flowerBasket.style.display === '') ? 'block' : 'none';
+    // Handle flower basket display
+    document.getElementById('show-flower-baskets').addEventListener('click', function() {
+        const flowerBasketGallery = document.getElementById('flower-basket-gallery');
+        if (flowerBasketGallery.innerHTML === '') {
+            flowerBasketGallery.innerHTML = `
+                <div class="flower-basket-item">
+                    <img src="image/花籃A.JPG" alt="花籃A">
+                    <p class="price">NT$2,500</p>
+                </div>
+                <div class="flower-basket-item">
+                    <img src="image/花籃B.JPG" alt="花籃B">
+                    <p class="price">NT$3,000</p>
+                </div>
+                <div class="flower-basket-item">
+                    <img src="image/花籃C.JPG" alt="花籃C">
+                    <p class="price">NT$3,500</p>
+                </div>
+                <div class="flower-basket-item">
+                    <img src="image/花籃D.JPG" alt="花籃D">
+                    <p class="price">NT$4,000</p>
+                </div>
+                <div class="flower-basket-item">
+                    <img src="image/花籃E.JPG" alt="花籃E">
+                    <p class="price">NT$5,000</p>
+                </div>
+                <div class="flower-basket-item">
+                    <img src="image/花籃F.JPG" alt="花籃F">
+                    <p class="price">NT$5,500</p>
+                </div>
+                <div class="flower-basket-item">
+                    <img src="image/花籃G.JPG" alt="花籃G">
+                    <p class="price">NT$6,000</p>
+                </div>
+                <div class="flower-basket-item">
+                    <img src="image/花籃H.JPG" alt="花籃H">
+                    <p class="price">NT$6,500</p>
+                </div>
+            `;
         }
+    });
+
+    // Intersection Observer for animation on scroll
+    const elementsToShow = document.querySelectorAll('#timeline, #comments-section, #donate-flower');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    elementsToShow.forEach(el => {
+        observer.observe(el);
     });
 });
