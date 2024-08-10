@@ -1,18 +1,18 @@
 /* 全局設定 */
 body {
-    font-family: 'Noto Sans TC', sans-serif; /* 使用較有質感的字體 */
+    font-family: 'Noto Sans TC', sans-serif;
     color: #333;
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
+    background-color: #f4f4f4; /* 使用淡灰色背景 */
 }
 
 /* 標頭 */
 header {
-    background-color: #fff;
+    background-color: #ffffff; /* 使用白色背景 */
     padding: 20px;
     text-align: center;
-    border-bottom: 2px solid #e0e0e0;
+    border-bottom: 1px solid #dddddd; /* 淡灰色邊框 */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 增加陰影效果 */
 }
 
@@ -24,7 +24,7 @@ header {
 header h1 {
     font-size: 28px;
     margin: 15px 0;
-    color: #333;
+    color: #333333; /* 深灰色文字 */
 }
 
 /* 主要照片區 */
@@ -38,7 +38,7 @@ header h1 {
     width: 100%;
     max-height: 450px;
     object-fit: cover;
-    border-radius: 10px; /* 增加圓角 */
+    border-radius: 8px; /* 圓角 */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 增加陰影效果 */
 }
 
@@ -47,7 +47,7 @@ header h1 {
     font-size: 26px;
     font-weight: 600;
     text-align: center;
-    color: #d9534f; /* 溫暖的紅色調 */
+    color: #333333; /* 深灰色文字 */
     margin: 30px 0;
     animation: fadeIn 2s ease-in-out;
 }
@@ -62,7 +62,7 @@ header h1 {
     width: 100%;
     max-height: 450px;
     object-fit: cover;
-    border-radius: 10px; /* 增加圓角 */
+    border-radius: 8px; /* 圓角 */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 增加陰影效果 */
 }
 
@@ -71,8 +71,8 @@ header h1 {
     margin: 30px auto;
     padding: 20px;
     max-width: 800px;
-    background-color: #fff; /* 背景顏色 */
-    border-radius: 10px;
+    background-color: #ffffff; /* 使用白色背景 */
+    border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 增加陰影效果 */
 }
 
@@ -83,30 +83,30 @@ header h1 {
 
 .VivaTimeline dt {
     font-size: 18px;
-    color: #d9534f; /* 溫暖的紅色調 */
+    color: #444444; /* 深灰色文字 */
     margin-bottom: 10px;
 }
 
 .VivaTimeline dd {
     position: relative;
-    padding-left: 50px;
+    padding-left: 40px;
     margin: 15px 0;
 }
 
 .VivaTimeline .circ {
     position: absolute;
-    left: 20px;
+    left: 10px;
     top: 0;
-    width: 12px;
-    height: 12px;
-    background-color: #d9534f; /* 溫暖的紅色調 */
+    width: 10px;
+    height: 10px;
+    background-color: #444444; /* 深灰色圓點 */
     border-radius: 50%;
-    box-shadow: 0 0 0 4px #fff; /* 增加圓環效果 */
+    box-shadow: 0 0 0 4px #ffffff; /* 增加圓環效果 */
 }
 
 .VivaTimeline .time {
     font-weight: bold;
-    color: #d9534f; /* 溫暖的紅色調 */
+    color: #444444; /* 深灰色文字 */
 }
 
 /* 留言區 */
@@ -114,8 +114,8 @@ header h1 {
     margin: 30px auto;
     padding: 20px;
     max-width: 800px;
-    background-color: #fff; /* 背景顏色 */
-    border-radius: 10px;
+    background-color: #ffffff; /* 使用白色背景 */
+    border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 增加陰影效果 */
 }
 
@@ -134,33 +134,33 @@ header h1 {
     width: calc(100% - 20px);
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    border: 1px solid #dddddd; /* 淡灰色邊框 */
+    border-radius: 4px;
     font-size: 16px;
-    background-color: #f9f9f9; /* 背景顏色 */
+    background-color: #ffffff; /* 使用白色背景 */
 }
 
 #comment-form button {
-    background-color: #d9534f; /* 溫暖的紅色調 */
+    background-color: #555555; /* 中灰色按鈕 */
     border: none;
-    color: #fff;
+    color: #ffffff;
     padding: 10px 20px;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 4px;
     font-size: 16px;
     transition: background-color 0.3s ease;
 }
 
 #comment-form button:hover {
-    background-color: #c9302c; /* 深紅色調 */
+    background-color: #333333; /* 深灰色按鈕 */
 }
 
 .comment {
-    border: 1px solid #ddd;
+    border: 1px solid #dddddd; /* 淡灰色邊框 */
     padding: 10px;
     margin-bottom: 10px;
-    border-radius: 5px;
-    background-color: #f9f9f9; /* 背景顏色 */
+    border-radius: 4px;
+    background-color: #ffffff; /* 使用白色背景 */
     font-size: 16px;
 }
 
@@ -169,18 +169,18 @@ header h1 {
 }
 
 .comment button {
-    background-color: #d9534f; /* 溫暖的紅色調 */
+    background-color: #555555; /* 中灰色按鈕 */
     border: none;
-    color: #fff;
+    color: #ffffff;
     padding: 5px;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 4px;
     margin-right: 5px;
     transition: background-color 0.3s ease;
 }
 
 .comment button:hover {
-    background-color: #c9302c; /* 深紅色調 */
+    background-color: #333333; /* 深灰色按鈕 */
 }
 
 /* 花籃展示 */
@@ -188,8 +188,8 @@ header h1 {
     margin: 30px auto;
     padding: 20px;
     max-width: 800px;
-    background-color: #fff; /* 背景顏色 */
-    border-radius: 10px;
+    background-color: #ffffff; /* 使用白色背景 */
+    border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 增加陰影效果 */
     text-align: center;
 }
@@ -197,13 +197,13 @@ header h1 {
 #donate-flower h2 {
     font-size: 26px;
     font-weight: 600;
-    color: #d9534f; /* 溫暖的紅色調 */
+    color: #444444; /* 深灰色文字 */
     margin-bottom: 20px;
 }
 
 #donate-flower p {
     font-size: 16px;
-    color: #333;
+    color: #333333; /* 深灰色文字 */
 }
 
 #flower-basket-gallery {
@@ -223,7 +223,7 @@ header h1 {
 .flower-basket-item img {
     width: 100%;
     height: auto;
-    border: 1px solid #ddd;
+    border: 1px solid #dddddd; /* 淡灰色邊框 */
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 增加陰影效果 */
 }
@@ -236,11 +236,11 @@ header h1 {
 .price {
     margin-top: 10px;
     font-size: 18px;
-    color: #d9534f; /* 溫暖的紅色調 */
+    color: #444444; /* 深灰色文字 */
 }
 
 #donate-flower a {
-    color: #d9534f; /* 溫暖的紅色調 */
+    color: #555555; /* 中灰色 */
     text-decoration: none;
     font-weight: bold;
 }
@@ -257,20 +257,20 @@ header h1 {
 
 /* 頁尾 */
 footer {
-    background-color: #fff;
+    background-color: #ffffff; /* 使用白色背景 */
     padding: 20px;
     text-align: center;
-    border-top: 2px solid #e0e0e0;
+    border-top: 1px solid #dddddd; /* 淡灰色邊框 */
     box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1); /* 增加陰影效果 */
 }
 
 footer p {
     font-size: 16px;
-    color: #333;
+    color: #333333; /* 深灰色文字 */
 }
 
 footer a {
-    color: #d9534f; /* 溫暖的紅色調 */
+    color: #555555; /* 中灰色 */
     text-decoration: none;
 }
 
