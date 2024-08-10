@@ -1,76 +1,62 @@
-/* 基本樣式設定 */
+/* General Styles */
 body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    line-height: 1.6;
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
     color: #333;
-    background-color: #f4f1f0;
     margin: 0;
     padding: 0;
 }
 
 header {
-    background-color: #6d4c41;
-    color: #fff;
-    padding: 20px 0;
+    background-color: #f2f2f2;
+    padding: 10px;
     text-align: center;
 }
 
-header .logo {
-    width: 180px;
-    margin-bottom: 10px;
+.logo {
+    max-width: 150px;
 }
 
 main {
-    padding: 30px;
-    background-color: #fff;
-    margin: 20px auto;
-    max-width: 1200px;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 20px;
 }
 
-h2 {
-    color: #6d4c41;
-    border-bottom: 3px solid #6d4c41;
-    padding-bottom: 10px;
+/* Main Photo Section */
+.main-photo-section {
+    text-align: center;
     margin-bottom: 20px;
-    font-size: 24px;
 }
 
-#main-photo {
-    width: 100%;
-    border-radius: 12px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+.main-photo-section img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Carousel Section */
+.carousel-section {
+    margin-bottom: 20px;
 }
 
 .carousel {
     position: relative;
-    margin: 20px 0;
 }
 
 .carousel img {
-    width: 100%;
-    border-radius: 12px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    border-radius: 10px;
 }
 
 .carousel-button {
-    background-color: #6d4c41;
-    color: #fff;
-    border: none;
-    padding: 12px 18px;
-    cursor: pointer;
-    font-size: 20px;
-    border-radius: 50%;
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.carousel-button:hover {
-    background-color: #8e6e58;
-    transform: translateY(-50%) scale(1.1);
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 18px;
 }
 
 #prev-button {
@@ -81,141 +67,119 @@ h2 {
     right: 10px;
 }
 
+.carousel img {
+    border: 2px solid #fff;
+}
+
+/* Paper Obituary Section */
+.paper-obituary-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.paper-obituary-section img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Timeline Section */
+#timeline {
+    margin-bottom: 20px;
+}
+
+.timeline-event {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #fff;
+}
+
+/* Comments Section */
 #comments-section {
-    margin-top: 30px;
+    margin-bottom: 20px;
 }
 
 #comment-form {
-    margin-bottom: 30px;
-    padding: 20px;
-    background-color: #f9f8f7;
-    border-radius: 8px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-}
-
-#comment-form label {
-    display: block;
-    margin: 10px 0 5px;
-    color: #6d4c41;
-    font-weight: bold;
-}
-
-#comment-form input, #comment-form textarea {
-    width: calc(100% - 22px);
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
     margin-bottom: 10px;
-    box-sizing: border-box;
 }
 
-#comment-form button {
-    background-color: #6d4c41;
-    color: #fff;
-    border: none;
-    padding: 12px 18px;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 8px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-#comment-form button:hover {
-    background-color: #8e6e58;
-    transform: scale(1.05);
+#comments-container {
+    margin-top: 10px;
 }
 
 .comment {
-    margin: 15px 0;
-    padding: 15px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    background-color: #fefefe;
-    position: relative;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #fff;
+    margin-bottom: 10px;
 }
 
-.comment p {
-    margin: 0;
-    font-size: 16px;
-}
-
-.comment button {
-    background-color: #6d4c41;
-    color: #fff;
-    border: none;
-    padding: 6px 12px;
-    cursor: pointer;
-    font-size: 14px;
-    border-radius: 6px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.comment button:hover {
-    background-color: #8e6e58;
-    transform: scale(1.05);
-}
-
+/* Donate Flower Section */
 #donate-flower {
-    margin-top: 30px;
+    margin-bottom: 20px;
 }
 
-#donate-button {
-    background-color: #6d4c41;
-    color: #fff;
-    border: none;
-    padding: 12px 20px;
+.flower-basket-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.flower-basket-gallery img {
+    width: 100px;
+    height: auto;
     cursor: pointer;
-    font-size: 18px;
-    border-radius: 8px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    border-radius: 10px;
+}
+
+.flower-basket-gallery img:hover {
+    opacity: 0.8;
+}
+
+/* Magnify Effect */
+.magnifier {
+    position: relative;
+    cursor: zoom-in;
+}
+
+.magnifier img {
     display: block;
-    margin: 0 auto;
+    width: 100%;
+    height: auto;
 }
 
-#donate-button:hover {
-    background-color: #8e6e58;
-    transform: scale(1.05);
+.magnifier:hover::after {
+    content: '';
+    position: absolute;
+    border: 3px solid #000;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.7);
+    width: 100px;
+    height: 100px;
+    top: 0;
+    left: 0;
+    pointer-events: none;
 }
 
-#flower-basket {
-    display: none;
+/* Music Controls */
+.music-controls {
+    display: flex;
+    justify-content: center;
     margin-top: 20px;
 }
 
-.basket-style {
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #fafafa;
-    text-align: center;
-}
-
-.basket-style img {
-    width: 150px;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-footer {
-    background-color: #6d4c41;
+.music-controls button {
+    background: #007bff;
     color: #fff;
-    text-align: center;
-    padding: 20px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 0 5px;
 }
 
-footer a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 10px;
-}
-
-footer a:hover {
-    text-decoration: underline;
+.music-controls button:hover {
+    background: #0056b3;
 }
