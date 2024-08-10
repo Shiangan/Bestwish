@@ -1,5 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
-    document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     // 从 localStorage 获取图片 URL
     const mainPhotoUrl = localStorage.getItem('mainPhotoUrl');
     const additionalPhotoUrls = JSON.parse(localStorage.getItem('additionalPhotoUrls')) || [];
@@ -30,21 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
         slidesToShow: 1,
         slidesToScroll: 1
     });
-});
-    function nextSlide() {
-        showSlide(currentSlide + 1);
-    }
 
-    function prevSlide() {
-        showSlide(currentSlide - 1);
-    }
-
-    prevButton.addEventListener('click', prevSlide);
-    nextButton.addEventListener('click', nextSlide);
-
-    setInterval(nextSlide, 5000); // 每5秒切换一次
-
-    // 添加照片点击放大的功能
+    // 照片点击放大功能
     const modal = document.getElementById('modal');
     const modalImg = document.getElementById('modal-img');
     const captionText = document.getElementById('caption');
@@ -62,30 +48,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    setupPhotoClick('#photo-carousel img');
-    setupPhotoClick('#paper-obituary');
+    setupPhotoClick('.carousel img');
+    setupPhotoClick('#main-photo');
     setupPhotoClick('#flower-basket img');
 
     closeModal.addEventListener('click', () => {
         modal.style.display = 'none';
     });
-
-    // 主要照片和轮播照片的设置
-    const mainPhoto = document.getElementById('main-photo');
-    const mainPhotoSrc = localStorage.getItem('mainPhotoSrc');
-    if (mainPhotoSrc) {
-        mainPhoto.src = mainPhotoSrc;
-    }
-
-    const carouselImagesSrc = JSON.parse(localStorage.getItem('additionalPhotos')) || [];
-    const carouselImagesContainer = document.getElementById('carousel-images');
-    carouselImagesContainer.innerHTML = carouselImagesSrc.map(src => `
-        <div class="carousel-slide">
-            <img src="${src}" alt="轮播照片">
-        </div>
-    `).join('');
-
-    showSlide(currentSlide);
 
     // 音乐控制的 JavaScript
     const backgroundMusic = document.getElementById('background-music');
