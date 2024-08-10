@@ -3,97 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>祥安生命有限公司－訃聞資料提交</title>
-    <link rel="stylesheet" href="index.css">
+    <title>訃聞資料</title>
+    <link rel="stylesheet" href="invitation.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
-    <script src="index.js" defer></script>
 </head>
 <body>
     <header>
         <img src="image/logo.png" alt="祥安生命有限公司 Logo" class="logo">
     </header>
     <main>
-        <section id="info-form-section">
-            <h2>訃聞資料提交</h2>
-            <form id="info-form" enctype="multipart/form-data">
-                <!-- 表单内容 -->
-                <label for="name">姓名:</label>
-                <input type="text" id="name" name="name" required>
-
-                <label for="photo">追思照片:</label>
-                <input type="file" id="photo" name="photo" accept="image/*" required>
-
-                <label for="additional-photos">其他照片（可選不限張數）:</label>
-                <input type="file" id="additional-photos" name="additional-photos[]" accept="image/*" multiple>
-
-                <label for="paper-obituary">訃聞紙本內容:</label>
-                <input type="file" id="paper-obituary" name="paper-obituary" accept="image/*">
-
-                <label for="birth-date">出生日期:</label>
-                <input type="date" id="birth-date" name="birth-date" required>
-
-                <label for="death-date">死亡日期:</label>
-                <input type="date" id="death-date" name="death-date" required>
-
-                <label for="funeral-space">牌位安置地點:</label>
-                <textarea id="funeral-space" name="funeral-space"></textarea>
-
-                <label for="funeral-date">出殯日期:</label>
-                <input type="date" id="funeral-date" name="funeral-date" required>
-
-                <label for="funeral-location">出殯地點:</label>
-                <select id="funeral-location" name="funeral-location" required>
-                    <option value="第二殯儀館">第二殯儀館 禮廳</option>
-                    <option value="板橋殯儀館">板橋殯儀館 禮廳</option>
-                    <option value="其他">其他</option>
-                </select>
-
-                <input type="text" id="other-funeral-location" name="other-funeral-location" placeholder="若選擇其他，請填寫地點" style="display: none;">
-
-                <label for="family-service-time">家奠禮時間:</label>
-                <input type="time" id="family-service-time" name="family-service-time" required>
-
-                <label for="public-service-time">公奠禮時間:</label>
-                <input type="time" id="public-service-time" name="public-service-time" required>
-
-                <label for="life-story">生平介紹:</label>
-                <textarea id="life-story" name="life-story"></textarea>
-
-                <label for="music-choice">選擇背景音樂:</label>
-                <select id="music-choice" name="music-choice">
-                    <option value="audio/music1.mp3">音樂1</option>
-                    <option value="audio/music2.mp3">音樂2</option>
-                    <option value="audio/music3.mp3">音樂3</option>
-                    <option value="audio/music4.mp3">音樂4</option>
-                    <option value="audio/music5.mp3">音樂5</option>
-                </select>
-
-                <label for="custom-music">或上傳自定義音樂:</label>
-                <input type="file" id="custom-music" name="custom-music" accept="audio/*">
-
-                <button type="submit">提交</button>
-            </form>
+        <section id="main-photo-section">
+            <h2>主照片</h2>
+            <img id="main-photo" alt="主照片">
         </section>
-        
-        <!-- 示例轮播图区域 -->
-        <section id="photo-carousel-section">
-            <h2>追思照片</h2>
-            <div class="carousel">
-                <div><img src="image/photo1.jpg" alt="照片1"></div>
-                <div><img src="image/photo2.jpg" alt="照片2"></div>
-                <div><img src="image/photo3.jpg" alt="照片3"></div>
-                <!-- 更多照片 -->
-            </div>
+
+        <section id="additional-photos-section">
+            <h2>其他照片</h2>
+            <div class="carousel" id="additional-photos"></div>
         </section>
     </main>
     <footer>
         <p>&copy; 2024 祥安生命有限公司. 版權所有.</p>
-        <p>
-            承辦禮儀公司：祥安生命有限公司<br>
-            <a href="https://line.me/ti/p/你的LineID" target="_blank">Line 聯絡我們</a><br>
-            <a href="tel:+886978583699">聯絡電話: +886 978 583 699</a>
-        </p>
     </footer>
     <audio id="background-music" loop>
         <source src="audio/default-music.mp3" type="audio/mp3">
@@ -105,6 +36,26 @@
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const mainPhoto = document.getElementById('main-photo');
+            const additionalPhotosContainer = document.getElementById('additional-photos');
+            const backgroundMusic = document.getElementById('background-music');
+            const playMusicButton = document.getElementById('play-music');
+            const stopMusicButton = document.getElementById('stop-music');
+
+            // 读取并显示主照片
+            const mainPhotoUrl = localStorage.getItem('mainPhoto');
+            if (mainPhotoUrl) {
+                mainPhoto.src = mainPhotoUrl;
+            }
+
+            // 读取并显示附加照片
+            const additionalPhotos = JSON.parse(localStorage.getItem('additionalPhotos')) || [];
+            additionalPhotos.forEach(photoDataUrl => {
+                const img = document.createElement('img');
+                img.src = photoDataUrl;
+                additionalPhotosContainer.appendChild(img);
+            });
+
             // 初始化 Slick Carousel
             $('.carousel').slick({
                 dots: true,
@@ -114,22 +65,38 @@
                 slidesToScroll: 1
             });
 
-            // 音乐播放控制
-            const playMusicButton = document.getElementById('play-music');
-            const stopMusicButton = document.getElementById('stop-music');
-            const backgroundMusic = document.getElementById('background-music');
-
+            // 播放音乐
             playMusicButton.addEventListener('click', () => {
                 backgroundMusic.play().catch(error => console.error("播放背景音乐失败", error));
                 playMusicButton.style.display = 'none';
                 stopMusicButton.style.display = 'inline';
             });
 
+            // 停止音乐
             stopMusicButton.addEventListener('click', () => {
                 backgroundMusic.pause();
                 playMusicButton.style.display = 'inline';
                 stopMusicButton.style.display = 'none';
             });
+
+            // 音乐播放控制
+            function loadStoredSettings() {
+                const storedMusicUrl = localStorage.getItem('musicUrl');
+                const isMusicPlaying = localStorage.getItem('musicPlaying') === 'true';
+
+                if (storedMusicUrl) {
+                    backgroundMusic.src = storedMusicUrl;
+                    if (isMusicPlaying) {
+                        backgroundMusic.play().catch(error => {
+                            console.error("播放背景音乐失败:", error);
+                        });
+                        playMusicButton.style.display = 'none';
+                        stopMusicButton.style.display = 'inline';
+                    }
+                }
+            }
+
+            loadStoredSettings();
         });
     </script>
 </body>
