@@ -145,27 +145,4 @@
         </p>
     </footer>
 
-    <!-- 載入留言的 JavaScript 程式碼 -->
-    <script>
-        document.getElementById('comment-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const name = document.getElementById('comment-name').value;
-            const message = document.getElementById('comment-message').value;
-
-            if (name && message) {
-                const commentContainer = document.getElementById('comments-container');
-                const comment = document.createElement('div');
-                comment.className = 'comment';
-
-                comment.innerHTML = `<p><strong>${name}</strong></p><p>${message}</p>`;
-
-                commentContainer.appendChild(comment);
-
-                document.getElementById('comment-name').value = '';
-                document.getElementById('comment-message').value = '';
-            }
-        });
-    </script>
-</body>
-</html>
+    
