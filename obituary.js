@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // 初始化 slick 旋转木马
+    // Initialize slick carousel
     $('.carousel').slick({
         dots: true,
         infinite: true,
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
         cssEase: 'linear'
     });
 
-    // 花篮展示切换
+    // Toggle flower basket display
     document.getElementById('show-flower-baskets').addEventListener('click', function(e) {
         e.preventDefault();
         const gallery = document.getElementById('flower-basket-gallery');
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
         this.textContent = gallery.style.display === 'block' ? '隱藏花籃' : '檢視花籃';
     });
 
-    // 处理留言提交
+    // Handle comment submission
     const commentForm = document.getElementById('comment-form');
     const commentsContainer = document.getElementById('comments-container');
 
@@ -30,31 +30,36 @@ document.addEventListener('DOMContentLoaded', function() {
             const message = document.getElementById('comment-message').value.trim();
 
             if (name && message) {
-                const commentElement = document.createElement('div');
-                commentElement.classList.add('comment');
-
-                const commentName = document.createElement('h3');
-                commentName.textContent = name;
-                commentElement.appendChild(commentName);
-
-                const commentMessage = document.createElement('p');
-                commentMessage.textContent = message;
-                commentElement.appendChild(commentMessage);
-
+                const commentElement = createCommentElement(name, message);
                 commentsContainer.appendChild(commentElement);
 
-                // 保存到 localStorage
+                // Save to localStorage
                 saveComment(name, message);
 
-                // 清空表单
+                // Clear the form
                 commentForm.reset();
             } else {
                 alert("請填寫所有欄位！");
             }
         });
 
-        // 加载之前保存的留言
+        // Load previously saved comments
         loadComments();
+    }
+
+    function createCommentElement(name, message) {
+        const commentElement = document.createElement('div');
+        commentElement.classList.add('comment');
+
+        const commentName = document.createElement('h3');
+        commentName.textContent = name;
+        commentElement.appendChild(commentName);
+
+        const commentMessage = document.createElement('p');
+        commentMessage.textContent = message;
+        commentElement.appendChild(commentMessage);
+
+        return commentElement;
     }
 
     function saveComment(name, message) {
@@ -63,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
             comments.push({ name, message });
             localStorage.setItem('comments', JSON.stringify(comments));
         } catch (error) {
-            console.error('保存留言时发生错误：', error);
+            console.error('保存留言時發生錯誤：', error);
         }
     }
 
@@ -71,29 +76,19 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             const comments = JSON.parse(localStorage.getItem('comments')) || [];
             comments.forEach(comment => {
-                const commentElement = document.createElement('div');
-                commentElement.classList.add('comment');
-
-                const commentName = document.createElement('h3');
-                commentName.textContent = comment.name;
-                commentElement.appendChild(commentName);
-
-                const commentMessage = document.createElement('p');
-                commentMessage.textContent = comment.message;
-                commentElement.appendChild(commentMessage);
-
+                const commentElement = createCommentElement(comment.name, comment.message);
                 commentsContainer.appendChild(commentElement);
             });
         } catch (error) {
-            console.error('加载留言时发生错误：', error);
+            console.error('加載留言時發生錯誤：', error);
         }
     }
 
-    // 自动播放音乐
+    // Autoplay music
     const audio = document.getElementById('background-music');
     if (audio) {
         audio.play().catch(error => {
-            console.log('音乐播放被阻止或遇到错误：', error);
+            console.log('音樂播放被阻止或遇到錯誤：', error);
         });
     }
 });
