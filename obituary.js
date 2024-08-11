@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize slick carousel
+    // Initialize carousel
     $('.carousel').slick({
         dots: true,
         infinite: true,
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
         cssEase: 'linear'
     });
 
-    // Toggle flower basket display
+    // Toggle flower basket gallery display
     document.getElementById('show-flower-baskets').addEventListener('click', function(e) {
         e.preventDefault();
         const gallery = document.getElementById('flower-basket-gallery');
@@ -30,13 +30,23 @@ document.addEventListener('DOMContentLoaded', function() {
             const message = document.getElementById('comment-message').value.trim();
 
             if (name && message) {
-                const commentElement = createCommentElement(name, message);
+                const commentElement = document.createElement('div');
+                commentElement.classList.add('comment');
+
+                const commentName = document.createElement('h3');
+                commentName.textContent = name;
+                commentElement.appendChild(commentName);
+
+                const commentMessage = document.createElement('p');
+                commentMessage.textContent = message;
+                commentElement.appendChild(commentMessage);
+
                 commentsContainer.appendChild(commentElement);
 
                 // Save to localStorage
                 saveComment(name, message);
 
-                // Clear the form
+                // Reset the form
                 commentForm.reset();
             } else {
                 alert("請填寫所有欄位！");
@@ -45,21 +55,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Load previously saved comments
         loadComments();
-    }
-
-    function createCommentElement(name, message) {
-        const commentElement = document.createElement('div');
-        commentElement.classList.add('comment');
-
-        const commentName = document.createElement('h3');
-        commentName.textContent = name;
-        commentElement.appendChild(commentName);
-
-        const commentMessage = document.createElement('p');
-        commentMessage.textContent = message;
-        commentElement.appendChild(commentMessage);
-
-        return commentElement;
     }
 
     function saveComment(name, message) {
@@ -76,7 +71,17 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             const comments = JSON.parse(localStorage.getItem('comments')) || [];
             comments.forEach(comment => {
-                const commentElement = createCommentElement(comment.name, comment.message);
+                const commentElement = document.createElement('div');
+                commentElement.classList.add('comment');
+
+                const commentName = document.createElement('h3');
+                commentName.textContent = comment.name;
+                commentElement.appendChild(commentName);
+
+                const commentMessage = document.createElement('p');
+                commentMessage.textContent = comment.message;
+                commentElement.appendChild(commentMessage);
+
                 commentsContainer.appendChild(commentElement);
             });
         } catch (error) {
@@ -84,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Autoplay music
+    // Auto play background music
     const audio = document.getElementById('background-music');
     if (audio) {
         audio.play().catch(error => {
