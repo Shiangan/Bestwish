@@ -18,37 +18,71 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.textContent = gallery.style.display === 'block' ? '隱藏花籃' : '檢視花籃';
             });
 
-            // 提交留言
-            document.getElementById('comment-form').addEventListener('submit', function(e) {
-                e.preventDefault();
+            document.addEventListener('DOMContentLoaded', function() {
+    // 处理提交留言
+    document.getElementById('comment-form').addEventListener('submit', function(e) {
+        e.preventDefault();
 
-                const name = document.getElementById('comment-name').value;
-                const message = document.getElementById('comment-message').value;
-                const commentsContainer = document.getElementById('comments-container');
+        const name = document.getElementById('comment-name').value;
+        const message = document.getElementById('comment-message').value;
+        const commentsContainer = document.getElementById('comments-container');
 
-          // 創建新留言的元素
-                        const commentElement = document.createElement('div');
-                commentElement.classList.add('comment');
+        if (name && message) {
+            const commentElement = document.createElement('div');
+            commentElement.classList.add('comment');
 
-                const commentName = document.createElement('h3');
-                commentName.textContent = name;
-                commentElement.appendChild(commentName);
+            const commentName = document.createElement('h3');
+            commentName.textContent = name;
+            commentElement.appendChild(commentName);
 
-                const commentMessage = document.createElement('p');
-                commentMessage.textContent = message;
-                commentElement.appendChild(commentMessage);
+            const commentMessage = document.createElement('p');
+            commentMessage.textContent = message;
+            commentElement.appendChild(commentMessage);
 
-                // 将新留言添加到留言区
-                commentsContainer.appendChild(commentElement);
+            // 将新留言添加到留言区
+            commentsContainer.appendChild(commentElement);
 
-                // 清空表单
-                document.getElementById('comment-name').value = '';
-                document.getElementById('comment-message').value = '';
+            // 清空表单
+            document.getElementById('comment-name').value = '';
+            document.getElementById('comment-message').value = '';
 
-                // 自动滚动到最新留言
-                commentElement.scrollIntoView({ behavior: 'smooth' });
-            });
-        });
-    </script>
-</body>
-</html>
+            // 自动滚动到最新留言
+            commentElement.scrollIntoView({ behavior: 'smooth' });
+
+            // 将留言保存到本地存储（localStorage），确保页面刷新后仍然显示
+            saveComment(name, message);
+        } else {
+            alert("请填写所有字段！");
+        }
+    });
+
+    // 加载之前保存的留言
+    loadComments();
+});
+
+function saveComment(name, message) {
+    let comments = JSON.parse(localStorage.getItem('comments')) || [];
+    comments.push({ name, message });
+    localStorage.setItem('comments', JSON.stringify(comments));
+}
+
+function loadComments() {
+    const comments = JSON.parse(localStorage.getItem('comments')) || [];
+    const commentsContainer = document.getElementById('comments-container');
+
+    comments.forEach(comment => {
+        const commentElement = document.createElement('div');
+        commentElement.classList.add('comment');
+
+        const commentName = document.createElement('h3');
+        commentName.textContent = comment.name;
+        commentElement.appendChild(commentName);
+
+        const commentMessage = document.createElement('p');
+        commentMessage.textContent = comment.message;
+        commentElement.appendChild(commentMessage);
+
+        commentsContainer.appendChild(commentElement);
+    });
+}
+           
