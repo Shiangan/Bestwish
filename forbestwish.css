@@ -1,250 +1,297 @@
-/* 基本樣式 */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #333;
-    line-height: 1.6;
-    background-color: #f8f9fa;
+/* 基本樣式重置 */
+body, h1, h2, h3, p, div, img, a {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-/* 標題樣式 */
+body {
+    font-family: 'Noto Serif TC', serif; /* 使用更有質感的中文字體 */
+    background-color: #f8f8f8; /* 柔和的背景色 */
+    color: #333; /* 深灰色字體，避免使用過於強烈的紅色 */
+    line-height: 1.6;
+}
+
 header {
-    background: #ffffff;
-    padding: 30px;
     text-align: center;
-    border-bottom: 3px solid #3498db; /* 藍色底邊 */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.logo {
-    width: 120px;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-}
-
-.cross-symbol {
-    width: 100px;
-    height: auto;
-    display: block;
-    margin: 20px auto;
-}
-
-h1 {
-    font-size: 32px;
-    color: #2c3e50;
-    margin: 10px 0;
-    font-weight: 600;
-}
-
-.verse {
-    font-size: 20px;
-    color: #555;
-    margin: 20px 0;
-    font-style: italic;
-}
-
-/* 主要內容區域 */
-main {
     padding: 20px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #ddd;
+}
+
+header img.logo {
+    width: 120px; /* 調整Logo大小以符合質感 */
+    margin-bottom: 10px;
+}
+
+header h1 {
+    font-size: 1.8em;
+    color: #2c3e50; /* 深藍色標題字體，增添穩重感 */
+}
+
+header p.verse {
+    font-style: italic;
+    color: #7f8c8d; /* 使用柔和的灰色 */
+    margin-top: 10px;
+}
+
+.main-photo-section {
+    text-align: center;
+    margin: 20px 0;
 }
 
 .main-photo-section img {
-    width: 100%;
-    max-width: 600px;
+    max-width: 90%;
     height: auto;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-#life-story {
-    font-size: 18px;
-    color: #333;
+.main-photo-section p {
     margin-top: 15px;
-    line-height: 1.8;
+    font-size: 1.1em;
+    color: #34495e; /* 使用深色字體 */
+    padding: 0 10%;
 }
 
 .motto {
     text-align: center;
-    font-size: 24px;
-    color: #3498db;
-    margin: 30px 0;
-    font-weight: 500;
+    font-size: 1.4em;
+    color: #16a085; /* 清新且穩重的顏色 */
+    margin: 20px 0;
 }
 
-/* 訃告正本 */
 .paper-obituary-section {
     text-align: center;
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.paper-obituary-section h2 {
+    color: #2c3e50;
+    margin-bottom: 15px;
 }
 
 .paper-obituary-section img {
-    width: 100%;
-    max-width: 500px;
-    height: auto;
+    max-width: 80%;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    margin-top: 20px;
 }
 
-/* 時間軸 */
 #timeline {
-    margin-top: 30px;
-}
-
-.timeline-container {
-    position: relative;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.timeline-item {
+    margin: 30px auto;
     padding: 20px;
+    background-color: #ffffff;
     border-radius: 8px;
-    background: #ffffff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#timeline h2 {
+    text-align: center;
+    font-size: 1.6em;
+    color: #2c3e50;
     margin-bottom: 20px;
+}
+
+.VivaTimeline {
     position: relative;
+    margin: 0 auto;
+    padding: 20px 0;
+    width: 90%;
 }
 
-.timeline-item:before {
-    content: '';
+.VivaTimeline dl {
+    position: relative;
+    margin: 0;
+}
+
+.VivaTimeline dt {
     position: absolute;
-    top: 20px;
-    left: -10px;
-    width: 10px;
-    height: 10px;
-    background: #3498db;
-    border-radius: 50%;
+    left: 50%;
+    top: 0;
+    width: 0;
+    height: 100%;
+    border-left: 2px solid #ecf0f1; /* 時間軸的顏色 */
+    z-index: 1;
 }
 
-.timeline-content {
-    margin-left: 30px;
-}
-
-.timeline-date {
-    font-size: 16px;
-    color: #999;
-    text-align: right;
-    font-weight: 500;
-}
-
-/* 留言區 */
-#comments-section {
-    margin-top: 30px;
-}
-
-#comment-form {
-    background: #ffffff;
-    padding: 20px;
+.VivaTimeline dd {
+    position: relative;
+    width: 46%;
+    padding: 15px;
+    background: #ecf0f1;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-#comment-form label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 500;
+.VivaTimeline .pos-left {
+    left: 0;
 }
 
-#comment-form input, 
-#comment-form textarea {
-    width: calc(100% - 22px);
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+.VivaTimeline .pos-right {
+    left: 54%;
+}
+
+.VivaTimeline .circ {
+    position: absolute;
+    left: -15px;
+    top: 20px;
+    width: 30px;
+    height: 30px;
+    background: #16a085; /* 配合其他顏色 */
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.VivaTimeline .event {
+    padding-left: 60px;
+}
+
+.VivaTimeline .events-header {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #2c3e50;
     margin-bottom: 10px;
 }
 
-#comment-form button {
-    background: #3498db;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
+.VivaTimeline .events-body p {
+    color: #34495e;
 }
 
-#comment-form button:hover {
-    background: #2980b9;
+#comments-section {
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* 致贈花籃 */
-#donate-flower {
-    margin-top: 30px;
-}
-
-#donate-flower .btn {
-    display: inline-block;
-    background: #3498db;
-    color: #ffffff;
-    padding: 10px 20px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-size: 16px;
+#comments-section h2 {
+    text-align: center;
+    font-size: 1.6em;
+    color: #2c3e50;
     margin-bottom: 20px;
 }
 
-#donate-flower .btn:hover {
-    background: #2980b9;
+#comment-form {
+    margin-bottom: 20px;
+}
+
+#comment-form label {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+#comment-form input,
+#comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#comment-form button {
+    padding: 10px 20px;
+    background-color: #16a085;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+#comment-form button:hover {
+    background-color: #138f6e;
+}
+
+#comments-container {
+    margin-top: 20px;
+}
+
+.comment {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #ecf0f1;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.comment-name {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.comment-message {
+    color: #34495e;
+}
+
+#donate-flower {
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+#donate-flower h2 {
+    font-size: 1.6em;
+    color: #2c3e50;
+    margin-bottom: 20px;
 }
 
 #flower-basket-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+    display: none;
+    margin-top: 20px;
 }
 
 .flower-basket-item {
-    width: 200px;
+    display: inline-block;
+    width: 45%;
+    margin: 10px;
     text-align: center;
 }
 
 .flower-basket-item img {
-    width: 100%;
+    max-width: 100%;
     border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.price {
-    font-size: 18px;
-    color: #333;
+.flower-basket-item p {
     margin-top: 10px;
-    font-weight: 500;
+    font-size: 1.2em;
+    color: #2c3e50;
 }
 
-/* 商務卡片 */
-.business-cards {
+footer {
     text-align: center;
+    padding: 20px;
+    background-color: #ffffff;
+    border-top: 1px solid #ddd;
     margin-top: 30px;
 }
 
-.business-card {
-    width: 300px;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-/* 頁腳 */
-footer {
-    background: #ffffff;
-    padding: 20px;
-    text-align: center;
-    border-top: 3px solid #3498db;
-    box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
-}
-
 footer p {
-    margin: 10px 0;
+    color: #7f8c8d;
+    font-size: 0.9em;
 }
 
 footer a {
-    color: #3498db;
+    color: #16a085;
     text-decoration: none;
 }
 
 footer a:hover {
     text-decoration: underline;
+}
+
+footer img {
+    vertical-align: middle;
+    margin-right: 5px;
 }
