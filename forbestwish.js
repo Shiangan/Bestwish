@@ -1,38 +1,44 @@
-document.addEventListener("DOMContentLoaded", function() {
-    // 背景音樂自動播放
-    const backgroundMusic = document.getElementById('background-music');
-    
-    // 確保音樂在進入頁面時自動播放
-    if (backgroundMusic) {
-        backgroundMusic.play().catch(error => {
-            console.log('自動播放被阻止:', error);
-        });
+document.addEventListener('DOMContentLoaded', function() {
+    // 自動播放背景音樂
+    var music = document.getElementById('background-music');
+    if (music) {
+        music.play();
     }
 
-    // 留言板提交功能
-    const commentForm = document.getElementById('comment-form');
-    const commentsContainer = document.getElementById('comments-container');
+    // 提交留言表單
+    document.getElementById('comment-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // 防止表單默認行為
 
-    commentForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        const name = document.getElementById('comment-name').value.trim();
-        const message = document.getElementById('comment-message').value.trim();
+        var name = document.getElementById('comment-name').value;
+        var message = document.getElementById('comment-message').value;
+        var commentsContainer = document.getElementById('comments-container');
 
         if (name && message) {
-            const newComment = document.createElement('div');
-            newComment.classList.add('comment');
-            newComment.innerHTML = `<strong class="comment-name">${name}</strong><p class="comment-message">${message}</p>`;
+            var commentDiv = document.createElement('div');
+            commentDiv.classList.add('comment');
 
-            commentsContainer.appendChild(newComment);
-            commentForm.reset(); // 重置表單
+            var namePara = document.createElement('p');
+            namePara.classList.add('comment-name');
+            namePara.textContent = name;
+
+            var messagePara = document.createElement('p');
+            messagePara.classList.add('comment-message');
+            messagePara.textContent = message;
+
+            commentDiv.appendChild(namePara);
+            commentDiv.appendChild(messagePara);
+
+            commentsContainer.appendChild(commentDiv);
+
+            // 清空表單
+            document.getElementById('comment-name').value = '';
+            document.getElementById('comment-message').value = '';
         }
     });
 
-    // 花籃展示功能
-    const flowerBasketsButton = document.getElementById('show-flower-baskets');
-    const flowerBasketGallery = document.getElementById('flower-basket-gallery');
-
-    flowerBasketsButton.addEventListener('click', function() {
-        flowerBasketGallery.style.display = 'flex';
+    // 顯示花籃選擇
+    document.getElementById('show-flower-baskets').addEventListener('click', function() {
+        var gallery = document.getElementById('flower-basket-gallery');
+        gallery.style.display = gallery.style.display === 'none' ? 'block' : 'none';
     });
 });
