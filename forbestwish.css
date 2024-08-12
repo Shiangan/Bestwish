@@ -1,8 +1,11 @@
+/* 基本样式 */
 body {
     font-family: 'Noto Sans', '思源黑體', Arial, sans-serif;
     background-color: #f2f2f2;
     color: #333;
     line-height: 1.6;
+    margin: 0;
+    padding: 0;
 }
 
 header {
@@ -17,12 +20,12 @@ header .logo {
 }
 
 header h1 {
-    font-size: 2em;
+    font-size: 1.8em; /* 调整标题字体大小 */
     margin-bottom: 5px;
 }
 
 header .verse {
-    font-size: 1.2em;
+    font-size: 1.1em; /* 调整副标题字体大小 */
     color: #666;
 }
 
@@ -32,29 +35,29 @@ header .verse {
 }
 
 .main-photo-section img {
-    max-width: 90%; /* 调整图片最大宽度 */
+    max-width: 100%; /* 确保图片不会超出屏幕 */
     height: auto;
     border-radius: 10px;
 }
 
 #life-story {
-    font-size: 1.1em;
+    font-size: 1em; /* 调整字体大小 */
     color: #333;
     margin-top: 20px;
-    padding: 0 15%;
+    padding: 0 10%; /* 调整内边距 */
     text-align: justify;
 }
 
 .motto {
     text-align: center;
-    font-size: 1.5em;
+    font-size: 1.2em; /* 调整字体大小 */
     color: #777;
     margin: 40px 0;
 }
 
 #memorial-service {
     text-align: center;
-    font-size: 1.2em;
+    font-size: 1em; /* 调整字体大小 */
     color: #555;
     margin: 30px 0;
 }
@@ -74,8 +77,6 @@ header .verse {
 
 .VivaTimeline dl {
     margin: 0;
-    border-left: 2px solid #ddd; /* 增强时间轴的视觉效果 */
-    padding-left: 20px;
 }
 
 .VivaTimeline dt {
@@ -86,23 +87,22 @@ header .verse {
 .VivaTimeline dd {
     position: relative;
     padding: 10px 0;
-    margin: 20px 0;
 }
 
 .VivaTimeline .circ {
-    width: 12px; /* 增加圆点大小 */
-    height: 12px;
-    background-color: #007bff; /* 更换圆点颜色 */
+    width: 8px; /* 调整圆点大小 */
+    height: 8px;
+    background-color: #6c757d;
     border-radius: 50%;
     position: absolute;
-    left: -20px;
-    top: 10px;
+    left: -10px;
+    top: 15px;
 }
 
 .VivaTimeline .time {
     position: absolute;
-    left: -60px;
-    font-size: 1em; /* 增强时间的可读性 */
+    left: -40px;
+    font-size: 0.9em;
     color: #666;
 }
 
@@ -120,7 +120,6 @@ header .verse {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border: 1px solid #ddd;
 }
 
 #comment-form {
@@ -142,7 +141,7 @@ header .verse {
 
 #comment-form button {
     padding: 10px 20px;
-    background-color: #28a745; /* 与花篮捐赠按钮颜色一致 */
+    background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -150,7 +149,7 @@ header .verse {
 }
 
 #comment-form button:hover {
-    background-color: #218838;
+    background-color: #0056b3;
 }
 
 #comments-container {
@@ -169,31 +168,10 @@ header .verse {
 #donate-flower .btn {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #007bff; /* 与评论表单按钮颜色一致 */
+    background-color: #28a745;
     color: #fff;
     border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-#donate-flower .btn:hover {
-    background-color: #0056b3;
-}
-
-#flower-basket-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px; /* 减小花篮项目之间的间距 */
-    justify-content: center;
-}
-
-.flower-basket-item {
-    flex: 1 1 calc(33% - 30px); /* 微调花篮项目的布局 */
-    max-width: calc(33% - 30px);
-    background-color: #f8f9fa;
-    border-radius: 10px;
-    padding: 10px;
+    border-radius px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
@@ -227,10 +205,4 @@ footer a {
 
 footer a:hover {
     text-decoration: underline;
-}
-
-@media (max-width: 768px) {
-    .flower-basket-item {
-        flex: 1 1 100%;
-    }
 }
