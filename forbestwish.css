@@ -47,7 +47,15 @@ footer {
 /* Logo 設計 */
 header .logo {
     max-width: 50px; /* 縮小 Logo */
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+}
+
+/* 頁腳中的聯繫圖標 */
+footer .contact-icon {
+    vertical-align: middle;
+    width: 20px; /* 調整圖標寬度 */
+    height: 20px; /* 調整圖標高度 */
+    margin-right: 10px; /* 添加右側邊距（可選） */
 }
 
 /* 主內容區域 */
