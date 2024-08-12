@@ -3,21 +3,35 @@ body {
     font-family: 'Lora', serif;
     font-size: 16px;
     color: #2C2C2C;
-    background-color: #F0F8FF;
+    background-color: #E9F5FF; /* 調整背景顏色 */
     margin: 0;
     padding: 0;
     line-height: 1.8;
     display: flex;
     flex-direction: column;
-    align-items: center; /* 使頁面內容集中 */
+    align-items: center;
+}
+
+/* 標誌樣式 */
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: #FFF;
+    border-bottom: 2px solid #E0E0E0;
+}
+
+.logo {
+    max-width: 120px; /* 設定標誌的最大寬度 */
+    height: auto;
+    margin-bottom: 10px;
 }
 
 /* 主內容區域 */
 main {
     background-color: #FFF;
-    padding: 20px;
+    padding: 30px; /* 增加內邊距 */
     border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1); /* 更深的陰影 */
     max-width: 800px;
     margin: 20px auto;
     width: 100%; /* 確保主內容區域自適應 */
@@ -32,15 +46,16 @@ main {
 }
 
 .business-card {
-    width: 160px; /* 調整名片的寬度 */
+    width: 180px; /* 稍微增大名片寬度 */
     height: auto;
-    border-radius: 5px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    border-radius: 8px; /* 更圓滑的邊角 */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .business-card:hover {
     transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* 更強的陰影效果 */
 }
 
 /* 圖片樣式 */
@@ -48,20 +63,21 @@ img {
     width: 100%;
     height: auto;
     max-width: 100%;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-    transition: transform 0.4s ease;
+    border-radius: 12px; /* 調整邊角圓滑度 */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* 更深的陰影 */
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 img:hover {
     transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); /* 更強的陰影效果 */
 }
 
 /* 花籃展示 */
 #flower-basket-gallery {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around; /* 改為 space-around */
     gap: 20px;
     margin-top: 20px;
 }
@@ -73,10 +89,10 @@ img:hover {
 
 #flower-basket-gallery .flower-basket-item img {
     width: 100%;
-    max-width: 160px;
+    max-width: 180px; /* 增大圖片寬度 */
     margin: 0 auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
     transition: transform 0.4s ease;
 }
 
@@ -92,10 +108,10 @@ img:hover {
 #comment-form input[type="text"],
 #comment-form textarea {
     width: 100%;
-    padding: 10px;
+    padding: 12px; /* 增加內邊距 */
     margin-bottom: 15px;
     border: 1px solid #CCC;
-    border-radius: 5px;
+    border-radius: 8px; /* 調整邊角圓滑度 */
     font-family: inherit;
     font-size: 1rem;
 }
@@ -103,15 +119,16 @@ img:hover {
 #comment-form button {
     background-color: #007BFF;
     color: #FFF;
-    padding: 10px 20px;
+    padding: 12px 25px; /* 增加內邊距 */
     border: none;
-    border-radius: 5px;
+    border-radius: 8px; /* 調整邊角圓滑度 */
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 #comment-form button:hover {
-    background-color: #0056b3; /* 完成 button:hover 的顏色 */
+    background-color: #0056b3;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 增加陰影效果 */
 }
 
 /* 留言顯示 */
@@ -121,10 +138,10 @@ img:hover {
 
 .comment {
     background-color: #F9F9F9;
-    border-radius: 10px;
+    border-radius: 12px; /* 調整邊角圓滑度 */
     padding: 15px;
     margin-bottom: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .comment strong {
@@ -155,7 +172,7 @@ img:hover {
     }
 
     #flower-basket-gallery .flower-basket-item img {
-        max-width: 120px;
+        max-width: 140px; /* 調整圖片大小 */
     }
 
     img {
