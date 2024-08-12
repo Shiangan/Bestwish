@@ -156,7 +156,7 @@ img:hover {
 }
 
 #comment-form button:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; /* 完成 button:hover 的顏色 */
 }
 
 /* 留言顯示 */
