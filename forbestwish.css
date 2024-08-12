@@ -1,7 +1,7 @@
 /* 基本样式 */
 body {
     font-family: 'Noto Sans', '思源黑體', Arial, sans-serif;
-    background-color: #f5f5f5; /* 更温暖的背景色 */
+    background-color: #f0f8ff; /* 更柔和的背景色 */
     color: #333;
     line-height: 1.6;
     margin: 0;
@@ -11,24 +11,24 @@ body {
 header {
     text-align: center;
     padding: 20px;
-    background-color: #ffffff; /* 更亮的背景色 */
-    border-bottom: 2px solid #e0e0e0; /* 更柔和的边框色 */
+    background-color: #ffffff; /* 背景色 */
+    border-bottom: 2px solid #e0e0e0; /* 边框色 */
 }
 
 header .logo {
-    width: 50px; /* 更小的 Logo 大小 */
+    width: 60px; /* 调整 Logo 大小 */
     margin-bottom: 10px;
 }
 
 header h1 {
-    font-size: 2.2em; /* 增大标题字号 */
-    margin-bottom: 5px;
-    color: #4a4a4a; /* 更柔和的文字颜色 */
+    font-size: 2.4em; /* 增大标题字号 */
+    color: #003366; /* 更深的标题颜色 */
+    margin: 10px 0;
 }
 
 header .verse {
     font-size: 1.2em;
-    color: #666;
+    color: #555; /* 更柔和的文字颜色 */
     margin: 0;
     padding: 0 20px;
 }
@@ -45,7 +45,7 @@ header .verse {
     max-width: 100%;
     height: auto;
     border-radius: 10px;
-    border: 1px solid #ddd;
+    border: 2px solid #ddd;
 }
 
 /* 生平与追思内容 */
@@ -53,10 +53,10 @@ header .verse {
     font-size: 1.2em;
     color: #333;
     margin: 20px auto;
-    padding: 0 10%;
+    padding: 20px;
     text-align: justify;
     line-height: 1.8;
-    background-color: #ffffff; /* 添加背景色 */
+    background-color: #ffffff; /* 背景色 */
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
@@ -65,7 +65,7 @@ header .verse {
 .motto {
     text-align: center;
     font-size: 1.5em;
-    color: #555;
+    color: #003366;
     margin: 40px auto;
 }
 
@@ -79,7 +79,7 @@ header .verse {
     max-width: 100%;
     height: auto;
     border-radius: 10px;
-    border: 1px solid #ddd;
+    border: 2px solid #ddd;
 }
 
 /* 时间线 */
@@ -103,7 +103,7 @@ header .verse {
 
 .VivaTimeline dt {
     font-weight: bold;
-    color: #333;
+    color: #003366;
 }
 
 .VivaTimeline dd {
@@ -114,7 +114,7 @@ header .verse {
 .VivaTimeline .circ {
     width: 12px;
     height: 12px;
-    background-color: #8c8c8c;
+    background-color: #003366; /* 时间点颜色 */
     border-radius: 50%;
     position: absolute;
     left: -20px;
@@ -125,7 +125,7 @@ header .verse {
     position: absolute;
     left: -60px;
     font-size: 0.9em;
-    color: #888;
+    color: #666;
 }
 
 .VivaTimeline .event {
@@ -165,7 +165,7 @@ header .verse {
 
 #comment-form button {
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #003366;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -173,7 +173,7 @@ header .verse {
 }
 
 #comment-form button:hover {
-    background-color: #0056b3;
+    background-color: #002244;
 }
 
 /* 花篮部分 */
@@ -244,7 +244,7 @@ footer p {
 }
 
 footer a {
-    color: #007bff;
+    color: #003366;
     text-decoration: none;
 }
 
