@@ -21,7 +21,7 @@ header {
 }
 
 .logo {
-    max-width: 120px; /* 設定標誌的最大寬度 */
+    max-width: 60px; /* 設定標誌的最大寬度 */
     height: auto;
     margin-bottom: 10px;
 }
