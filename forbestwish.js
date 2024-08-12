@@ -1,107 +1,91 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // 自動播放背景音樂
-    var music = document.getElementById('background-music');
-    if (music) {
-        music.play().catch(function(error) {
-            console.error('自動播放音樂失敗:', error);
+document.addEventListener("DOMContentLoaded", function () {
+    // Timeline animation
+    function animateTimeline() {
+        const timelineBlocks = document.querySelectorAll(".VivaTimeline .event");
+        timelineBlocks.forEach(function (block) {
+            const rect = block.getBoundingClientRect();
+            if (rect.top <= window.innerHeight * 0.75 && rect.bottom >= 0) {
+                block.classList.add("animated");
+            } else {
+                block.classList.remove("animated");
+            }
         });
     }
 
-    // 載入已保存的留言
-    loadComments();
+    // Comment Section: Handle comment form submission
+    const commentForm = document.getElementById("comment-form");
+    const commentsContainer = document.getElementById("comments-container");
+    let comments = JSON.parse(localStorage.getItem("comments")) || [];
 
-    // 提交留言表單
-    document.getElementById('comment-form').addEventListener('submit', function(event) {
-        event.preventDefault(); // 防止表單默認行為
+    function displayComments() {
+        commentsContainer.innerHTML = comments
+            .map(
+                (comment, index) => `
+                <div class="comment">
+                    <strong>${comment.name}</strong>: ${comment.message}
+                    <button class="edit-comment" data-index="${index}">編輯</button>
+                    <button class="delete-comment" data-index="${index}">刪除</button>
+                </div>`
+            )
+            .join("");
+    }
 
-        var name = document.getElementById('comment-name').value.trim();
-        var message = document.getElementById('comment-message').value.trim();
+    function saveComments() {
+        localStorage.setItem("comments", JSON.stringify(comments));
+        displayComments();
+    }
 
-        if (name && message) {
-            var comment = {
-                name: name,
-                message: message
-            };
+    commentForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const name = document.getElementById("comment-name").value;
+        const message = document.getElementById("comment-message").value;
+        comments.push({ name, message });
+        saveComments();
+        commentForm.reset();
+    });
 
-            try {
-                // 保存留言到本地儲存
-                saveComment(comment);
-                
-                // 清空表單
-                document.getElementById('comment-name').value = '';
-                document.getElementById('comment-message').value = '';
-            } catch (error) {
-                console.error('保存留言失敗:', error);
+    // Handle edit and delete buttons
+    commentsContainer.addEventListener("click", function (e) {
+        const index = e.target.dataset.index;
+        if (e.target.classList.contains("edit-comment")) {
+            const newMessage = prompt("編輯留言:", comments[index].message);
+            if (newMessage !== null) {
+                comments[index].message = newMessage;
+                saveComments();
             }
-        } else {
-            alert('請填寫完整的留言信息。');
+        } else if (e.target.classList.contains("delete-comment")) {
+            if (confirm("確定要刪除此留言嗎?")) {
+                comments.splice(index, 1);
+                saveComments();
+            }
         }
     });
 
-    // 簡單的密碼保護
-    var password = prompt("请输入管理员密码：");
-
-    if (password === "ava85110") { // 替換為您的實際密碼
-        var clearCommentsButton = document.getElementById('clear-comments-button');
-        clearCommentsButton.style.display = 'block'; // 顯示清除留言按鈕
-
-        clearCommentsButton.addEventListener('click', function() {
-            if (confirm('確定要清除所有留言嗎？此操作無法撤銷。')) {
-                clearAllComments();
-            }
-        });
-    }
-
-    // 顯示花籃選擇
-    document.getElementById('show-flower-baskets').addEventListener('click', function() {
-        var gallery = document.getElementById('flower-basket-gallery');
-        gallery.style.display = gallery.style.display === 'none' ? 'block' : 'none';
+    // Clear all comments (only for admin)
+    const clearCommentsButton = document.getElementById("clear-comments-button");
+    clearCommentsButton.addEventListener("click", function () {
+        if (confirm("確定要清除所有留言嗎?")) {
+            comments = [];
+            saveComments();
+        }
     });
+
+    // Display comments on load
+    displayComments();
+
+    // Flower basket section toggle
+    const flowerBasketGallery = document.getElementById("flower-basket-gallery");
+    document.getElementById("show-flower-baskets").addEventListener("click", function () {
+        flowerBasketGallery.style.display = "block";
+    });
+
+    // Background music autoplay
+    const backgroundMusic = document.getElementById("background-music");
+    backgroundMusic.play();
+
+    // Window scroll event for timeline animation
+    window.addEventListener("scroll", animateTimeline);
+
+    // Initial timeline animation check
+    animateTimeline();
 });
-
-function saveComment(comment) {
-    try {
-        // 獲取當前留言
-        var comments = JSON.parse(localStorage.getItem('comments')) || [];
-        comments.push(comment);
-        localStorage.setItem('comments', JSON.stringify(comments));
-
-        // 重新加載留言
-        loadComments();
-    } catch (error) {
-        console.error('保存留言到本地儲存失敗:', error);
-    }
-}
-
-function loadComments() {
-    var commentsContainer = document.getElementById('comments-container');
-    commentsContainer.innerHTML = '';
-
-    try {
-        var comments = JSON.parse(localStorage.getItem('comments')) || [];
-        comments.forEach(function(comment) {
-            var commentDiv = document.createElement('div');
-            commentDiv.classList.add('comment');
-
-            var namePara = document.createElement('p');
-            namePara.classList.add('comment-name');
-            namePara.textContent = comment.name;
-
-            var messagePara = document.createElement('p');
-            messagePara.classList.add('comment-message');
-            messagePara.textContent = comment.message;
-
-            commentDiv.appendChild(namePara);
-            commentDiv.appendChild(messagePara);
-
-            commentsContainer.appendChild(commentDiv);
-        });
-    } catch (error) {
-        console.error('從本地儲存加載留言失敗:', error);
-    }
-}
-
-function clearAllComments() {
-    localStorage.removeItem('comments'); // 清空本地存儲中的留言
-    loadComments(); // 重新加載評論區域，清空顯示的留言
-}
