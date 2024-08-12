@@ -38,6 +38,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+               // 清除所有留言
+               function clearAllComments() {
+               localStorage.removeItem('comments'); // 清空本地存储中的评论
+               loadComments(); // 重新加载评论区域，清空显示的评论
+        }
+
+              // 添加按钮来触发删除所有评论的功能 (仅用于管理员访问的部分)
+             document.getElementById('clear-comments-button').addEventListener('click', function() {
+             if (confirm('确定要清除所有留言吗？此操作无法撤销。')) {
+             clearAllComments();
+       }
+  });
+
     // 顯示花籃選擇
     document.getElementById('show-flower-baskets').addEventListener('click', function() {
         var gallery = document.getElementById('flower-basket-gallery');
