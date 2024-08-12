@@ -46,7 +46,7 @@ footer {
 
 /* Logo 設計 */
 header .logo {
-    max-width: 50px; /* 縮小 Logo */
+    max-width: 60px; /* 縮小 Logo */
     margin-bottom: 10px;
 }
 
@@ -67,7 +67,7 @@ footer .contact-icon {
 }
 
 .business-card {
-    width: 120px; /* 調整名片的寬度 */
+    width: 160px; /* 調整名片的寬度 */
     height: auto;
     border-radius: 5px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
