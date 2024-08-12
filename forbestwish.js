@@ -38,18 +38,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-               // 清除所有留言
-               function clearAllComments() {
-               localStorage.removeItem('comments'); // 清空本地存储中的评论
-               loadComments(); // 重新加载评论区域，清空显示的评论
-        }
+    // 簡單的密碼保護
+    var password = prompt("请输入管理员密码：");
 
-              // 添加按钮来触发删除所有评论的功能 (仅用于管理员访问的部分)
-             document.getElementById('clear-comments-button').addEventListener('click', function() {
-             if (confirm('确定要清除所有留言吗？此操作无法撤销。')) {
-             clearAllComments();
-       }
-  });
+    if (password === "ava85110") { // 替換為您的實際密碼
+        var clearCommentsButton = document.getElementById('clear-comments-button');
+        clearCommentsButton.style.display = 'block'; // 顯示清除留言按鈕
+
+        clearCommentsButton.addEventListener('click', function() {
+            if (confirm('確定要清除所有留言嗎？此操作無法撤銷。')) {
+                clearAllComments();
+            }
+        });
+    }
 
     // 顯示花籃選擇
     document.getElementById('show-flower-baskets').addEventListener('click', function() {
@@ -98,4 +99,9 @@ function loadComments() {
     } catch (error) {
         console.error('從本地儲存加載留言失敗:', error);
     }
+}
+
+function clearAllComments() {
+    localStorage.removeItem('comments'); // 清空本地存儲中的留言
+    loadComments(); // 重新加載評論區域，清空顯示的留言
 }
