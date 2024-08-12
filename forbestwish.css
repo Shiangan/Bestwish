@@ -7,7 +7,6 @@ body {
     margin: 0;
     padding: 0;
     line-height: 1.8;
-    -webkit-font-smoothing: antialiased;
 }
 
 a {
@@ -35,12 +34,20 @@ header, footer {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     padding: 20px;
     text-align: center;
+}
+
+header {
     margin-bottom: 30px;
 }
 
 footer {
     margin-top: 30px;
-    margin-bottom: 0;
+}
+
+/* Logo 設計 */
+header .logo {
+    max-width: 50px; /* 縮小 Logo */
+    margin-bottom: 15px;
 }
 
 /* 主內容區域 */
@@ -58,14 +65,13 @@ img {
     width: 100%;
     height: auto;
     max-width: 100%;
-    border-radius: 10px;
+    border-radius: 15px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    transition: transform 0.4s ease;
 }
 
 img:hover {
     transform: scale(1.05);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
 /* 花籃展示 */
@@ -88,12 +94,11 @@ img:hover {
     margin: 0 auto;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    transition: transform 0.4s ease;
 }
 
 #flower-basket-gallery .flower-basket-item img:hover {
     transform: scale(1.05);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
 /* 留言板 */
@@ -168,7 +173,6 @@ img:hover {
 
     #flower-basket-gallery .flower-basket-item img {
         max-width: 120px;
-        border-radius: 10px;
     }
 
     img {
