@@ -1,38 +1,35 @@
-/* 基本样式 */
+/* 通用样式 */
 body {
     font-family: 'Noto Sans', '思源黑體', Arial, sans-serif;
-    background-color: #f0f8ff; /* 更柔和的背景色 */
+    background-color: #f5f5f5;
     color: #333;
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    overflow-x: hidden; /* 避免水平滚动条 */
+    overflow-x: hidden; /* 防止水平滚动 */
 }
 
 header {
     text-align: center;
     padding: 20px;
-    background-color: #ffffff; /* 背景色 */
-    border-bottom: 2px solid #e0e0e0; /* 边框色 */
-    box-sizing: border-box; /* 确保边距和填充不超出页面宽度 */
+    background-color: #e0e0e0; /* 淡灰色背景 */
+    border-bottom: 2px solid #ccc; /* 底部边框 */
 }
 
 header .logo {
-    width: 60px; /* 调整 Logo 大小 */
+    width: 60px; /* Logo 大小 */
     margin-bottom: 10px;
 }
 
 header h1 {
-    font-size: 2.4em; /* 增大标题字号 */
-    color: #003366; /* 更深的标题颜色 */
-    margin: 10px 0;
+    font-size: 2em;
+    margin: 0;
 }
 
 header .verse {
     font-size: 1.2em;
-    color: #555; /* 更柔和的文字颜色 */
-    margin: 0;
-    padding: 0 20px;
+    color: #666;
+    margin: 10px 0 0;
 }
 
 /* 主要照片部分 */
@@ -40,73 +37,57 @@ header .verse {
     text-align: center;
     margin: 20px auto;
     padding: 10px;
-    max-width: 100%;
-    box-sizing: border-box; /* 确保填充不超出页面宽度 */
 }
 
 .main-photo-section img {
     max-width: 100%;
     height: auto;
     border-radius: 10px;
-    border: 2px solid #ddd;
+    border: 1px solid #ddd;
 }
 
-/* 生平与追思内容 */
+/* 生命故事 */
 #life-story {
-    font-size: 1.2em;
+    font-size: 1.1em;
     color: #333;
     margin: 20px auto;
-    padding: 20px;
+    padding: 0 5%;
     text-align: justify;
-    line-height: 1.8;
-    background-color: #ffffff; /* 背景色 */
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    max-width: 100%;
-    box-sizing: border-box; /* 确保边距和填充不超出页面宽度 */
 }
 
-/* 名言与追思礼拜 */
+/* 座右铭 */
 .motto {
     text-align: center;
     font-size: 1.5em;
-    color: #003366;
-    margin: 40px auto;
-    max-width: 100%;
-    box-sizing: border-box; /* 确保填充不超出页面宽度 */
+    color: #777;
+    margin: 40px 0;
 }
 
-/* 訃告正本部分 */
+/* 纸质讣告部分 */
 .paper-obituary-section {
     text-align: center;
     margin: 20px auto;
-    max-width: 100%;
-    box-sizing: border-box; /* 确保填充不超出页面宽度 */
 }
 
-#paper-obituary {
+.paper-obituary-section img {
     max-width: 100%;
     height: auto;
     border-radius: 10px;
-    border: 2px solid #ddd;
 }
 
-/* 时间线 */
+/* 时间轴部分 */
 #timeline {
     padding: 20px;
-    background-color: #ffffff;
+    background-color: #fff;
     border-radius: 10px;
     margin: 40px auto;
-    max-width: 100%;
-    box-sizing: border-box; /* 确保填充不超出页面宽度 */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 90%; /* 限制最大宽度 */
 }
 
 .VivaTimeline {
     position: relative;
     margin: 0 auto;
-    max-width: 100%;
-    box-sizing: border-box; /* 确保填充不超出页面宽度 */
 }
 
 .VivaTimeline dl {
@@ -115,7 +96,7 @@ header .verse {
 
 .VivaTimeline dt {
     font-weight: bold;
-    color: #003366;
+    color: #333;
 }
 
 .VivaTimeline dd {
@@ -124,26 +105,26 @@ header .verse {
 }
 
 .VivaTimeline .circ {
-    width: 12px;
-    height: 12px;
-    background-color: #003366; /* 时间点颜色 */
+    width: 10px;
+    height: 10px;
+    background-color: #6c757d;
     border-radius: 50%;
     position: absolute;
-    left: -20px;
+    left: -15px;
     top: 15px;
 }
 
 .VivaTimeline .time {
     position: absolute;
-    left: -60px;
+    left: -55px;
     font-size: 0.9em;
     color: #666;
 }
 
 .VivaTimeline .event {
-    padding: 10px 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
+    padding: 0 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
     margin: 10px 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -152,11 +133,10 @@ header .verse {
 #comments-section {
     margin: 40px auto;
     padding: 20px;
-    background-color: #ffffff;
+    background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    max-width: 100%;
-    box-sizing: border-box; /* 确保填充不超出页面宽度 */
+    max-width: 90%;
 }
 
 #comment-form {
@@ -174,12 +154,11 @@ header .verse {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    box-sizing: border-box; /* 确保填充不超出页面宽度 */
 }
 
 #comment-form button {
     padding: 10px 20px;
-    background-color: #003366;
+    background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -187,18 +166,26 @@ header .verse {
 }
 
 #comment-form button:hover {
-    background-color: #002244;
+    background-color: #0056b3;
 }
 
-/* 花篮部分 */
+#comments-container {
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+#clear-comments-button {
+    display: none; /* 管理员专用 */
+}
+
+/* 花篮捐赠 */
 #donate-flower {
     margin: 40px auto;
     padding: 20px;
-    background-color: #ffffff;
+    background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    max-width: 100%;
-    box-sizing: border-box; /* 确保填充不超出页面宽度 */
+    max-width: 90%;
 }
 
 #donate-flower .btn {
@@ -226,12 +213,11 @@ header .verse {
 .flower-basket-item {
     flex: 1 1 calc(33% - 40px);
     max-width: calc(33% - 40px);
-    background-color: #f9f9f9;
-    border-radius: 8px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
     padding: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
-    box-sizing: border-box; /* 确保填充不超出页面宽度 */
 }
 
 .flower-basket-item img {
@@ -242,51 +228,29 @@ header .verse {
 
 .flower-basket-item .price {
     margin-top: 10px;
-    font-size: 1.2em;
+    font-size: 1.1em;
     color: #333;
 }
 
-/* 页脚 */
+/* 底部 */
 footer {
     text-align: center;
     padding: 20px;
-    background-color: #ffffff;
-    border-top: 2px solid #e0e0e0;
-    max-width: 100%;
-    box-sizing: border-box; /* 确保填充不超出页面宽度 */
+    background-color: #e0e0e0;
+    border-top: 2px solid #ccc;
 }
 
 footer p {
     margin: 5px 0;
-    color: #555;
 }
 
 footer a {
-    color: #003366;
+    color: #007bff;
     text-decoration: none;
 }
 
 footer a:hover {
     text-decoration: underline;
-}
-
-/* 商务名片部分 */
-.business-cards {
-    text-align: center;
-    padding: 20px;
-    max-width: 100%;
-    box-sizing: border-box; /* 确保填充不超出页面宽度 */
-}
-
-.business-card {
-    max-width: 100%;
-    height: auto;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin: 10px auto;
 }
 
 /* 响应式设计 */
@@ -296,18 +260,8 @@ footer a:hover {
         max-width: calc(50% - 20px);
     }
     
-    .VivaTimeline dd {
-        position: relative;
-        padding-left: 20px;
-        margin-left: 20px;
-    }
-    
-    .VivaTimeline .circ {
-        left: -15px;
-    }
-
     header h1 {
-        font-size: 2em;
+        font-size: 1.8em;
     }
 
     .motto {
@@ -334,7 +288,7 @@ footer a:hover {
     }
     
     header h1 {
-        font-size: 1.8em;
+        font-size: 1.5em;
     }
 
     .motto {
