@@ -1,17 +1,15 @@
-/* 基本样式 */
 body {
     font-family: 'Noto Sans', '思源黑體', Arial, sans-serif;
     background-color: #f2f2f2;
     color: #333;
     line-height: 1.6;
-    margin: 0;
-    padding: 0;
 }
 
 header {
     text-align: center;
     padding: 20px;
-    background-color: #eaeaea;
+    background-color: #eaeaea; /* 设置为较浅的背景色 */
+    border-bottom: 2px solid #ddd; /* 增加底部边框 */
 }
 
 header .logo {
@@ -20,44 +18,46 @@ header .logo {
 }
 
 header h1 {
-    font-size: 1.8em; /* 调整标题字体大小 */
+    font-size: 2em;
     margin-bottom: 5px;
 }
 
 header .verse {
-    font-size: 1.1em; /* 调整副标题字体大小 */
+    font-size: 1.2em;
     color: #666;
 }
 
 .main-photo-section {
     text-align: center;
-    margin: 30px 0;
+    margin: 20px 0;
+    padding: 10px;
 }
 
 .main-photo-section img {
-    max-width: 100%; /* 确保图片不会超出屏幕 */
+    max-width: 90%;
     height: auto;
     border-radius: 10px;
+    border: 1px solid #ddd; /* 为图片添加边框 */
 }
 
 #life-story {
-    font-size: 1em; /* 调整字体大小 */
+    font-size: 1.1em;
     color: #333;
     margin-top: 20px;
-    padding: 0 10%; /* 调整内边距 */
+    padding: 0 15%;
     text-align: justify;
 }
 
 .motto {
     text-align: center;
-    font-size: 1.2em; /* 调整字体大小 */
+    font-size: 1.5em;
     color: #777;
     margin: 40px 0;
 }
 
 #memorial-service {
     text-align: center;
-    font-size: 1em; /* 调整字体大小 */
+    font-size: 1.2em;
     color: #555;
     margin: 30px 0;
 }
@@ -90,18 +90,18 @@ header .verse {
 }
 
 .VivaTimeline .circ {
-    width: 8px; /* 调整圆点大小 */
-    height: 8px;
+    width: 10px;
+    height: 10px;
     background-color: #6c757d;
     border-radius: 50%;
     position: absolute;
-    left: -10px;
+    left: -15px;
     top: 15px;
 }
 
 .VivaTimeline .time {
     position: absolute;
-    left: -40px;
+    left: -55px;
     font-size: 0.9em;
     color: #666;
 }
@@ -171,7 +171,28 @@ header .verse {
     background-color: #28a745;
     color: #fff;
     border: none;
-    border-radius px;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#donate-flower .btn:hover {
+    background-color: #218838;
+}
+
+#flower-basket-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.flower-basket-item {
+    flex: 1 1 calc(33% - 40px);
+    max-width: calc(33% - 40px);
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
