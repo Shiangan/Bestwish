@@ -131,54 +131,140 @@ img:hover {
 
 /* 留言板 */
 #comment-form {
-    margin-top: 30px;
+    background-color: #f7f3f0; /* 柔和的背景色 */
+    padding: 20px;
+    border-radius: 8px; /* 圓角邊框 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 微陰影效果 */
+    max-width: 600px; /* 最大寬度控制 */
+    margin: 0 auto; /* 水平居中 */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* 字體選擇 */
 }
 
-#comment-form input[type="text"],
-#comment-form textarea {
+#comment-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555; /* 字體顏色 */
+}
+
+#comment-form input, #comment-form textarea {
     width: 100%;
     padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #CCC;
-    border-radius: 5px;
-    font-family: inherit;
-    font-size: 1rem;
+    margin-bottom: 16px;
+    border: 1px solid #ddd; /* 邊框樣式 */
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+    background-color: #fafafa; /* 輸入框背景色 */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* 內陰影效果 */
 }
 
 #comment-form button {
-    background-color: #007BFF;
-    color: #FFF;
-    padding: 10px 20px;
+    background-color: #7a4f86; /* 基督教主題色系 */
+    color: white;
     border: none;
-    border-radius: 5px;
+    padding: 12px 20px;
+    border-radius: 4px;
     cursor: pointer;
+    font-size: 16px;
     transition: background-color 0.3s ease;
 }
 
 #comment-form button:hover {
-    background-color: #0056b3; /* 完成 button:hover 的顏色 */
+    background-color: #5b3a60; /* 滑鼠懸停效果 */
 }
 
-/* 留言顯示 */
 #comments-container {
-    margin-top: 20px;
+    margin-top: 40px;
 }
 
 .comment {
-    background-color: #F9F9F9;
-    border-radius: 10px;
+    background-color: #ffffff;
+    border-radius: 8px;
     padding: 15px;
-    margin-bottom: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 卡片陰影效果 */
+    font-family: 'Georgia', serif; /* 優雅的字體選擇 */
+    max-width: 600px; /* 控制最大寬度 */
+    margin: 0 auto; /* 水平居中 */
+    color: #333; /* 字體顏色 */
 }
 
-.comment strong {
-    color: #007BFF;
+.comment-header {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #7a4f86; /* 標題顏色 */
 }
 
-.comment p {
-    margin: 5px 0 0;
+.comment-body {
+    line-height: 1.6; /* 行高 */
 }
+
+.comment-footer {
+    margin-top: 12px;
+    font-size: 14px;
+    color: #999; /* 顏色較淡的註解 */
+    text-align: right;
+}
+
+#comment-form input[type="text"],
+
+#comments-section {
+    padding: 40px 20px;
+    background-color: #f9f8f6; /* 柔和的背景色 */
+    border-top: 1px solid #eee; /* 細邊框 */
+    border-bottom: 1px solid #eee;
+    text-align: center;
+}
+
+#comments-section h2 {
+    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+    font-size: 28px;
+    color: #5b3a60;
+    margin-bottom: 30px;
+}
+
+#comments-section p {
+    font-size: 18px;
+    color: #666;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+.comment-icon {
+    margin-right: 8px;
+    vertical-align: middle;
+    color: #7a4f86;
+}
+
+.clear-comments-button {
+    background-color: #e74c3c; /* 紅色背景 */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.clear-comments-button:hover {
+    background-color: #c0392b; /* 滑鼠懸停效果 */
+}
+
+.comment:hover {
+    background-color: #fafafa;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* 懸停時的卡片效果 */
+    transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+#comment-form input:focus, #comment-form textarea:focus {
+    border-color: #7a4f86; /* 聚焦時的邊框顏色 */
+    outline: none;
+    box-shadow: 0 0 5px rgba(122, 79, 134, 0.5); /* 聚焦時的外部陰影 */
+}
+
 
 /* 響應式設計 */
 @media (max-width: 768px) {
