@@ -1,5 +1,4 @@
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
+ document.addEventListener("DOMContentLoaded", function () {
         // Timeline animation
         function animateTimeline() {
             const timelineBlocks = document.querySelectorAll(".VivaTimeline .event");
