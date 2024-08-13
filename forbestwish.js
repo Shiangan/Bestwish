@@ -79,14 +79,16 @@ document.addEventListener("DOMContentLoaded", function () {
         flowerBasketGallery.style.display = "block";
     });
 
-    // Background music autoplay
-    const backgroundMusic = document.getElementById("background-music");
-    if (backgroundMusic) {
-        backgroundMusic.play().catch(error => {
-            console.warn("自動播放被阻止:", error);
-            // 这里可以选择提示用户手动播放音乐
-        });
-    }
+    // Background music autoplay with user interaction
+    document.addEventListener('click', function startMusic() {
+        const backgroundMusic = document.getElementById("background-music");
+        if (backgroundMusic) {
+            backgroundMusic.play().catch(error => {
+                console.warn("自動播放被阻止:", error);
+            });
+        }
+        document.removeEventListener('click', startMusic); // Remove listener after first click
+    });
 
     // Window scroll event for timeline animation
     window.addEventListener("scroll", animateTimeline);
