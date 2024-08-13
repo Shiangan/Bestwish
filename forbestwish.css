@@ -291,7 +291,7 @@ img:hover {
     }
 
     .business-card {
-        width: 130px; /* 調整響應式的名片寬度 */
+        width: 150px; /* 調整響應式的名片寬度 */
     }
 
     #comment-form, .comment {
