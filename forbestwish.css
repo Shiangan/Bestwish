@@ -67,7 +67,7 @@ footer .contact-icon {
 }
 
 .business-card {
-    width: 120px; /* 調整名片的寬度 */
+    width: 150px; /* 調整名片的寬度 */
     height: auto;
     border-radius: 5px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -135,7 +135,7 @@ img:hover {
     padding: 20px;
     border-radius: 8px; /* 圓角邊框 */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 微陰影效果 */
-    max-width: 600px; /* 最大寬度控制 */
+    max-width: 550px; /* 最大寬度控制 */
     margin: 0 auto; /* 水平居中 */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* 字體選擇 */
 }
@@ -185,7 +185,7 @@ img:hover {
     margin-bottom: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 卡片陰影效果 */
     font-family: 'Georgia', serif; /* 優雅的字體選擇 */
-    max-width: 600px; /* 控制最大寬度 */
+    max-width: 550px; /* 控制最大寬度 */
     margin: 0 auto; /* 水平居中 */
     color: #333; /* 字體顏色 */
 }
@@ -206,8 +206,6 @@ img:hover {
     color: #999; /* 顏色較淡的註解 */
     text-align: right;
 }
-
-#comment-form input[type="text"],
 
 #comments-section {
     padding: 40px 20px;
@@ -265,7 +263,6 @@ img:hover {
     box-shadow: 0 0 5px rgba(122, 79, 134, 0.5); /* 聚焦時的外部陰影 */
 }
 
-
 /* 響應式設計 */
 @media (max-width: 768px) {
     body {
@@ -291,5 +288,14 @@ img:hover {
 
     img {
         border-radius: 10px;
+    }
+
+    .business-card {
+        width: 130px; /* 調整響應式的名片寬度 */
+    }
+
+    #comment-form, .comment {
+        max-width: 100%; /* 讓留言表單與留言卡片響應式自適應 */
+        margin: 0 10px; /* 增加邊距 */
     }
 }
