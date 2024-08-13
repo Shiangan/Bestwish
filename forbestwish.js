@@ -1,3 +1,6 @@
+// © 2024 Your Company. All rights reserved.
+// Unauthorized copying or redistribution of this code is prohibited.
+
 document.addEventListener("DOMContentLoaded", function () {
     // Timeline animation
     function animateTimeline() {
@@ -84,7 +87,9 @@ document.addEventListener("DOMContentLoaded", function () {
     if (backgroundMusic) {
         backgroundMusic.play().catch(error => {
             console.warn("自動播放被阻止:", error);
-            // 这里可以选择提示用户手动播放音乐
+            document.addEventListener("click", () => {
+                backgroundMusic.play().catch(err => console.warn("点击后播放失败:", err));
+            }, { once: true });
         });
     }
 
