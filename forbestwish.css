@@ -148,7 +148,7 @@ img:hover {
 }
 
 #comment-form input, #comment-form textarea {
-    width: 100%;
+    width: 90%;
     padding: 10px;
     margin-bottom: 16px;
     border: 1px solid #ddd; /* 邊框樣式 */
@@ -160,7 +160,7 @@ img:hover {
 }
 
 #comment-form button {
-    background-color: #7a4f86; /* 基督教主題色系 */
+    background-color: #3a4f86; /* 基督教主題色系 */
     color: white;
     border: none;
     padding: 12px 20px;
@@ -193,7 +193,7 @@ img:hover {
 .comment-header {
     font-weight: bold;
     margin-bottom: 8px;
-    color: #7a4f86; /* 標題顏色 */
+    color: #3a4f86; /* 標題顏色 */
 }
 
 .comment-body {
