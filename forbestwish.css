@@ -27,6 +27,17 @@ a:hover {
     padding: 20px 0;
 }
 
+.map-container {
+    width: 100%;  /* 使地图容器占据父容器的全部宽度 */
+    max-width: 400px; /* 设置最大宽度 */
+    margin: 0 auto; /* 使地图在页面中居中 */
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 200px;  /* 设置地图的高度 */
+}
+
 /* 頁眉和頁腳 */
 header, footer {
     background-color: #FFFFFF;
