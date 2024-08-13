@@ -1,6 +1,3 @@
-// © 2024 Your Company. All rights reserved.
-// Unauthorized copying or redistribution of this code is prohibited.
-
 document.addEventListener("DOMContentLoaded", function () {
     // Timeline animation
     function animateTimeline() {
