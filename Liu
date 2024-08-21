@@ -1,0 +1,167 @@
+                <div class="flower-basket-item">
+                    <img src="image/花籃A.JPG" alt="花籃A">
+                    <p class="price"><strong>A款NT$2,500/1對</strong></p>
+                </div>
+                <div class="flower-basket-item">
+                    <img src="image/花籃B.JPG" alt="花籃B">
+                    <p class="price"><strong>B款NT$3,000/1對</strong></p>
+                </div>
+                <div class="flower-basket-item">
+                    <img src="image/花籃C.JPG" alt="花籃C">
+                    <p class="price"><strong>C款NT$3,500/1對</strong></p>
+                </div>
+                <div class="flower-basket-item">
+                    <img src="image/花籃D.JPG" alt="花籃D">
+                    <p class="price"><strong>D款NT$4,000/1對</strong></p>
+                </div>
+                <div class="flower-basket-item">
+                    <img src="image/花籃E.JPG" alt="花籃E">
+                    <p class="price"><strong>E款NT$5,000/1對</strong></p>
+                </div>
+                <div class="flower-basket-item">
+                    <img src="image/花籃F.JPG" alt="花籃F">
+                    <p class="price"><strong>F款NT$5,500/1對</strong></p>
+                </div>
+                <div class="flower-basket-item">
+                    <img src="image/花籃G.JPG" alt="花籃G">
+                    <p class="price"><strong>G款NT$6,000/1對</strong></p>
+                </div>
+                <div class="flower-basket-item">
+                    <img src="image/花籃H.JPG" alt="花籃H">
+                    <p class="price"><strong>H款NT$6,500/1對</strong></p>
+                </div>
+            </div>
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            <p><br>訂購花籃請點選<a href="https://line.me/ti/p/lAYTmfcqvp" target="_blank"><strong>這裡</strong></a>。</p>
+        </section>
+
+        <style>
+            #flower-basket-gallery {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+                justify-content: center;
+            }
+
+            .flower-basket-item {
+                max-width: 200px; /* 控制花籃圖片最大寬度 */
+                text-align: center;
+            }
+
+            .flower-basket-item img {
+                width: 100%;
+                height: auto; /* 保持圖片比例 */
+            }
+
+            .price {
+                margin-top: 10px;
+                font-size: 16px;
+            }
+        </style>
+        
+        <!-- 固定聯絡方式 -->
+        <div id="fixed-links">
+            <a href="tel:0978583699" class="bold">
+                <img src="image/24小時專線.png" alt="24小時服務電話" style="width: 70px; height: 30px;">
+            </a>
+            <a href="https://line.me/ti/p/lAYTmfcqvp" target="_blank" class="bold">
+                <img src="image/IMG_4177.webp" alt="LINE 聯絡我們" style="width: 50px; height: 50px;">
+            </a>
+        </div>
+
+        <!-- 名片及分享按钮部分 -->
+        <section id="business-card">
+            <img src="image/名片頁.jpg" alt="名片" class="business-card-img">
+            <div id="share-buttons">
+                <p><strong>分享此頁面</strong></p>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://shiangan.github.io/Liu-Jiren/" target="_blank" class="share-btn fb-share-btn">
+                    <img src="image/fb.png" alt="Share on Facebook">
+                </a>
+                <a href="https://line.me/R/msg/text/?https://shiangan.github.io/Liu-Jiren/" target="_blank" class="share-btn line-share-btn">
+                    <img src="image/line.png" alt="Share on Line">
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>承辦禮儀公司 祥安生命有限公司 ｜ 禮儀師：陳妍如</p>
+        <p>© 2024 劉及人訃聞公告 | <span class="footer-signature">祥安生命有限公司</span>版權所有 |</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // 音樂自動播放
+        window.onload = function() {
+            const audio = document.getElementById('background-music');
+            if (audio) {
+                audio.play().then(() => {
+                    // 播放成功後取消靜音
+                    audio.muted = false;
+                }).catch(error => {
+                    console.log('Autoplay was prevented:', error);
+                });
+            }
+        };
+
+        // 幻灯片播放功能
+        let slideIndex = 0;
+
+        function showSlides() {
+            const slides = document.querySelectorAll(".slides div");
+            slides.forEach(slide => slide.style.display = "none");
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1; }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 3000); // 每隔3秒切換幻燈片
+        }
+
+        function plusSlides(n) {
+            slideIndex += n;
+            const slides = document.querySelectorAll(".slides div");
+            if (slideIndex > slides.length) { slideIndex = 1; }
+            if (slideIndex < 1) { slideIndex = slides.length; }
+            showSlides();
+        }
+
+        showSlides(); // 初次調用以顯示第一張幻燈片
+
+        // 花篮画廊显示/隐藏功能
+        document.getElementById('show-flower-baskets').addEventListener('click', function() {
+            const gallery = document.getElementById('flower-basket-gallery');
+            if (gallery.style.display === 'none') {
+                gallery.style.display = 'flex';
+            } else {
+                gallery.style.display = 'none';
+            }
+        });
+
+        // 追思动画
+        function animateTimeline() {
+            const timelineBlocks = document.querySelectorAll(".VivaTimeline .event");
+            timelineBlocks.forEach(function (block) {
+                const rect = block.getBoundingClientRect();
+                if (rect.top <= window.innerHeight * 0.75 && rect.bottom >= 0) {
+                    block.classList.add("animated");
+                } else {
+                    block.classList.remove("animated");
+                }
+            });
+        }
+
+        // 初始化动画并监听滚动事件
+        animateTimeline();
+        window.addEventListener('scroll', animateTimeline);
+
+        // 渐显文本效果
+        const fadeInTexts = document.querySelectorAll('.fade-in-text');
+        fadeInTexts.forEach((text, index) => {
+            setTimeout(() => {
+                text.style.opacity = '1';
+            }, index * 1500); // 每段延迟1.5秒
+        });
+    </script>
+</body>
+</html>
