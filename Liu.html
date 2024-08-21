@@ -1,3 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="劉及人訃告">
+    <meta property="og:description" content="追思劉及人先生的生平和追悼儀式">
+    <meta property="og:image" content="https://shiangan.com/Shiangan/Liu-Jiren/image/logo.jpg">
+    <meta property="og:url" content="https://shiangan.com/Shiangan/Liu-Jiren">
+    <meta property="og:type" content="website">
+    <title>訃聞公告</title>
+    <link rel="stylesheet" href="obituary.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js" defer></script>
+</head>
+<body>
+    <!-- 背景音乐 -->
+    <audio id="background-music" autoplay loop hidden>
+        <source src="audio/化為千風.mp3" type="audio/mp3">
+        您的浏览器不支持音频播放。
+    </audio>
+
+    <header>
+        <img src="image/logo.png" alt="Logo" class="logo">
+        <h1>劉及人先生 訃告</h1>
+    </header>
+
+    <main>
+        <!-- 主要照片部分 -->
+        <section class="main-photo-section">
+            <img id="main-photo" src="image/劉及人的主要照片.JPG" alt="追思照片">
+            <p id="life-story">
+                <strong>我們敬愛的親人，劉及人先生，於113年08月18日，早上08：50在家人的陪伴下，安詳離世。</strong>
+            </p>
+            <p>護喪妻 陳圓娟 率 孝男 克威 親視含殮 遵禮成服 設靈於懷愛館（原第二殯儀館）景行樓 3F 蓮位堂［I1-06]</p>
+            <p>將設奠於113年08月30日舉行追思會儀式，感謝親友們的致意與陪伴，給予及人先生最深的祝福，家人們銘記在心，衷心感謝。</p>
+        </section>
+
+        <!-- 訃告紙本部分 -->
+        <section class="paper-obituary-section">
+            <h2><strong>訃告正本</strong></h2>
+            <a href="劉及人訃聞.jpg" data-lightbox="paper-obituary" data-title="訃聞紙本">
+                <img id="paper-obituary" src="劉及人訃聞.jpg" alt="訃聞紙本">
+            </a>
+        </section>
+
+        <!-- 追思與緬懷部分 -->
+        <section id="remembrance">
+            <h2><strong>追思緬懷</strong></h2>
+            <div class="remembrance-details">
+                <div class="remembrance-item">
+                    <h3><strong>安靈地點</strong></h3>
+                    <p><strong>台北市懷愛館 景行樓 3F 蓮位堂 ［I1-06］</strong></p>
+                </div>
+                <div class="remembrance-item">
+                    <h3><strong>出殯地點</strong></h3>
+                    <p><strong><a href="https://maps.app.goo.gl/Gy4b5KzT3Z6YGmXB8?g_st=com.google.maps.preview.copy" target="_blank">台北市懷愛館 3F 至仁一廳</a></strong></p>
+                </div>
+                <div class="remembrance-item">
+                    <h3><strong>出殯日期</strong></h3>
+                    <p><strong>中華民國 2024年08月30日</strong></p>
+                </div>
+                <div class="remembrance-item">
+                    <h3><strong>追思會時間</strong></h3>
+                    <p><strong>上午 11:00 家奠禮</strong></p>
+                    <p><strong>上午 11:30 公奠禮</strong></p>
+                </div>
+
+                <!-- 地圖嵌入 -->
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.6055113137354!2d121.55302529999999!3d25.0135172!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442aa3b0390f463%3A0x9082f68f52193107!2z5Y-w5YyX5biC5oe35oSb6aSo!5e0!3m2!1szh-TW!2stw!4v1723546074779!5m2!1szh-TW!2stw"
+                    width="100%" 
+                    height="450" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </section>
+
+        <!-- 感謝信息部分 -->
+        <div class="remembrance-thanks">
+            <p class="fade-in-text"><strong>感謝親友們在這段時間的慰問與關心，您的關懷和鼓勵，陪伴我們度過了這段艱難的時光，敬邀您，與我們一同緬懷及人先生的美好回憶。</strong></p>
+        </div>
+
+        <!-- 追思相片集 -->
+        <section>
+            <h2><strong>追思相片集</strong></h2>
+            <div class="slideshow">
+                <div class="slides">
+                    <div><img src="image/IMG_5394.jpeg" alt="照片1"></div>
+                    <div><img src="image/IMG_9495.jpeg" alt="照片2"></div>
+                </div>
+            </div>
+        </section>
+
+        <style>
+            .slideshow {
+                width: 100%;
+                max-width: 80%; /* 确保幻灯片不会超出页面宽度 */
+                height: 50vh; /* 根据需求调整高度 */
+                overflow: hidden;
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .slides {
+                display: flex;
+                width: 100%;
+                height: 100%;
+                animation: slide 10s infinite;
+            }
+
+            .slides div {
+                flex-shrink: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .slides img {
+                width: auto;
+                height: 100%;
+                object-fit: contain; /* 确保图片适应容器且不会被裁剪 */
+            }
+
+            @keyframes slide {
+                0% { transform: translateX(0); }
+                50% { transform: translateX(-100%); }
+                100% { transform: translateX(0); }
+            }
+        </style>
+
+        <!-- 致贈花籃部分 -->
+        <section id="donate-flower">
+            <h2><strong>致贈花籃</strong></h2>
+            <p>為求會場一致性，致贈花籃請參見以下選項：</p>
+            <a href="javascript:void(0);" id="show-flower-baskets" class="btn"><strong>致贈花籃</strong></a>
+
+            <!-- 花篮画廊，默认隐藏 -->
+            <div id="flower-basket-gallery" style="display: none;">
+                <div class="flower-b
                 <div class="flower-basket-item">
                     <img src="image/花籃A.JPG" alt="花籃A">
                     <p class="price"><strong>A款NT$2,500/1對</strong></p>
